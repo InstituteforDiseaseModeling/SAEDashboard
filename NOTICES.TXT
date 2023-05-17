@@ -1,0 +1,127 @@
+The SAE project is leveraging the following open source technologies:
+
+Redis	https://redis.io/	BSD-3-Clause
+Docker	https://www.docker.com/	Apache 2.0 license
+Nginx	https://nginx.org/	BSD-2-Clause
+
+Frontend libraries
+===================
+@amcharts/amcharts4	https://github.com/amcharts/amcharts4.git	SEE LICENSE IN LICENSE
+@amcharts/amcharts4-geodata	https://github.com/amcharts/amcharts4-geodata.git	SEE LICENSE IN LICENSE
+@babel/runtime	https://github.com/babel/babel.git	MIT
+@babel/runtime	https://github.com/babel/babel.git	MIT
+@date-io/moment	https://github.com/dmtrKovalenko/date-io	MIT
+@emotion/react	https://github.com/emotion-js/emotion/tree/main/packages/react	MIT
+@emotion/styled	https://github.com/emotion-js/emotion/tree/main/packages/styled	MIT
+@fontsource/roboto-condensed	https://github.com/fontsource/fontsource.git	MIT
+@fontsource/saira-condensed	https://github.com/fontsource/fontsource.git	MIT
+@mui/icons-material	https://github.com/mui/material-ui.git	MIT
+@mui/material	https://github.com/mui/material-ui.git	MIT
+@mui/styles	https://github.com/mui/material-ui.git	MIT
+axios	https://github.com/axios/axios.git	MIT
+chroma-js	git://github.com/gka/chroma.js.git	(BSD-3-Clause AND Apache-2.0)
+clsx	https://github.com/lukeed/clsx.git	MIT
+leaflet	git://github.com/Leaflet/Leaflet.git	BSD-2-Clause
+lodash	https://github.com/lodash/lodash.git	MIT
+moment	https://github.com/moment/moment.git	MIT
+react	https://github.com/facebook/react.git	MIT
+react-dom	https://github.com/facebook/react.git	MIT
+react-ga	git@github.com:react-ga/react-ga	Apache-2.0
+react-leaflet	https://github.com/PaulLeCam/react-leaflet.git	Hippocratic-2.1
+react-redux	https://github.com/reduxjs/react-redux.git	MIT
+react-router-dom	https://github.com/remix-run/react-router	MIT
+react-scripts	https://github.com/facebook/create-react-app.git	MIT
+redux	https://github.com/reduxjs/redux.git	MIT
+redux-logger	git+https://github.com/theaqua/redux-logger.git	MIT
+reselect	https://github.com/reduxjs/reselect.git	MIT
+serialize-javascript	git+https://github.com/yahoo/serialize-javascript.git	BSD-3-Clause
+serialize-javascript	git+https://github.com/yahoo/serialize-javascript.git	BSD-3-Clause
+typescript	https://github.com/Microsoft/TypeScript.git	Apache-2.0
+@types/chroma-js	https://github.com/DefinitelyTyped/DefinitelyTyped.git	MIT
+@types/leaflet	https://github.com/DefinitelyTyped/DefinitelyTyped.git	MIT
+@types/lodash	https://github.com/DefinitelyTyped/DefinitelyTyped.git	MIT
+history	https://github.com/remix-run/history.git	MIT
+http-proxy-middleware	https://github.com/chimurai/http-proxy-middleware.git	MIT
+
+Backend libraries
+=================
+Babel	https://babel.pocoo.org/	BSD License
+Flask	https://palletsprojects.com/p/flask	BSD License
+Flask-RESTful	https://www.github.com/flask-restful/flask-restful/	BSD License
+Flask-SQLAlchemy	https://github.com/pallets/flask-sqlalchemy	BSD License
+Jinja2	https://palletsprojects.com/p/jinja/	BSD License
+MarkupSafe	https://palletsprojects.com/p/markupsafe/	BSD License
+Pygments	https://pygments.org/	BSD License
+SQLAlchemy	https://www.sqlalchemy.org	MIT License
+Sphinx	https://www.sphinx-doc.org/	BSD License
+Werkzeug	https://palletsprojects.com/p/werkzeug/	BSD License
+alabaster	https://alabaster.readthedocs.io	BSD License
+aniso8601	https://bitbucket.org/nielsenb/aniso8601	BSD License
+attrs	https://www.attrs.org/	MIT License
+bleach	https://github.com/mozilla/bleach	Apache Software License
+bump2version	https://github.com/c4urself/bump2version	MIT License
+bumpversion	https://github.com/peritus/bumpversion	MIT License
+certifi	https://github.com/certifi/python-certifi	Mozilla Public License 2.0 (MPL 2.0)
+charset-normalizer	https://github.com/ousret/charset_normalizer	MIT License
+click	https://palletsprojects.com/p/click/	BSD License
+commonmark	https://github.com/rtfd/commonmark.py	BSD License
+coverage	https://github.com/nedbat/coveragepy	Apache Software License
+distlib	https://bitbucket.org/pypa/distlib	Python Software Foundation License
+docutils	http://docutils.sourceforge.net/	BSD License; GNU General Public License (GPL); Public Domain; Python Software Foundation License
+exceptiongroup	UNKNOWN	MIT License
+filelock	https://github.com/tox-dev/py-filelock	Public Domain
+flake8	https://github.com/pycqa/flake8	MIT License
+flask-marshmallow	https://github.com/marshmallow-code/flask-marshmallow	MIT License
+greenlet	https://greenlet.readthedocs.io/	MIT License
+hypothesis	https://hypothesis.works	Mozilla Public License 2.0 (MPL 2.0)
+idna	https://github.com/kjd/idna	BSD License
+imagesize	https://github.com/shibukawa/imagesize_py	MIT License
+importlib-metadata	https://github.com/python/importlib_metadata	Apache Software License
+iniconfig	http://github.com/RonnyPfannschmidt/iniconfig	MIT License
+itsdangerous	https://palletsprojects.com/p/itsdangerous/	BSD License
+keyring	https://github.com/jaraco/keyring	MIT License; Python Software Foundation License
+marshmallow	https://github.com/marshmallow-code/marshmallow	MIT License
+marshmallow-sqlalchemy	https://github.com/marshmallow-code/marshmallow-sqlalchemy	MIT License
+mccabe	https://github.com/pycqa/mccabe	MIT License
+numpy	https://www.numpy.org	BSD License
+packaging	https://github.com/pypa/packaging	Apache Software License; BSD License
+pandas	https://pandas.pydata.org	BSD License
+pkginfo	https://code.launchpad.net/~tseaver/pkginfo/trunk	MIT License
+platformdirs	UNKNOWN	MIT License
+pluggy	https://github.com/pytest-dev/pluggy	MIT License
+psycopg2	https://psycopg.org/	GNU Library or Lesser General Public License (LGPL)
+py	https://py.readthedocs.io/	MIT License
+pycodestyle	https://pycodestyle.pycqa.org/	MIT License
+pyflakes	https://github.com/PyCQA/pyflakes	MIT License
+pyparsing	UNKNOWN	MIT License
+pytest	https://docs.pytest.org/en/latest/	MIT License
+pytest-runner	https://github.com/pytest-dev/pytest-runner/	MIT License
+python-dateutil	https://github.com/dateutil/dateutil	Apache Software License; BSD License
+pytz	http://pythonhosted.org/pytz	MIT License
+readme-renderer	https://github.com/pypa/readme_renderer	Apache Software License
+requests	https://requests.readthedocs.io	Apache Software License
+requests-toolbelt	https://toolbelt.readthedocs.org	Apache Software License
+rfc3986	http://rfc3986.readthedocs.io	Apache Software License
+rich	https://github.com/willmcgugan/rich	MIT License
+rse-api	https://github.com/InstituteforDiseaseModeling/rse_api	UNKNOWN
+sae-dashaboard-service	https://github.com/InstituteforDiseaseModeling/service	MIT License
+six	https://github.com/benjaminp/six	MIT License
+snowballstemmer	https://github.com/snowballstem/snowball	BSD License
+sortedcontainers	http://www.grantjenks.com/docs/sortedcontainers/	Apache Software License
+sphinx-rtd-theme	https://github.com/readthedocs/sphinx_rtd_theme	MIT License
+sphinxcontrib-applehelp	http://sphinx-doc.org/	BSD License
+sphinxcontrib-devhelp	http://sphinx-doc.org/	BSD License
+sphinxcontrib-htmlhelp	http://sphinx-doc.org/	BSD License
+sphinxcontrib-jsmath	http://sphinx-doc.org/	BSD License
+sphinxcontrib-qthelp	http://sphinx-doc.org/	BSD License
+sphinxcontrib-serializinghtml	http://sphinx-doc.org/	BSD License
+toml	https://github.com/uiri/toml	MIT License
+tomli	UNKNOWN	MIT License
+tox	https://tox.readthedocs.io	MIT License
+twine	https://twine.readthedocs.io/	Apache Software License
+typing_extensions	UNKNOWN	Python Software Foundation License
+urllib3	https://urllib3.readthedocs.io/	MIT License
+virtualenv	https://virtualenv.pypa.io/	MIT License
+watchdog	https://github.com/gorakhargosh/watchdog	Apache Software License
+webencodings	https://github.com/SimonSapin/python-webencodings	BSD License
+zipp	https://github.com/jaraco/zipp	MIT License

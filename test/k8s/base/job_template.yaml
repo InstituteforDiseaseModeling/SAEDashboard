@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: testjob
+  namespace: uitest
+spec:
+  ttlSecondsAfterFinished: 360
+  backoffLimit: 3
+  
+  template:
+    spec:
+      containers:
+      - name: uitest
+        image: rsecr4aks.azurecr.io/sae_uitest:{{TARGET}}
+        command: ["robot",  "-d", "$(USERPROFILE)", "."]
+        envFrom:
+          - configMapRef:
+              name: sitedetails    
+        volumeMounts:
+        - name: azurefileshare
+          mountPath: /results
+          
+      volumes:
+        - name: azurefileshare
+          azureFile:
+            secretName: storage-secret
+            shareName: test
+            readOnly: false    
+  
+      restartPolicy: Never

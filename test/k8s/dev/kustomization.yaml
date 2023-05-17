@@ -1,0 +1,12 @@
+namespace: "uitest"
+
+bases:
+  - ../base
+
+configMapGenerator:
+  - name: sitedetails
+    literals:
+      - SAE_SITE=https://sae-dev.20.69.119.9.nip.io/
+      - USERPROFILE=/results/dev 
+      - TARGET=dev
+      - IMAGE=rsecr4aks.azurecr.io/sae_uitest:dev

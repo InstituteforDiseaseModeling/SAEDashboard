@@ -1,0 +1,562 @@
+[
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "Babel",
+    "URL": "https://babel.pocoo.org/",
+    "Version": "2.10.3"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "Flask",
+    "URL": "https://palletsprojects.com/p/flask",
+    "Version": "2.1.2"
+  },
+  {
+    "Author": "Twilio API Team",
+    "License": "BSD License",
+    "Name": "Flask-RESTful",
+    "URL": "https://www.github.com/flask-restful/flask-restful/",
+    "Version": "0.3.9"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "Flask-SQLAlchemy",
+    "URL": "https://github.com/pallets/flask-sqlalchemy",
+    "Version": "2.5.1"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "Jinja2",
+    "URL": "https://palletsprojects.com/p/jinja/",
+    "Version": "3.1.2"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "MarkupSafe",
+    "URL": "https://palletsprojects.com/p/markupsafe/",
+    "Version": "2.1.1"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "Pygments",
+    "URL": "https://pygments.org/",
+    "Version": "2.12.0"
+  },
+  {
+    "Author": "Mike Bayer",
+    "License": "MIT License",
+    "Name": "SQLAlchemy",
+    "URL": "https://www.sqlalchemy.org",
+    "Version": "1.4.39"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "Sphinx",
+    "URL": "https://www.sphinx-doc.org/",
+    "Version": "5.0.2"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "Werkzeug",
+    "URL": "https://palletsprojects.com/p/werkzeug/",
+    "Version": "2.1.2"
+  },
+  {
+    "Author": "Jeff Forcier",
+    "License": "BSD License",
+    "Name": "alabaster",
+    "URL": "https://alabaster.readthedocs.io",
+    "Version": "0.7.12"
+  },
+  {
+    "Author": "Brandon Nielsen",
+    "License": "BSD License",
+    "Name": "aniso8601",
+    "URL": "https://bitbucket.org/nielsenb/aniso8601",
+    "Version": "9.0.1"
+  },
+  {
+    "Author": "Hynek Schlawack",
+    "License": "MIT License",
+    "Name": "attrs",
+    "URL": "https://www.attrs.org/",
+    "Version": "21.4.0"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "Apache Software License",
+    "Name": "bleach",
+    "URL": "https://github.com/mozilla/bleach",
+    "Version": "5.0.1"
+  },
+  {
+    "Author": "Christian Verkerk",
+    "License": "MIT License",
+    "Name": "bump2version",
+    "URL": "https://github.com/c4urself/bump2version",
+    "Version": "1.0.1"
+  },
+  {
+    "Author": "Filip Noetzel",
+    "License": "MIT License",
+    "Name": "bumpversion",
+    "URL": "https://github.com/peritus/bumpversion",
+    "Version": "0.6.0"
+  },
+  {
+    "Author": "Kenneth Reitz",
+    "License": "Mozilla Public License 2.0 (MPL 2.0)",
+    "Name": "certifi",
+    "URL": "https://github.com/certifi/python-certifi",
+    "Version": "2022.6.15"
+  },
+  {
+    "Author": "Ahmed TAHRI @Ousret",
+    "License": "MIT License",
+    "Name": "charset-normalizer",
+    "URL": "https://github.com/ousret/charset_normalizer",
+    "Version": "2.1.0"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "click",
+    "URL": "https://palletsprojects.com/p/click/",
+    "Version": "8.1.3"
+  },
+  {
+    "Author": "Bibek Kafle <bkafle662@gmail.com>, Roland Shoemaker <rolandshoemaker@gmail.com>",
+    "License": "BSD License",
+    "Name": "commonmark",
+    "URL": "https://github.com/rtfd/commonmark.py",
+    "Version": "0.9.1"
+  },
+  {
+    "Author": "Ned Batchelder and 153 others",
+    "License": "Apache Software License",
+    "Name": "coverage",
+    "URL": "https://github.com/nedbat/coveragepy",
+    "Version": "6.4.1"
+  },
+  {
+    "Author": "Vinay Sajip",
+    "License": "Python Software Foundation License",
+    "Name": "distlib",
+    "URL": "https://bitbucket.org/pypa/distlib",
+    "Version": "0.3.4"
+  },
+  {
+    "Author": "David Goodger",
+    "License": "BSD License; GNU General Public License (GPL); Public Domain; Python Software Foundation License",
+    "Name": "docutils",
+    "URL": "http://docutils.sourceforge.net/",
+    "Version": "0.18.1"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "MIT License",
+    "Name": "exceptiongroup",
+    "URL": "UNKNOWN",
+    "Version": "1.0.1"
+  },
+  {
+    "Author": "Benedikt Schmitt",
+    "License": "Public Domain",
+    "Name": "filelock",
+    "URL": "https://github.com/tox-dev/py-filelock",
+    "Version": "3.7.1"
+  },
+  {
+    "Author": "Tarek Ziade",
+    "License": "MIT License",
+    "Name": "flake8",
+    "URL": "https://github.com/pycqa/flake8",
+    "Version": "4.0.1"
+  },
+  {
+    "Author": "Steven Loria",
+    "License": "MIT License",
+    "Name": "flask-marshmallow",
+    "URL": "https://github.com/marshmallow-code/flask-marshmallow",
+    "Version": "0.14.0"
+  },
+  {
+    "Author": "Alexey Borzenkov",
+    "License": "MIT License",
+    "Name": "greenlet",
+    "URL": "https://greenlet.readthedocs.io/",
+    "Version": "1.1.2"
+  },
+  {
+    "Author": "David R. MacIver and Zac Hatfield-Dodds",
+    "License": "Mozilla Public License 2.0 (MPL 2.0)",
+    "Name": "hypothesis",
+    "URL": "https://hypothesis.works",
+    "Version": "6.56.4"
+  },
+  {
+    "Author": "Kim Davies",
+    "License": "BSD License",
+    "Name": "idna",
+    "URL": "https://github.com/kjd/idna",
+    "Version": "3.3"
+  },
+  {
+    "Author": "Yoshiki Shibukawa",
+    "License": "MIT License",
+    "Name": "imagesize",
+    "URL": "https://github.com/shibukawa/imagesize_py",
+    "Version": "1.4.1"
+  },
+  {
+    "Author": "Jason R. Coombs",
+    "License": "Apache Software License",
+    "Name": "importlib-metadata",
+    "URL": "https://github.com/python/importlib_metadata",
+    "Version": "4.12.0"
+  },
+  {
+    "Author": "Ronny Pfannschmidt, Holger Krekel",
+    "License": "MIT License",
+    "Name": "iniconfig",
+    "URL": "http://github.com/RonnyPfannschmidt/iniconfig",
+    "Version": "1.1.1"
+  },
+  {
+    "Author": "Armin Ronacher",
+    "License": "BSD License",
+    "Name": "itsdangerous",
+    "URL": "https://palletsprojects.com/p/itsdangerous/",
+    "Version": "2.1.2"
+  },
+  {
+    "Author": "Kang Zhang",
+    "License": "MIT License; Python Software Foundation License",
+    "Name": "keyring",
+    "URL": "https://github.com/jaraco/keyring",
+    "Version": "23.6.0"
+  },
+  {
+    "Author": "Steven Loria",
+    "License": "MIT License",
+    "Name": "marshmallow",
+    "URL": "https://github.com/marshmallow-code/marshmallow",
+    "Version": "3.17.0"
+  },
+  {
+    "Author": "Steven Loria",
+    "License": "MIT License",
+    "Name": "marshmallow-sqlalchemy",
+    "URL": "https://github.com/marshmallow-code/marshmallow-sqlalchemy",
+    "Version": "0.28.0"
+  },
+  {
+    "Author": "Ian Cordasco",
+    "License": "MIT License",
+    "Name": "mccabe",
+    "URL": "https://github.com/pycqa/mccabe",
+    "Version": "0.6.1"
+  },
+  {
+    "Author": "Travis E. Oliphant et al.",
+    "License": "BSD License",
+    "Name": "numpy",
+    "URL": "https://www.numpy.org",
+    "Version": "1.23.0"
+  },
+  {
+    "Author": "Donald Stufft and individual contributors",
+    "License": "Apache Software License; BSD License",
+    "Name": "packaging",
+    "URL": "https://github.com/pypa/packaging",
+    "Version": "21.3"
+  },
+  {
+    "Author": "The Pandas Development Team",
+    "License": "BSD License",
+    "Name": "pandas",
+    "URL": "https://pandas.pydata.org",
+    "Version": "1.4.3"
+  },
+  {
+    "Author": "Tres Seaver, Agendaless Consulting",
+    "License": "MIT License",
+    "Name": "pkginfo",
+    "URL": "https://code.launchpad.net/~tseaver/pkginfo/trunk",
+    "Version": "1.8.3"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "MIT License",
+    "Name": "platformdirs",
+    "URL": "UNKNOWN",
+    "Version": "2.5.2"
+  },
+  {
+    "Author": "Holger Krekel",
+    "License": "MIT License",
+    "Name": "pluggy",
+    "URL": "https://github.com/pytest-dev/pluggy",
+    "Version": "1.0.0"
+  },
+  {
+    "Author": "Federico Di Gregorio",
+    "License": "GNU Library or Lesser General Public License (LGPL)",
+    "Name": "psycopg2",
+    "URL": "https://psycopg.org/",
+    "Version": "2.9.4"
+  },
+  {
+    "Author": "holger krekel, Ronny Pfannschmidt, Benjamin Peterson and others",
+    "License": "MIT License",
+    "Name": "py",
+    "URL": "https://py.readthedocs.io/",
+    "Version": "1.11.0"
+  },
+  {
+    "Author": "Johann C. Rocholl",
+    "License": "MIT License",
+    "Name": "pycodestyle",
+    "URL": "https://pycodestyle.pycqa.org/",
+    "Version": "2.8.0"
+  },
+  {
+    "Author": "A lot of people",
+    "License": "MIT License",
+    "Name": "pyflakes",
+    "URL": "https://github.com/PyCQA/pyflakes",
+    "Version": "2.4.0"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "MIT License",
+    "Name": "pyparsing",
+    "URL": "UNKNOWN",
+    "Version": "3.0.9"
+  },
+  {
+    "Author": "Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin and others",
+    "License": "MIT License",
+    "Name": "pytest",
+    "URL": "https://docs.pytest.org/en/latest/",
+    "Version": "7.1.2"
+  },
+  {
+    "Author": "Jason R. Coombs",
+    "License": "MIT License",
+    "Name": "pytest-runner",
+    "URL": "https://github.com/pytest-dev/pytest-runner/",
+    "Version": "6.0.0"
+  },
+  {
+    "Author": "Gustavo Niemeyer",
+    "License": "Apache Software License; BSD License",
+    "Name": "python-dateutil",
+    "URL": "https://github.com/dateutil/dateutil",
+    "Version": "2.8.2"
+  },
+  {
+    "Author": "Stuart Bishop",
+    "License": "MIT License",
+    "Name": "pytz",
+    "URL": "http://pythonhosted.org/pytz",
+    "Version": "2022.1"
+  },
+  {
+    "Author": "The Python Packaging Authority",
+    "License": "Apache Software License",
+    "Name": "readme-renderer",
+    "URL": "https://github.com/pypa/readme_renderer",
+    "Version": "35.0"
+  },
+  {
+    "Author": "Kenneth Reitz",
+    "License": "Apache Software License",
+    "Name": "requests",
+    "URL": "https://requests.readthedocs.io",
+    "Version": "2.28.1"
+  },
+  {
+    "Author": "Ian Cordasco, Cory Benfield",
+    "License": "Apache Software License",
+    "Name": "requests-toolbelt",
+    "URL": "https://toolbelt.readthedocs.org",
+    "Version": "0.9.1"
+  },
+  {
+    "Author": "Ian Stapleton Cordasco",
+    "License": "Apache Software License",
+    "Name": "rfc3986",
+    "URL": "http://rfc3986.readthedocs.io",
+    "Version": "2.0.0"
+  },
+  {
+    "Author": "Will McGugan",
+    "License": "MIT License",
+    "Name": "rich",
+    "URL": "https://github.com/willmcgugan/rich",
+    "Version": "12.4.4"
+  },
+  {
+    "Author": "Clinton Collins, Benoit Raybaud, Clark Kirkman IV,Zhaowei DuDavid Kong,Qinghua Long",
+    "License": "UNKNOWN",
+    "Name": "rse-api",
+    "URL": "https://github.com/InstituteforDiseaseModeling/rse_api",
+    "Version": "1.0.8"
+  },
+  {
+    "Author": "Institute for Disease Modeling - RSE Team",
+    "License": "MIT License",
+    "Name": "sae-dashaboard-service",
+    "URL": "https://github.com/InstituteforDiseaseModeling/service",
+    "Version": "1.0.0"
+  },
+  {
+    "Author": "Benjamin Peterson",
+    "License": "MIT License",
+    "Name": "six",
+    "URL": "https://github.com/benjaminp/six",
+    "Version": "1.16.0"
+  },
+  {
+    "Author": "Snowball Developers",
+    "License": "BSD License",
+    "Name": "snowballstemmer",
+    "URL": "https://github.com/snowballstem/snowball",
+    "Version": "2.2.0"
+  },
+  {
+    "Author": "Grant Jenks",
+    "License": "Apache Software License",
+    "Name": "sortedcontainers",
+    "URL": "http://www.grantjenks.com/docs/sortedcontainers/",
+    "Version": "2.4.0"
+  },
+  {
+    "Author": "Dave Snider, Read the Docs, Inc. & contributors",
+    "License": "MIT License",
+    "Name": "sphinx-rtd-theme",
+    "URL": "https://github.com/readthedocs/sphinx_rtd_theme",
+    "Version": "1.0.0"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-applehelp",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "1.0.2"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-devhelp",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "1.0.2"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-htmlhelp",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "2.0.0"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-jsmath",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "1.0.1"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-qthelp",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "1.0.3"
+  },
+  {
+    "Author": "Georg Brandl",
+    "License": "BSD License",
+    "Name": "sphinxcontrib-serializinghtml",
+    "URL": "http://sphinx-doc.org/",
+    "Version": "1.1.5"
+  },
+  {
+    "Author": "William Pearson",
+    "License": "MIT License",
+    "Name": "toml",
+    "URL": "https://github.com/uiri/toml",
+    "Version": "0.10.2"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "MIT License",
+    "Name": "tomli",
+    "URL": "UNKNOWN",
+    "Version": "2.0.1"
+  },
+  {
+    "Author": "Holger Krekel, Oliver Bestwalter, Bern\u00e1t G\u00e1bor and others",
+    "License": "MIT License",
+    "Name": "tox",
+    "URL": "https://tox.readthedocs.io",
+    "Version": "3.25.1"
+  },
+  {
+    "Author": "Donald Stufft and individual contributors",
+    "License": "Apache Software License",
+    "Name": "twine",
+    "URL": "https://twine.readthedocs.io/",
+    "Version": "4.0.1"
+  },
+  {
+    "Author": "UNKNOWN",
+    "License": "Python Software Foundation License",
+    "Name": "typing_extensions",
+    "URL": "UNKNOWN",
+    "Version": "4.3.0"
+  },
+  {
+    "Author": "Andrey Petrov",
+    "License": "MIT License",
+    "Name": "urllib3",
+    "URL": "https://urllib3.readthedocs.io/",
+    "Version": "1.26.9"
+  },
+  {
+    "Author": "Bernat Gabor",
+    "License": "MIT License",
+    "Name": "virtualenv",
+    "URL": "https://virtualenv.pypa.io/",
+    "Version": "20.15.1"
+  },
+  {
+    "Author": "Yesudeep Mangalapilly",
+    "License": "Apache Software License",
+    "Name": "watchdog",
+    "URL": "https://github.com/gorakhargosh/watchdog",
+    "Version": "2.1.9"
+  },
+  {
+    "Author": "Geoffrey Sneddon",
+    "License": "BSD License",
+    "Name": "webencodings",
+    "URL": "https://github.com/SimonSapin/python-webencodings",
+    "Version": "0.5.1"
+  },
+  {
+    "Author": "Jason R. Coombs",
+    "License": "MIT License",
+    "Name": "zipp",
+    "URL": "https://github.com/jaraco/zipp",
+    "Version": "3.8.0"
+  }
+]

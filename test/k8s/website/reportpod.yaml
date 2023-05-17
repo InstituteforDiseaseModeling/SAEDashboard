@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testreportpod
+  namespace: uitest
+  labels:
+    service: testreportpod
+spec:
+  containers:
+    - name: simplehttpserver
+      image: python:3.8-slim
+      workingDir: /results
+      command:
+        - "sh"
+        - "-c"
+      args:
+        - "python -m http.server 8999"
+      ports:
+        - containerPort: 8999
+      volumeMounts:
+      - mountPath: /results
+        name: azurefileshare
+  volumes:
+    - name: azurefileshare
+      azureFile:
+        secretName: storage-secret
+        shareName: test
+        readOnly: true     

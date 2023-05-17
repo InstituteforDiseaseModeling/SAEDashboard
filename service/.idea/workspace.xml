@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="07520342-78ab-4406-b548-7e5d0bfb23bb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/filterelements/MapTheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/filterelements/MapTheme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/uielements/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/components/uielements/Map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/components/uielements/gradient.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/redux/reducers/filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/redux/reducers/filters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Qinghua Long &lt;qlong@idmod.org&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JupyterTrust" id="0833629f-c07e-43db-a214-0497beb91b01" />
+  <component name="ProjectId" id="1h8uLsfsRPQ1UlH14e1PgDcuA0X" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../scripts/dev_setup.sh" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="P:\Projects\SAEDashboard\service\schemas" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Projects\SAEDashboard\service\controllers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Run server">
+    <configuration name="Run server" type="PythonConfigurationType" factoryName="Python">
+      <module name="service" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="P:\Projects\SAEDashboard\service\sae\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="manage run" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pre-process-files (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/controllers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/controllers/pre-process-files.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pre-process-files (2)" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="service" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/scripts/pre-process-files.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pre-process-files" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="service" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="P:\Projects\SAEDashboard\service\controllers\pre-process-files.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.Run server" />
+      <item itemvalue="Python.pre-process-files (1)" />
+      <item itemvalue="Python.pre-process-files (2)" />
+      <item itemvalue="Python.pre-process-files" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.pre-process-files (1)" />
+        <item itemvalue="Python.pre-process-files" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="07520342-78ab-4406-b548-7e5d0bfb23bb" name="Default Changelist" comment="" />
+      <created>1599404987584</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599404987584</updated>
+      <workItem from="1599404988644" duration="30711000" />
+      <workItem from="1600300252132" duration="190000" />
+      <workItem from="1600735701956" duration="2135000" />
+      <workItem from="1603314250514" duration="1047000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add readable label to the subgroups&#10;Also allow the subgroups to be retrieved for all Africa">
+      <created>1599406491598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599406491598</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Display the whole Africa map.&#10;Renamed bunch of shape files to make them fit the data inside.">
+      <created>1599441248494</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599441248494</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Commit the Africa shape">
+      <created>1599501756470</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1599501756470</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add readable label to the subgroups&#10;Also allow the subgroups to be retrieved for all Africa" />
+    <MESSAGE value="Display the whole Africa map.&#10;Renamed bunch of shape files to make them fit the data inside." />
+    <MESSAGE value="Commit the Africa shape" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit the Africa shape" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="558" y="351" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599405197251">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="558" y="351" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599405197251" />
+    <state x="1036" y="507" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599424370058">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1036" y="507" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599424370058" />
+    <state x="630" y="240" width="1254" height="994" key="CommitChangelistDialog2" timestamp="1599501756111">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="630" y="240" width="1254" height="994" key="CommitChangelistDialog2/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599501756111" />
+    <state width="1847" height="466" key="DebuggerActiveHint" timestamp="1599482498274">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1847" height="466" key="DebuggerActiveHint/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599482498274" />
+    <state x="-1677" y="451" key="FileChooserDialogImpl" timestamp="1600735870456">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state x="-1677" y="451" key="FileChooserDialogImpl/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1600735870456" />
+    <state x="883" y="451" key="FileChooserDialogImpl/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599405189922" />
+    <state width="1257" height="383" key="GridCell.Tab.0.bottom" timestamp="1603314703878">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1257" height="383" key="GridCell.Tab.0.bottom/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314703878" />
+    <state width="1257" height="383" key="GridCell.Tab.0.bottom/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1601154425718" />
+    <state width="1257" height="383" key="GridCell.Tab.0.center" timestamp="1603314703878">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1257" height="383" key="GridCell.Tab.0.center/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314703878" />
+    <state width="1257" height="383" key="GridCell.Tab.0.center/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1601154425718" />
+    <state width="1257" height="383" key="GridCell.Tab.0.left" timestamp="1603314703878">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1257" height="383" key="GridCell.Tab.0.left/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314703878" />
+    <state width="1257" height="383" key="GridCell.Tab.0.left/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1601154425718" />
+    <state width="1257" height="383" key="GridCell.Tab.0.right" timestamp="1603314703878">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1257" height="383" key="GridCell.Tab.0.right/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314703878" />
+    <state width="1257" height="383" key="GridCell.Tab.0.right/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1601154425718" />
+    <state x="-1464" y="426" key="RollbackChangesDialog" timestamp="1603314421184">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state x="-1464" y="426" key="RollbackChangesDialog/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314421184" />
+    <state x="605" y="341" key="SettingsEditor" timestamp="1599405645909">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="605" y="341" key="SettingsEditor/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599405645909" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1599501757311">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599501757311" />
+    <state x="92" y="92" width="2376" height="1226" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1599438503420">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="92" y="92" width="2376" height="1226" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599438503420" />
+    <state x="-1467" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603314256886">
+      <screen x="-2560" y="0" width="2560" height="1410" />
+    </state>
+    <state x="-1467" y="619" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410/-2560.0.2560.1410@-2560.0.2560.1410" timestamp="1603314256886" />
+    <state x="811" y="429" width="585" height="534" key="find.popup" timestamp="1599405625975">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="811" y="429" width="585" height="534" key="find.popup/0.0.2560.1410/-2560.0.2560.1410@0.0.2560.1410" timestamp="1599405625975" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/service$pre_process_files__1_.coverage" NAME="pre-process-files (1) Coverage Results" MODIFIED="1599424441294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
+    <SUITE FILE_PATH="coverage/service$pre_process_files__2_.coverage" NAME="pre-process-files (2) Coverage Results" MODIFIED="1599486491286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data/scripts" />
+    <SUITE FILE_PATH="coverage/service$pre_process_files.coverage" NAME="pre-process-files Coverage Results" MODIFIED="1599419972316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data/scripts" />
+    <SUITE FILE_PATH="coverage/service$Run_server.coverage" NAME="Run server Coverage Results" MODIFIED="1603314703871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

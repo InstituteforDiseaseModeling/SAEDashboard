@@ -1,0 +1,14 @@
+{
+  "title": "SAEDashboard",
+  "disableAdmin2" : false,
+  "defaultYear": 2020,
+  "defaultRegion" : "Africa:Senegal:Thiès",
+  "defaultCountry" : "Africa:Senegal",
+  "defaultThemeByIndicator" : {
+    "modern_method" : "RdBu",
+    "traditional_method": "RdBu",
+    "unmet_need": "BuRd",
+    "predicated": "BuRd",
+    "crude": "BuRd"
+  }
+}
