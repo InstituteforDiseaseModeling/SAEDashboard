@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: testreportpod
+  namespace: uitest
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: uitest.52.247.203.128.nip.io
+    http:
+      paths:
+      - path:
+        pathType: ImplementationSpecific
+        backend:
+          serviceName: test-service
+          servicePort: 8080
+

@@ -1,0 +1,81 @@
+Author,License,Name,URL,Version
+Armin Ronacher,BSD License,Babel,https://babel.pocoo.org/,2.10.3
+Armin Ronacher,BSD License,Flask,https://palletsprojects.com/p/flask,2.1.2
+Twilio API Team,BSD License,Flask-RESTful,https://www.github.com/flask-restful/flask-restful/,0.3.9
+Armin Ronacher,BSD License,Flask-SQLAlchemy,https://github.com/pallets/flask-sqlalchemy,2.5.1
+Armin Ronacher,BSD License,Jinja2,https://palletsprojects.com/p/jinja/,3.1.2
+Armin Ronacher,BSD License,MarkupSafe,https://palletsprojects.com/p/markupsafe/,2.1.1
+Georg Brandl,BSD License,Pygments,https://pygments.org/,2.12.0
+Mike Bayer,MIT License,SQLAlchemy,https://www.sqlalchemy.org,1.4.39
+Georg Brandl,BSD License,Sphinx,https://www.sphinx-doc.org/,5.0.2
+Armin Ronacher,BSD License,Werkzeug,https://palletsprojects.com/p/werkzeug/,2.1.2
+Jeff Forcier,BSD License,alabaster,https://alabaster.readthedocs.io,0.7.12
+Brandon Nielsen,BSD License,aniso8601,https://bitbucket.org/nielsenb/aniso8601,9.0.1
+Hynek Schlawack,MIT License,attrs,https://www.attrs.org/,21.4.0
+UNKNOWN,Apache Software License,bleach,https://github.com/mozilla/bleach,5.0.1
+Christian Verkerk,MIT License,bump2version,https://github.com/c4urself/bump2version,1.0.1
+Filip Noetzel,MIT License,bumpversion,https://github.com/peritus/bumpversion,0.6.0
+Kenneth Reitz,Mozilla Public License 2.0 (MPL 2.0),certifi,https://github.com/certifi/python-certifi,2022.6.15
+Ahmed TAHRI @Ousret,MIT License,charset-normalizer,https://github.com/ousret/charset_normalizer,2.1.0
+Armin Ronacher,BSD License,click,https://palletsprojects.com/p/click/,8.1.3
+"Bibek Kafle <bkafle662@gmail.com>, Roland Shoemaker <rolandshoemaker@gmail.com>",BSD License,commonmark,https://github.com/rtfd/commonmark.py,0.9.1
+Ned Batchelder and 153 others,Apache Software License,coverage,https://github.com/nedbat/coveragepy,6.4.1
+Vinay Sajip,Python Software Foundation License,distlib,https://bitbucket.org/pypa/distlib,0.3.4
+David Goodger,BSD License; GNU General Public License (GPL); Public Domain; Python Software Foundation License,docutils,http://docutils.sourceforge.net/,0.18.1
+UNKNOWN,MIT License,exceptiongroup,UNKNOWN,1.0.1
+Benedikt Schmitt,Public Domain,filelock,https://github.com/tox-dev/py-filelock,3.7.1
+Tarek Ziade,MIT License,flake8,https://github.com/pycqa/flake8,4.0.1
+Steven Loria,MIT License,flask-marshmallow,https://github.com/marshmallow-code/flask-marshmallow,0.14.0
+Alexey Borzenkov,MIT License,greenlet,https://greenlet.readthedocs.io/,1.1.2
+David R. MacIver and Zac Hatfield-Dodds,Mozilla Public License 2.0 (MPL 2.0),hypothesis,https://hypothesis.works,6.56.4
+Kim Davies,BSD License,idna,https://github.com/kjd/idna,3.3
+Yoshiki Shibukawa,MIT License,imagesize,https://github.com/shibukawa/imagesize_py,1.4.1
+Jason R. Coombs,Apache Software License,importlib-metadata,https://github.com/python/importlib_metadata,4.12.0
+"Ronny Pfannschmidt, Holger Krekel",MIT License,iniconfig,http://github.com/RonnyPfannschmidt/iniconfig,1.1.1
+Armin Ronacher,BSD License,itsdangerous,https://palletsprojects.com/p/itsdangerous/,2.1.2
+Kang Zhang,MIT License; Python Software Foundation License,keyring,https://github.com/jaraco/keyring,23.6.0
+Steven Loria,MIT License,marshmallow,https://github.com/marshmallow-code/marshmallow,3.17.0
+Steven Loria,MIT License,marshmallow-sqlalchemy,https://github.com/marshmallow-code/marshmallow-sqlalchemy,0.28.0
+Ian Cordasco,MIT License,mccabe,https://github.com/pycqa/mccabe,0.6.1
+Travis E. Oliphant et al.,BSD License,numpy,https://www.numpy.org,1.23.0
+Donald Stufft and individual contributors,Apache Software License; BSD License,packaging,https://github.com/pypa/packaging,21.3
+The Pandas Development Team,BSD License,pandas,https://pandas.pydata.org,1.4.3
+"Tres Seaver, Agendaless Consulting",MIT License,pkginfo,https://code.launchpad.net/~tseaver/pkginfo/trunk,1.8.3
+UNKNOWN,MIT License,platformdirs,UNKNOWN,2.5.2
+Holger Krekel,MIT License,pluggy,https://github.com/pytest-dev/pluggy,1.0.0
+Federico Di Gregorio,GNU Library or Lesser General Public License (LGPL),psycopg2,https://psycopg.org/,2.9.4
+"holger krekel, Ronny Pfannschmidt, Benjamin Peterson and others",MIT License,py,https://py.readthedocs.io/,1.11.0
+Johann C. Rocholl,MIT License,pycodestyle,https://pycodestyle.pycqa.org/,2.8.0
+A lot of people,MIT License,pyflakes,https://github.com/PyCQA/pyflakes,2.4.0
+UNKNOWN,MIT License,pyparsing,UNKNOWN,3.0.9
+"Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin and others",MIT License,pytest,https://docs.pytest.org/en/latest/,7.1.2
+Jason R. Coombs,MIT License,pytest-runner,https://github.com/pytest-dev/pytest-runner/,6.0.0
+Gustavo Niemeyer,Apache Software License; BSD License,python-dateutil,https://github.com/dateutil/dateutil,2.8.2
+Stuart Bishop,MIT License,pytz,http://pythonhosted.org/pytz,2022.1
+The Python Packaging Authority,Apache Software License,readme-renderer,https://github.com/pypa/readme_renderer,35.0
+Kenneth Reitz,Apache Software License,requests,https://requests.readthedocs.io,2.28.1
+"Ian Cordasco, Cory Benfield",Apache Software License,requests-toolbelt,https://toolbelt.readthedocs.org,0.9.1
+Ian Stapleton Cordasco,Apache Software License,rfc3986,http://rfc3986.readthedocs.io,2.0.0
+Will McGugan,MIT License,rich,https://github.com/willmcgugan/rich,12.4.4
+"Clinton Collins, Benoit Raybaud, Clark Kirkman IV,Zhaowei DuDavid Kong,Qinghua Long",UNKNOWN,rse-api,https://github.com/InstituteforDiseaseModeling/rse_api,1.0.8
+Institute for Disease Modeling - RSE Team,MIT License,sae-dashaboard-service,https://github.com/InstituteforDiseaseModeling/service,1.0.0
+Benjamin Peterson,MIT License,six,https://github.com/benjaminp/six,1.16.0
+Snowball Developers,BSD License,snowballstemmer,https://github.com/snowballstem/snowball,2.2.0
+Grant Jenks,Apache Software License,sortedcontainers,http://www.grantjenks.com/docs/sortedcontainers/,2.4.0
+"Dave Snider, Read the Docs, Inc. & contributors",MIT License,sphinx-rtd-theme,https://github.com/readthedocs/sphinx_rtd_theme,1.0.0
+Georg Brandl,BSD License,sphinxcontrib-applehelp,http://sphinx-doc.org/,1.0.2
+Georg Brandl,BSD License,sphinxcontrib-devhelp,http://sphinx-doc.org/,1.0.2
+Georg Brandl,BSD License,sphinxcontrib-htmlhelp,http://sphinx-doc.org/,2.0.0
+Georg Brandl,BSD License,sphinxcontrib-jsmath,http://sphinx-doc.org/,1.0.1
+Georg Brandl,BSD License,sphinxcontrib-qthelp,http://sphinx-doc.org/,1.0.3
+Georg Brandl,BSD License,sphinxcontrib-serializinghtml,http://sphinx-doc.org/,1.1.5
+William Pearson,MIT License,toml,https://github.com/uiri/toml,0.10.2
+UNKNOWN,MIT License,tomli,UNKNOWN,2.0.1
+"Holger Krekel, Oliver Bestwalter, Bernát Gábor and others",MIT License,tox,https://tox.readthedocs.io,3.25.1
+Donald Stufft and individual contributors,Apache Software License,twine,https://twine.readthedocs.io/,4.0.1
+UNKNOWN,Python Software Foundation License,typing_extensions,UNKNOWN,4.3.0
+Andrey Petrov,MIT License,urllib3,https://urllib3.readthedocs.io/,1.26.9
+Bernat Gabor,MIT License,virtualenv,https://virtualenv.pypa.io/,20.15.1
+Yesudeep Mangalapilly,Apache Software License,watchdog,https://github.com/gorakhargosh/watchdog,2.1.9
+Geoffrey Sneddon,BSD License,webencodings,https://github.com/SimonSapin/python-webencodings,0.5.1
+Jason R. Coombs,MIT License,zipp,https://github.com/jaraco/zipp,3.8.0

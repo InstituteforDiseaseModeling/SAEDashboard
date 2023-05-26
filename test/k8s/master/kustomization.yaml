@@ -1,0 +1,12 @@
+namespace: "uitest"
+
+bases:
+  - ../base
+
+configMapGenerator:
+  - name: sitedetails
+    literals:
+      - SAE_SITE=https://sae-master.20.69.119.9.nip.io/
+      - USERPROFILE=/results/master 
+      - TARGET=master
+      - IMAGE=rsecr4aks.azurecr.io/sae_uitest:master

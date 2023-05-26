@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  service:
+    build:
+      context: ./service
+      dockerfile: Dockerfile.local
+      labels:
+        git_url: ${GIT_URL}
+        git_commit: ${GIT_COMMIT}
+        version: ${VERSION}
+        maintainer: IDM
+    environment:
+      - "FLASK_ENV=staging"
+    # volumes:
+    #   - /mnt/SAEDashboard-Data:/app/service/data
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.local
+      labels:
+        git_url: ${GIT_URL}
+        git_commit: ${GIT_COMMIT}
+        version: ${VERSION}
+        maintainer: IDM
+      args:
+        - "GENERATE_SOURCEMAP=true"
+    ports:
+      - "80:80"
+    depends_on:
+      - service
+    environment:
+      - REACT_APP_SERVICE=service

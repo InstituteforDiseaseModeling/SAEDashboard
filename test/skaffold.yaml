@@ -1,0 +1,42 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: sae-test-config
+build:
+#    local: {}
+#    artifacts:
+#    - image: rsecr4aks.azurecr.io/sae_uitest
+  tagPolicy:
+    envTemplate:
+      template: "{{.TARGET}}"
+  artifacts:
+  - image: rsecr4aks.azurecr.io/sae_uitest
+    context: .
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+  cluster:
+    dockerConfig:
+      path: ~/.docker/config.json
+    resources:
+      requests:
+        cpu: 2
+        memory: 4Gi
+      limits:
+        cpu: 3
+        memory: 6Gi
+
+profiles:
+- name: build
+
+- name: test-dev
+  deploy:
+    kustomize:
+      paths:
+        - k8s/dev
+
+- name: test-master
+  deploy:
+    kustomize:
+      paths:
+        - k8s/master

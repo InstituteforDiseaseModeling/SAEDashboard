@@ -1,0 +1,118 @@
+kind: pipeline
+name: build client
+
+steps:
+  - name: docker client
+    image: plugins/docker
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: DOCKER_PASSWORD
+    settings:
+      registry: bmgfsre.azurecr.io
+      repo: bmgfsre.azurecr.io/${DRONE_REPO_NAME,,}_client
+      username: drone-push
+      password:
+        from_secret: DOCKER_PASSWORD
+      context: client
+      dockerfile: client/Dockerfile
+      tags:
+        - "${DRONE_BUILD_NUMBER}"
+        - "latest"
+
+trigger:
+  branch:
+    - master
+    - dev
+  event:
+    - pull_request
+
+image_pull_secrets:
+  - dockerhubcreds
+---
+kind: pipeline
+name: build service
+
+steps:
+  - name: docker service
+    image: plugins/docker
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: DOCKER_PASSWORD
+    settings:
+      registry: bmgfsre.azurecr.io
+      repo: bmgfsre.azurecr.io/${DRONE_REPO_NAME,,}_service
+      username: drone-push
+      password:
+        from_secret: DOCKER_PASSWORD
+      context: service
+      dockerfile: service/Dockerfile
+      build_args:
+        - TOKEN=${token}
+      tags:
+        - "${DRONE_BUILD_NUMBER}"
+        - "latest"
+
+trigger:
+  branch:
+    - master
+    - dev
+  event:
+    - pull_request
+
+image_pull_secrets:
+  - dockerhubcreds
+---
+kind: pipeline
+name: deploy to Nomad (acceptance)
+steps:
+  - name: deploy to Nomad (acceptance)
+    image: gatesfoundation/nomad-client:latest
+    environment:
+      NOMAD_ADDR: https://azure-nomad.bmgf.io
+      NOMAD_REGION: az-us
+      NOMAD_TOKEN:
+        from_secret: NOMAD_TOKEN
+      NOMAD_VAR_domain_acc:
+        from_secret: NOMAD_VAR_domain_acc
+      NAMESPACE:
+        from_secret: NAMESPACE
+    commands:
+      - sed -i "s/__REPO__NAME__/${DRONE_REPO_NAME,,}/g" ./jobspec_acc.nomad
+      - sed -i "s/__BUILD__NUMBER__/$DRONE_BUILD_PARENT/g" ./jobspec_acc.nomad
+      - sed -i "s/__NAMESPACE__/$NAMESPACE/g" ./jobspec_acc.nomad
+      - nomad job run ./jobspec_acc.nomad
+
+trigger:
+  target:
+    - acc
+
+image_pull_secrets:
+  - dockerhubcreds
+---
+kind: pipeline
+name: deploy to Nomad (production)
+
+steps:
+  - name: deploy to Nomad (production)
+    image: gatesfoundation/nomad-client:latest
+    environment:
+      NOMAD_ADDR: https://azure-nomad.bmgf.io
+      NOMAD_REGION: az-us
+      NOMAD_TOKEN:
+        from_secret: NOMAD_TOKEN
+      NOMAD_VAR_domain_prod:
+        from_secret: NOMAD_VAR_domain_prod
+      NAMESPACE:
+        from_secret: NAMESPACE
+    commands:
+      - sed -i "s/__REPO__NAME__/${DRONE_REPO_NAME,,}/g" ./jobspec.nomad
+      - sed -i "s/__BUILD__NUMBER__/$DRONE_BUILD_PARENT/g" ./jobspec.nomad
+      - sed -i "s/__NAMESPACE__/$NAMESPACE/g" ./jobspec.nomad
+      - nomad job run ./jobspec.nomad
+
+trigger:
+  target:
+    - prod
+
+image_pull_secrets:
+  - dockerhubcreds

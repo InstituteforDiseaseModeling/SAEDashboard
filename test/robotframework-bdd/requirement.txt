@@ -1,0 +1,5 @@
+robotframework==4.0.3
+robotframework-seleniumlibrary==5.1.3
+robotframework-datadriver==1.0.0
+selenium==3.141.0
+webdrivermanager==0.9.0
