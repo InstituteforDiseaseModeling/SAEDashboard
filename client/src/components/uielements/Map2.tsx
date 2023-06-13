@@ -94,13 +94,15 @@ const MapComponent = (props: any) => {
 
     if (feature && feature.feature) {
       const region = _.find(mapData, {id: feature.feature.id});
-      const regionName = region.id.split(':').splice(2).join(':');
-      const latlng = Array.isArray(feature._latlngs[0][0]) ?
-        feature._latlngs[0][0][0] : feature._latlngs[0][0];
-      window.L.popup()
-          .setLatLng(e.latlng)
-          .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' cases/1000')
-          .openOn(mapObj);
+      if (region) {
+        const regionName = region.id.split(':').splice(2).join(':');
+        const latlng = Array.isArray(feature._latlngs[0][0]) ?
+          feature._latlngs[0][0][0] : feature._latlngs[0][0];
+        window.L.popup()
+            .setLatLng(e.latlng)
+            .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' cases/1000')
+            .openOn(mapObj);
+      }
     }
   };
 
