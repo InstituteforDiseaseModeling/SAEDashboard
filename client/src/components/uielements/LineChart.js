@@ -138,6 +138,10 @@ const LineChart = (props) => {
     x.legend.paddingTop = '-15px';
     x.legend.position = 'bottom';
     x.legend.height = '100px';
+    x.numberFormatter.numberFormat = '####';
+
+    // add Event
+    addEventAxis(xAxis, 2021, 'Event-1');
 
     // Enable export
     // x.exporting.menu = new am4core.ExportMenu();
@@ -149,6 +153,19 @@ const LineChart = (props) => {
       x.dispose();
     };
   }, [props.channel]);
+
+  const addEventAxis = (axisObj, value, labeltext) => {
+    const range = axisObj.axisRanges.create();
+    range.grid.stroke = am4core.color('blue');
+    range.grid.strokeWidth = 2;
+    range.grid.strokeOpacity = 1;
+
+    range.label.text = labeltext;
+    range.label.fill = am4core.color('red');
+    range.label.dy = -220;
+
+    range.value = value;
+  };
 
   // for setting Max Y axis value based on chartdata
   const setYAxis = () => {
