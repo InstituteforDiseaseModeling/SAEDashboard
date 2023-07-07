@@ -1,12 +1,238 @@
 {
   "Senegal": {
-    "Health Center A": {
-      "lat": 14.716677,
-      "long": -17.467686
+    "SUGAR COMPANY CLINIC": {
+      "Lat_2": 16.47,
+      "Long_2": -15.71,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.667,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0284
     },
-    "Health Center B": {
-      "lat": 15.6142,
-      "long": -16.2287
+    "DIAWAR": {
+      "Lat_2": 16.4614,
+      "Long_2": -16.0516,
+      "Fraction_unique": null,
+      "Fraction_polygenomic": null,
+      "repeated_twice": null,
+      "repeated_multiple": null,
+      "heterozygosity": null
+    },
+    "GALLO MALICK": {
+      "Lat_2": 16.4163,
+      "Long_2": -16.111,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.5,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0394
+    },
+    "NIASSENE": {
+      "Lat_2": 16.014,
+      "Long_2": -16.161,
+      "Fraction_unique": null,
+      "Fraction_polygenomic": null,
+      "repeated_twice": null,
+      "repeated_multiple": null,
+      "heterozygosity": null
+    },
+    "ROSSO SENEGAL": {
+      "Lat_2": 16.505,
+      "Long_2": -15.8076,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.286,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0351
+    },
+    "TAOUEY": {
+      "Lat_2": 16.4659,
+      "Long_2": -15.6962,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.4,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0258
+    },
+    "NDIATENE": {
+      "Lat_2": 16.496,
+      "Long_2": -15.872,
+      "Fraction_unique": null,
+      "Fraction_polygenomic": null,
+      "repeated_twice": null,
+      "repeated_multiple": null,
+      "heterozygosity": null
+    },
+    "ROSS BETHIO": {
+      "Lat_2": 16.2756,
+      "Long_2": -16.1362,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.353,
+      "repeated_twice": 1,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0278
+    },
+    "NABADJI CIVOR": {
+      "Lat_2": 16.5938,
+      "Long_2": -14.991,
+      "Fraction_unique": 0.4,
+      "Fraction_polygenomic": 0.4,
+      "repeated_twice": 0,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.0336
+    },
+    "KOUTAL": {
+      "Lat_2": 14.0833,
+      "Long_2": -16.0667,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.45,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0352
+    },
+    "KEUR MBAYE SARR": {
+      "Lat_2": 14.9337,
+      "Long_2": -16.3635,
+      "Fraction_unique": 0.8,
+      "Fraction_polygenomic": 0.458,
+      "repeated_twice": 1,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0316
+    },
+    "DEGGO": {
+      "Lat_2": 14.7559,
+      "Long_2": -17.3961,
+      "Fraction_unique": 0.737,
+      "Fraction_polygenomic": 0.407,
+      "repeated_twice": 1,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.023
+    },
+    "GABOU": {
+      "Lat_2": 14.9047,
+      "Long_2": -12.4564,
+      "Fraction_unique": 0.875,
+      "Fraction_polygenomic": 0.49,
+      "repeated_twice": 4,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0237
+    },
+    "MOUDERY": {
+      "Lat_2": 15.0587,
+      "Long_2": -12.5897,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.44,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0283
+    },
+    "TOMBORONKOTO": {
+      "Lat_2": 12.8006,
+      "Long_2": -12.3011,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.633,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0265
+    },
+    "KAFOUNTINE": {
+      "Lat_2": 12.9226,
+      "Long_2": -16.7385,
+      "Fraction_unique": 0.737,
+      "Fraction_polygenomic": 0.516,
+      "repeated_twice": 2,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.032
+    },
+    "BAGADADJI": {
+      "Lat_2": 12.8062,
+      "Long_2": -15.0548,
+      "Fraction_unique": 0.786,
+      "Fraction_polygenomic": 0.359,
+      "repeated_twice": 6,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.0215
+    },
+    "TAMBACOUNDA": {
+      "Lat_2": 13.7537,
+      "Long_2": -13.6719,
+      "Fraction_unique": 0.857,
+      "Fraction_polygenomic": 0.48,
+      "repeated_twice": 2,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0225
+    },
+    "VELINGARA": {
+      "Lat_2": 13.144,
+      "Long_2": -14.1066,
+      "Fraction_unique": 0.867,
+      "Fraction_polygenomic": 0.577,
+      "repeated_twice": 1,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.0237
+    },
+    "KEDOUGOU": {
+      "Lat_2": 12.86157,
+      "Long_2": -12.305834,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.56,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0254
+    },
+    "KEDOUGOU--MAKO": {
+      "Lat_2": 12.8495,
+      "Long_2": -12.3529,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.551,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0202
+    },
+    "KAMEL": {
+      "Lat_2": 15.4854,
+      "Long_2": -13.1852,
+      "Fraction_unique": 1,
+      "Fraction_polygenomic": 0.517,
+      "repeated_twice": 0,
+      "repeated_multiple": 0,
+      "heterozygosity": 0.0303
+    },
+    "SEDHIOU GOUDONUP": {
+      "Lat_2": 12.5367,
+      "Long_2": -15.9454,
+      "Fraction_unique": 0.688,
+      "Fraction_polygenomic": 0.444,
+      "repeated_twice": 1,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.0232
+    },
+    "SESSINE": {
+      "Lat_2": 14.92013,
+      "Long_2": -16.358667,
+      "Fraction_unique": 0.207,
+      "Fraction_polygenomic": 0.22,
+      "repeated_twice": 2,
+      "repeated_multiple": 3,
+      "heterozygosity": 0.0299
+    },
+    "TOUBA": {
+      "Lat_2": 14.8589,
+      "Long_2": -15.909,
+      "Fraction_unique": 0.63,
+      "Fraction_polygenomic": 0.247,
+      "repeated_twice": 6,
+      "repeated_multiple": 3,
+      "heterozygosity": 0.0283
+    },
+    "THIES": {
+      "Lat_2": 14.79105,
+      "Long_2": -16.925124,
+      "Fraction_unique": 0.759,
+      "Fraction_polygenomic": 0.351,
+      "repeated_twice": 3,
+      "repeated_multiple": 1,
+      "heterozygosity": 0.0257
     }
   }
 }
