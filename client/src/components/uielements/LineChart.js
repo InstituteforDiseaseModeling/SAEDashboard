@@ -22,7 +22,6 @@ const setUpAxis = (axis) => {
   axis.renderer.grid.template.strokeDasharray = '2,3';
   axis.renderer.labels.template.fill = am4core.color('#585a55');
   axis.renderer.grid.template.strokeOpacity = 0.07;
-  axis.numberFormatter = new am4core.NumberFormatter();
 };
 
 /**
@@ -40,11 +39,12 @@ const LineChart = (props) => {
     const series = x.series.push(new am4charts.LineSeries());
     series.simplifiedProcessing = true;
     series.name = 'Model post. median '+props.channel + ' (cases / 1000ppl)';
-    series.dataFields.valueX = 'year';
+    series.dataFields.dateX = 'yearDate';
     series.dataFields.valueY = 'middle';
     series.tooltipText = '{year} : {middle}';
     series.fill = am4core.color('#e07b39');
     series.stroke = am4core.color('#e07b39');
+    series.bullets.push(new am4charts.CircleBullet());
 
 
     // ====================== Area Series ===========================
@@ -111,10 +111,9 @@ const LineChart = (props) => {
   useLayoutEffect(() => {
     const x = am4core.create(chartId, am4charts.XYChart);
 
-    const xAxis = x.xAxes.push(new am4charts.ValueAxis());
+    const xAxis = x.xAxes.push(new am4charts.DateAxis());
     setUpAxis(xAxis);
     xAxis.numberFormatter.numberFormat = '#';
-    xAxis.strictMinMax = true;
     xAxis.renderer.minGridDistance = 50;
     xAxis.title.text = 'year';
 
@@ -138,10 +137,9 @@ const LineChart = (props) => {
     x.legend.paddingTop = '-15px';
     x.legend.position = 'bottom';
     x.legend.height = '100px';
-    x.numberFormatter.numberFormat = '####';
 
     // add Event
-    addEventAxis(xAxis, 2021, 'Event-1');
+    addEventAxis(xAxis, new Date(2021, 6, 1), 'Event-1');
 
     // Enable export
     // x.exporting.menu = new am4core.ExportMenu();
@@ -210,10 +208,22 @@ const LineChart = (props) => {
     }
   };
 
+  /**
+   * add date field in data for display purpose
+   * @return {JSON} data object with additional yearData field
+   */
+  const addDateField = () => {
+    const chartData = props.chartData.map((data) => {
+      data.yearDate = new Date(data.year, 0, 1);
+      return data;
+    });
+    return chartData;
+  };
+
   // When chart data prop changes it will update the chart
   useLayoutEffect(() => {
     // Set it in the chart
-    chart.current.data = props.chartData;
+    chart.current.data = addDateField();
 
     setYAxis();
   }, [props.chartData]);
