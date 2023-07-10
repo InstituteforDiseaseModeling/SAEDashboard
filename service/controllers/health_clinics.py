@@ -25,7 +25,7 @@ class HealthCenters(Resource):
             }
         """
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        file = os.path.join(current_dir, '..', 'data', 'health_centers.json')
+        file = os.path.join(current_dir, '..', 'data', 'health_clinics.json')
         with open(file, 'r') as f:
             health_centers = json.load(f)
         return health_centers
