@@ -106,7 +106,7 @@ const LineChart = (props) => {
 
     range.label.text = labeltext;
     range.label.fill = am4core.color('red');
-    range.label.dy = -210;
+    range.label.dy = -190;
 
     range.value = value;
   };
