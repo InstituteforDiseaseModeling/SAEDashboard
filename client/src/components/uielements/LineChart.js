@@ -81,9 +81,9 @@ const LineChart = (props) => {
 
     // add Event
     if (props.selectedState && props.selectedState.indexOf('Touba') >= 0) {
-      addEventAxis(xAxis, new Date(2020, 9, 5), 'Grand Magal de Touba');
-      addEventAxis(xAxis, new Date(2021, 8, 25), 'Grand Magal de Touba');
-      addEventAxis(xAxis, new Date(2020, 8, 14), 'Grand Magal de Touba');
+      addEventAxis(xAxis, new Date(2020, 9, 5), 'Grand Magal\nde Touba');
+      addEventAxis(xAxis, new Date(2021, 8, 25), 'Grand Magal\nde Touba');
+      addEventAxis(xAxis, new Date(2022, 8, 14), 'Grand Magal\nde Touba');
     }
 
 
@@ -106,7 +106,7 @@ const LineChart = (props) => {
 
     range.label.text = labeltext;
     range.label.fill = am4core.color('red');
-    range.label.dy = -220;
+    range.label.dy = -210;
 
     range.value = value;
   };
