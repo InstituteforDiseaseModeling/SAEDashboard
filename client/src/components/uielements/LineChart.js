@@ -45,67 +45,6 @@ const LineChart = (props) => {
     series.fill = am4core.color('#e07b39');
     series.stroke = am4core.color('#e07b39');
     series.bullets.push(new am4charts.CircleBullet());
-
-
-    // ====================== Area Series ===========================
-    // const areaSeries = x.series.push(new am4charts.LineSeries());
-    // areaSeries.simplifiedProcessing = true;
-    // areaSeries.name = '95% credible interval';
-    // areaSeries.dataFields.valueX = 'year';
-    // areaSeries.dataFields.openValueY = 'lower_bound';
-    // areaSeries.dataFields.valueY = 'upper_bound';
-    // areaSeries.tooltipText = 'open: {openValueY.value} close: {valueY.value}';
-    // areaSeries.sequencedInterpolation = true;
-    // areaSeries.fillOpacity = 0.3;
-    // areaSeries.defaultState.transitionDuration = 1000;
-    // areaSeries.tensionX = 0.8;
-
-    // const areaOpenSeries = x.series.push(new am4charts.LineSeries());
-    // areaOpenSeries.simplifiedProcessing = true;
-    // areaOpenSeries.hiddenInLegend = true;
-    // areaOpenSeries.dataFields.valueX = 'year';
-    // areaOpenSeries.dataFields.valueY = 'lower_bound';
-    // areaOpenSeries.sequencedInterpolation = true;
-    // areaOpenSeries.defaultState.transitionDuration = 1500;
-    // areaOpenSeries.stroke = x.colors.getIndex(1);
-    // areaOpenSeries.tensionX = 0.8;
-    // ===============================================================
-
-    // ============== Reference data + Standard Error ================
-    // const refSeries = x.series.push(new am4charts.LineSeries());
-    // refSeries.simplifiedProcessing = true;
-    // refSeries.name = 'DHS mean est. w 95% CI';
-    // refSeries.dataFields.valueX = 'year';
-    // refSeries.dataFields.valueY = 'reference_middle';
-    // refSeries.tooltipText = '{year} : {reference_middle}';
-    // refSeries.fill = am4core.color('#e07b39');
-    // refSeries.strokeOpacity = 0;
-    // refSeries.stroke = '#5c5c5c';
-
-    // const errorBullet = refSeries.bullets.create(am4charts.ErrorBullet);
-    // errorBullet.isDynamic = true;
-    // errorBullet.strokeWidth = 2;
-
-    // const circle = errorBullet.createChild(am4core.Circle);
-    // circle.radius = 3;
-    // circle.fill = am4core.color('#ffffff');
-
-    // // adapter adjusts height of a bullet
-    // errorBullet.adapter.add('pixelHeight', function(pixelHeight, target) {
-    //   const dataItem = target.dataItem;
-
-    //   if (dataItem && dataItem.dataContext) {
-    //     const errorTopValue = dataItem.dataContext.reference_upper_bound;
-    //     const errorTopY = yAxis.valueToPoint(errorTopValue).y;
-
-    //     const errorBottomValue = dataItem.dataContext.reference_lower_bound;
-    //     const errorBottomY = yAxis.valueToPoint(errorBottomValue).y;
-
-    //     return Math.abs(errorTopY - errorBottomY);
-    //   }
-    //   return pixelHeight;
-    // });
-    // ===============================================================
   };
 
   useLayoutEffect(() => {

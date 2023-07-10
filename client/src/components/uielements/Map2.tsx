@@ -8,9 +8,9 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma from 'chroma-js';
 import customTheme from '../../customTheme.json';
+import ClinicSites from '../../data/ClinicSites.json';
 
-// import {MapContainer, TileLayer} from "react-leaflet";
-// import {LatLngExpression} from "leaflet";
+
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -180,14 +180,29 @@ const MapComponent = (props: any) => {
       iconAnchor: [12, 36],
     });
 
-    const marker1 = L.marker([14.716677, -17.467686], {icon: icon}).bindPopup('to be added');
-    const marker2 = L.marker([15.6142, -16.2287], {icon: icon}).bindPopup('to be added');
-    const marker3 = L.marker([13.98, -14.56], {icon: icon}).bindPopup('to be added');
-    const marker4 = L.marker([12.56, -12.17], {icon: icon}).bindPopup('to be added');
-    const marker5 = L.marker([15.489, -13.1755], {icon: icon}).bindPopup('to be added');
+    const sites:any[] = [];
 
-    const parks = L.layerGroup([marker1, marker2, marker3, marker4, marker5]);
+    ClinicSites.forEach((clinic) => {
+      const marker = L.marker([clinic.Lat_2, clinic.Long_2], {icon: icon}).bindPopup(createSitePopup(clinic), {'className': 'popupCustom'});
+      sites.push(marker);
+    });
+
+    const parks = L.layerGroup(sites);
     layerControl.addOverlay(parks, 'Health facilities');
+  };
+
+  const createSitePopup = (clinic: any) => {
+    return '<div class="popupCustom">' +
+    '<div class="row"><div class="col">site:</div><div>' + clinic.SITE + '</div></div></div>' +
+    '<div class="row"><div class="col">type:</div><div>' + clinic.TYPE + '</div></div></div>' +
+    '<div class="row"><div class="col">polygenomic:</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+    '<div class="row"><div class="col">unique:</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+    '<div class="row"><div class="col">heterozygosity:</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+    '<div class="row"><div class="col">alt:</div><div>' + clinic.ALT + '</div></div></div>' +
+    '<div class="row"><div class="col">code:</div><div>' + clinic.CODE + '</div></div></div>' +
+    '<div class="row"><div class="col">repeat multiple:</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
+    '<div class="row"><div class="col">repeat twice:</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+    '</div>';
   };
 
   /**
