@@ -59,7 +59,8 @@ const StateDataChart = (props) => {
       {isError ?
         <div style={{height: '100%', width: '100%', textAlign: 'center'}}>
           Error loading chart data...</div> :
-        <LineChart chartData={data} title={group} channel={channel} />}
+        <LineChart chartData={data} title={group} channel={channel}
+          selectedState={selectedState} />}
     </>
   );
 };

@@ -16,3 +16,7 @@ body {
 .popupCustom .row {
   display: flex
 }
+
+.popupCustom .border {
+  border-bottom: solid 1px grey;
+}

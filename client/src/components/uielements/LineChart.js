@@ -77,8 +77,15 @@ const LineChart = (props) => {
     x.legend.position = 'bottom';
     x.legend.height = '100px';
 
+    console.log(props.selectedState);
+
     // add Event
-    addEventAxis(xAxis, new Date(2021, 6, 1), 'Event-1');
+    if (props.selectedState && props.selectedState.indexOf('Touba') >= 0) {
+      addEventAxis(xAxis, new Date(2020, 9, 5), 'Grand Magal de Touba');
+      addEventAxis(xAxis, new Date(2021, 8, 25), 'Grand Magal de Touba');
+      addEventAxis(xAxis, new Date(2020, 8, 14), 'Grand Magal de Touba');
+    }
+
 
     // Enable export
     // x.exporting.menu = new am4core.ExportMenu();
@@ -189,6 +196,7 @@ LineChart.propTypes = {
   channel: PropTypes.string,
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
+  selectedState: PropTypes.string,
 };
 
 export default withStyles(styles)(LineChart);

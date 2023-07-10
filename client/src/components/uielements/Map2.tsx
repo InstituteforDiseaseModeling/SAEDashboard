@@ -193,15 +193,15 @@ const MapComponent = (props: any) => {
 
   const createSitePopup = (clinic: any) => {
     return '<div class="popupCustom">' +
-    '<div class="row"><div class="col">site:</div><div>' + clinic.SITE + '</div></div></div>' +
-    '<div class="row"><div class="col">type:</div><div>' + clinic.TYPE + '</div></div></div>' +
-    '<div class="row"><div class="col">polygenomic:</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-    '<div class="row"><div class="col">unique:</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-    '<div class="row"><div class="col">heterozygosity:</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+    '<div class="row border"><div class="col">site:</div><div>' + clinic.SITE + '</div></div></div>' +
     '<div class="row"><div class="col">alt:</div><div>' + clinic.ALT + '</div></div></div>' +
     '<div class="row"><div class="col">code:</div><div>' + clinic.CODE + '</div></div></div>' +
+    '<div class="row"><div class="col">f. polygenomic:</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+    '<div class="row"><div class="col">f. unique:</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+    '<div class="row"><div class="col">heterozygosity:</div><div>' + clinic.heterozygosity + '</div></div></div>' +
     '<div class="row"><div class="col">repeat multiple:</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
     '<div class="row"><div class="col">repeat twice:</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+    '<div class="row"><div class="col">type:</div><div>' + clinic.TYPE + '</div></div></div>' +
     '</div>';
   };
 
