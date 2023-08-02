@@ -81,9 +81,13 @@ const LineChart = (props) => {
 
     // add Event
     if (props.selectedState && props.selectedState.indexOf('Touba') >= 0) {
-      addEventAxis(xAxis, new Date(2020, 9, 5), 'Grand Magal\nde Touba');
-      addEventAxis(xAxis, new Date(2021, 8, 25), 'Grand Magal\nde Touba');
-      addEventAxis(xAxis, new Date(2022, 8, 14), 'Grand Magal\nde Touba');
+      for (const key in props.eventData) {
+        if (key) {
+          const event = props.eventData[key];
+          // debugger;
+          addEventAxis(xAxis, new Date(event.start_date), event.event);
+        }
+      }
     }
 
 
@@ -197,6 +201,7 @@ LineChart.propTypes = {
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
   selectedState: PropTypes.string,
+  eventData: PropTypes.object,
 };
 
 export default withStyles(styles)(LineChart);
