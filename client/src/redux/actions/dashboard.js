@@ -1,6 +1,8 @@
 import {
   FETCH_DASHBOARD_DATA,
+  FETCH_HEALTH_CLINIC_DATA,
   SET_GEOJSON_DATA,
+  SET_HEALTH_CLINIC_DATA,
   SHOW_ERROR,
 } from './types';
 import {apiAction} from './api';
@@ -34,12 +36,28 @@ export function setAfricaGeoJsonData(isAdm3) {
 }
 
 /**
+ * for setting health clinic data
+ * @param {object} healthClinicData - health clinic data
+ * @return {object} health clinic action object
+ */
+export function setHealthClinicData(healthClinicData) {
+  debugger;
+
+  return {
+    type: SET_HEALTH_CLINIC_DATA,
+    healthClinicData: healthClinicData,
+  };
+}
+
+/**
  * for raising error
  * @param {*} data error data
  * @return {*} error action object
  */
 function setError(data) {
   const response = data.response;
+
+  debugger;
 
   return {
     type: SHOW_ERROR,
@@ -69,4 +87,18 @@ export function fetchGeoJsonData(dotName, isAdm3) {
       headers: {'Access-Control-Allow-Origin': '*'},
     });
   }
+}
+
+/**
+ * Fetch health clinic data
+ * @return {*} api action object
+ */
+export function fetchHealthClinicData() {
+  return apiAction({
+    url: '/health_clinics',
+    onSuccess: setHealthClinicData,
+    onFailure: setError,
+    label: FETCH_HEALTH_CLINIC_DATA,
+    headers: {'Access-Control-Allow-Origin': '*'},
+  });
 }
