@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import LineChart from './LineChart';
 import PropTypes from 'prop-types';
 
@@ -10,9 +11,12 @@ import PropTypes from 'prop-types';
 const EventLineChart = (props) => {
   const {chartData, title, channel, selectedState} = props;
 
+  const eventData = useSelector((state) => state.dashboard.eventData);
+
+
   return (
     <LineChart chartData={chartData} title={title} channel={channel}
-      selectedState={selectedState} />
+      selectedState={selectedState} eventData={eventData}/>
   );
 };
 
@@ -21,6 +25,7 @@ EventLineChart.propTypes = {
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
   selectedState: PropTypes.string,
+  eventData: PropTypes.object,
 };
 
 export default EventLineChart;

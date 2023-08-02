@@ -1,7 +1,7 @@
 // Map related action types
 export const SET_GEOJSON_DATA = 'SET_GEOJSON_DATA';
 export const SET_HEALTH_CLINIC_DATA = 'SET_HEALTH_CLINIC_DATA';
-
+export const SET_EVENT_DATA = 'SET_EVENT_DATA';
 
 // Filter related action types
 export const CHANGE_SELECTED_STATE = 'CHANGE_SELECTED_STATE';
@@ -20,6 +20,7 @@ export const SET_COUNTRY_DATA = 'SET_COUNTRY_DATA';
 // API for fetching data
 export const FETCH_DASHBOARD_DATA = 'FETCH_DATA';
 export const FETCH_HEALTH_CLINIC_DATA = 'FETCH_HEALTH_CLINIC_DATA';
+export const FETCH_EVENT_DATA = 'FETCH_EVENT_DATA';
 
 // API related action types
 export const API = 'API';
