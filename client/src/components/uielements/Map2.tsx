@@ -1,19 +1,19 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, ObjectHTMLAttributes} from 'react';
 import {useSelector} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
-import chroma from 'chroma-js';
+import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import ClinicSites from '../../data/ClinicSites.json';
-
 
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
+
+import {HealthClinic, MapData} from '../../common/types';
 
 const styles = makeStyles({
   MapContainer: {
@@ -38,9 +38,19 @@ interface CustomTheme {
 
 const extenededlegendTheme: CustomTheme[] = customTheme;
 
-const MapComponent = (props: any) => {
+interface MapPros {
+  mapData: MapData[],
+  geoJson: object,
+  height: number,
+  selectPlace: (id:string | number)=>void,
+  selectedMapTheme: any,
+  mapLegendMax: number,
+}
+
+const MapComponent = (props: MapPros) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, mapLegendMax} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
+  const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
 
   // Data-related variables
   const minValue: number = 0;
@@ -110,7 +120,7 @@ const MapComponent = (props: any) => {
     geojson.resetStyle(e.target);
   };
 
-  const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme} as any);
+  const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme as any});
 
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, mapLegendMax]).classes(numberOfSteps);
 
@@ -128,7 +138,7 @@ const MapComponent = (props: any) => {
 
 
     const customFeatureHandler = (feature:Feature) => {
-      const region = _.find(mapData, {id: feature.id});
+      const region = _.find(mapData, {id: feature.id as any});
       const colors = scale.colors(10);
       let color = '#CCCCCC';
       if (region && region.value) {
@@ -149,7 +159,7 @@ const MapComponent = (props: any) => {
     };
 
     const standardFeatureHandler = (feature:Feature) => {
-      const region = _.find(mapData, {id: feature.id});
+      const region = _.find(mapData, {id: feature.id as any});
       if (region && region.value) {
         const color2 = scale(region.value);
         return {fillColor: color2.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
@@ -180,20 +190,23 @@ const MapComponent = (props: any) => {
       iconAnchor: [12, 36],
     });
 
-    const sites:any[] = [];
+    const sites:HealthClinic[] = [];
 
-    ClinicSites.forEach((clinic) => {
-      const marker = L.marker([clinic.Lat_2, clinic.Long_2], {icon: icon}).bindPopup(createSitePopup(clinic), {'className': 'popupCustom'});
-      sites.push(marker);
-    });
+    for (const site in healthClinicData.Senegal[2020].site_data) {
+      if (site) {
+        const clinic = healthClinicData.Senegal[2020].site_data[site];
+        const marker = L.marker([clinic.Lat_2, clinic.Long_2], {icon: icon}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
+        sites.push(marker);
+      }
+    };
 
     const parks = L.layerGroup(sites);
     layerControl.addOverlay(parks, 'Health facilities');
   };
 
-  const createSitePopup = (clinic: any) => {
+  const createSitePopup = (clinic: HealthClinic, name: string) => {
     return '<div class="popupCustom">' +
-    '<div class="row border"><div class="col">site:</div><div>' + clinic.SITE + '</div></div></div>' +
+    '<div class="row border"><div class="col">site:</div><div>' + name + '</div></div></div>' +
     '<div class="row"><div class="col">alt:</div><div>' + clinic.ALT + '</div></div></div>' +
     '<div class="row"><div class="col">code:</div><div>' + clinic.CODE + '</div></div></div>' +
     '<div class="row"><div class="col">f. polygenomic:</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +

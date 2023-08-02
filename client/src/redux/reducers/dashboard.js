@@ -1,10 +1,11 @@
 import {
-  SET_GEOJSON_DATA,
+  SET_GEOJSON_DATA, SET_HEALTH_CLINIC_DATA,
 } from '../actions/types';
 
 
 const initialState = {
   geoJson: null,
+  healthClinicData: null,
 };
 
 /**
@@ -18,6 +19,8 @@ export default function(state = initialState, action) {
     case SET_GEOJSON_DATA:
 
       return {...state, geoJson: action.geoJson};
+    case SET_HEALTH_CLINIC_DATA:
+      return {...state, healthClinicData: action.healthClinicData};
 
     default:
       return state;

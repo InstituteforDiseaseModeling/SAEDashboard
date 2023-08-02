@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Typography} from '@mui/material';
-import LineChart from './uielements/LineChart';
+import EventLineChart from './uielements/EventLineChart';
 import axios from 'axios';
 import withStyles from '@mui/styles/withStyles';
 import loader from '../image/loader.gif';
@@ -59,7 +59,7 @@ const StateDataChart = (props) => {
       {isError ?
         <div style={{height: '100%', width: '100%', textAlign: 'center'}}>
           Error loading chart data...</div> :
-        <LineChart chartData={data} title={group} channel={channel}
+        <EventLineChart chartData={data} title={group} channel={channel}
           selectedState={selectedState} />}
     </>
   );
