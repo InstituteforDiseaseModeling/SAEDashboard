@@ -49,9 +49,9 @@ const styles = {
  * @return {*} map legend component
  */
 const MapLegend = (props) => {
-  const {minValue, numberOfSteps, selectedMapTheme, legend, classes, id} = props;
+  const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id} = props;
 
-  const mapLegendMax = useSelector((state) => state.filters.mapLegendMax);
+  // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
 
   // Data-related variables

@@ -7,6 +7,8 @@ import {
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
   CHANGE_LEGEND,
+  CHANGE_YEAR_MONTH,
+  CHANGE_DIFF_MAP,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -19,7 +21,9 @@ import {AFRICA_STR} from '../../const';
 const initialState = {
   selectedState: config.defaultRegion,
   selectedCountry: config.defaultCountry,
+  selectedYearMonth: config.defaultYear,
   selectedLegend: false,
+  selectedDiffMap: false,
   isAdm3: true,
 
   countries: [],
@@ -92,6 +96,15 @@ export default function(state = initialState, action) {
 
       state.selectedLegend = null;
       return {...state, selectedLegend: action.selectedLegend};
+
+    case CHANGE_YEAR_MONTH:
+
+      return {...state, selectedYearMonth: action.selectedYearMonth};
+
+    case CHANGE_DIFF_MAP:
+
+      return {...state, selectedDiffMap: action.diffMap};
+
 
     default:
       return state;

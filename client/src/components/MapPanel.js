@@ -31,6 +31,8 @@ const MapPanel = (props) => {
 
   const selectedIndicatorRedux = useSelector((state) => state.filters.selectedIndicator);
   const selectedMapThemeRedux = useSelector((state) => state.filters.selectedMapTheme);
+  const selectedYearMonth = useSelector((state) => state.filters.selectedYearMonth);
+  const currentYear = useSelector((state) => state.filters.currentYear);
   const isAdm3 = useSelector((state) => state.filters.isAdm3);
 
   const [selectedSubgroup, changeSubgroup] = useState();
@@ -90,7 +92,7 @@ const MapPanel = (props) => {
         primary={primary}/>
       <MapPanelMap changeSelectedState={setSelectedState}
         subgroup={selectedSubgroup} indicator={primary ? selectedIndicatorRedux : selectedIndicator}
-        key={selectedIndicator+selectedIndicatorRedux}
+        key={selectedIndicator+selectedIndicatorRedux+ primary ? currentYear : selectedYearMonth}
         primary={primary}/>
     </Paper>
   );

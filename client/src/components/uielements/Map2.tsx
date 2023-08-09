@@ -50,10 +50,15 @@ interface MapPros {
 const MapComponent = (props: MapPros) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, mapLegendMax} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
+  const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
 
   // Data-related variables
-  const minValue: number = 0;
+
+  const minValue = _.get(_.minBy(mapData, 'value'), 'value');
+  const maxValueFromData = _.get(_.maxBy(mapData, 'value'), 'value');
+  const maxValue = selectedDiffMap ? maxValueFromData : mapLegendMax;
+
   const numberOfSteps: number = 10;
   const legend = useRef(null);
 
@@ -122,15 +127,13 @@ const MapComponent = (props: MapPros) => {
 
   const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme as any});
 
-  const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, mapLegendMax]).classes(numberOfSteps);
+  const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, maxValue]).classes(numberOfSteps);
 
   /**
    * Map setup
    */
   const mapSetup = function() {
     const L = require('leaflet');
-
-    // const accessToken = 'pk.eyJ1IjoiaWRtLW1hcGJveCIsImEiOiJjajF3ZmxmYjIwMDBnMnhwaDM1bGthMHIyIn0.SY_9QXFsEGZYN0CmFBU_rQ';
 
     const initialView = [14.4, -15];
 
@@ -154,7 +157,7 @@ const MapComponent = (props: MapPros) => {
 
         return {fillColor: color.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'transparent'};
+        return {color: 'lightgrey'};
       }
     };
 
@@ -164,7 +167,7 @@ const MapComponent = (props: MapPros) => {
         const color2 = scale(region.value);
         return {fillColor: color2.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'transparent'};
+        return {color: 'lightgrey'};
       }
     };
 
@@ -230,8 +233,9 @@ const MapComponent = (props: MapPros) => {
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
-      <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={mapLegendMax}
-        selectedMapTheme={selectedMapTheme} legend={legend} />
+      <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
+        selectedMapTheme={selectedMapTheme} legend={legend}
+        key={minValue + maxValue}/>
     </div>
   );
 };

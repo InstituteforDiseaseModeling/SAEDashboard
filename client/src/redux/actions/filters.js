@@ -7,6 +7,8 @@ import {
   CHANGE_MAP_LEGEND_MAX,
   CHANGE_ISADM3,
   CHANGE_LEGEND,
+  CHANGE_YEAR_MONTH,
+  CHANGE_DIFF_MAP,
   FETCH_DASHBOARD_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -70,7 +72,7 @@ export function changeIsAdm3(isAdm3) {
 }
 
 /**
- * change isAdm3 indicator
+ * change selected legend indicator
  * @param {*} selectedLegend
  * @return {*} legend message
  */
@@ -78,6 +80,19 @@ export function changeSelectedLegend(selectedLegend) {
   return {
     type: CHANGE_LEGEND,
     selectedLegend,
+  };
+}
+
+
+/**
+ * change select YearMonth filter
+ * @param {*} selectedYearMonth
+ * @return {*} selected year / month filter message
+ */
+export function changeYearMonthFilter(selectedYearMonth) {
+  return {
+    type: CHANGE_YEAR_MONTH,
+    selectedYearMonth,
   };
 }
 
@@ -127,6 +142,18 @@ export function changeMapLegendMax(mapLegendMax) {
   return {
     type: CHANGE_MAP_LEGEND_MAX,
     mapLegendMax,
+  };
+}
+
+/**
+ * toggle diff map value
+ * @param {*} diffMap
+ * @return {*} change diff map toggle message
+ */
+export function changeDiffMap(diffMap) {
+  return {
+    type: CHANGE_DIFF_MAP,
+    diffMap,
   };
 }
 
