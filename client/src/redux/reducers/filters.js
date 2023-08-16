@@ -1,6 +1,7 @@
 import {
   CHANGE_ISADM3,
   CHANGE_MAP_LEGEND_MAX,
+  CHANGE_MAP_LEGEND_MIN,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_INDICATOR,
   CHANGE_SELECTED_MAP_THEME,
@@ -34,6 +35,7 @@ const initialState = {
   toYear: 0,
   currentYear: config.defaultYear ? config.defaultYear : 2023,
   mapLegendMax: 0.25,
+  mapLegendMin: 0,
   initialLoading: true,
 };
 
@@ -66,6 +68,9 @@ export default function(state = initialState, action) {
 
     case CHANGE_MAP_LEGEND_MAX:
       return {...state, mapLegendMax: action.mapLegendMax};
+
+    case CHANGE_MAP_LEGEND_MIN:
+      return {...state, mapLegendMin: action.mapLegendMin};
 
     case SET_YEAR_SLIDER_DATA:
       return {...state, fromYear: action.fromYear, toYear: action.toYear};

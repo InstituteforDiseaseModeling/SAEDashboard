@@ -20,6 +20,11 @@ const styles = makeStyles({
     backgroundColor: 'white',
     height: '100%',
   },
+  note_diff: {
+    top: -20,
+    color: 'darkred',
+    position: 'inherit',
+  },
 });
 
 /**
@@ -44,20 +49,36 @@ interface MapPros {
   height: number,
   selectPlace: (id:string | number)=>void,
   selectedMapTheme: any,
-  mapLegendMax: number,
+  primary: string,
+  indicator: string,
 }
 
 const MapComponent = (props: MapPros) => {
-  const {mapData, geoJson, height, selectPlace, selectedMapTheme, mapLegendMax} = props;
+  const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
+  const currentYear = useSelector((state:any) => state.filters.currentYear);
+  const selectedYearMonth = useSelector((state:any) => state.filters.selectedYearMonth);
+  const selectedIndicator = useSelector((state:any) => state.filters.selectedIndicator);
+  const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
+  const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
 
   // Data-related variables
 
-  const minValue = _.get(_.minBy(mapData, 'value'), 'value');
+  const minValueFromData = _.get(_.minBy(mapData, 'value'), 'value');
   const maxValueFromData = _.get(_.maxBy(mapData, 'value'), 'value');
-  const maxValue = selectedDiffMap ? maxValueFromData : mapLegendMax;
+  let maxValue = selectedDiffMap ? maxValueFromData : mapLegendMax;
+  let minValue = selectedDiffMap ? minValueFromData : mapLegendMin;
+
+  if (selectedDiffMap && !primary) {
+    if (maxValue > minValue * -1) {
+      minValue = maxValue * -1;
+    } else {
+      maxValue = minValue * -1;
+    }
+  }
+
 
   const numberOfSteps: number = 10;
   const legend = useRef(null);
@@ -175,7 +196,8 @@ const MapComponent = (props: MapPros) => {
     // ... our listeners
     geojson = L.geoJSON(geoJson, {
       style: (feature: Feature) => {
-        if (selectedLegend) {
+        if (selectedLegend || (selectedDiffMap && !primary)) {
+          // if it is a difference map, use the standard feature handler
           return standardFeatureHandler(feature);
         } else {
           return customFeatureHandler(feature);
@@ -234,8 +256,15 @@ const MapComponent = (props: MapPros) => {
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
-        selectedMapTheme={selectedMapTheme} legend={legend}
+        selectedMapTheme={selectedMapTheme} legend={legend} primary={primary}
         key={minValue + maxValue}/>
+
+      {/* Difference note */}
+      {!primary && selectedDiffMap &&
+        <div className={classes.note_diff}>
+          Difference is calculated by : {indicator} cases in { selectedYearMonth } - {selectedIndicator} cases in { currentYear}
+        </div>
+      }
     </div>
   );
 };

@@ -12,7 +12,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import {AFRICA_STR, DEFAULT_THEMES} from '../const';
 import config from '../app_config.json';
 import {MapContext} from '../components/context/mapContext';
-import {changeMapLegendMax} from '../redux/actions/filters';
+import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
 
 
@@ -79,9 +79,14 @@ const MapPanelMap = (props) => {
         selectedDiffMap ? diffResult : result2.data );
 
       const maxVal = _.maxBy(result.data, 'value');
+      const minVal = _.minBy(result.data, 'value');
+
 
       if (primary && maxVal) {
         dispatch(changeMapLegendMax(maxVal.value));
+      }
+      if (primary && maxVal) {
+        dispatch(changeMapLegendMin(minVal.value));
       }
     } catch (data) {
       let errMsg = 'Error occurred.';
@@ -156,6 +161,7 @@ const MapPanelMap = (props) => {
           primary={primary}
           zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
           selectedMapTheme={finalTheme}
+          indicator={indicator}
           mapLegendMax={mapLegendMax}
           key ={mapLegendMax+selectedLegend}
         />

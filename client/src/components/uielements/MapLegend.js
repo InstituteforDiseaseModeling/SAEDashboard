@@ -7,6 +7,7 @@ import chroma from 'chroma-js';
 import withStyles from '@mui/styles/withStyles';
 // import * as _ from 'lodash';
 import customTheme from '../../customTheme.json';
+import {createArray} from '../../utils/utils';
 
 const styles = {
   gradLegend: {
@@ -15,7 +16,7 @@ const styles = {
     whiteSpace: 'nowrap',
     display: 'inline-block',
     position: 'absolute',
-    top: '185px', // Position of the legend depending on the top of the parent block
+    top: '205px', // Position of the legend depending on the top of the parent block
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },
@@ -49,10 +50,12 @@ const styles = {
  * @return {*} map legend component
  */
 const MapLegend = (props) => {
-  const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id} = props;
+  const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id,
+    primary} = props;
 
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
+  const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
 
   // Data-related variables
   // const step = (mapLegendMax - minValue) / numberOfSteps;
@@ -65,8 +68,22 @@ const MapLegend = (props) => {
 
   const colors = scale.colors(10);
 
-  const step = (mapLegendMax - minValue) / numberOfSteps;
+  let step = (mapLegendMax - minValue) / numberOfSteps;
 
+  if (minValue < 0) {
+    if (minValue * -1 > mapLegendMax) {
+      step = minValue * -1 / ( numberOfSteps / 2);
+    } else {
+      step = mapLegendMax / ( numberOfSteps / 2);
+    }
+  }
+
+  console.log('step:' + step);
+
+  /**
+   *
+   * @return {*} custom legend
+   */
   const customLegend = () => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
@@ -93,6 +110,10 @@ const MapLegend = (props) => {
     );
   };
 
+  /**
+   *
+   * @return {*} standard legend
+   */
   const standardLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
@@ -110,6 +131,33 @@ const MapLegend = (props) => {
     </div>);
   };
 
+  /**
+   *
+   * @return {*} legend used for showing changes in cases
+   */
+  const diffLegend = () => {
+    return (<div className={classes.gradLegend} ref={legend} id={id}>
+      {Array.from(scale.colors(numberOfSteps)).map((c) => {
+        return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
+          className={classes.gradStep}/>;
+      })}
+      {
+        createArray(-5, 5).map((num) => {
+          return <span key={num+5} className={classes.domainLabelStandard}
+            style={{left: (100 / numberOfSteps) * (num+5) + '%'}}>
+            {(step * num).toFixed(0)}
+          </span>;
+        })
+      }
+
+    </div>);
+  };
+
+  // use difference map legend when diff map is 'on' and not primary map
+  if (selectedDiffMap && !primary) {
+    return diffLegend();
+  }
+
   if (selectedLegend) {
     return standardLegend();
   } else {
@@ -126,6 +174,7 @@ MapLegend.propTypes = {
   legend: PropTypes.object,
   classes: PropTypes.object,
   id: PropTypes.string,
+  primary: PropTypes.primary,
 };
 
 export default withStyles(styles)(MapLegend);

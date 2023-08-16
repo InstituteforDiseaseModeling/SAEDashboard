@@ -5,6 +5,7 @@ import {
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
+  CHANGE_MAP_LEGEND_MIN,
   CHANGE_ISADM3,
   CHANGE_LEGEND,
   CHANGE_YEAR_MONTH,
@@ -142,6 +143,18 @@ export function changeMapLegendMax(mapLegendMax) {
   return {
     type: CHANGE_MAP_LEGEND_MAX,
     mapLegendMax,
+  };
+}
+
+/**
+ * change mapLegend min value
+ * @param {*} mapLegendMin
+ * @return {*} change mapLegend min value message
+ */
+export function changeMapLegendMin(mapLegendMin) {
+  return {
+    type: CHANGE_MAP_LEGEND_MIN,
+    mapLegendMin,
   };
 }
 
