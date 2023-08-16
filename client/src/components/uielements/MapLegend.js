@@ -58,8 +58,6 @@ const MapLegend = (props) => {
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
 
   // Data-related variables
-  // const step = (mapLegendMax - minValue) / numberOfSteps;
-
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
 
   // To get a continuous color scheme, remove the .classes()
@@ -78,7 +76,6 @@ const MapLegend = (props) => {
     }
   }
 
-  console.log('step:' + step);
 
   /**
    *
@@ -87,24 +84,44 @@ const MapLegend = (props) => {
   const customLegend = () => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
-        <span style={{background: '#16af39', width: 20}}
+        <span style={{background: '#1d9660', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
           0
         </span>
-        <span style={{background: '#f4ca18', width: 20}}
+        <span style={{background: '#1bd357', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
           5
         </span>
-        <span style={{background: '#c81325', width: 20}}
+        <span style={{background: '#9efe66', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
-          15
+          50
+        </span>
+        <span style={{background: '#fdff01', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          100
+        </span>
+        <span style={{background: '#fca725', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          250
+        </span>
+        <span style={{background: '#fb0000', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          450
+        </span>
+        <span style={{background: '#850428', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          650
         </span>
 
-        <span className={classes.domainLabelCustom} style={{left: 55, top: 55}} >
-          &gt; 15 cases/1000
+        <span className={classes.domainLabelCustom} style={{left: 132, top: 55}} >
+          &gt; 650 cases/1000
         </span>
       </div>
     );

@@ -123,7 +123,7 @@ const MapComponent = (props: MapPros) => {
     const feature = e.target;
     feature.setStyle({
       weight: 3,
-      color: color ? color : 'yellow',
+      color: color ? color : '#FFCE74',
       dashArray: '',
       fillOpacity: 0.7,
     });
@@ -167,13 +167,19 @@ const MapComponent = (props: MapPros) => {
       let color = '#CCCCCC';
       if (region && region.value) {
         if (region.value <= 5) {
-          color = '#16af39'; // colors[0];
-        } else if (region.value <= 15) {
-          color = '#f4ca18'; // colors[4];
-        } else if (region.value > 15) {
-          color = '#c81325'; // colors[9];
+          color = '#1d9660'; // colors[0];
+        } else if (region.value <= 50) {
+          color = '#1bd357'; // colors[4];
+        } else if (region.value <= 100) {
+          color = '#9efe66'; // colors[9];
+        } else if (region.value <= 250) {
+          color = '#fdff01'; // colors[9];
+        } else if (region.value <= 450) {
+          color = '#fca725'; // colors[9];
+        } else if (region.value <= 650) {
+          color = '#fb0000'; // colors[9];
         } else {
-          color = '#CCCCCC';
+          color = '#850428';
         };
 
         return {fillColor: color.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
