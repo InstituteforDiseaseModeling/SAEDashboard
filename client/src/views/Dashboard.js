@@ -30,7 +30,7 @@ const Dashboard = (props) => {
   const countries = useSelector((state) => state.filters.countries);
   const indicators = useSelector((state) => state.filters.indicators);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
-  const [amChartsInUse, setAmChartsInUse] = useState(true);
+  const [amChartsInUse, setAmChartsInUse] = useState(false);
   const contextValue = {amChartsInUse};
 
 

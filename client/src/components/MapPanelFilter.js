@@ -8,6 +8,9 @@ import MapLegendMax from './filterelements/MapLegendMax';
 import MapSubgroupsFilter from './filterelements/MapSubgroupsFilter';
 import MapTheme from './filterelements/MapTheme';
 import PropTypes from 'prop-types';
+import LegendPicker from './filterelements/LegendPicker';
+import YearMonthPicker from './filterelements/YearMonthPicker';
+import DiffMapPicker from './filterelements/DiffMapPicker';
 
 const styles = ({
   root: {
@@ -20,8 +23,12 @@ const styles = ({
     fontSize: 15,
   },
   mapBar: {
-    marginBottom: 10,
+    top: 5,
+    height: 58,
     backgroundColor: '#256baf',
+  },
+  toolbar: {
+    top: 5,
   },
 });
 
@@ -31,17 +38,20 @@ const Filters = (props) => {
   return (
     <AppBar position="static" className={primary ? `${classes.mapBar}` :
       `${classes.mapBar} ${parentClasses.comparisonMapBar}`}>
-      <Toolbar variant="dense">
+      <Toolbar variant="dense" className={classes.toolbar}>
         <Typography variant="h6" color="inherit" className={classes.MapTitle}>
           {title}
         </Typography>
         <div className={classes.grow}/>
         {primary ? <MapLegendMax/> : null} &nbsp;&nbsp;&nbsp;
+        {primary ? <LegendPicker/> : null} &nbsp;&nbsp;&nbsp;
         {primary ? <MapTheme changeMapTheme={changeMapTheme}
           selectedMapTheme={selectedMapTheme}
           indicator={selectedIndicator} /> : null} &nbsp;&nbsp;&nbsp;
+        {!primary ? <DiffMapPicker/> : null}
+        {!primary ? <YearMonthPicker/> : null}
         <IndicatorFilter changeIndicator={changeIndicator}
-          selectedIndicator={selectedIndicator}/> &nbsp;&nbsp;&nbsp;
+          selectedIndicator={selectedIndicator} primary={primary} key={primary}/> &nbsp;&nbsp;&nbsp;
         <MapSubgroupsFilter changeSubgroup={changeSubgroup} selectedSubgroup={selectedSubgroup}/>
 
       </Toolbar>
