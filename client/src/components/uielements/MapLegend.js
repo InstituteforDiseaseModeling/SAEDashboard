@@ -5,7 +5,6 @@ import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import chroma from 'chroma-js';
 import withStyles from '@mui/styles/withStyles';
-// import * as _ from 'lodash';
 import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
 
@@ -20,10 +19,23 @@ const styles = {
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },
+  blueLegend: {
+    zIndex: 1000,
+    width: '220px',
+    whiteSpace: 'nowrap',
+    display: 'inline-block',
+    position: 'absolute',
+    top: '375px', // Position of the legend depending on the top of the parent block
+    left: '-84px', // Position of the legend depending on the left of the parent block
+    transform: 'rotate(-90deg)',
+  },
   gradStep: {
     display: 'inline-block',
     height: '20px',
     float: 'left',
+    borderTop: '1px solid grey',
+    borderLeft: '1px solid grey',
+    borderBottom: '1px solid grey',
   },
   domainLabelCustom: {
     position: 'absolute',
@@ -35,11 +47,12 @@ const styles = {
   },
   domainLabelStandard: {
     position: 'absolute',
-    top: '28px', // Edit this to move the labels horizontally (+ right / - left)
+    top: '22px', // Edit this to move the labels horizontally (+ right / - left)
     fontSize: ' 11px',
     transform: 'rotate(90deg)',
-    marginLeft: '-8px', // Edit this to move the labels vertically (- down / + up)
+    marginLeft: '-2px', // Edit this to move the labels vertically (- down / + up)
     fontWeight: 'bold',
+    width: 5,
   },
 };
 
@@ -64,7 +77,8 @@ const MapLegend = (props) => {
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme)
       .domain([minValue, mapLegendMax]).classes(numberOfSteps);
 
-  const colors = scale.colors(10);
+  // To get a continuous color scheme, remove the .classes()
+  const blues = chroma.scale('Blues').domain([0, 1]).classes(5);
 
   let step = (mapLegendMax - minValue) / numberOfSteps;
 
@@ -76,6 +90,17 @@ const MapLegend = (props) => {
     }
   }
 
+  const unitLabel = (label) => {
+    return (
+      <div className={classes.domainLabelCustom}
+        style={{
+          width: 0, top: 33, left: -33, backgroundColor: 'darkgrey',
+          color: 'white', width: 85, textAlign: 'center',
+        }}>
+        {label}
+      </div>);
+  };
+
 
   /**
    *
@@ -84,6 +109,8 @@ const MapLegend = (props) => {
   const customLegend = () => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
+        {/* unit  */}
+        {unitLabel('cases / 1000')}
         <span style={{background: '#1d9660', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
@@ -120,8 +147,8 @@ const MapLegend = (props) => {
           650
         </span>
 
-        <span className={classes.domainLabelCustom} style={{left: 132, top: 55}} >
-          &gt; 650 cases/1000
+        <span className={classes.domainLabelCustom} style={{left: 158, top: 32}}>
+          &gt; 650
         </span>
       </div>
     );
@@ -133,20 +160,43 @@ const MapLegend = (props) => {
    */
   const standardLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
+      {unitLabel('cases / 1000')}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
       })}
-
       {_.times(numberOfSteps+1, (num) => {
         return <span key={num} className={classes.domainLabelStandard}
           style={{left: (100 / numberOfSteps) * num + '%'}}>
           {(minValue + step * num).toFixed(0)}
         </span>;
       })}
+    </div>);
+  };
+
+  /**
+   *
+   * @return {*} standard legend
+   */
+  const healthClinicLegend = () => {
+    const numberOfSteps = 5;
+    return (<div className={classes.blueLegend} ref={legend} id={id}>
+      {unitLabel('f.polygenomic')}
+      {Array.from(blues.colors(5)).map((c) => {
+        return <span key={c} style={{background: c, width: 10 + '%'}}
+          className={classes.gradStep}/>;
+      })}
+
+      {_.times(numberOfSteps+1, (num) => {
+        return <span key={num} className={classes.domainLabelStandard}
+          style={{left: 10 * num + '%'}}>
+          {(0 + num*20/100).toFixed(1)}
+        </span>;
+      })}
 
     </div>);
   };
+
 
   /**
    *
@@ -154,6 +204,7 @@ const MapLegend = (props) => {
    */
   const diffLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
+      {unitLabel('cases / 1000')}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
@@ -172,13 +223,22 @@ const MapLegend = (props) => {
 
   // use difference map legend when diff map is 'on' and not primary map
   if (selectedDiffMap && !primary) {
-    return diffLegend();
+    return <>
+      {diffLegend()}
+      {healthClinicLegend()}
+    </>;
   }
 
   if (selectedLegend) {
-    return standardLegend();
+    return <>
+      {standardLegend()}
+      {healthClinicLegend()}
+    </>;
   } else {
-    return customLegend();
+    return <>
+      {customLegend()}
+      {healthClinicLegend()}
+    </>;
   }
 };
 
@@ -192,6 +252,7 @@ MapLegend.propTypes = {
   classes: PropTypes.object,
   id: PropTypes.string,
   primary: PropTypes.primary,
+  mapLegendMax: PropTypes.number,
 };
 
 export default withStyles(styles)(MapLegend);

@@ -19,7 +19,7 @@ const scales = [
   'Greys', 'OrRd', 'Oranges', 'PRGn', 'Paired', 'Pastel1', 'Pastel2', 'PiYG',
   'PuBu', 'PuBuGn', 'PuOr', 'PuRd', 'Purples', 'RdBu', 'RdGy', 'RdPu', 'RdYlBu',
   'RdYlGn', 'Reds', 'Set1', 'Set2', 'Set3', 'Spectral', 'Viridis', 'YlGn', 'YlGnBu',
-  'YlOrBr', 'YlOrRd',
+  'YlOrBr', 'YlOrRd', 'GnRd',
 ];
 
 /**
