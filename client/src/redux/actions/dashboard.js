@@ -1,6 +1,10 @@
 import {
   FETCH_DASHBOARD_DATA,
+  FETCH_HEALTH_CLINIC_DATA,
+  FETCH_EVENT_DATA,
   SET_GEOJSON_DATA,
+  SET_HEALTH_CLINIC_DATA,
+  SET_EVENT_DATA,
   SHOW_ERROR,
 } from './types';
 import {apiAction} from './api';
@@ -18,6 +22,41 @@ export function setGeoJsonData(geoJson) {
   };
 }
 
+/**
+ * for setting Africa geoJson action
+ * @param {string} isAdm3 - indicate whether it is for Adm3
+ * @return {object} Africa geoJson action object
+ */
+export function setAfricaGeoJsonData(isAdm3) {
+  return {
+    type: SET_GEOJSON_DATA,
+    geoJson: isAdm3 ? AfricaAdm3Json : AfricaAdm2Json,
+  };
+}
+
+/**
+ * for setting health clinic data
+ * @param {object} healthClinicData - health clinic data
+ * @return {object} health clinic action object
+ */
+export function setHealthClinicData(healthClinicData) {
+  return {
+    type: SET_HEALTH_CLINIC_DATA,
+    healthClinicData: healthClinicData,
+  };
+}
+
+/**
+ * for setting event data
+ * @param {object} eventData - event data
+ * @return {object} eventData action object
+ */
+export function setEventData(eventData) {
+  return {
+    type: SET_EVENT_DATA,
+    eventData: eventData,
+  };
+}
 
 /**
  * for raising error
@@ -43,12 +82,44 @@ function setError(data) {
  * @return {*} api action object
  */
 export function fetchGeoJsonData(dotName, isAdm3) {
+  if (dotName==='Africa') {
+    return (setAfricaGeoJsonData(isAdm3));
+  } else {
+    return apiAction({
+      url: dotName!=='Africa' && dotName ? '/shapes?dot_name=' + dotName +
+        '&admin_level=' + (isAdm3?3:2) : '/africa_map' + '?admin_level=' + (isAdm3?3:2),
+      onSuccess: setGeoJsonData,
+      onFailure: setError,
+      label: FETCH_DASHBOARD_DATA,
+      headers: {'Access-Control-Allow-Origin': '*'},
+    });
+  }
+}
+
+/**
+ * Fetch health clinic data
+ * @return {*} api action object
+ */
+export function fetchHealthClinicData() {
   return apiAction({
-    url: dotName!=='Africa' && dotName ? '/shapes?dot_name=' + dotName +
-      '&admin_level=' + (isAdm3?3:2) : '/africa_map' + '?admin_level=' + (isAdm3?3:2),
-    onSuccess: setGeoJsonData,
+    url: '/health_clinics',
+    onSuccess: setHealthClinicData,
     onFailure: setError,
-    label: FETCH_DASHBOARD_DATA,
+    label: FETCH_HEALTH_CLINIC_DATA,
+    headers: {'Access-Control-Allow-Origin': '*'},
+  });
+}
+
+/**
+ * Fetch events data
+ * @return {*} api action object
+ */
+export function fetchEventData() {
+  return apiAction({
+    url: '/events',
+    onSuccess: setEventData,
+    onFailure: setError,
+    label: FETCH_EVENT_DATA,
     headers: {'Access-Control-Allow-Origin': '*'},
   });
 }

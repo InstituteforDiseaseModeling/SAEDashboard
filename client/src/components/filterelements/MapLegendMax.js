@@ -9,6 +9,9 @@ const styles = ({
   title: {
     color: 'white',
   },
+  hidden: {
+    display: 'none',
+  },
 });
 
 /**
@@ -29,7 +32,7 @@ const MapLegendMax = (props) => {
   }, []);
 
   return (
-    <FormControl variant="standard">
+    <FormControl variant="standard" className={classes.hidden}>
       <TextField
         id="standard-number"
         label="Legend Max"

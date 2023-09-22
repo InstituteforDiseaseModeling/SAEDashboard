@@ -1,4 +1,5 @@
-FROM python:3
+FROM python:3.8.10
+ARG TOKEN
 RUN apt update && apt install nginx git -y
 
 RUN mkdir -p /root/.pip

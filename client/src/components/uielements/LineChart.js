@@ -191,10 +191,22 @@ const LineChart = (props) => {
     }
   };
 
+  /**
+   * add date field in data for display purpose
+   * @return {JSON} data object with additional yearData field
+   */
+  const addDateField = () => {
+    const chartData = props.chartData.map((data) => {
+      data.yearDate = new Date(data.year, 0, 1);
+      return data;
+    });
+    return chartData;
+  };
+
   // When chart data prop changes it will update the chart
   useLayoutEffect(() => {
     // Set it in the chart
-    chart.current.data = props.chartData;
+    chart.current.data = addDateField();
 
     setYAxis();
   }, [props.chartData]);
@@ -221,6 +233,8 @@ LineChart.propTypes = {
   channel: PropTypes.string,
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
+  selectedState: PropTypes.string,
+  eventData: PropTypes.object,
 };
 
 export default withStyles(styles)(LineChart);
