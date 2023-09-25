@@ -37,6 +37,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white!important',
+        },
+      },
+    },
   },
 
 });

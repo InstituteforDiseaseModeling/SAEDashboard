@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import * as am4core from '@amcharts/amcharts4/core';
 import customTheme from '../../customTheme.json';
 import chroma from 'chroma-js';
@@ -107,3 +109,31 @@ export function createLegend(container, mapLegendMax, minValue, numberOfSteps, s
   label0.y = 19;
   label0.fontWeight = 'bold';
 }
+
+
+/**
+ * this function is used to create a map marker icon using the given color
+ * @param {string} color - color of the icon
+ * @return {*} - leafletJS icon
+ */
+export function colorMarker(color) {
+  const _color = color ? color : '#3392d0';
+
+  return window.L.divIcon({
+    html: `
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0"
+    y="0" viewBox="0 0 12 20" style="enable-background:new 0 0 12 20" xml:space="preserve"><style></style>
+    <g id="Artwork_1_00000150076358107722187810000000374260142755965099_"><defs><path id="SVGID_1_" d="M0 0h12v20H0z"/></defs>
+    <clipPath id="SVGID_00000165913072732037979660000000808436757911807901_"><use xlink:href="#SVGID_1_"
+    style="overflow:visible"/></clipPath><g style="clip-path:url(#SVGID_00000165913072732037979660000000808436757911807901_)">
+    <defs><path id="SVGID_00000082346768756813892310000003364813612560268974_" d="M0 0h12v20H0z"/></defs>
+    <clipPath id="SVGID_00000133498962456502987770000005292578842797837211_">
+    <use xlink:href="#SVGID_00000082346768756813892310000003364813612560268974_" style="overflow:visible"/></clipPath>
+    <path style="clip-path:url(#SVGID_00000133498962456502987770000005292578842797837211_);fill:${_color}" 
+    d="M11.94 6.16c0 3.37-4.78 13.78-5.94 13.78C4.95 19.94.06 9.53.06 6.16S2.72.06 6 .06s5.94 2.73 5.94 6.1"/><path style="clip-path:url(#SVGID_00000133498962456502987770000005292578842797837211_);fill:none;stroke:#231f20;stroke-width:.1147;stroke-miterlimit:10" d="M11.94 6.16c0 3.37-4.78 13.78-5.94 13.78C4.95 19.94.06 9.53.06 6.16S2.72.06 6 .06s5.94 2.73 5.94 6.1z"/><path style="clip-path:url(#SVGID_00000133498962456502987770000005292578842797837211_);fill:#fff" d="M7.95 5.83c0 1.11-.87 2-1.95 2s-1.95-.9-1.95-2 .87-2 1.95-2 1.95.89 1.95 2"/><ellipse style="clip-path:url(#SVGID_00000133498962456502987770000005292578842797837211_);fill:none;stroke:#231f20;stroke-width:.1147;stroke-miterlimit:10" cx="6" cy="5.83" rx="1.95" ry="2"/></g></g></svg>
+    `,
+    className: 'marker',
+    iconSize: [24, 40],
+    iconAnchor: [12, 40],
+  });
+};
