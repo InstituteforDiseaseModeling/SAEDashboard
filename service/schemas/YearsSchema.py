@@ -1,11 +1,7 @@
-from marshmallow import Schema, fields, post_dump
+from pydantic import BaseModel
 
 
-class YearsSchema(Schema):
-    id = fields.Str(data_key='id', required=True)
-    start_year = fields.Int(data_key="start_year", required=True)
-    end_year = fields.Int(data_key="end_year", required=True)
-
-    @post_dump(pass_many=True)
-    def wrap_with_envelope(self, data, many, **kwargs):
-        return {"years": data}
+class YearsSchema(BaseModel):
+    id: str
+    start_year: int
+    end_year: int

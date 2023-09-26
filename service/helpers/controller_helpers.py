@@ -13,10 +13,10 @@ DATA_CACHE = {}
 SHAPE_CACHE = {}
 
 MASTER_DATA_FILE_REGEX = re.compile(
-    '^(?P<country>.+)__(?P<channel>.+)__(?P<subgroup>.+)__(?P<version>.+)\\.csv$')
+    '^(?P<country>.+)__(?P<channel>.+)__(?P<subgroup>.+)__(?P<version>.+)\.csv$')
 
 MASTER_SHAPE_FILE_REGEX = re.compile(
-    '^(?P<country>.+)__l(?P<level>\\d+)__(?P<version>\\d+)\\.shp.pickle$')
+    '^(?P<country>.+)__l(?P<level>\d+)__(?P<version>\d+)\.shp.pickle$')
 
 # Flask mishandles boolean as string
 TRUTHY = ['true', 'True', 'yes']
@@ -55,7 +55,7 @@ class ControllerException(Exception):
 def detect_versions(country, channel, subgroup):
     # Each individual data file is versioned. This returns the versions available for a selected data set.
     # detect versions of data. Does not check availability of dot_names, channels, etc.
-    regex = re.compile('^%s__%s__%s__(?P<version>.+)\\.csv$' % (country, channel, subgroup))
+    regex = re.compile('^%s__%s__%s__(?P<version>.+)\.csv$' % (country, channel, subgroup))
 
     country_datafiles = {}
     for fn in os.listdir(data_dir):
@@ -66,7 +66,7 @@ def detect_versions(country, channel, subgroup):
 
 
 def detect_shape_versions(country):
-    regex = re.compile('^%s__l(?P<admin_level>.+)__(?P<version>.+)\\.shp\\.pickle$' % country)
+    regex = re.compile('^%s__l(?P<admin_level>.+)__(?P<version>.+)\.shp\.pickle$' % country)
     country_datafiles = {}
     for fn in os.listdir(shape_dir):
         match_obj = regex.match(fn)
@@ -133,7 +133,7 @@ def get_data_filenames(country=None, channel=None, subgroup=None, version=None):
     the arguments.
     """
     # returns match objects for further filtering
-    regex_str = '^%s__%s__%s__%s\\.csv$'
+    regex_str = '^%s__%s__%s__%s\.csv$'
     country_pattern = '(?P<country>.+)' if country is None else country
     channel_pattern = '(?P<channel>.+)' if channel is None else channel
     subgroup_pattern = '(?P<subgroup>.+)' if subgroup is None else subgroup
@@ -198,12 +198,10 @@ def get_subgroups(dot_name, channel=None, version=None, use_descendent_dot_names
             data_dot_names = [DotName(dot_name_str=dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
             if admin_level is None:
                 # add subgroup if there is a descendent of the provided dot_name in this file
-                def lambda_compare(dn):
-                    return dn.is_descendant_or_self(dn=dot_name)
+                lambda_compare = lambda dn: dn.is_descendant_or_self(dn=dot_name)
             else:
                 # select subgroups from dot_names at the exact request admin_level depth
-                def lambda_compare(dn):
-                    return dn.is_descendant_or_self(dn=dot_name) and dn.admin_level == admin_level
+                lambda_compare = lambda dn: dn.is_descendant_or_self(dn=dot_name) and dn.admin_level == admin_level
             if any([lambda_compare(ddn) for ddn in data_dot_names]):
                 subgroups.add(m['subgroup'])
         else:
@@ -225,12 +223,10 @@ def get_channels(dot_name, subgroup=None, version=None, use_descendent_dot_names
             data_dot_names = [DotName(dot_name_str=dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
             if admin_level is None:
                 # add channel if there is a descendent of the provided dot_name in this file
-                def lambda_compare(dn):
-                    return dn.is_descendant_or_self(dn=dot_name)
+                lambda_compare = lambda dn: dn.is_descendant_or_self(dn=dot_name)
             else:
                 # select channels from dot_names at the exact request admin_level depth
-                def lambda_compare(dn):
-                    return dn.is_descendant_or_self(dn=dot_name) and dn.admin_level == admin_level
+                lambda_compare = lambda dn: dn.is_descendant_or_self(dn=dot_name) and dn.admin_level == admin_level
             if any([lambda_compare(ddn) for ddn in data_dot_names]):
                 channels.add(m['channel'])
         else:
@@ -281,8 +277,10 @@ def open_data_file(filename, use_cache=True):
     ciMultipier = 1.96  # multiplier to convert stdErr to 95% CI
 
     new_columns = {
-        DataFileKeys.REFERENCE_LOWER_BOUND: ((df.loc[:, DataFileKeys.REFERENCE] - df.loc[:, 'reference_stderr'].apply(lambda x: x * ciMultipier))),
-        DataFileKeys.REFERENCE_UPPER_BOUND: ((df.loc[:, DataFileKeys.REFERENCE] + df.loc[:, 'reference_stderr'].apply(lambda x: x * ciMultipier)))
+        DataFileKeys.REFERENCE_LOWER_BOUND: (
+        (df.loc[:, DataFileKeys.REFERENCE] - df.loc[:, 'reference_stderr'].apply(lambda x: x * ciMultipier))),
+        DataFileKeys.REFERENCE_UPPER_BOUND: (
+        (df.loc[:, DataFileKeys.REFERENCE] + df.loc[:, 'reference_stderr'].apply(lambda x: x * ciMultipier)))
     }
     df = df.assign(**new_columns)
     df = df.drop(columns='reference_stderr')
@@ -307,7 +305,7 @@ def load_geojson_pickle(pickle_filename, use_cache=True):
     try:
         with open(full_path, 'rb') as f:
             geojson_dicts = pickle.load(f)
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         return None
 
     # populate the cache with the newly loaded data
@@ -332,7 +330,7 @@ def get_shape_filenames(country=None, admin_level=None, version=None):
     the arguments.
     """
     # returns match objects for further filtering
-    regex_str = '^%s__l%s__%s\\.shp.pickle$'
+    regex_str = '^%s__l%s__%s\.shp.pickle$'
     country_pattern = '(?P<country>.+)' if country is None else country
     admin_pattern = '(?P<channel>.+)' if admin_level is None else admin_level
     version_pattern = '(?P<version>.+)' if version is None else version
@@ -345,7 +343,7 @@ def get_shape_filenames(country=None, admin_level=None, version=None):
 def get_shape_filename(dot_name, admin_level, version):
     try:
         filename = get_shape_filenames(country=dot_name.country, admin_level=admin_level, version=version)[0].string
-    except IndexError:
+    except IndexError as e:
         filename = None
     return filename
 
@@ -379,7 +377,7 @@ def get_shapes(dot_name, admin_level, version):
 
 
 def read_dot_names(request):
-    dot_name_str = request.args.get('dot_name', None)
+    dot_name_str = request.query_params.get("dot_name")
     if dot_name_str is None:
         raise ControllerException('Parameter dot_name is missing from the request.')
     dot_names = dot_name_str.strip().split(',')
@@ -388,33 +386,35 @@ def read_dot_names(request):
 
 def read_version(country, channel, subgroup, request):
     # TODO: we need to fix versioning at some point. Only returning ver 1 by default for now.
-    return request.args.get('version',
-                            '1')  # detect_latest_version(country=country, channel=channel, subgroup=subgroup))
+    version = request.query_params.get("version")
+    if version is None:
+        return '1'
+    # detect_latest_version(country=country, channel=channel, subgroup=subgroup))
 
 
 def read_channel(request):
-    channel = request.args.get('channel', None)
+    channel = request.query_params.get("channel")
     if channel is None:
         raise ControllerException('Parameter channel is missing from the request.')
     return channel
 
 
 def read_subgroup(request):
-    subgroup = request.args.get('subgroup', None)
+    subgroup = request.query_params.get("subgroup")
     if subgroup is None:
         raise ControllerException('Parameter subgroup is missing from the request.')
     return subgroup
 
 
 def read_year(request):
-    year = request.args.get('year', None)
+    year = request.query_params.get("year")
     if year is None:
         raise ControllerException('Parameter year is missing from the request.')
     return int(year)
 
 
 def read_data(request):
-    data = request.args.get('data', None)
+    data = request.query_params.get("data")
     if data is None:
         raise ControllerException('Parameter data is missing from the request.')
     if data == 'data':
@@ -430,7 +430,7 @@ def read_data(request):
 
 
 def read_admin_level(request, required=True):
-    admin_level = request.args.get('admin_level', None)
+    admin_level = request.query_params.get("admin_level")
     if admin_level is None and required:
         raise ControllerException('Parameter admin_level is missing from the request.')
     if admin_level is not None:
@@ -443,13 +443,13 @@ def read_admin_level(request, required=True):
 
 def read_upfill(request):
     # whether or not to go up one admin level to fill shape requests if no shapes exist at the requested level
-    upfill = request.args.get('upfill', False)
+    upfill = request.query_params.get("upfill")
     upfill = True if upfill in TRUTHY else False
     return upfill
 
 
 def read_use_descendant_dot_names(request):
-    use_descendant_dot_names = request.args.get('use_descendant_dot_names', None)
+    use_descendant_dot_names = request.query_params.get("use_descendant_dot_names")
     use_descendant_dot_names = True if use_descendant_dot_names in TRUTHY else False
     return use_descendant_dot_names
 
