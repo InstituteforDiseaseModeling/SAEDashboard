@@ -103,7 +103,6 @@ requests	https://requests.readthedocs.io	Apache Software License
 requests-toolbelt	https://toolbelt.readthedocs.org	Apache Software License
 rfc3986	http://rfc3986.readthedocs.io	Apache Software License
 rich	https://github.com/willmcgugan/rich	MIT License
-rse-api	https://github.com/InstituteforDiseaseModeling/rse_api	UNKNOWN
 sae-dashaboard-service	https://github.com/InstituteforDiseaseModeling/service	MIT License
 six	https://github.com/benjaminp/six	MIT License
 snowballstemmer	https://github.com/snowballstem/snowball	BSD License
