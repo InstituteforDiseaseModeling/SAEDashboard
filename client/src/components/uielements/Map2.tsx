@@ -9,7 +9,6 @@ import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
 import {colorMarker} from './MapUtil';
-
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -69,6 +68,8 @@ const MapComponent = (props: MapPros) => {
   const selectedIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
+  const [selectedLayer, setSelectedLayer] = useState('');
+
 
   // Data-related variables
 
@@ -239,7 +240,14 @@ const MapComponent = (props: MapPros) => {
     };
 
     const parks = L.layerGroup(sites);
-    layerControl.addOverlay(parks, 'Health facilities');
+    layerControl.addOverlay(parks, 'sentinel facilities');
+
+    mapObj.on('overlayadd', (data)=>{
+      setSelectedLayer(data.name);
+    });
+    mapObj.on('overlayremove', ()=>{
+      setSelectedLayer(null);
+    });
   };
 
   const createSitePopup = (clinic: HealthClinic, name: string) => {
@@ -269,8 +277,8 @@ const MapComponent = (props: MapPros) => {
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
-        selectedMapTheme={selectedMapTheme} legend={legend} primary={primary}
-        key={minValue + maxValue}/>
+        selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
+        key={minValue + maxValue + selectedLayer}/>
 
       {/* Difference note */}
       {!primary && selectedDiffMap &&
