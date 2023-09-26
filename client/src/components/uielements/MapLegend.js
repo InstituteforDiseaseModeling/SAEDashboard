@@ -1,5 +1,4 @@
 /* eslint-disable  no-unused-vars */
-
 import React from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -64,11 +63,12 @@ const styles = {
  */
 const MapLegend = (props) => {
   const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id,
-    primary} = props;
+    selectedLayer, primary} = props;
 
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
+  // const selectedLayer = useSelector((state) => state.filters.selectedLayer);
 
   // Data-related variables
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
@@ -175,11 +175,14 @@ const MapLegend = (props) => {
   };
 
   /**
-   *
+   * @param {string} layer
    * @return {*} standard legend
    */
-  const healthClinicLegend = () => {
+  const healthClinicLegend = (layer) => {
     const numberOfSteps = 5;
+    if (!layer) {
+      return <></>;
+    }
     return (<div className={classes.blueLegend} ref={legend} id={id}>
       {unitLabel('f.polygenomic')}
       {Array.from(blues.colors(5)).map((c) => {
@@ -221,23 +224,24 @@ const MapLegend = (props) => {
     </div>);
   };
 
+
   // use difference map legend when diff map is 'on' and not primary map
   if (selectedDiffMap && !primary) {
     return <>
       {diffLegend()}
-      {healthClinicLegend()}
+      {healthClinicLegend(selectedLayer)}
     </>;
   }
 
   if (selectedLegend) {
     return <>
       {standardLegend()}
-      {healthClinicLegend()}
+      {healthClinicLegend(selectedLayer)}
     </>;
   } else {
     return <>
       {customLegend()}
-      {healthClinicLegend()}
+      {healthClinicLegend(selectedLayer)}
     </>;
   }
 };
@@ -252,6 +256,7 @@ MapLegend.propTypes = {
   classes: PropTypes.object,
   id: PropTypes.string,
   primary: PropTypes.primary,
+  selectedLayer: PropTypes.string,
   mapLegendMax: PropTypes.number,
 };
 

@@ -24,7 +24,7 @@ const styles = {
   root: {
     // display: 'flex',
     // justifyContent: 'space-evenly',
-    width: 140,
+    width: 220,
   },
 
 };
@@ -50,7 +50,7 @@ const LegendPicker = (props) => {
         <FormLabel component='legend' className={classes.formLabel}>
           Legend</FormLabel>
         <FormControlLabel className={classes.formControlLabel}
-          label={selectedLegend ? 'Standard': 'Custom'}
+          label={selectedLegend ? 'Equal intervals': 'PNLP report intervals'}
           control={<Switch
             checked={selectedLegend}
             onChange={legendToggleChange}
