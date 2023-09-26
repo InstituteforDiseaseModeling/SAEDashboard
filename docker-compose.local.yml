@@ -10,9 +10,10 @@ services:
         version: ${VERSION}
         maintainer: IDM
     environment:
-      - "FLASK_ENV=production"
+      - "FLASK_ENV=staging"
 
   client:
+    platform: linux/amd64
     build:
       context: ./client
       dockerfile: Dockerfile.local
