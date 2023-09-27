@@ -226,18 +226,18 @@ const MapComponent = (props: MapPros) => {
     const layerControl = L.control.layers().addTo(mapObj);
     const sites:HealthClinic[] = [];
 
-    for (const site in healthClinicData.Senegal[2020].site_data) {
-      if (site) {
-        const clinic = healthClinicData.Senegal[2020].site_data[site];
-        let colorIndex = Math.ceil(clinic.Fraction_polygenomic * 5) - 1;
-        if (!clinic.Fraction_polygenomic) {
-          colorIndex = -1;
-        }
-        const marker = L.marker([clinic.Lat_2, clinic.Long_2],
-            {icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
-        sites.push(marker);
-      }
-    };
+    // for (const site in healthClinicData.Senegal[2020].site_data) {
+    //   if (site) {
+    //     const clinic = healthClinicData.Senegal[2020].site_data[site];
+    //     let colorIndex = Math.ceil(clinic.Fraction_polygenomic * 5) - 1;
+    //     if (!clinic.Fraction_polygenomic) {
+    //       colorIndex = -1;
+    //     }
+    //     const marker = L.marker([clinic.Lat_2, clinic.Long_2],
+    //         {icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
+    //     sites.push(marker);
+    //   }
+    // };
 
     const parks = L.layerGroup(sites);
     layerControl.addOverlay(parks, 'sentinel facilities');
