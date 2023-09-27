@@ -43,14 +43,12 @@ setup(
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'flask_marshmallow==0.14.0',
-        'flask<1.2,>=1.0',
         'marshmallow==2.21.0',
         'psycopg2==2.9.5',
-        'rse-api==1.0.9',
+        'fastapi~=0.103.1',
+        'uvicorn~=0.23.2',
         'requests~=2.28.2',
         'numpy~=1.24.1',
-        'flask_restful==0.3.9',
         'pandas~=1.5.3',
         'packaging~=23.0'
     ],

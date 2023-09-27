@@ -17,30 +17,18 @@ Run the 'downloadGeoJson.cmd' script: ./helpers/downloadGeoJson.cmd
 
 2. Create a new virtual environment named 'venv': `python -m venv venv`
 
-3. Change to the new virtual environment directory: `cd venv`
+3. Activate the virtual environment by running the following command in linux `source venv/bin/activate`. 
+In windows, the command is `venv\Scripts\activate`
 
-4. Create a new file named 'pip.conf' on UNIX or 'pip.ini' on Windows.
-
-5. Edit the created file and add the following lines:
-```ini
-[global]
-index-url = https://packages.idmod.org/api/pypi/pypi-production/simple
-```
-
-6. Saved the file.
-
->Alternatively you can add `--index-url=https://packages.idmod.org/api/pypi/pypi-production/simple` to your pip install statements
-
-
-7. Install the required dependencies:
+4. Install the required dependencies:
 ```
 cd service
-pip install -r requirements_dev.txt --use-deprecated=legacy-resolver
+pip install -r requirements_dev.txt
 ```
 
-7. Install the package:
-```bash
-pip install -e . --use-deprecated=legacy-resolver
+5. Install the package:
+```
+pip install -e .
 ```
 
 8. Set the following environment variables:

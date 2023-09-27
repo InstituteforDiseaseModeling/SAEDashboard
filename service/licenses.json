@@ -406,13 +406,6 @@
     "Version": "12.4.4"
   },
   {
-    "Author": "Clinton Collins, Benoit Raybaud, Clark Kirkman IV,Zhaowei DuDavid Kong,Qinghua Long",
-    "License": "UNKNOWN",
-    "Name": "rse-api",
-    "URL": "https://github.com/InstituteforDiseaseModeling/rse_api",
-    "Version": "1.0.8"
-  },
-  {
     "Author": "Institute for Disease Modeling - RSE Team",
     "License": "MIT License",
     "Name": "sae-dashaboard-service",
