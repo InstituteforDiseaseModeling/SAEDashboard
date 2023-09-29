@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   changeSelectedIndicator,
   changeSelectedMapTheme,
+  changeSelectedSubgroup,
   changeSelectedState,
 } from '../redux/actions/filters';
 import Filters from './MapPanelFilter';
@@ -30,6 +31,7 @@ const MapPanel = (props) => {
   const indicators = useSelector((state) => state.filters.indicators);
 
   const selectedIndicatorRedux = useSelector((state) => state.filters.selectedIndicator);
+  const selectedSubgroupRedux = useSelector((state) => state.filters.selectedSubgroup);
   const selectedMapThemeRedux = useSelector((state) => state.filters.selectedMapTheme);
   const selectedYearMonth = useSelector((state) => state.filters.selectedYearMonth);
   const currentYear = useSelector((state) => state.filters.currentYear);
@@ -41,6 +43,11 @@ const MapPanel = (props) => {
   // Handle changing indicator for main map.
   const changeSelectedIndicatorRedux = (indicator) => {
     dispatch(changeSelectedIndicator(indicator, props.primary));
+  };
+
+  // Handle changing subgroup for main map.
+  const changeSelectedSubgroupRedux = (subgroup) => {
+    dispatch(changeSelectedSubgroup(subgroup, props.primary));
   };
 
   // Handle changing the map theme color.
@@ -82,17 +89,19 @@ const MapPanel = (props) => {
   return (
     <Paper className={classes.root}>
       <Filters title={primary ? 'Main Map' : 'Comparison Map'}
-        changeSubgroup={changeSubgroup}
+        changeSubgroup={primary ? changeSelectedSubgroupRedux: changeSubgroup}
         changeIndicator={primary ? changeSelectedIndicatorRedux : changeIndicator}
         changeMapTheme={changeSelectedMapThemeRedux}
-        selectedSubgroup={selectedSubgroup}
+        selectedSubgroup={primary ? selectedSubgroupRedux : selectedSubgroup}
         selectedIndicator={primary ? selectedIndicatorRedux : selectedIndicator}
         selectedMapTheme={selectedMapThemeRedux}
         parentClasses={primary ? {} : classes}
         primary={primary}/>
       <MapPanelMap changeSelectedState={setSelectedState}
-        subgroup={selectedSubgroup} indicator={primary ? selectedIndicatorRedux : selectedIndicator}
-        key={selectedIndicator+selectedIndicatorRedux+ primary ? currentYear : selectedYearMonth}
+        subgroup={primary ? selectedIndicatorRedux : selectedSubgroup}
+        indicator={primary ? selectedIndicatorRedux : selectedIndicator}
+        key={selectedIndicator + selectedIndicatorRedux + selectedSubgroup +
+          selectedSubgroupRedux + (primary ? currentYear : selectedYearMonth)}
         primary={primary}/>
     </Paper>
   );

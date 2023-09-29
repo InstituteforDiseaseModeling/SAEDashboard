@@ -2,6 +2,7 @@ import {
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
   CHANGE_SELECTED_INDICATOR,
+  CHANGE_SELECTED_SUBGROUP,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
@@ -119,6 +120,18 @@ export function changeSelectedIndicator(selectedIndicator) {
   return {
     type: CHANGE_SELECTED_INDICATOR,
     selectedIndicator,
+  };
+}
+
+/**
+ * change selected subgroup
+ * @param {*} selectedSubgroup
+ * @return {*} selected subgroup message
+ */
+export function changeSelectedSubgroup(selectedSubgroup) {
+  return {
+    type: CHANGE_SELECTED_SUBGROUP,
+    selectedSubgroup,
   };
 }
 

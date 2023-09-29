@@ -41,7 +41,8 @@ const MapPanelMap = (props) => {
   const selectedMapTheme = useSelector((state) => state.filters.selectedMapTheme);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const mapLegendMax = useSelector((state) => state.filters.mapLegendMax);
-  const selectedIndicator =useSelector((state) => state.filters.selectedIndicator);
+  const selectedIndicator = useSelector((state) => state.filters.selectedIndicator);
+  const selectedSubgroup = useSelector((state) => state.filters.selectedSubgroup);
   const geoJson = useSelector((state) => state.dashboard.geoJson);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
@@ -57,7 +58,8 @@ const MapPanelMap = (props) => {
 
     try {
       const result = await axios(
-          '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' + subgroup +
+          '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' +
+          selectedSubgroup +
           '&year=' + currentYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2),
       );
@@ -161,6 +163,7 @@ const MapPanelMap = (props) => {
           primary={primary}
           zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
           selectedMapTheme={finalTheme}
+          subgroup={subgroup}
           indicator={indicator}
           mapLegendMax={mapLegendMax}
           key ={mapLegendMax+selectedLegend}

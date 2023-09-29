@@ -4,6 +4,7 @@ import {
   CHANGE_MAP_LEGEND_MIN,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_INDICATOR,
+  CHANGE_SELECTED_SUBGROUP,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
@@ -63,6 +64,9 @@ export default function(state = initialState, action) {
     case CHANGE_SELECTED_INDICATOR:
       return {...state, selectedIndicator: action.selectedIndicator};
 
+    case CHANGE_SELECTED_SUBGROUP:
+      return {...state, selectedSubgroup: action.selectedSubgroup};
+
     case CHANGE_SELECTED_MAP_THEME:
       return {...state, selectedMapTheme: action.selectedMapTheme};
 
@@ -84,7 +88,11 @@ export default function(state = initialState, action) {
     case SET_MAP_SUBGROUPS_DATA:
       // Pick the first subgroup as selected
       const subGroups = action.subgroupsData['subgroups'];
-      return {...state, mapSubgroups: subGroups};
+      const allSubgroup = _.find(subGroups, {id: 'all'});
+      // default to use all subgroup if it is available
+      const selectedSubgroup = allSubgroup ? allSubgroup.id :
+        subGroups.length > 0 ? subGroups[0].id : null;
+      return {...state, mapSubgroups: subGroups, selectedSubgroup: selectedSubgroup};
 
     case SET_COUNTRY_DATA:
       // Pick the first subgroup as selected
