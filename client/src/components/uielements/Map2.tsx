@@ -61,6 +61,7 @@ const MapComponent = (props: MapPros) => {
   const currentYear = useSelector((state:any) => state.filters.currentYear);
   const selectedYearMonth = useSelector((state:any) => state.filters.selectedYearMonth);
   const selectedIndicator = useSelector((state:any) => state.filters.selectedIndicator);
+  const selectedSubgroup = useSelector((state:any) => state.filters.selectedSubgroup);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
 
@@ -222,4 +223,3 @@ const MapComponent = (props: MapPros) => {
 };
 
 export default MapComponent;
-
