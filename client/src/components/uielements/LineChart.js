@@ -5,6 +5,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import withStyles from '@mui/styles/withStyles';
 import {ChartContext} from '../context/chartContext';
+import {IndicatorsToSeriesName} from '../../const';
 
 const styles = ({
   title: {
@@ -38,7 +39,7 @@ const LineChart = (props) => {
   const creatSeries = (x, yAxis) => {
     const series = x.series.push(new am4charts.LineSeries());
     series.simplifiedProcessing = true;
-    series.name = 'Model post. median '+props.channel + ' (cases / 1000ppl)';
+    series.name = IndicatorsToSeriesName[props.channel];
     series.dataFields.dateX = 'yearDate';
     series.dataFields.valueY = 'middle';
     series.tooltipText = '{year} : {middle}';
@@ -73,7 +74,7 @@ const LineChart = (props) => {
     x.legend.zIndex = 100;
 
     x.legend.paddingLeft = '5px';
-    x.legend.paddingTop = '-15px';
+    x.legend.paddingTop = '0px';
     x.legend.position = 'bottom';
     x.legend.height = '100px';
 
@@ -189,7 +190,6 @@ const LineChart = (props) => {
 
   return (
     <>
-      {/* <Typography variant="h5" className={classes.title}> {props.title} </Typography> */}
       <div id={chartId} style={{width: '100%', height: '300px', fontSize: '0.9em'}}/>
     </>
   );
