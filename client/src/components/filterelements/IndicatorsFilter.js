@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {MenuItem, Select} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 /**
  * component for indicator selection
@@ -11,22 +12,14 @@ import PropTypes from 'prop-types';
  * @return {React.ReactElement}
  */
 const IndicatorFilter = (props) => {
-  const {selectedIndicator, changeIndicator, primary} = props;
+  const {selectedIndicator, changeIndicator} = props;
   const indicators = useSelector((state) => state.filters.indicators);
-
-  useEffect(()=> {
-    // if (indicators && indicators.length > 0) {
-    //   if (primary) {
-    //     changeIndicator('reported');
-    //   } else {
-    //     changeIndicator('predicted');
-    //   }
-    // }
-  }, [indicators, primary]);
 
   return (
     <FormControl variant="standard">
-      <InputLabel htmlFor="indicator-select">Indicators</InputLabel>
+      <InputLabel htmlFor="indicator-select">
+        <FormattedMessage id='indicators'/>
+      </InputLabel>
       <Select id="indicator-select" value={selectedIndicator || ''}
         onChange={(e) => changeIndicator(e.target.value)}
       >

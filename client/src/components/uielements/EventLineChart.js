@@ -13,7 +13,6 @@ const EventLineChart = (props) => {
 
   const eventData = useSelector((state) => state.dashboard.eventData);
 
-
   return (
     <LineChart chartData={chartData} title={title} channel={channel}
       selectedState={selectedState} eventData={eventData}/>

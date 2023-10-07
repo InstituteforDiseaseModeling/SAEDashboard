@@ -6,7 +6,7 @@ import withStyles from '@mui/styles/withStyles';
 import config from '../../app_config.json';
 import {DEFAULT_THEME} from '../../const';
 import PropTypes from 'prop-types';
-
+import {FormattedMessage} from 'react-intl';
 
 const styles = {
   menuPaper: {
@@ -50,7 +50,9 @@ const MapTheme = (props) => {
 
   return (
     <FormControl variant="standard">
-      <InputLabel htmlFor="mapTheme-select">Themes</InputLabel>
+      <InputLabel htmlFor="mapTheme-select">
+        <FormattedMessage id='themes'/>
+      </InputLabel>
       <Select id="mapTheme-select" value={selectedMapTheme ? selectedMapTheme : scales[0]}
         style={{minWidth: '100px'}}
         onChange={(e) => changeMapTheme(e.target.value)}

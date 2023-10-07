@@ -6,6 +6,7 @@ import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import PropTypes from 'prop-types';
 import {changeYearMonthFilter} from '../../redux/actions/filters';
+import {FormattedMessage} from 'react-intl';
 
 const styles = {
   formControlLabel: {
@@ -46,7 +47,9 @@ const YearMonthPicker = (props) => {
   return (
     <div className={classes.root}>
       <FormControl component='fieldset' variant='standard'>
-        <InputLabel htmlFor="mapTheme-select">Year/Month</InputLabel>
+        <InputLabel htmlFor="mapTheme-select">
+          <FormattedMessage id='year_month'/>
+        </InputLabel>
         <Select id="mapTheme-select"
           style={{minWidth: '80px'}}
           value={selectedMonthYear}

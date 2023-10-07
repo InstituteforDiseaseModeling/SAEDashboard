@@ -6,6 +6,7 @@ import chroma from 'chroma-js';
 import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
+import * as translations from '../../data/translation';
 
 const styles = {
   gradLegend: {
@@ -68,7 +69,7 @@ const MapLegend = (props) => {
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
-  // const selectedLayer = useSelector((state) => state.filters.selectedLayer);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
 
   // Data-related variables
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
@@ -101,7 +102,7 @@ const MapLegend = (props) => {
       </div>);
   };
 
-
+  const yLabel = _.get(translations[selectedLocale], 'cases_per_1000');
   /**
    *
    * @return {*} custom legend
@@ -110,7 +111,7 @@ const MapLegend = (props) => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
         {/* unit  */}
-        {unitLabel('cases / 1000')}
+        {unitLabel(yLabel)}
         <span style={{background: '#1d9660', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
@@ -160,7 +161,7 @@ const MapLegend = (props) => {
    */
   const standardLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
-      {unitLabel('cases / 1000')}
+      {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
@@ -207,7 +208,7 @@ const MapLegend = (props) => {
    */
   const diffLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
-      {unitLabel('cases / 1000')}
+      {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
@@ -247,7 +248,7 @@ const MapLegend = (props) => {
 };
 
 MapLegend.propTypes = {
-  selectPlace: PropTypes.func.isRequired,
+  selectPlace: PropTypes.func,
   minValue: PropTypes.number.isRequired,
   numberOfSteps: PropTypes.number.isRequired,
   selectedMapTheme: PropTypes.string.isRequired,
@@ -255,7 +256,7 @@ MapLegend.propTypes = {
   legend: PropTypes.object,
   classes: PropTypes.object,
   id: PropTypes.string,
-  primary: PropTypes.primary,
+  primary: PropTypes.bool,
   selectedLayer: PropTypes.string,
   mapLegendMax: PropTypes.number,
 };

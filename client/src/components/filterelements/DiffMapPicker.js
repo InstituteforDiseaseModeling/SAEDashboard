@@ -4,6 +4,7 @@ import {Switch, FormControl, FormLabel, FormControlLabel} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import {changeDiffMap} from '../../redux/actions/filters';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 const styles = {
   formControlLabel: {
@@ -46,7 +47,8 @@ const DiffMapPicker = (props) => {
     <div className={classes.root}>
       <FormControl component='fieldset' variant='standard'>
         <FormLabel component='legend' className={classes.formLabel}>
-          Difference</FormLabel>
+          <FormattedMessage id='difference'/>
+        </FormLabel>
         <FormControlLabel className={classes.formControlLabel}
           label={selectedDiffMap ? 'On': 'Off'}
           control={<Switch

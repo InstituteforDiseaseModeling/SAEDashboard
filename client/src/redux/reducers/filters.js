@@ -10,6 +10,7 @@ import {
   CHANGE_LEGEND,
   CHANGE_YEAR_MONTH,
   CHANGE_DIFF_MAP,
+  CHANGE_LANGUAGE,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -30,6 +31,7 @@ const initialState = {
   countries: [],
   indicators: [],
   mapSubgroups: [],
+  selectedLanguage: 'en',
 
   fromYear: 0,
   toYear: 0,
@@ -107,9 +109,10 @@ export default function(state = initialState, action) {
       return {...state, selectedYearMonth: action.selectedYearMonth};
 
     case CHANGE_DIFF_MAP:
-
       return {...state, selectedDiffMap: action.diffMap};
 
+    case CHANGE_LANGUAGE:
+      return {...state, selectedLanguage: action.language};
 
     default:
       return state;

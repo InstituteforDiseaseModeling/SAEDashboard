@@ -10,6 +10,7 @@ import {
   CHANGE_LEGEND,
   CHANGE_YEAR_MONTH,
   CHANGE_DIFF_MAP,
+  CHANGE_LANGUAGE,
   FETCH_DASHBOARD_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -254,4 +255,16 @@ export function fetchCountryData(isAdm3) {
     label: FETCH_DASHBOARD_DATA,
     headers: {'Access-Control-Allow-Origin': '*'},
   });
+}
+
+/**
+ * change language
+ * @param {*} language
+ * @return {*} set language message
+ */
+export function changeLanguage(language) {
+  return {
+    type: CHANGE_LANGUAGE,
+    language,
+  };
 }

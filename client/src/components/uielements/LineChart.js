@@ -1,11 +1,12 @@
 import React, {useLayoutEffect, useRef, useContext} from 'react';
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import * as _ from 'lodash';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import withStyles from '@mui/styles/withStyles';
 import {ChartContext} from '../context/chartContext';
-import {IndicatorsToSeriesName} from '../../const';
+import {injectIntl} from 'react-intl';
 
 const styles = ({
   title: {
@@ -14,7 +15,6 @@ const styles = ({
     fontSize: '1.25rem',
   },
 });
-
 /**
  * Function setting default parameters for am4charts axis
  * @param {*} axis Axis to setup
@@ -35,11 +35,12 @@ const LineChart = (props) => {
   const chartId = _.uniqueId('chart');
   const {maxYAxisVal, setMaxYAxisVal} = useContext(ChartContext);
   const {minYAxisVal, setMinYAxisVal} = useContext(ChartContext);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
 
   const creatSeries = (x, yAxis) => {
     const series = x.series.push(new am4charts.LineSeries());
     series.simplifiedProcessing = true;
-    series.name = IndicatorsToSeriesName[props.channel];
+    series.name = props.intl.formatMessage({id: 'chart_'+props.channel});
     series.dataFields.dateX = 'yearDate';
     series.dataFields.valueY = 'middle';
     series.tooltipText = '{year} : {middle}';
@@ -55,13 +56,13 @@ const LineChart = (props) => {
     setUpAxis(xAxis);
     xAxis.numberFormatter.numberFormat = '#';
     xAxis.renderer.minGridDistance = 50;
-    xAxis.title.text = 'year';
+    xAxis.title.text = props.intl.formatMessage({id: 'year'});
 
     const yAxis = x.yAxes.push(new am4charts.ValueAxis());
     setUpAxis(yAxis);
     yAxis.numberFormatter.numberFormat = '#.##';
     yAxis.extraTooltipPrecision = 1;
-    yAxis.title.text = 'cases / 1000';
+    yAxis.title.text = props.intl.formatMessage({id: 'cases_per_1000'});
 
     // Create chart
     creatSeries(x, yAxis);
@@ -78,14 +79,11 @@ const LineChart = (props) => {
     x.legend.position = 'bottom';
     x.legend.height = '100px';
 
-    console.log(props.selectedState);
-
     // add Event
     if (props.selectedState && props.selectedState.indexOf('Touba') >= 0) {
       for (const key in props.eventData) {
         if (key) {
           const event = props.eventData[key];
-          // debugger;
           addEventAxis(xAxis, new Date(event.start_date), event.event);
         }
       }
@@ -101,7 +99,7 @@ const LineChart = (props) => {
     return () => {
       x.dispose();
     };
-  }, [props.channel]);
+  }, [props.channel, selectedLocale]);
 
   const addEventAxis = (axisObj, value, labeltext) => {
     const range = axisObj.axisRanges.create();
@@ -177,7 +175,7 @@ const LineChart = (props) => {
     chart.current.data = addDateField();
 
     setYAxis();
-  }, [props.chartData]);
+  }, [props.chartData, props.intl.locale]);
 
 
   // ---------------------------------------------------------------------------
@@ -201,7 +199,8 @@ LineChart.propTypes = {
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
   selectedState: PropTypes.string,
-  eventData: PropTypes.object,
+  eventData: PropTypes.array,
+  intl: PropTypes.func,
 };
 
-export default withStyles(styles)(LineChart);
+export default withStyles(styles)(injectIntl(LineChart));
