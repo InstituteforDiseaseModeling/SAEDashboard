@@ -31,7 +31,7 @@ const initialState = {
   countries: [],
   indicators: [],
   mapSubgroups: [],
-  selectedLanguage: 'en',
+  selectedLanguage: 'fr',
 
   fromYear: 0,
   toYear: 0,

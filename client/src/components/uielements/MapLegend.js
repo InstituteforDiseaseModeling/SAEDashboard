@@ -96,13 +96,14 @@ const MapLegend = (props) => {
       <div className={classes.domainLabelCustom}
         style={{
           width: 0, top: 33, left: -33, backgroundColor: 'darkgrey',
-          color: 'white', width: 85, textAlign: 'center',
+          color: 'white', width: 95, textAlign: 'center',
         }}>
         {label}
       </div>);
   };
 
   const yLabel = _.get(translations[selectedLocale], 'cases_per_1000');
+  const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
   /**
    *
    * @return {*} custom legend
@@ -185,7 +186,7 @@ const MapLegend = (props) => {
       return <></>;
     }
     return (<div className={classes.blueLegend} ref={legend} id={id}>
-      {unitLabel('f.polygenomic')}
+      {unitLabel(legendTitle)}
       {Array.from(blues.colors(5)).map((c) => {
         return <span key={c} style={{background: c, width: 10 + '%'}}
           className={classes.gradStep}/>;
