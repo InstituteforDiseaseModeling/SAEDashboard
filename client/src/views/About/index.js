@@ -6,7 +6,6 @@ import {injectIntl} from 'react-intl';
 
 const About = (props) => {
   const {intl} = props;
-  
   if (intl.locale === 'en') {
     return (<En/>);
   } else if (intl.locale === 'fr') {
