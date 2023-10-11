@@ -24,7 +24,8 @@ const IndicatorFilter = (props) => {
         onChange={(e) => changeIndicator(e.target.value)}
       >
         {indicators.map((field, i) => {
-          return (<MenuItem value={field.id} key={i}>{field.text}</MenuItem>);
+          return (<MenuItem value={field.id} key={i}><FormattedMessage id={field.text}/>
+          </MenuItem>);
         })}
       </Select>
     </FormControl>);

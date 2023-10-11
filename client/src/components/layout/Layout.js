@@ -167,7 +167,7 @@ const Layout = (props) => {
               sx={{bgcolor: 'white'}}
               onChange={(e) => handleLanguage(e.target.value)}>
               <MenuItem value='en'>English</MenuItem>
-              <MenuItem value='fr'>French</MenuItem>
+              <MenuItem value='fr'>Français</MenuItem>
             </Select>
 
             {/* <Link title="small area estimation Github repo"

@@ -36,5 +36,12 @@
   "type": "type",
   "difference_calculate_by": "La différence est calculée comme suit",
   "in": "en",
-  "year": "Année"
+  "year": "Année",
+  "frontend_libraries": "Librairies frontales",
+  "backend_libraries": "Librairies backend",
+  "name_author": "NOM/AUTEUR",
+  "license": "LICENCE",
+  "version": "version",
+  "url": "url",
+  "github": "github"
 }

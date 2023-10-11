@@ -163,7 +163,7 @@ const About = (props) => {
         Ressources complémentaires
       </Typography>
       <Typography variant="body1" className={classes.contentText}>
-            Questions? Contact <a href="mailto:Kate.Battle@Gatesfoundation.org">Kate.Battle@Gatesfoundation.org</a>
+        Vous avez des questions ? Contact <a href="mailto:Kate.Battle@Gatesfoundation.org">Kate.Battle@Gatesfoundation.org</a>
       </Typography>
 
 

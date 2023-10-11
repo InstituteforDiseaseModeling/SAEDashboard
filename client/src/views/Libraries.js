@@ -5,6 +5,7 @@ import {Table, TableCell, TableHead, TableRow, Typography} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 const styles = ({
   root: {
@@ -55,14 +56,16 @@ const Libraries = ({classes}) => {
     <div className={classes.page}>
       <div className={classes.root}>
 
-        <Typography variant="h6" className={classes.titleText}>Frontend libraries</Typography>
+        <Typography variant="h6" className={classes.titleText}>
+          <FormattedMessage id='frontend_libraries'/>
+        </Typography>
         <Table>
           <TableHead>
-            <TableCell>name/Author</TableCell>
-            <TableCell>license</TableCell>
-            <TableCell>version</TableCell>
-            <TableCell>url</TableCell>
-            <TableCell>github</TableCell>
+            <TableCell><FormattedMessage id='name_author'/></TableCell>
+            <TableCell><FormattedMessage id='license'/></TableCell>
+            <TableCell><FormattedMessage id='version'/></TableCell>
+            <TableCell><FormattedMessage id='url'/></TableCell>
+            <TableCell><FormattedMessage id='github'/></TableCell>
           </TableHead>
           {
             feLibraries.map((library) => {
@@ -79,13 +82,15 @@ const Libraries = ({classes}) => {
           }
         </Table>
 
-        <Typography variant="h6" className={classes.titleText}>Backend libraries</Typography>
+        <Typography variant="h6" className={classes.titleText}>
+          <FormattedMessage id='backend_libraries'/>
+        </Typography>
         <Table>
           <TableHead>
-            <TableCell>name/author</TableCell>
-            <TableCell>license</TableCell>
-            <TableCell>version</TableCell>
-            <TableCell>url</TableCell>
+            <TableCell><FormattedMessage id='name_author'/></TableCell>
+            <TableCell><FormattedMessage id='license'/></TableCell>
+            <TableCell><FormattedMessage id='version'/></TableCell>
+            <TableCell><FormattedMessage id='url'/></TableCell>
           </TableHead>
           {
             beLibraries.map((library) => {

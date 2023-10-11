@@ -7,7 +7,9 @@ LABELS = {
     "Vx": "Majority of children vaccinated (Vx)",
     "unmet_need_limit": "Unmet need for limiting",
     "unmet_need_space": "Unmet need for spacing",
-    "ALL_STD": "All STD"
+    "ALL_STD": "All STD",
+    "predicted_incidence": "predicted_incidence",
+    "reported_incidence": "reported_incidence"
 }
 
 
