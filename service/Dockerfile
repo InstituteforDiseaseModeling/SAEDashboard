@@ -1,4 +1,4 @@
-FROM python:3.8.10
+FROM python:3.9
 ARG TOKEN
 RUN apt update && apt install nginx git -y
 
@@ -17,7 +17,7 @@ ADD helpers/gadm_geojson_converter.py /app/service/helpers
 ADD helpers/serialize_files.py /app/service/helpers
 ADD helpers/downloadGeoJson.sh /app/service/helpers
 
-RUN pip install -e .[production] --use-deprecated=legacy-resolver
+RUN pip install -e .[production]
 
 ## Download geoJSON from GADM and and property update
 RUN chmod a+x ./helpers/downloadGeoJson.sh
@@ -31,4 +31,4 @@ RUN chmod +x ./entrypoint.sh
 ADD wsgi.ini .
 ADD . ./service
 
-CMD /app/entrypoint.sh
+CMD ["uvicorn", "service.app:app", "--host", "0.0.0.0", "--port", "5000"]
