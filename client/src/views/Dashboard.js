@@ -79,10 +79,10 @@ const Dashboard = (props) => {
       </Grid>
       <MapContext.Provider value={contextValue}>
         <Grid item xs={12} md={6}>
-          <MapPanel primary />
+          <MapPanel primary={true} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <MapPanel/>
+          <MapPanel primary={false}/>
         </Grid>
       </MapContext.Provider>
       <Grid item xs={12}>

@@ -45,6 +45,8 @@ const MapPanelMap = (props) => {
   const geoJson = useSelector((state) => state.dashboard.geoJson);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+
   const [MapData, setData] = useState();
   const [error, setError] = useState();
   const classes = styles();
@@ -163,7 +165,7 @@ const MapPanelMap = (props) => {
           selectedMapTheme={finalTheme}
           indicator={indicator}
           mapLegendMax={mapLegendMax}
-          key ={mapLegendMax+selectedLegend}
+          key ={mapLegendMax+selectedLegend+selectedLocale}
         />
       }
     </div>
