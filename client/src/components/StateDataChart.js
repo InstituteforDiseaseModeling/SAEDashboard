@@ -5,8 +5,9 @@ import axios from 'axios';
 import withStyles from '@mui/styles/withStyles';
 import loader from '../image/loader.gif';
 import {showError} from '../redux/actions/messaging';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 const styles = {
   title: {
@@ -20,6 +21,8 @@ const StateDataChart = (props) => {
   const {classes, group, groupName, selectedState, channel} = props;
   const [data, setData] = useState(null);
   const [isError, setIsError] = useState(false);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +47,7 @@ const StateDataChart = (props) => {
     if (selectedState && group && channel) {
       fetchData();
     }
-  }, [selectedState, channel, group]);
+  }, [selectedState, channel, group, selectedLocale]);
 
   if (!data && !isError) {
     return (
@@ -55,7 +58,9 @@ const StateDataChart = (props) => {
 
   return (
     <>
-      <Typography variant="subtitle2" className={classes.title}>{groupName}</Typography>
+      <Typography variant="subtitle2" className={classes.title}>
+        <FormattedMessage id={groupName}/>
+      </Typography>
       {isError ?
         <div style={{height: '100%', width: '100%', textAlign: 'center'}}>
           Error loading chart data...</div> :

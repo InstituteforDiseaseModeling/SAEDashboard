@@ -6,6 +6,7 @@ import chroma from 'chroma-js';
 import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
+import * as translations from '../../data/translation';
 
 const styles = {
   gradLegend: {
@@ -68,7 +69,7 @@ const MapLegend = (props) => {
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
-  // const selectedLayer = useSelector((state) => state.filters.selectedLayer);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
 
   // Data-related variables
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
@@ -95,13 +96,14 @@ const MapLegend = (props) => {
       <div className={classes.domainLabelCustom}
         style={{
           width: 0, top: 33, left: -33, backgroundColor: 'darkgrey',
-          color: 'white', width: 85, textAlign: 'center',
+          color: 'white', width: 95, textAlign: 'center',
         }}>
         {label}
       </div>);
   };
 
-
+  const yLabel = _.get(translations[selectedLocale], 'cases_per_1000');
+  const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
   /**
    *
    * @return {*} custom legend
@@ -110,7 +112,7 @@ const MapLegend = (props) => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
         {/* unit  */}
-        {unitLabel('cases / 1000')}
+        {unitLabel(yLabel)}
         <span style={{background: '#1d9660', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
@@ -160,7 +162,7 @@ const MapLegend = (props) => {
    */
   const standardLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
-      {unitLabel('cases / 1000')}
+      {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
@@ -184,7 +186,7 @@ const MapLegend = (props) => {
       return <></>;
     }
     return (<div className={classes.blueLegend} ref={legend} id={id}>
-      {unitLabel('f.polygenomic')}
+      {unitLabel(legendTitle)}
       {Array.from(blues.colors(5)).map((c) => {
         return <span key={c} style={{background: c, width: 10 + '%'}}
           className={classes.gradStep}/>;
@@ -207,7 +209,7 @@ const MapLegend = (props) => {
    */
   const diffLegend = () => {
     return (<div className={classes.gradLegend} ref={legend} id={id}>
-      {unitLabel('cases / 1000')}
+      {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
           className={classes.gradStep}/>;
@@ -247,7 +249,7 @@ const MapLegend = (props) => {
 };
 
 MapLegend.propTypes = {
-  selectPlace: PropTypes.func.isRequired,
+  selectPlace: PropTypes.func,
   minValue: PropTypes.number.isRequired,
   numberOfSteps: PropTypes.number.isRequired,
   selectedMapTheme: PropTypes.string.isRequired,
@@ -255,7 +257,7 @@ MapLegend.propTypes = {
   legend: PropTypes.object,
   classes: PropTypes.object,
   id: PropTypes.string,
-  primary: PropTypes.primary,
+  primary: PropTypes.bool,
   selectedLayer: PropTypes.string,
   mapLegendMax: PropTypes.number,
 };

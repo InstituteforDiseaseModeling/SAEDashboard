@@ -12,6 +12,7 @@ import {colorMarker} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
+import {injectIntl} from 'react-intl';
 
 import {HealthClinic, MapData} from '../../common/types';
 
@@ -56,9 +57,10 @@ interface MapPros {
   selectedMapTheme: any,
   primary: string,
   indicator: string,
+  intl: any,
 }
 
-const MapComponent = (props: MapPros) => {
+const MapComponent = (props: any) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
@@ -69,7 +71,8 @@ const MapComponent = (props: MapPros) => {
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
-
+  const {intl} = props;
+  const unitLabel = intl.formatMessage({id: 'cases_per_1000'});
 
   // Data-related variables
 
@@ -143,7 +146,7 @@ const MapComponent = (props: MapPros) => {
           feature._latlngs[0][0][0] : feature._latlngs[0][0];
         window.L.popup()
             .setLatLng(e.latlng)
-            .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' cases/1000')
+            .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' ' + unitLabel)
             .openOn(mapObj);
       }
     }
@@ -240,7 +243,7 @@ const MapComponent = (props: MapPros) => {
     };
 
     const parks = L.layerGroup(sites);
-    layerControl.addOverlay(parks, 'sentinel facilities');
+    layerControl.addOverlay(parks, props.intl.formatMessage({id: 'sentinel_facilities'}));
 
     mapObj.on('overlayadd', (data)=>{
       setSelectedLayer(data.name);
@@ -252,15 +255,15 @@ const MapComponent = (props: MapPros) => {
 
   const createSitePopup = (clinic: HealthClinic, name: string) => {
     return '<div class="popupCustom">' +
-    '<div class="row border"><div class="col">site:</div><div>' + name + '</div></div></div>' +
-    '<div class="row"><div class="col">alt:</div><div>' + clinic.ALT + '</div></div></div>' +
-    '<div class="row"><div class="col">code:</div><div>' + clinic.CODE + '</div></div></div>' +
-    '<div class="row"><div class="col">f. polygenomic:</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-    '<div class="row"><div class="col">f. unique:</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-    '<div class="row"><div class="col">heterozygosity:</div><div>' + clinic.heterozygosity + '</div></div></div>' +
-    '<div class="row"><div class="col">repeat multiple:</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
-    '<div class="row"><div class="col">repeat twice:</div><div>' + clinic.repeated_twice + '</div></div></div>' +
-    '<div class="row"><div class="col">type:</div><div>' + clinic.TYPE + '</div></div></div>' +
+    '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
     '</div>';
   };
 
@@ -283,12 +286,17 @@ const MapComponent = (props: MapPros) => {
       {/* Difference note */}
       {!primary && selectedDiffMap &&
         <div className={classes.note_diff}>
-          Difference is calculated by : {indicator} cases in { selectedYearMonth } - {selectedIndicator} cases in { currentYear}
+          {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
+          indicator + ' ' +
+          intl.formatMessage({id: 'in'}) + ' ' +
+          selectedYearMonth + ' - ' + selectedIndicator + ' ' +
+          intl.formatMessage({id: 'in'}) + ' ' +
+          currentYear}
         </div>
       }
     </div>
   );
 };
 
-export default MapComponent;
+export default injectIntl(MapComponent);
 

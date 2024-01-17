@@ -1,7 +1,7 @@
 from marshmallow import post_dump, Schema, fields
 
 LABELS = {
-    "all": "All Ages",
+    "all": "all_ages",
     "25plus_rural": "Women 25+, Rural",
     "25plus_urban": "Women 25+, Urban",
     "15-24_urban": "Women 15-24, Urban",

@@ -5,3 +5,7 @@ node_modules
 .DS_Store
 *.pyc
 *.egg-info
+./service/data
+./service/data/data
+venv2
+client/build
