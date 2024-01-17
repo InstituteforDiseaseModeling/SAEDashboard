@@ -13,8 +13,9 @@ body {
   font-weight: bold
 }
 
-.popupCustom .row {
-  display: flex
+.popupCustom.row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .popupCustom .border {
