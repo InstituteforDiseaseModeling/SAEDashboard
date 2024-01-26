@@ -8,10 +8,10 @@ LABELS = {
     "unmet_need_limit": "Unmet need for limiting",
     "unmet_need_space": "Unmet need for spacing",
     "ALL_STD": "All STD",
-    "CDM_Coverage": "CDM Coverage",
-    "MILDA_Coverage": "MILDA Coverage",
-    "CDM": "CDM Net Quantity",
-    "MILDA": "MILDA Net Quantity",
+    "CDM_Coverage": "CDM - Population Coverage Rates",
+    "MILDA_Coverage": "MILDA - Population Coverage Rates",
+    "CDM": "CDM - Number of Nets",
+    "MILDA": "MILDA - Number of Nets",
 }
 
 
