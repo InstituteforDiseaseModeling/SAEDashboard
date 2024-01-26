@@ -1,15 +1,15 @@
 {
   "title": "Subnational Family Planning Estimation Tool",
-  "disableAdmin2" : true,
+  "disableAdmin2" : false,
   "defaultYear": 2020,
-  "defaultRegion" : "Africa:Senegal:Thiès",
+  "defaultRegion" : "Africa:Senegal:Thies:Thies",
   "defaultCountry" : "Africa:Senegal",
   "defaultThemeByIndicator" : {
     "modern_method" : "RdBu",
     "traditional_method": "RdBu",
     "unmet_need": "BuRd",
-    "predicted": "BuRd",
-    "reported": "BuRd",
+    "predicted_incidence": "BuRd",
+    "reported_incidence": "BuRd",
     "polygenomic_fraction": "BuRd"
   }
 }

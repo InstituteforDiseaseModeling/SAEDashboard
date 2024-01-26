@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   service:
+    platform: linux/amd64
     build:
       context: ./service
       dockerfile: Dockerfile.local
@@ -15,6 +16,7 @@ services:
     #   - /mnt/SAEDashboard-Data:/app/service/data
 
   client:
+    platform: linux/amd64
     build:
       context: ./client
       dockerfile: Dockerfile.local

@@ -1,10 +1,11 @@
-from marshmallow import fields, post_dump, Schema
+from pydantic import BaseModel
+from typing import List
 
 
-class DotnamesSchema(Schema):
-    dot_name = fields.Str(data_key='id')
-    label = fields.Function(lambda obj: obj['dot_name'].split(':')[-1].capitalize(), data_key="text")
+class DotnameSchema(BaseModel):
+    id: str
+    text: str
 
-    @post_dump(pass_many=True)
-    def wrap_with_envelope(self, data, many, **kwargs):
-        return {"dot_names": data}
+
+class DotnamesListSchema(BaseModel):
+    dot_names: List[DotnameSchema]

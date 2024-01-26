@@ -4,6 +4,7 @@ import {MenuItem, Select} from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 /**
  * component for subgroup selection in the map chart
@@ -16,11 +17,16 @@ const MapSubgroupsFilter = (props) => {
 
   return (
     <FormControl variant="standard">
-      <InputLabel htmlFor="mapsubgroup-select">Subgroups</InputLabel>
+      <InputLabel htmlFor="mapsubgroup-select">
+        <FormattedMessage id='subgroups'/>
+      </InputLabel>
       <Select id="mapsubgroup-select" value={selectedSubgroup || ''}
         onChange={(e) => changeSubgroup(e.target.value)}>
         {subGroups.map((field, i) => {
-          return (<MenuItem value={field.id} key={i}>{field.text}</MenuItem>);
+          return (
+            <MenuItem value={field.id} key={i}>
+              <FormattedMessage id={field.text}/>
+            </MenuItem>);
         })}
       </Select>
     </FormControl>

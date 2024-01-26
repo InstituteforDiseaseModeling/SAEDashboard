@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.popupCustom {
+  display:flex,
+}
+
+.popupCustom .col {
+  min-width:125px;
+  font-weight: bold
+}
+
+.popupCustom.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popupCustom .border {
+  border-bottom: solid 1px grey;
+}

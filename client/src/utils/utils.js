@@ -11,3 +11,20 @@ export function isJson(str) {
   }
   return true;
 }
+
+
+/**
+ *
+ * @param {*} lower - starting value
+ * @param {*} upper - ending value
+ * @return {*} integer array from starting value to ending value
+ */
+export function createArray(lower, upper) {
+  const result = [];
+
+  for (let i=lower; i<=upper; i++) {
+    result.push(i);
+  }
+
+  return result;
+}

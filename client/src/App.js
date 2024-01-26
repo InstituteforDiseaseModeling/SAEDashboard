@@ -33,7 +33,14 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: 'white',
+          color: 'white!important',
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white!important',
         },
       },
     },

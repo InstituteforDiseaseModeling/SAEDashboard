@@ -1,12 +1,11 @@
-from flask_restful import Resource
-
-from rse_api.decorators import register_resource
 from service.helpers.controller_helpers import load_geojson_pickle
+from fastapi import APIRouter
+
+router = APIRouter()
 
 
-@register_resource(['/africa_map'])
-class AfricaMap(Resource):
-    def get(self):
+@router.get("/africa_map/")
+async def get_africa_map():
         """
         Example: /dot_names?dot_name=Africa
         return:

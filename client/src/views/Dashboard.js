@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Grid';
 import {useDispatch, useSelector} from 'react-redux';
+// import {fetchGeoJsonData, fetchHealthClinicData} from '../redux/actions/dashboard';
 import {fetchGeoJsonData} from '../redux/actions/dashboard';
 import MapPanel from '../components/MapPanel';
 import YearFilter from '../components/filterelements/YearFilter';
@@ -59,6 +60,12 @@ const Dashboard = (props) => {
 
       // Fetch the subgroup data
       dispatch(fetchMapSubgroupData(selectedCountry, selectedIsAdm3));
+
+      // // Fetch health clinic data
+      // dispatch(fetchHealthClinicData());
+
+      // // Fetch event data
+      // dispatch(fetchEventData());
     }
   }, [selectedCountry, selectedIsAdm3]);
 
@@ -72,10 +79,10 @@ const Dashboard = (props) => {
       </Grid>
       <MapContext.Provider value={contextValue}>
         <Grid item xs={12} md={6}>
-          <MapPanel primary />
+          <MapPanel primary={true} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <MapPanel/>
+          <MapPanel primary={false}/>
         </Grid>
       </MapContext.Provider>
       <Grid item xs={12}>

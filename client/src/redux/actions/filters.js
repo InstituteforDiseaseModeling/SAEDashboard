@@ -5,8 +5,12 @@ import {
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
+  CHANGE_MAP_LEGEND_MIN,
   CHANGE_ISADM3,
   CHANGE_LEGEND,
+  CHANGE_YEAR_MONTH,
+  CHANGE_DIFF_MAP,
+  CHANGE_LANGUAGE,
   FETCH_DASHBOARD_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -70,7 +74,7 @@ export function changeIsAdm3(isAdm3) {
 }
 
 /**
- * change isAdm3 indicator
+ * change selected legend indicator
  * @param {*} selectedLegend
  * @return {*} legend message
  */
@@ -78,6 +82,19 @@ export function changeSelectedLegend(selectedLegend) {
   return {
     type: CHANGE_LEGEND,
     selectedLegend,
+  };
+}
+
+
+/**
+ * change select YearMonth filter
+ * @param {*} selectedYearMonth
+ * @return {*} selected year / month filter message
+ */
+export function changeYearMonthFilter(selectedYearMonth) {
+  return {
+    type: CHANGE_YEAR_MONTH,
+    selectedYearMonth,
   };
 }
 
@@ -127,6 +144,30 @@ export function changeMapLegendMax(mapLegendMax) {
   return {
     type: CHANGE_MAP_LEGEND_MAX,
     mapLegendMax,
+  };
+}
+
+/**
+ * change mapLegend min value
+ * @param {*} mapLegendMin
+ * @return {*} change mapLegend min value message
+ */
+export function changeMapLegendMin(mapLegendMin) {
+  return {
+    type: CHANGE_MAP_LEGEND_MIN,
+    mapLegendMin,
+  };
+}
+
+/**
+ * toggle diff map value
+ * @param {*} diffMap
+ * @return {*} change diff map toggle message
+ */
+export function changeDiffMap(diffMap) {
+  return {
+    type: CHANGE_DIFF_MAP,
+    diffMap,
   };
 }
 
@@ -214,4 +255,16 @@ export function fetchCountryData(isAdm3) {
     label: FETCH_DASHBOARD_DATA,
     headers: {'Access-Control-Allow-Origin': '*'},
   });
+}
+
+/**
+ * change language
+ * @param {*} language
+ * @return {*} set language message
+ */
+export function changeLanguage(language) {
+  return {
+    type: CHANGE_LANGUAGE,
+    language,
+  };
 }

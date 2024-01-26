@@ -11,6 +11,8 @@ import Filters from './MapPanelFilter';
 import MapPanelMap from './MapPanelMap';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
+
 
 const styles = {
   root: {
@@ -31,6 +33,8 @@ const MapPanel = (props) => {
 
   const selectedIndicatorRedux = useSelector((state) => state.filters.selectedIndicator);
   const selectedMapThemeRedux = useSelector((state) => state.filters.selectedMapTheme);
+  const selectedYearMonth = useSelector((state) => state.filters.selectedYearMonth);
+  const currentYear = useSelector((state) => state.filters.currentYear);
   const isAdm3 = useSelector((state) => state.filters.isAdm3);
 
   const [selectedSubgroup, changeSubgroup] = useState();
@@ -79,7 +83,9 @@ const MapPanel = (props) => {
 
   return (
     <Paper className={classes.root}>
-      <Filters title={primary ? 'Main Map' : 'Comparison Map'}
+      <Filters
+        title={primary ?
+          <FormattedMessage id='main_map' /> : <FormattedMessage id='comparison_map' />}
         changeSubgroup={changeSubgroup}
         changeIndicator={primary ? changeSelectedIndicatorRedux : changeIndicator}
         changeMapTheme={changeSelectedMapThemeRedux}
@@ -87,10 +93,10 @@ const MapPanel = (props) => {
         selectedIndicator={primary ? selectedIndicatorRedux : selectedIndicator}
         selectedMapTheme={selectedMapThemeRedux}
         parentClasses={primary ? {} : classes}
-        primary={primary}/>
+        primary={primary} />
       <MapPanelMap changeSelectedState={setSelectedState}
         subgroup={selectedSubgroup} indicator={primary ? selectedIndicatorRedux : selectedIndicator}
-        key={selectedIndicator+selectedIndicatorRedux}
+        key={selectedIndicator+selectedIndicatorRedux+ primary ? currentYear : selectedYearMonth}
         primary={primary}/>
     </Paper>
   );
