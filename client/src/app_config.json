@@ -10,6 +10,8 @@
     "unmet_need": "BuRd",
     "predicted_incidence": "BuRd",
     "reported_incidence": "BuRd",
-    "polygenomic_fraction": "BuRd"
+    "polygenomic_fraction": "BuRd",
+    "CDM": "BuRd",
+    "CDM_Coverage": "BuRd"
   }
 }

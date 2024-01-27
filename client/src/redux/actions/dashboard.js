@@ -105,7 +105,8 @@ export function fetchGeoJsonData(dotName, isAdm3) {
  */
 export function fetchHealthClinicData() {
   return apiAction({
-    url: '/health_clinics',
+    url: '/health_clinics/',
+    method: 'GET',
     onSuccess: setHealthClinicData,
     onFailure: setError,
     label: FETCH_HEALTH_CLINIC_DATA,
@@ -119,7 +120,7 @@ export function fetchHealthClinicData() {
  */
 export function fetchEventData() {
   return apiAction({
-    url: '/events',
+    url: '/events/',
     onSuccess: setEventData,
     onFailure: setError,
     label: FETCH_EVENT_DATA,
