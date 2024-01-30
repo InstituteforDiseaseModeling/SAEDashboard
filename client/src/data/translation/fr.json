@@ -47,5 +47,6 @@
   "number_of_nets": "nombre de moustiquaires",
   "population_coverage_rates": "taux de couverture de la population",
   "Cdm": "CDM",
-  "unit": "units"
+  "unit": "units",
+  "NoData": "Aucune donnée cette année"
 }

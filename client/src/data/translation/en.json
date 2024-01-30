@@ -47,6 +47,6 @@
   "number_of_nets": "number of nets",
   "population_coverage_rates": "coverage rates",
   "Cdm": "CDM",
-  "unit": "units"
-
+  "unit": "units",
+  "NoData": "No data in this year"
 }

@@ -15,7 +15,7 @@ import config from '../app_config.json';
 import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
 import {find, clone} from 'lodash';
-
+import {FormattedMessage} from 'react-intl';
 
 const styles = makeStyles(({
   error: {
@@ -31,6 +31,12 @@ const styles = makeStyles(({
   },
   root: {
     height: '550px',
+  },
+  noData: {
+    height: 550,
+    textAlign: 'center',
+    paddingTop: 260,
+    backgroundColor: '#ddd',
   },
 }));
 
@@ -168,21 +174,30 @@ const MapPanelMap = (props) => {
 
 
   return (
-    <div className={classes.root}>
-      <Map2
-        selectPlace={(state) => {
-          changeSelectedState(state);
-        }}
-        geoJson={geoJson[selectedCountry]}
-        mapData={MapData}
-        primary={primary}
-        zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
-        selectedMapTheme={finalTheme}
-        indicator={indicator}
-        mapLegendMax={mapLegendMax}
-        key ={mapLegendMax+selectedLegend+selectedLocale}
-      />
-    </div>
+    <>
+      { MapData && MapData.length > 0 &&
+        <div className={classes.root}>
+          <Map2
+            selectPlace={(state) => {
+              changeSelectedState(state);
+            }}
+            geoJson={geoJson[selectedCountry]}
+            mapData={MapData}
+            primary={primary}
+            zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
+            selectedMapTheme={finalTheme}
+            indicator={indicator}
+            mapLegendMax={mapLegendMax}
+            key ={mapLegendMax+selectedLegend+selectedLocale}
+          />
+        </div>
+      }
+      { !MapData || MapData.length == 0 &&
+        <div className={classes.noData}>
+          <FormattedMessage id='NoData'/>
+        </div>
+      }
+    </>
   );
 };
 
