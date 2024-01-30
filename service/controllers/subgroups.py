@@ -7,7 +7,7 @@ from fastapi import APIRouter, Request
 router = APIRouter()
 
 LABELS = {
-    "all": "All Women",
+    "all": "All",
     "25plus_rural": "Women 25+, Rural",
     "25plus_urban": "Women 25+, Urban",
     "15-24_urban": "Women 15-24, Urban",

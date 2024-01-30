@@ -11,7 +11,9 @@
     "predicted_incidence": "BuRd",
     "reported_incidence": "BuRd",
     "polygenomic_fraction": "BuRd",
-    "CDM": "BuRd",
-    "CDM_Coverage": "BuRd"
+    "CDM": "RdBu",
+    "CDM_Coverage": "RdBu",
+    "MILDA": "RdBu",
+    "MILDA_Coverage": "RdBu"
   }
 }

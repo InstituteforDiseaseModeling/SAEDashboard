@@ -43,6 +43,10 @@
   "license": "license",
   "version": "version",
   "url": "url",
-  "github": "github"
+  "github": "github",
+  "number_of_nets": "number of nets",
+  "population_coverage_rates": "coverage rates",
+  "Cdm": "CDM",
+  "unit": "units"
 
 }

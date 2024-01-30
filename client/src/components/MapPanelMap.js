@@ -1,7 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+/* eslint-disable no-unused-vars */
+
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
-import Map from './uielements/Map';
 import Map2 from './uielements/Map2.tsx';
 import loader from '../image/loader.gif';
 import {setGeoJsonData} from '../redux/actions/dashboard';
@@ -11,9 +12,9 @@ import {Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {AFRICA_STR, DEFAULT_THEMES} from '../const';
 import config from '../app_config.json';
-import {MapContext} from '../components/context/mapContext';
 import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
+import {find, clone} from 'lodash';
 
 
 const styles = makeStyles(({
@@ -46,43 +47,72 @@ const MapPanelMap = (props) => {
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+  const selectedLegendSync = useSelector((state) => state.filters.selectedLegendSync);
 
   const [MapData, setData] = useState();
   const [error, setError] = useState();
   const classes = styles();
   const dispatch = useDispatch();
-  const {amChartsInUse} = useContext(MapContext);
 
   const fetchData = async () => {
     axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
     const dotName = selectedCountry;
 
     try {
-      const result = await axios(
+      const resultRaw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' + subgroup +
           '&year=' + currentYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2),
       );
 
-      const result2 = await axios(
+      const result2Raw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + indicator + '&subgroup=' + subgroup +
           '&year=' + selectedYearMonth + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2),
       );
 
-      const diffResult = result.data.map( (item, i) => {
-        const itemTocompare = _.find(result2.data, {id: item.id});
+      /**
+       * for aggregating monthly data into annual data
+       * @param {*} results
+       * @param {*} current
+       * @return {*} array with aggregated data
+       */
+      const aggregateFn = (results, current) => {
+        if (!Array.isArray(results)) {
+          return [current];
+        }
+        const existing = find(results, {id: current.id});
 
+        if (existing) {
+          existing.value += current.value;
+        } else {
+          results.push(clone(current));
+        }
+
+        return results;
+      };
+
+      let result = [];
+      let result2 = [];
+
+      if (resultRaw && resultRaw.data) {
+        result = resultRaw.data.reduce(aggregateFn, []);
+      }
+      if (result2Raw && result2Raw.data) {
+        result2 = result2Raw.data.reduce(aggregateFn, []);
+      }
+
+      const diffResult = result.map( (item, i) => {
+        const itemTocompare = _.find(result2, {id: item.id});
         return ({id: item.id, value: itemTocompare ? itemTocompare.value - item.value : undefined});
       });
 
       setData(primary ?
-        result.data :
-        selectedDiffMap ? diffResult : result2.data );
+        result :
+        selectedDiffMap ? diffResult : result2 );
 
-      const maxVal = _.maxBy(result.data, 'value');
-      const minVal = _.minBy(result.data, 'value');
-
+      const maxVal = _.maxBy(result, 'value');
+      const minVal = _.minBy(result, 'value');
 
       if (primary && maxVal) {
         dispatch(changeMapLegendMax(maxVal.value));
@@ -112,7 +142,7 @@ const MapPanelMap = (props) => {
       fetchData();
     }
   }, [indicator, subgroup, currentYear, selectedCountry, selectedIsAdm3, selectedMapTheme,
-    selectedYearMonth, selectedDiffMap]);
+    selectedLegendSync, selectedYearMonth, selectedDiffMap]);
 
 
   if (error) {
@@ -139,35 +169,19 @@ const MapPanelMap = (props) => {
 
   return (
     <div className={classes.root}>
-      { amChartsInUse &&
-        <Map
-          selectPlace={(state) => {
-            changeSelectedState(state);
-          }}
-          geoJson={geoJson[selectedCountry]}
-          mapData={MapData}
-          primary={primary}
-          zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
-          selectedMapTheme={finalTheme}
-          mapLegendMax={mapLegendMax}
-          key ={mapLegendMax}
-        />
-      }
-      { !amChartsInUse &&
-        <Map2
-          selectPlace={(state) => {
-            changeSelectedState(state);
-          }}
-          geoJson={geoJson[selectedCountry]}
-          mapData={MapData}
-          primary={primary}
-          zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
-          selectedMapTheme={finalTheme}
-          indicator={indicator}
-          mapLegendMax={mapLegendMax}
-          key ={mapLegendMax+selectedLegend+selectedLocale}
-        />
-      }
+      <Map2
+        selectPlace={(state) => {
+          changeSelectedState(state);
+        }}
+        geoJson={geoJson[selectedCountry]}
+        mapData={MapData}
+        primary={primary}
+        zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
+        selectedMapTheme={finalTheme}
+        indicator={indicator}
+        mapLegendMax={mapLegendMax}
+        key ={mapLegendMax+selectedLegend+selectedLocale}
+      />
     </div>
   );
 };

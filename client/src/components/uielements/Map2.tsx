@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, {useRef, useEffect, useState, ObjectHTMLAttributes} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
@@ -13,7 +13,7 @@ import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
-
+import {IndicatorConfig} from '../../const_ts';
 import {HealthClinic, MapData} from '../../common/types';
 
 const styles = makeStyles({
@@ -49,37 +49,29 @@ interface CustomTheme {
 
 const extenededlegendTheme: CustomTheme[] = customTheme;
 
-interface MapPros {
-  mapData: MapData[],
-  geoJson: object,
-  height: number,
-  selectPlace: (id:string | number)=>void,
-  selectedMapTheme: any,
-  primary: string,
-  indicator: string,
-  intl: any,
-}
 
 const MapComponent = (props: any) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
+  const selectedLegendSync = useSelector((state:any) => state.filters.selectedLegendSync);
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
   const currentYear = useSelector((state:any) => state.filters.currentYear);
   const selectedYearMonth = useSelector((state:any) => state.filters.selectedYearMonth);
-  const selectedIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
   const {intl} = props;
-  const unitLabel = intl.formatMessage({id: 'cases_per_1000'});
+  const mapLabel = intl.formatMessage({id:
+    (IndicatorConfig[indicator] ? IndicatorConfig[indicator].mapLabel : '')});
+  const indicatorConfig = IndicatorConfig[indicator];
 
   // Data-related variables
 
   const minValueFromData = _.get(_.minBy(mapData, 'value'), 'value');
   const maxValueFromData = _.get(_.maxBy(mapData, 'value'), 'value');
-  let maxValue = selectedDiffMap ? maxValueFromData : mapLegendMax;
-  let minValue = selectedDiffMap ? minValueFromData : mapLegendMin;
+  let maxValue = (selectedDiffMap || !selectedLegendSync) ? maxValueFromData : mapLegendMax;
+  let minValue = (selectedDiffMap || !selectedLegendSync) ? minValueFromData : mapLegendMin;
 
   if (selectedDiffMap && !primary) {
     if (maxValue > minValue * -1) {
@@ -140,13 +132,15 @@ const MapComponent = (props: any) => {
 
     if (feature && feature.feature) {
       const region = _.find(mapData, {id: feature.feature.id});
+
       if (region) {
         const regionName = region.id.split(':').splice(2).join(':');
-        const latlng = Array.isArray(feature._latlngs[0][0]) ?
-          feature._latlngs[0][0][0] : feature._latlngs[0][0];
+
         window.L.popup()
             .setLatLng(e.latlng)
-            .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' ' + unitLabel)
+            .setContent(regionName + ' : ' +
+              Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+              ' ' + mapLabel)
             .openOn(mapObj);
       }
     }
@@ -171,7 +165,7 @@ const MapComponent = (props: any) => {
     const initialView = [14.4, -15];
     const blueColors = blues.colors(5);
 
-    mapObj = L.map(chart.current).setView(initialView, 6.8) as MapExtension;
+    mapObj = L.map(chart.current, {scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
 
     const customFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
@@ -281,7 +275,8 @@ const MapComponent = (props: any) => {
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
         selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
-        key={minValue + maxValue + selectedLayer}/>
+        selectedIndicator={indicator}
+        key={minValue + maxValue + selectedLayer + indicator}/>
 
       {/* Difference note */}
       {!primary && selectedDiffMap &&
@@ -289,7 +284,7 @@ const MapComponent = (props: any) => {
           {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
           indicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
-          selectedYearMonth + ' - ' + selectedIndicator + ' ' +
+          selectedYearMonth + ' - ' + indicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
           currentYear}
         </div>

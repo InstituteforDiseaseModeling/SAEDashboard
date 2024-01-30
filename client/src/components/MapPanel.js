@@ -96,7 +96,8 @@ const MapPanel = (props) => {
         primary={primary} />
       <MapPanelMap changeSelectedState={setSelectedState}
         subgroup={selectedSubgroup} indicator={primary ? selectedIndicatorRedux : selectedIndicator}
-        key={selectedIndicator+selectedIndicatorRedux+ primary ? currentYear : selectedYearMonth}
+        key={selectedIndicator+selectedIndicatorRedux +
+          primary ? currentYear : selectedYearMonth}
         primary={primary}/>
     </Paper>
   );

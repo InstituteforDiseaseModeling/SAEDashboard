@@ -7,6 +7,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import withStyles from '@mui/styles/withStyles';
 import {ChartContext} from '../context/chartContext';
 import {injectIntl} from 'react-intl';
+import {IndicatorConfig} from '../../const_ts';
 
 const styles = ({
   title: {
@@ -36,6 +37,8 @@ const LineChart = (props) => {
   const {maxYAxisVal, setMaxYAxisVal} = useContext(ChartContext);
   const {minYAxisVal, setMinYAxisVal} = useContext(ChartContext);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+  const indicator = useSelector((state) => state.filters.selectedIndicator);
+  const unit = IndicatorConfig[indicator].unit;
 
   const creatSeries = (x, yAxis) => {
     const series = x.series.push(new am4charts.LineSeries());
@@ -43,7 +46,7 @@ const LineChart = (props) => {
     series.name = props.intl.formatMessage({id: 'chart_'+props.channel});
     series.dataFields.dateX = 'yearDate';
     series.dataFields.valueY = 'middle';
-    series.tooltipText = '{year} : {middle}';
+    series.tooltipText = '{yearDate} : {valueY}';
     series.fill = am4core.color('#e07b39');
     series.stroke = am4core.color('#e07b39');
     series.bullets.push(new am4charts.CircleBullet());
@@ -51,18 +54,24 @@ const LineChart = (props) => {
 
   useLayoutEffect(() => {
     const x = am4core.create(chartId, am4charts.XYChart);
+    x.numberFormatter = new am4core.NumberFormatter();
+    x.numberFormatter.numberFormat = '#,###.'+ unit;
 
     const xAxis = x.xAxes.push(new am4charts.DateAxis());
-    setUpAxis(xAxis);
-    xAxis.numberFormatter.numberFormat = '#';
+    // xAxis.numberFormatter = new am4core.NumberFormatter();
+    // xAxis.numberFormatter.numberFormat = '#';
     xAxis.renderer.minGridDistance = 50;
     xAxis.title.text = props.intl.formatMessage({id: 'year'});
+    setUpAxis(xAxis);
 
     const yAxis = x.yAxes.push(new am4charts.ValueAxis());
-    setUpAxis(yAxis);
-    yAxis.numberFormatter.numberFormat = '#.##';
+    yAxis.numberFormatter = new am4core.NumberFormatter();
+    yAxis.numberFormatter.numberFormat = '#.## '+ unit;
     yAxis.extraTooltipPrecision = 1;
-    yAxis.title.text = props.intl.formatMessage({id: 'cases_per_1000'});
+    setUpAxis(yAxis);
+
+    yAxis.title.text = props.intl.formatMessage({id:
+      (IndicatorConfig[indicator] ? IndicatorConfig[indicator].unitLabel : '')});
 
     // Create chart
     creatSeries(x, yAxis);

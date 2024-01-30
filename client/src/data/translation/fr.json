@@ -43,5 +43,9 @@
   "license": "LICENCE",
   "version": "version",
   "url": "url",
-  "github": "github"
+  "github": "github",
+  "number_of_nets": "nombre de moustiquaires",
+  "population_coverage_rates": "taux de couverture de la population",
+  "Cdm": "CDM",
+  "unit": "units"
 }

@@ -7,6 +7,7 @@ import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
 import * as translations from '../../data/translation';
+import {IndicatorConfig} from '../../const_ts';
 
 const styles = {
   gradLegend: {
@@ -15,7 +16,7 @@ const styles = {
     whiteSpace: 'nowrap',
     display: 'inline-block',
     position: 'absolute',
-    top: '205px', // Position of the legend depending on the top of the parent block
+    top: '375px', // Position of the legend depending on the top of the parent block
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },
@@ -64,7 +65,7 @@ const styles = {
  */
 const MapLegend = (props) => {
   const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id,
-    selectedLayer, primary} = props;
+    selectedLayer, primary, selectedIndicator} = props;
 
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
@@ -95,14 +96,18 @@ const MapLegend = (props) => {
     return (
       <div className={classes.domainLabelCustom}
         style={{
-          width: 0, top: 33, left: -33, backgroundColor: 'darkgrey',
-          color: 'white', width: 95, textAlign: 'center',
+          width: 0, top: 85, left: -85, backgroundColor: 'darkgrey',
+          color: 'white', width: 190, textAlign: 'center',
         }}>
         {label}
       </div>);
   };
 
-  const yLabel = _.get(translations[selectedLocale], 'cases_per_1000');
+  console.log(IndicatorConfig);
+
+  console.log(IndicatorConfig[selectedIndicator]);
+
+  const yLabel = _.get(translations[selectedLocale], IndicatorConfig[selectedIndicator].unitLabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
   /**
    *
@@ -157,10 +162,14 @@ const MapLegend = (props) => {
   };
 
   /**
-   *
+   * @param {*} selectedIndicator - maximum legend value
    * @return {*} standard legend
    */
-  const standardLegend = () => {
+  const standardLegend = (selectedIndicator) => {
+    const multiper = selectedIndicator && IndicatorConfig[selectedIndicator] ?
+      IndicatorConfig[selectedIndicator].multiper : 1;
+    const unit = selectedIndicator && IndicatorConfig[selectedIndicator] ?
+      IndicatorConfig[selectedIndicator].unit : '';
     return (<div className={classes.gradLegend} ref={legend} id={id}>
       {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
@@ -170,7 +179,7 @@ const MapLegend = (props) => {
       {_.times(numberOfSteps+1, (num) => {
         return <span key={num} className={classes.domainLabelStandard}
           style={{left: (100 / numberOfSteps) * num + '%'}}>
-          {(minValue + step * num).toFixed(0)}
+          {Math.round(((minValue + step * num) * multiper)).toLocaleString() + unit }
         </span>;
       })}
     </div>);
@@ -237,7 +246,7 @@ const MapLegend = (props) => {
 
   if (selectedLegend) {
     return <>
-      {standardLegend()}
+      {standardLegend(selectedIndicator)}
       {healthClinicLegend(selectedLayer)}
     </>;
   } else {
@@ -260,6 +269,7 @@ MapLegend.propTypes = {
   primary: PropTypes.bool,
   selectedLayer: PropTypes.string,
   mapLegendMax: PropTypes.number,
+  selectedIndicator: PropTypes.string,
 };
 
 export default withStyles(styles)(MapLegend);

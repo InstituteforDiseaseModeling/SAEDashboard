@@ -10,6 +10,7 @@ import {
   CHANGE_LEGEND,
   CHANGE_YEAR_MONTH,
   CHANGE_DIFF_MAP,
+  CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
@@ -26,6 +27,7 @@ const initialState = {
   selectedYearMonth: config.defaultYear,
   selectedLegend: false,
   selectedDiffMap: false,
+  selectedLegendSync: true,
   isAdm3: true,
 
   countries: [],
@@ -110,6 +112,9 @@ export default function(state = initialState, action) {
 
     case CHANGE_DIFF_MAP:
       return {...state, selectedDiffMap: action.diffMap};
+
+    case CHANGE_LEGEND_SYNC:
+      return {...state, selectedLegendSync: action.legendSync};
 
     case CHANGE_LANGUAGE:
       return {...state, selectedLanguage: action.language};

@@ -10,6 +10,7 @@ import {
   CHANGE_LEGEND,
   CHANGE_YEAR_MONTH,
   CHANGE_DIFF_MAP,
+  CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
   FETCH_DASHBOARD_DATA,
   SET_INDICATOR_DATA,
@@ -168,6 +169,18 @@ export function changeDiffMap(diffMap) {
   return {
     type: CHANGE_DIFF_MAP,
     diffMap,
+  };
+}
+
+/**
+ * toggle legend Sync value
+ * @param {*} legendSync
+ * @return {*} change legend sync toggle message
+ */
+export function changeLegendSync(legendSync) {
+  return {
+    type: CHANGE_LEGEND_SYNC,
+    legendSync,
   };
 }
 
