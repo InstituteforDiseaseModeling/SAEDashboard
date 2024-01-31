@@ -8,6 +8,7 @@ import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
 import * as translations from '../../data/translation';
 import {IndicatorConfig} from '../../const_ts';
+import {isIncidenceMap} from './Map2';
 
 const styles = {
   gradLegend: {
@@ -109,6 +110,7 @@ const MapLegend = (props) => {
 
   const yLabel = _.get(translations[selectedLocale], IndicatorConfig[selectedIndicator].unitLabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
+
   /**
    *
    * @return {*} custom legend
@@ -250,11 +252,18 @@ const MapLegend = (props) => {
       {healthClinicLegend(selectedLayer)}
     </>;
   } else {
-    return <>
-      {customLegend()}
-      {healthClinicLegend(selectedLayer)}
-    </>;
-  }
+    if (isIncidenceMap(selectedIndicator)) {
+      return <>
+        {customLegend()}
+        {healthClinicLegend(selectedLayer)}
+      </>;
+    } else {
+      return <>
+        {standardLegend(selectedIndicator)}
+        {healthClinicLegend(selectedLayer)}
+      </>;
+    }
+  };
 };
 
 MapLegend.propTypes = {

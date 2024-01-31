@@ -49,6 +49,9 @@ interface CustomTheme {
 
 const extenededlegendTheme: CustomTheme[] = customTheme;
 
+export const isIncidenceMap = (indicator:string) => {
+  return (indicator == 'reported_incidence' || indicator == 'predicted_incidence');
+};
 
 const MapComponent = (props: any) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator} = props;
@@ -205,11 +208,11 @@ const MapComponent = (props: any) => {
       }
     };
 
-
     // ... our listeners
     geojson = L.geoJSON(geoJson, {
       style: (feature: Feature) => {
-        if (selectedLegend || (selectedDiffMap && !primary)) {
+        if (selectedLegend || (selectedDiffMap && !primary) ||
+          !isIncidenceMap(indicator)) {
           // if it is a difference map, use the standard feature handler
           return standardFeatureHandler(feature);
         } else {
