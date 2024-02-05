@@ -18,8 +18,8 @@ LABELS = {
     "MILDA_Coverage": "MILDA - Population Coverage Rates",
     "CDM": "CDM - Number of Nets",
     "MILDA": "MILDA - Number of Nets",
-    "predicted_incidence": "predicted_incidence",
-    "reported_incidence": "reported_incidence"
+    "predicted_incidence": "Predicted Incidence",
+    "reported_incidence": "Reported Incidence"
 }
 
 
