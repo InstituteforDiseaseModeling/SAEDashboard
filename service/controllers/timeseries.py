@@ -1,4 +1,6 @@
-from service.helpers.controller_helpers import *
+from helpers.dot_name import DotName
+from service.helpers.controller_helpers import DataFileKeys, read_dot_names, ControllerException, read_channel, \
+    read_subgroup, read_version, get_dataframe
 from fastapi import APIRouter, Request
 
 router = APIRouter()
@@ -51,20 +53,34 @@ async def get_timeseries(request: Request):
         data = {}
 
         for index, row in df.iterrows():
-            data[row[DataFileKeys.YEAR]] = {
-                'year': row[DataFileKeys.YEAR],
-                'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
-                'middle': row[DataFileKeys.DATA],
-                'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
-            }
+            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage']:
+                entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
+                data[entry] = {
+                    'year': row[DataFileKeys.YEAR],
+                    'month': row['month'],
+                    'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
+                    'middle': row[DataFileKeys.DATA],
+                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
+                }
+            else:
+                data[row[DataFileKeys.YEAR]] = {
+                    'year': row[DataFileKeys.YEAR],
+                    'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
+                    'middle': row[DataFileKeys.DATA],
+                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
+                }
 
         # now further limit the data to rows where reference data exists
         # Add directly to the prediction
         df = df.loc[df[DataFileKeys.REFERENCE].notna(), :]
         for index, row in df.iterrows():
-            data[row[DataFileKeys.YEAR]]['reference_lower_bound'] = row[DataFileKeys.REFERENCE_LOWER_BOUND]
-            data[row[DataFileKeys.YEAR]]['reference_middle'] = row[DataFileKeys.REFERENCE]
-            data[row[DataFileKeys.YEAR]]['reference_upper_bound'] = row[DataFileKeys.REFERENCE_UPPER_BOUND]
+            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage']:
+                entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
+            else:
+                entry = row[DataFileKeys.YEAR]
+            data[entry]['reference_lower_bound'] = row[DataFileKeys.REFERENCE_LOWER_BOUND]
+            data[entry]['reference_middle'] = row[DataFileKeys.REFERENCE]
+            data[entry]['reference_upper_bound'] = row[DataFileKeys.REFERENCE_UPPER_BOUND]
 
         return list(data.values())
 

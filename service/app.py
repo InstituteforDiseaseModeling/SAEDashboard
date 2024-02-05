@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from service.controllers import africa_map, map, dot_names, indicators, subgroups, timeseries, shapes, years, events, \
-    health_clinics
+from controllers import africa_map, map, dot_names, indicators, subgroups, timeseries, shapes, years, events, health_clinics
 
 app = FastAPI()
 

@@ -31,6 +31,7 @@ class DataFileKeys:
     DATA_LOWER_BOUND = 'data_lower_bound'
     DATA_UPPER_BOUND = 'data_upper_bound'
     YEAR = 'year'
+    MONTH = 'month'
     SUBGROUP = 'subgroup'
 
 
