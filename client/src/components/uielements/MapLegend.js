@@ -17,7 +17,7 @@ const styles = {
     whiteSpace: 'nowrap',
     display: 'inline-block',
     position: 'absolute',
-    top: '375px', // Position of the legend depending on the top of the parent block
+    top: '205px', // Position of the legend depending on the top of the parent block
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },
