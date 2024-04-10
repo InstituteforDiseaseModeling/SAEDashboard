@@ -27,7 +27,7 @@ const initialState = {
   selectedYearMonth: config.defaultYear,
   selectedLegend: false,
   selectedDiffMap: false,
-  selectedLegendSync: true,
+  selectedLegendSync: false,
   isAdm3: true,
 
   countries: [],

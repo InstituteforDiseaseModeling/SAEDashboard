@@ -168,7 +168,10 @@ const MapComponent = (props: any) => {
     const initialView = [14.4, -15];
     const blueColors = blues.colors(5);
 
-    mapObj = L.map(chart.current, {scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
+    mapObj = L.map(chart.current, {
+      zoomSnap: 0.25,
+      zoomDelta: 0.25,
+      scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
 
     const customFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});

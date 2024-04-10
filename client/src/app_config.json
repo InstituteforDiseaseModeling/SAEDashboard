@@ -1,7 +1,7 @@
 {
   "title": "Subnational Family Planning Estimation Tool",
   "disableAdmin2" : false,
-  "defaultYear": 2020,
+  "defaultYear": 2022,
   "defaultRegion" : "Africa:Senegal:Thies:Thies",
   "defaultCountry" : "Africa:Senegal",
   "defaultThemeByIndicator" : {

@@ -13,7 +13,7 @@ body {
   font-weight: bold
 }
 
-.popupCustom.row {
+.popupCustom .row {
   display: flex;
   justify-content: space-between;
 }
