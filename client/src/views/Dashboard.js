@@ -10,6 +10,7 @@ import CountryFilter from '../components/filterelements/CountryFilter';
 import StateData from '../components/StateData';
 import {fetchCountryData, fetchIndicatorData, fetchMapSubgroupData} from '../redux/actions/filters';
 import {MapContext} from '../components/context/mapContext';
+import ComparisonMapProvider from '../components/provider/comparisonMapProvider';
 
 const styles = {
   content2: {
@@ -76,14 +77,16 @@ const Dashboard = (props) => {
       <Grid item xs={12} md={8}>
         <YearFilter/>
       </Grid>
-      <MapContext.Provider value={contextValue}>
-        <Grid item xs={12} md={6}>
-          <MapPanel primary={true} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <MapPanel primary={false}/>
-        </Grid>
-      </MapContext.Provider>
+      <ComparisonMapProvider>
+        <MapContext.Provider value={contextValue}>
+          <Grid item xs={12} md={6}>
+            <MapPanel primary={true} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <MapPanel primary={false}/>
+          </Grid>
+        </MapContext.Provider>
+      </ComparisonMapProvider>
       <Grid item xs={12}>
         {selectedState && <StateData selectedState={selectedState} indicators={indicators}/>}
       </Grid>

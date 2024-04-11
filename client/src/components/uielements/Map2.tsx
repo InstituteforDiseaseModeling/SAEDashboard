@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useContext} from 'react';
 import {useSelector} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
@@ -15,6 +15,8 @@ import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
 import {IndicatorConfig} from '../../const_ts';
 import {HealthClinic, MapData} from '../../common/types';
+import {ComparisonMapContext} from '../provider/comparisonMapProvider';
+
 
 const styles = makeStyles({
   MapContainer: {
@@ -68,6 +70,8 @@ const MapComponent = (props: any) => {
   const mapLabel = intl.formatMessage({id:
     (IndicatorConfig[indicator] ? IndicatorConfig[indicator].mapLabel : '')});
   const indicatorConfig = IndicatorConfig[indicator];
+  const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
+
 
   // Data-related variables
 
@@ -113,7 +117,7 @@ const MapComponent = (props: any) => {
     layerFeature.properties['name'] = placeName;
 
     layer.on({
-      mouseover: highlightFeature,
+      mouseover: (e) => highlightFeature(e, null, false),
       mouseout: resetHighlight,
       click: ((e: LeafletMouseEvent) => {
         if (feature && feature.id) {
@@ -124,7 +128,7 @@ const MapComponent = (props: any) => {
   };
 
 
-  const highlightFeature = (e: LeafletMouseEvent, color: string = null) => {
+  const highlightFeature = (e: any, color: string = null, fromEffect: boolean) => {
     const feature = e.target;
     feature.setStyle({
       weight: 3,
@@ -133,6 +137,15 @@ const MapComponent = (props: any) => {
       fillOpacity: 0.7,
     });
 
+    if (e.latlng && !fromEffect) {
+      setLatLngClicked({...e.latlng, LGA: feature.feature.properties.name});
+    };
+
+    showPopup(e, false);
+  };
+
+  const showPopup = (e: any, fromEffect: boolean) => {
+    const feature = e.target;
     if (feature && feature.feature) {
       const region = _.find(mapData, {id: feature.feature.id});
 
@@ -251,6 +264,18 @@ const MapComponent = (props: any) => {
     mapObj.on('overlayremove', ()=>{
       setSelectedLayer(null);
     });
+    comparisonEventSetup(mapObj);
+    setMapObj(mapObj);
+  };
+
+  const comparisonEventSetup = (mapObj: MapExtension) => {
+    // setup events
+    mapObj.on('zoomend', () => {
+      setZoom(mapObj.getZoom());
+    });
+    mapObj.on('dragend', () => {
+      setCenter(mapObj.getCenter());
+    });
   };
 
   const createSitePopup = (clinic: HealthClinic, name: string) => {
@@ -266,6 +291,54 @@ const MapComponent = (props: any) => {
     '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
     '</div>';
   };
+
+  /**
+   * to find a map feature when a LGA is given
+   * @param {*} mapObj
+   * @param {*} latLng
+   * @return {*} a leaflet feature
+   */
+  const findFeatureByLGA = (mapObj: any, latLng:any) => {
+    if (!mapObj) return;
+    const feature = _.find(mapObj._layers, (layer) => {
+      if (layer.feature) {
+        const f: any = layer.feature;
+        return f.properties['name'] === latLng.LGA;
+      } else {
+        return false;
+      }
+    });
+    return feature;
+  };
+
+  // update zoom for comparisom map
+  useEffect(() => {
+    if (mapObj && zoom > 0) {
+      mapObj.setZoom(zoom);
+    }
+  }, [zoom]);
+  // update pan for comparisom map
+  useEffect(() => {
+    if (mapObj && center) {
+      mapObj.panTo([center.lat, center.lng]);
+    }
+  }, [center]);
+
+  /**
+ * for opening popup for the 2nd map on the comparison maps
+ */
+  useEffect(() => {
+    // if (forCompare) {
+    const feature = findFeatureByLGA(mapObj, latLngClicked);
+
+    if (feature) {
+      const mouseEvent : any = {
+        target: feature,
+        latlng: latLngClicked,
+      };
+      showPopup(mouseEvent, true);
+    }
+  }, [latLngClicked]);
 
   /**
    * Component Initialization
