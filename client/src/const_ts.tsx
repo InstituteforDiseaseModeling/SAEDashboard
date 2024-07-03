@@ -21,5 +21,11 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'decimalPt': 0},
   'MILDA_Coverage': {'unitLabel': 'population_coverage_rates', 'multiper': 100, 'unit': '%',
     'mapLabel': '%', 'decimalPt': 0},
+  'modern_method': {'unitLabel': 'modern_method', 'multiper': 100, 'unit': '%',
+    'mapLabel': '%', 'decimalPt': 0},
+  'traditional_method': {'unitLabel': 'traditional_method', 'multiper': 100, 'unit': '%',
+    'mapLabel': '%', 'decimalPt': 0},
+  'unmet_need': {'unitLabel': 'unmet_need', 'multiper': 100, 'unit': '%',
+    'mapLabel': '%', 'decimalPt': 0},
 };
 

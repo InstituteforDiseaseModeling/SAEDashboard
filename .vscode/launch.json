@@ -1,0 +1,17 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/service/app.py", // specify the correct path to your Python file
+      "console": "integratedTerminal",
+      "args": ["manage", "run"],
+      "cwd": "${workspaceFolder}/service" // set the current working directory
+    }
+  ]
+}

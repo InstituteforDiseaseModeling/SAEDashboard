@@ -67,8 +67,9 @@ const MapComponent = (props: any) => {
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
   const {intl} = props;
-  const mapLabel = intl.formatMessage({id:
-    (IndicatorConfig[indicator] ? IndicatorConfig[indicator].mapLabel : '')});
+  const mapLabel = IndicatorConfig[indicator] ?
+                  intl.formatMessage({ id:IndicatorConfig[indicator].mapLabel }) : '';
+
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
 
