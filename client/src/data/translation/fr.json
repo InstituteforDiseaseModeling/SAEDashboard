@@ -9,8 +9,8 @@
   "equal_interval" : "Intervalles égaux",
   "themes": "Thèmes",
   "indicators": "Indicateurs",
-  "predicted_incidence": "Incidence prévue",
-  "reported_incidence": "Incidence rapportée",
+  "Predicted Incidence": "Incidence prévue",
+  "Reported Incidence": "Incidence rapportée",
   "subgroups": "Sous-groupes",
   "all_ages": "Tous âges",
   "comparison_map": "Carte comparative",
@@ -44,9 +44,10 @@
   "version": "version",
   "url": "url",
   "github": "github",
-  "number_of_nets": "nombre de moustiquaires",
-  "population_coverage_rates": "taux de couverture de la population",
-  "Cdm": "CDM",
   "unit": "units",
-  "NoData": "Aucune donnée cette année"
+  "NoData": "Aucune donnée cette année",
+  "CDM - Population Coverage Rates": "CDM - Taux de Couverture de la Population",
+  "CDM - Number of Nets": "CDM - Nombre de Moustiquaires",
+  "MILDA - Population Coverage Rates": "MILDA - Taux de Couverture de la Population",
+  "MILDA - Number of Nets": "MILDA - Nombre de Moustiquaires"
 }
