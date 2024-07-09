@@ -63,12 +63,13 @@ const MapComponent = (props: any) => {
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
   const currentYear = useSelector((state:any) => state.filters.currentYear);
   const selectedYearMonth = useSelector((state:any) => state.filters.selectedYearMonth);
+  const primaryIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
   const {intl} = props;
   const mapLabel = IndicatorConfig[indicator] ?
-                  intl.formatMessage({ id:IndicatorConfig[indicator].mapLabel }) : '';
+    intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
 
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
@@ -362,7 +363,7 @@ const MapComponent = (props: any) => {
       {!primary && selectedDiffMap &&
         <div className={classes.note_diff}>
           {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
-          indicator + ' ' +
+          primaryIndicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
           selectedYearMonth + ' - ' + indicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
