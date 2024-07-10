@@ -414,6 +414,16 @@ def read_year(request):
     return int(year)
 
 
+def read_month(request):
+    month = int(request.query_params.get("month"))
+    if month is None:
+        return None
+    elif month > 12 or month < 1:
+        raise ControllerException('Parameter month must be between 1 and 12.')
+    else:
+        return month
+
+
 def read_data(request):
     data = request.query_params.get("data")
     if data is None:

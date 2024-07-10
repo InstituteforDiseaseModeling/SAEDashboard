@@ -1,7 +1,7 @@
-from service.helpers.dot_name import DotName
-from service.helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_data, \
-    read_admin_level, read_version, ControllerException, get_all_countries, get_dataframe, DataFileKeys
 from fastapi import APIRouter, Request
+from helpers.dot_name import DotName
+from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
+    read_admin_level, read_version, ControllerException, get_all_countries, get_dataframe, DataFileKeys
 
 router = APIRouter()
 
@@ -43,6 +43,7 @@ async def get_map(request: Request):
         channel = read_channel(request=request)
         subgroup = read_subgroup(request=request)
         year = read_year(request=request)
+        month = read_month(request=request)
         data_key = read_data(request=request)
         requested_admin_level = read_admin_level(request=request)   #TODO: Map examples above don't include admin but shown
                                                                     # as required in controller_helpers.py read_admin_level
@@ -74,6 +75,9 @@ async def get_map(request: Request):
 
             # limit to requested data year
             df = df.loc[df[DataFileKeys.YEAR] == year]
+
+            if month is not None:
+                df = df.loc[df[DataFileKeys.MONTH] == month]
 
             # update the return with the newly found entries
             new_values = df[[DataFileKeys.DOT_NAME, data_key]].rename(
