@@ -2,7 +2,7 @@
 # We use this container to build ONLY
 # After we build, we copy the final build artifacts
 # to an NGINX image
-FROM node:16 as builder
+FROM node:20 as builder
 
 # set working directory
 RUN mkdir /app/

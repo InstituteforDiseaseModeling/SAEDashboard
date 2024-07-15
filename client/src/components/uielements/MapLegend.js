@@ -7,8 +7,8 @@ import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../customTheme.json';
 import {createArray} from '../../utils/utils';
 import * as translations from '../../data/translation';
-import {IndicatorConfig} from '../../const_ts';
-import {isIncidenceMap} from './Map2';
+import {IndicatorConfig} from '../constTs.tsx';
+import {isIncidenceMap} from './Map2.tsx';
 
 const styles = {
   gradLegend: {
