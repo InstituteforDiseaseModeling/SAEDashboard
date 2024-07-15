@@ -25,7 +25,8 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "react": [ "./node_modules/@types/react" ]
-    }
+    },
+    "allowImportingTsExtensions": true,
   },
   "include": [
     "src"

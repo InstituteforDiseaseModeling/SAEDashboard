@@ -13,7 +13,7 @@ import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
-import {IndicatorConfig} from '../../const_ts';
+import {IndicatorConfig} from '../constTs.tsx';
 import {HealthClinic, MapData} from '../../common/types';
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 
@@ -363,9 +363,9 @@ const MapComponent = (props: any) => {
       {!primary && selectedDiffMap &&
         <div className={classes.note_diff}>
           {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
-          primaryIndicator + ' ' +
+           indicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
-          selectedYearMonth + ' - ' + indicator + ' ' +
+          selectedYearMonth + ' - ' + primaryIndicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
           currentYear}
         </div>

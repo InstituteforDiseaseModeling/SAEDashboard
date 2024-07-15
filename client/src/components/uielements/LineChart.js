@@ -7,7 +7,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import withStyles from '@mui/styles/withStyles';
 import {ChartContext} from '../context/chartContext';
 import {injectIntl} from 'react-intl';
-import {IndicatorConfig} from '../../const_ts';
+import {IndicatorConfig} from '../constTs.tsx';
 
 const styles = ({
   title: {
@@ -55,13 +55,15 @@ const LineChart = (props) => {
   useLayoutEffect(() => {
     const x = am4core.create(chartId, am4charts.XYChart);
     x.numberFormatter = new am4core.NumberFormatter();
-    x.numberFormatter.numberFormat = '#,###.'+ unit;
+    x.numberFormatter.numberFormat = '#,###.##'+ unit;
 
     const xAxis = x.xAxes.push(new am4charts.DateAxis());
     // xAxis.numberFormatter = new am4core.NumberFormatter();
     // xAxis.numberFormatter.numberFormat = '#';
     xAxis.renderer.minGridDistance = 50;
     xAxis.title.text = props.intl.formatMessage({id: 'year'});
+    x.dateFormatter.dateFormat = 'yyyy-MM';
+
     setUpAxis(xAxis);
 
     const yAxis = x.yAxes.push(new am4charts.ValueAxis());
@@ -118,9 +120,9 @@ const LineChart = (props) => {
 
     range.label.text = labeltext;
     range.label.fill = am4core.color('red');
-    range.label.dy = -190;
+    range.label.dy = -200;
 
-    range.value = value;
+    range.date = value;
   };
 
   // for setting Max Y axis value based on chartdata
@@ -171,10 +173,11 @@ const LineChart = (props) => {
    * @return {JSON} data object with additional yearData field
    */
   const addDateField = () => {
-    const chartData = props.chartData.map((data) => {
-      data.yearDate = new Date(data.year, 0, 1);
+    let chartData = props.chartData.map((data) => {
+      data.yearDate = new Date(data.year, data.month ? data.month-1 : 0, 1);
       return data;
     });
+    chartData = _.orderBy(chartData, ['year', 'month'], ['asc, asc']);
     return chartData;
   };
 
