@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchGeoJsonData, fetchHealthClinicData, fetchEventData} from '../redux/actions/dashboard';
 import MapPanel from '../components/MapPanel';
 import YearFilter from '../components/filterelements/YearFilter';
+import MonthFilter from '../components/filterelements/MonthFilter';
 import CountryFilter from '../components/filterelements/CountryFilter';
 import StateData from '../components/StateData';
 import {fetchCountryData, fetchIndicatorData, fetchMapSubgroupData} from '../redux/actions/filters';
@@ -20,6 +21,9 @@ const styles = {
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 25,
+  },
+  filters: {
+    display: 'flex',
   },
 };
 
@@ -75,7 +79,11 @@ const Dashboard = (props) => {
         {selectedCountry!==undefined && <CountryFilter countries={countries} />}
       </Grid>
       <Grid item xs={12} md={8}>
-        <YearFilter/>
+        <div className={classes.filters}>
+          <YearFilter/>
+          &nbsp;
+          <MonthFilter/>
+        </div>
       </Grid>
       <ComparisonMapProvider>
         <MapContext.Provider value={contextValue}>

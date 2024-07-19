@@ -1,6 +1,7 @@
 import {
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
+  CHANGE_SELECTED_MONTH,
   CHANGE_SELECTED_INDICATOR,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
@@ -8,7 +9,7 @@ import {
   CHANGE_MAP_LEGEND_MIN,
   CHANGE_ISADM3,
   CHANGE_LEGEND,
-  CHANGE_YEAR_MONTH,
+  CHANGE_COMPARE_YEAR,
   CHANGE_DIFF_MAP,
   CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
@@ -31,6 +32,18 @@ export function changeSelectedYear(year) {
   return {
     type: CHANGE_SELECTED_YEAR,
     year,
+  };
+}
+
+/**
+ * get change selected month message
+ * @param {*} month
+ * @return {*} change month message
+ */
+export function changeSelectedMonth(month) {
+  return {
+    type: CHANGE_SELECTED_MONTH,
+    month,
   };
 }
 
@@ -88,14 +101,14 @@ export function changeSelectedLegend(selectedLegend) {
 
 
 /**
- * change select YearMonth filter
- * @param {*} selectedYearMonth
- * @return {*} selected year / month filter message
+ * change select Year filter in the comparison map filter
+ * @param {*} selectedYear
+ * @return {*} change year filter message
  */
-export function changeYearMonthFilter(selectedYearMonth) {
+export function changeCompareYearFilter(selectedYear) {
   return {
-    type: CHANGE_YEAR_MONTH,
-    selectedYearMonth,
+    type: CHANGE_COMPARE_YEAR,
+    selectedYear,
   };
 }
 
