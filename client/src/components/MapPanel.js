@@ -74,7 +74,7 @@ const MapPanel = (props) => {
 
   useEffect(()=>{
     changeSubgroup(null);
-  }, [indicators.length]);
+  }, [indicators.length, selectedIndicatorRedux]);
 
   useEffect(()=>{
     changeSubgroup(null);
