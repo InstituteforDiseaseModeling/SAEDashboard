@@ -62,7 +62,7 @@ const MapComponent = (props: any) => {
   const selectedLegendSync = useSelector((state:any) => state.filters.selectedLegendSync);
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
   const currentYear = useSelector((state:any) => state.filters.currentYear);
-  const selectedYearMonth = useSelector((state:any) => state.filters.selectedYearMonth);
+  const selectedYear = useSelector((state:any) => state.filters.selectedYear);
   const primaryIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
@@ -365,7 +365,7 @@ const MapComponent = (props: any) => {
           {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
            indicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
-          selectedYearMonth + ' - ' + primaryIndicator + ' ' +
+          selectedYear + ' - ' + primaryIndicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
           currentYear}
         </div>

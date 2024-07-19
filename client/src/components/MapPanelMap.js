@@ -43,7 +43,8 @@ const styles = makeStyles(({
 const MapPanelMap = (props) => {
   const {changeSelectedState, indicator, subgroup, primary} = props;
   const currentYear = useSelector((state) => state.filters.currentYear);
-  const selectedYearMonth = useSelector((state) => state.filters.selectedYearMonth);
+  const currentMonth = useSelector((state) => state.filters.currentMonth);
+  const selectedYear = useSelector((state) => state.filters.selectedYear);
   const selectedCountry = useSelector((state) => state.filters.selectedCountry);
   const selectedMapTheme = useSelector((state) => state.filters.selectedMapTheme);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
@@ -68,13 +69,15 @@ const MapPanelMap = (props) => {
       const resultRaw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' + subgroup +
           '&year=' + currentYear + '&data=data' +
-          '&admin_level=' + (selectedIsAdm3 ? 3:2),
+          '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          (currentMonth ? '&month=' + currentMonth : ''),
       );
 
       const result2Raw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + indicator + '&subgroup=' + subgroup +
-          '&year=' + selectedYearMonth + '&data=data' +
-          '&admin_level=' + (selectedIsAdm3 ? 3:2),
+          '&year=' + selectedYear + '&data=data' +
+          '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          (currentMonth ? '&month=' + currentMonth : ''),
       );
 
       /**
@@ -147,8 +150,8 @@ const MapPanelMap = (props) => {
       // Fetch data for map
       fetchData();
     }
-  }, [indicator, subgroup, currentYear, selectedCountry, selectedIsAdm3, selectedMapTheme,
-    selectedLegendSync, selectedYearMonth, selectedDiffMap]);
+  }, [indicator, subgroup, currentYear, currentMonth, selectedCountry, selectedIsAdm3,
+    selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
 
 
   if (error) {

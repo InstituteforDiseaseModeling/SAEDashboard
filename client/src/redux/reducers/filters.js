@@ -7,8 +7,9 @@ import {
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
+  CHANGE_SELECTED_MONTH,
   CHANGE_LEGEND,
-  CHANGE_YEAR_MONTH,
+  CHANGE_COMPARE_YEAR,
   CHANGE_DIFF_MAP,
   CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
@@ -24,7 +25,8 @@ import {AFRICA_STR} from '../../const';
 const initialState = {
   selectedState: config.defaultRegion,
   selectedCountry: config.defaultCountry,
-  selectedYearMonth: config.defaultYear,
+  selectedYear: config.defaultYear,
+  selectedMonth: null,
   selectedLegend: false,
   selectedDiffMap: false,
   selectedLegendSync: false,
@@ -38,6 +40,7 @@ const initialState = {
   fromYear: 0,
   toYear: 0,
   currentYear: config.defaultYear ? config.defaultYear : 2023,
+  currentMonth: null,
   mapLegendMax: 0.25,
   mapLegendMin: 0,
   initialLoading: true,
@@ -53,6 +56,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case CHANGE_SELECTED_YEAR:
       return {...state, currentYear: action.year};
+
+    case CHANGE_SELECTED_MONTH:
+      return {...state, currentMonth: action.month};
 
     case CHANGE_SELECTED_COUNTRY:
       if (action.selectedCountry === AFRICA_STR) {
@@ -106,9 +112,8 @@ export default function(state = initialState, action) {
       state.selectedLegend = null;
       return {...state, selectedLegend: action.selectedLegend};
 
-    case CHANGE_YEAR_MONTH:
-
-      return {...state, selectedYearMonth: action.selectedYearMonth};
+    case CHANGE_COMPARE_YEAR:
+      return {...state, selectedYear: action.selectedYear};
 
     case CHANGE_DIFF_MAP:
       return {...state, selectedDiffMap: action.diffMap};

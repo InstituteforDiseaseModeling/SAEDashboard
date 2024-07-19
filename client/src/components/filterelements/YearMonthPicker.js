@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import PropTypes from 'prop-types';
-import {changeYearMonthFilter} from '../../redux/actions/filters';
+import {changeCompareYearFilter} from '../../redux/actions/filters';
 import {FormattedMessage} from 'react-intl';
 
 const styles = {
@@ -42,7 +42,7 @@ const years = [2020, 2021, 2022];
 const YearMonthPicker = (props) => {
   const {classes} = props;
   const dispatch = useDispatch();
-  const selectedMonthYear = useSelector((state) => state.filters.selectedYearMonth);
+  const selectedYear = useSelector((state) => state.filters.selectedYear);
 
   return (
     <div className={classes.root}>
@@ -52,8 +52,8 @@ const YearMonthPicker = (props) => {
         </InputLabel>
         <Select id="mapTheme-select"
           style={{minWidth: '80px'}}
-          value={selectedMonthYear}
-          onChange={(e) => dispatch(changeYearMonthFilter(e.target.value))}
+          value={selectedYear}
+          onChange={(e) => dispatch(changeCompareYearFilter(e.target.value))}
           MenuProps={{classes: {paper: classes.menuPaper}}}
         >
           {years.map((field) => {
