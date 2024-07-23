@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
     read_admin_level, read_version, ControllerException, get_all_countries, get_dataframe, DataFileKeys
@@ -77,7 +77,8 @@ async def get_map(request: Request):
             df = df.loc[df[DataFileKeys.YEAR] == year]
 
             if month is not None:
-                df = df.loc[df[DataFileKeys.MONTH] == month]
+                if DataFileKeys.MONTH in df.columns:
+                    df = df.loc[df[DataFileKeys.MONTH] == month]
 
             # update the return with the newly found entries
             new_values = df[[DataFileKeys.DOT_NAME, data_key]].rename(
@@ -85,4 +86,4 @@ async def get_map(request: Request):
             return_list.extend(new_values)
         return return_list
     except ControllerException as e:
-        return str(e), 400
+        return HTTPException(status_code=400, detail=str(e))
