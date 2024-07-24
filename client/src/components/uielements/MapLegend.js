@@ -193,24 +193,26 @@ const MapLegend = (props) => {
    */
   const healthClinicLegend = (layer) => {
     const numberOfSteps = 5;
-    if (!layer) {
+
+    if (layer) {
+      return (<div className={classes.blueLegend} ref={legend} id={id}>
+        {unitLabel(legendTitle)}
+        {Array.from(blues.colors(5)).map((c) => {
+          return <span key={c} style={{background: c, width: 10 + '%'}}
+            className={classes.gradStep}/>;
+        })}
+
+        {_.times(numberOfSteps+1, (num) => {
+          return <span key={num} className={classes.domainLabelStandard}
+            style={{left: 10 * num + '%'}}>
+            {(0 + num*20/100).toFixed(1)}
+          </span>;
+        })}
+
+      </div>);
+    } else {
       return <></>;
     }
-    return (<div className={classes.blueLegend} ref={legend} id={id}>
-      {unitLabel(legendTitle)}
-      {Array.from(blues.colors(5)).map((c) => {
-        return <span key={c} style={{background: c, width: 10 + '%'}}
-          className={classes.gradStep}/>;
-      })}
-
-      {_.times(numberOfSteps+1, (num) => {
-        return <span key={num} className={classes.domainLabelStandard}
-          style={{left: 10 * num + '%'}}>
-          {(0 + num*20/100).toFixed(1)}
-        </span>;
-      })}
-
-    </div>);
   };
 
 

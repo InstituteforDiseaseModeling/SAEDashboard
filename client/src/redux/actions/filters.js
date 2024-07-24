@@ -18,6 +18,7 @@ import {
   SET_MAP_SUBGROUPS_DATA,
   SET_COUNTRY_DATA,
   SHOW_ERROR,
+  CHANGE_SELECTED_RAINFALL_STATION,
 } from './types';
 import {apiAction} from './api';
 import {AFRICA_STR} from '../../const';
@@ -294,3 +295,15 @@ export function changeLanguage(language) {
     language,
   };
 }
+
+/**
+ * change selected rainfall station
+ * @param {*} rainfallStation
+ * @return {*} selected rainfall station message
+ */
+export function changeSelectedRainfallStation(rainfallStation) {
+  return {
+    type: CHANGE_SELECTED_RAINFALL_STATION,
+    rainfallStation,
+  };
+};

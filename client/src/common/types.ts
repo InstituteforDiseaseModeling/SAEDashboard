@@ -1,5 +1,3 @@
-import { Type } from "@amcharts/amcharts4/.internal/core/utils/Type"
-
 export type HealthClinic = {
   CODE: string,
   ALT: string,
@@ -12,6 +10,14 @@ export type HealthClinic = {
   repeated_twice: number,
   repeated_multiple: number,
   heterozygosity: number,
+}
+
+export type RainfallStation = {
+  Station: string,
+  Zone: string,
+  Strata: string,
+  Lat_y: string,
+  Long_x: string,
 }
 
 export type MapData = {

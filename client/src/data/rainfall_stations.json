@@ -1,0 +1,163 @@
+[
+  {
+    "Station": "Saint-Louis Aero",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "16.0328",
+    "Long_x": "-16.48302"
+  },
+  {
+    "Station": "Podor",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "16.66072",
+    "Long_x": "-14.96048"
+  },
+  {
+    "Station": "Matam",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "15.66008",
+    "Long_x": "-13.25822"
+  },
+  {
+    "Station": "Louga",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "15.6141",
+    "Long_x": "-16.22835"
+  },
+  {
+    "Station": "Linguere",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "15.39584",
+    "Long_x": "-15.11101"
+  },
+  {
+    "Station": "Dakar-Yoff",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "14.74721",
+    "Long_x": "-17.48995"
+  },
+  {
+    "Station": "Ranerou",
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Lat_y": "15.29536",
+    "Long_x": "-13.95792"
+  },
+  {
+    "Station": "Diourbel",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.65711",
+    "Long_x": "-16.2364"
+  },
+  {
+    "Station": "Bambey",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.69708",
+    "Long_x": "-16.45861"
+  },
+  {
+    "Station": "Thies",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.79086",
+    "Long_x": "-16.93688"
+  },
+  {
+    "Station": "Mbour",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.42048",
+    "Long_x": "-16.97264"
+  },
+  {
+    "Station": "Fatick",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.33903",
+    "Long_x": "-16.41188"
+  },
+  {
+    "Station": "Kaolack",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "14.16474",
+    "Long_x": "-16.07669"
+  },
+  {
+    "Station": "Koungheul",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "13.98038",
+    "Long_x": "-14.80202"
+  },
+  {
+    "Station": "Nioro",
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Lat_y": "13.7451",
+    "Long_x": "-15.77529"
+  },
+  {
+    "Station": "Tambacounda",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "13.77339",
+    "Long_x": "-13.67205"
+  },
+  {
+    "Station": "Bakel",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "14.9024",
+    "Long_x": "-12.45984"
+  },
+  {
+    "Station": "Kedougou",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "12.56109",
+    "Long_x": "-12.17678"
+  },
+  {
+    "Station": "Kolda",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "12.9018",
+    "Long_x": "-14.94139"
+  },
+  {
+    "Station": "Velingara",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "13.14811",
+    "Long_x": "-14.11215"
+  },
+  {
+    "Station": "Ziguinchor",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "12.56408",
+    "Long_x": "-16.26388"
+  },
+  {
+    "Station": "Cap-Skirring",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "12.36142",
+    "Long_x": "-16.71345"
+  },
+  {
+    "Station": "Goudiry",
+    "Zone": "Sud et Sud-Est",
+    "Strata": "Red",
+    "Lat_y": "14.1848",
+    "Long_x": "-12.71691"
+  }
+]

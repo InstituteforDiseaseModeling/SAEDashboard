@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeSelectedMonth} from '../../redux/actions/filters';
 import {TimeseriesSlider} from './TimeseriesSlider';
-
+import {injectIntl} from 'react-intl';
+import PropTypes from 'prop-types';
 
 /**
- * component for year selection
+ * component for month selection
+ * @param {MonthFilter.propTypes} props
  * @return {React.ReactElement}
  */
-const MonthFilter = () => {
+const MonthFilter = (props) => {
   const dispatch = useDispatch();
   const currentMonth = useSelector((state) => state.filters.currentMonth);
   const [currentMonthLocal, changeMonthLocal] = useState(currentMonth);
@@ -20,9 +22,10 @@ const MonthFilter = () => {
       min={0} max={12}
       valueLabelDisplay="on"
       valueLabelFormat={(value) => {
-        const months = ['All', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return months[value];
+        const months = ['month-All', 'month-Jan', 'month-Feb', 'month-Mar', 'month-Apr',
+          'month-May', 'month-Jun', 'month-Jul', 'month-Aug', 'month-Sep', 'month-Oct',
+          'month-Nov', 'month-Dec'];
+        return props.intl.formatMessage({id: months[value]});
       }}
       value={currentMonthLocal}
       step={1}
@@ -37,4 +40,8 @@ const MonthFilter = () => {
   );
 };
 
-export default MonthFilter;
+MonthFilter.propTypes = {
+  intl: PropTypes.func,
+};
+
+export default injectIntl(MonthFilter);
