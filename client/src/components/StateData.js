@@ -23,6 +23,7 @@ const styles = {
   chartArea: {
     padding: 5,
     margin: '-10px 5px 0px 5px',
+    minHeight: 478,
   },
   toggles: {
     textAlign: 'center',
@@ -158,7 +159,7 @@ const StateData = (props) => {
             const groupName = g ? g.text: '';
 
             return (
-              <Grid item xs={12} md={6} xl={4} key={groupName} >
+              <Grid item xs={12} md={12} key={groupName} >
                 <StateDataChart
                   group={group}
                   groupName={groupName}

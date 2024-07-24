@@ -13,6 +13,7 @@ import {
   CHANGE_DIFF_MAP,
   CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
+  CHANGE_SELECTED_RAINFALL_STATION,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -123,6 +124,9 @@ export default function(state = initialState, action) {
 
     case CHANGE_LANGUAGE:
       return {...state, selectedLanguage: action.language};
+
+    case CHANGE_SELECTED_RAINFALL_STATION:
+      return {...state, selectedRainfallStation: action.rainfallStation};
 
     default:
       return state;

@@ -48,5 +48,21 @@
   "population_coverage_rates": "coverage rates",
   "Cdm": "CDM",
   "unit": "units",
-  "NoData": "No data in this year"
+  "NoData": "No data in this month / year",
+  "month-All": "All",
+  "month-Jan": "Jan",
+  "month-Feb": "Feb",
+  "month-Mar": "Mar",
+  "month-Apr": "Apr",
+  "month-May": "May",
+  "month-Jun": "Jun",
+  "month-Jul": "Jul",
+  "month-Aug": "Aug",
+  "month-Sep": "Sep",
+  "month-Oct": "Oct",
+  "month-Nov": "Nov",
+  "month-Dec": "Dec",
+  "weather_stations": "Weather stations",
+  "rainfall_measured_at": "Rainfall data measured at the station - "
+
 }

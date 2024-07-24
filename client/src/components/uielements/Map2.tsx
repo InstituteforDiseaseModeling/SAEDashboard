@@ -2,21 +2,22 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, {useRef, useEffect, useState, useContext} from 'react';
-import {useSelector} from 'react-redux';
-import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
+import {useSelector, useDispatch} from 'react-redux';
+import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map, layerGroup} from 'leaflet';
 import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {colorMarker} from './MapUtil';
+import {addHealthClinicMarkers, addRainfallStations} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
 import {IndicatorConfig} from '../constTs.tsx';
-import {HealthClinic, MapData} from '../../common/types';
+import {HealthClinic, MapData, RainfallStation} from '../../common/types';
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
-
+import RainfallStations from '../../data/rainfall_stations.json';
+import {changeSelectedRainfallStation} from '../../redux/actions/filters.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -73,6 +74,7 @@ const MapComponent = (props: any) => {
 
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
+  const dispatch = useDispatch();
 
 
   // Data-related variables
@@ -172,16 +174,13 @@ const MapComponent = (props: any) => {
 
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, maxValue]).classes(numberOfSteps);
 
-  const blues = chroma.scale('Blues').domain([0, 1]).classes(5); // used for health clinic markers
 
   /**
    * Map setup
    */
   const mapSetup = function() {
     const L = require('leaflet');
-
     const initialView = [14.4, -15];
-    const blueColors = blues.colors(5);
 
     mapObj = L.map(chart.current, {
       zoomSnap: 0.25,
@@ -226,7 +225,7 @@ const MapComponent = (props: any) => {
       }
     };
 
-    // ... our listeners
+    // create map layer
     geojson = L.geoJSON(geoJson, {
       style: (feature: Feature) => {
         if (selectedLegend || (selectedDiffMap && !primary) ||
@@ -241,24 +240,18 @@ const MapComponent = (props: any) => {
     });
 
     geojson.addTo(mapObj);
-    const layerControl = L.control.layers().addTo(mapObj);
-    const sites:HealthClinic[] = [];
 
-    for (const site in healthClinicData.Senegal[2020].site_data) {
-      if (site) {
-        const clinic = healthClinicData.Senegal[2020].site_data[site];
-        let colorIndex = Math.ceil(clinic.Fraction_polygenomic * 5) - 1;
-        if (!clinic.Fraction_polygenomic) {
-          colorIndex = -1;
-        }
-        const marker = L.marker([clinic.Lat_2, clinic.Long_2],
-            {icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
-        sites.push(marker);
-      }
+    const layerControl = L.control.layers().addTo(mapObj);
+
+    const stationClicked = (station: RainfallStation) => {
+      dispatch(changeSelectedRainfallStation(station.Station));
     };
 
-    const parks = L.layerGroup(sites);
-    layerControl.addOverlay(parks, props.intl.formatMessage({id: 'sentinel_facilities'}));
+    // add health clinic markers
+    addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
+
+    // add rainfall stations
+    addRainfallStations(RainfallStations, layerControl, intl.formatMessage, stationClicked);
 
     mapObj.on('overlayadd', (data)=>{
       setSelectedLayer(data.name);
