@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 from pydantic import BaseModel
 
 LABELS = {
@@ -20,6 +20,7 @@ LABELS = {
 class IndicatorSchema(BaseModel):
     id: str
     text: str
+    time: Dict[int, List[int]]
 
 
 class IndicatorsListSchema(BaseModel):

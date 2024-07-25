@@ -1,5 +1,5 @@
 from service.helpers.controller_helpers import ControllerException, read_dot_names, get_channels, \
-    read_admin_level, read_use_descendant_dot_names
+    read_admin_level, read_use_descendant_dot_names, get_indicator_time
 from service.helpers.dot_name import DotName
 from service.schemas.IndicatorsSchema import IndicatorsListSchema
 from fastapi import APIRouter, Request
@@ -60,6 +60,7 @@ async def get_indicators(request: Request):
         if len(dot_names) > 1:
             raise ControllerException('indicators can only be requested for one dot_name at a time.')
         dot_name = DotName(dot_name_str=dot_names[0])
+        country = dot_name.country
         use_descendant_dot_names = read_use_descendant_dot_names(request=request)
         requested_admin_level = read_admin_level(request=request, required=False)
         if requested_admin_level is not None:
@@ -71,8 +72,9 @@ async def get_indicators(request: Request):
                                          admin_level=requested_admin_level))
         indicators_response = []
         for ind in indicators:
+            data_time = get_indicator_time(country=country, channel=ind)
             label = generate_label(ind)
-            indicators_response.append({"id": ind, "text": label})
+            indicators_response.append({"id": ind, "text": label, "time": data_time})
 
         return {"indicators": indicators_response}
 
