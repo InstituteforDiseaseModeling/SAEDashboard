@@ -63,6 +63,8 @@
   "month-Nov": "Nov",
   "month-Dec": "Dec",
   "weather_stations": "Weather stations",
-  "rainfall_measured_at": "Rainfall data measured at the station - "
-
+  "rainfall_measured_at": "Rainfall data collected for ",
+  "zone": "zone",
+  "station": "station",
+  "weather_zones": "weather zones"
 }

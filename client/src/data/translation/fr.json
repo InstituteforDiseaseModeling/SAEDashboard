@@ -64,5 +64,8 @@
   "month-Nov": "Nov",
   "month-Dec": "Déc",
   "weather_stations": "station météorologique",
-  "rainfall_measured_at": "Données pluviométriques mesurées à la station - "
+  "rainfall_measured_at": "Données de précipitations collectées pour la ",
+  "zone": "zone",
+  "station": "station",
+  "weather_zones": "zones météorologiques"
 }

@@ -14,6 +14,7 @@ import {
   CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
   CHANGE_SELECTED_RAINFALL_STATION,
+  CHANGE_SELECTED_RAINFALL_ZONE,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -126,7 +127,14 @@ export default function(state = initialState, action) {
       return {...state, selectedLanguage: action.language};
 
     case CHANGE_SELECTED_RAINFALL_STATION:
-      return {...state, selectedRainfallStation: action.rainfallStation};
+      return {...state,
+        selectedRainfallZone: null,
+        selectedRainfallStation: action.rainfallStation};
+
+    case CHANGE_SELECTED_RAINFALL_ZONE:
+      return {...state,
+        selectedRainfallStation: null,
+        selectedRainfallZone: action.rainfallZone};
 
     default:
       return state;

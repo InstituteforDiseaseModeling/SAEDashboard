@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 import {Toolbar, AppBar} from '@mui/material';
 import PropTypes from 'prop-types';
 import RainfallDataChart from './RainfallDataChart';
+import RainfallZoneDataChart from './RainfallZoneDataChart';
 import {FormattedMessage} from 'react-intl';
 
 const styles = {
@@ -50,9 +51,10 @@ const styles = {
 const StateData = (props) => {
   const {classes} = props;
   const selectedRainfallStation = useSelector((state) => state.filters.selectedRainfallStation);
+  const selectedRainfallZone = useSelector((state) => state.filters.selectedRainfallZone);
 
   useEffect(() => {
-  }, [selectedRainfallStation]);
+  }, [selectedRainfallStation, selectedRainfallZone]);
 
   return (
     <Paper className={classes.chartArea}>
@@ -60,12 +62,24 @@ const StateData = (props) => {
       <AppBar position="static" >
         <Toolbar variant="dense" className={classes.chartBar}>
           <Typography variant="h6" className={classes.title}>
-            <FormattedMessage id='rainfall_measured_at'/>{selectedRainfallStation}
+            <FormattedMessage id='rainfall_measured_at'/>
+            {selectedRainfallStation &&
+              <>
+                <FormattedMessage id='station'/> -&nbsp;
+                {selectedRainfallStation}
+              </>}
+            {selectedRainfallZone &&
+              <>
+                <FormattedMessage id='zone'/> -&nbsp;
+                {selectedRainfallZone}
+              </>
+            }
           </Typography>
           <div className={classes.grow} key={1}/>
         </Toolbar>
       </AppBar>
-      <RainfallDataChart />
+      { selectedRainfallStation && <RainfallDataChart /> }
+      { selectedRainfallZone && <RainfallZoneDataChart /> }
     </Paper>
   );
 };
