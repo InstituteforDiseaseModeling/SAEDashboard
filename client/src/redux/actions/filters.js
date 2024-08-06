@@ -19,6 +19,7 @@ import {
   SET_COUNTRY_DATA,
   SHOW_ERROR,
   CHANGE_SELECTED_RAINFALL_STATION,
+  CHANGE_SELECTED_RAINFALL_ZONE,
 } from './types';
 import {apiAction} from './api';
 import {AFRICA_STR} from '../../const';
@@ -307,3 +308,16 @@ export function changeSelectedRainfallStation(rainfallStation) {
     rainfallStation,
   };
 };
+
+/**
+ * change selected rainfall zone
+ * @param {*} rainfallZone
+ * @return {*} selected rainfall zone message
+ */
+export function changeSelectedRainfallZone(rainfallZone) {
+  return {
+    type: CHANGE_SELECTED_RAINFALL_ZONE,
+    rainfallZone,
+  };
+};
+

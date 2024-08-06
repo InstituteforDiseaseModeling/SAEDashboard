@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, {useRef, useEffect, useState, useContext} from 'react';
+import React, {useRef, useEffect, useLayoutEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map, layerGroup} from 'leaflet';
 import MapLegend from './MapLegend';
@@ -17,7 +17,8 @@ import {IndicatorConfig} from '../constTs.tsx';
 import {HealthClinic, MapData, RainfallStation} from '../../common/types';
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import RainfallStations from '../../data/rainfall_stations.json';
-import {changeSelectedRainfallStation} from '../../redux/actions/filters.js';
+import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
+import RainfallZoneModel from '../../model/rainfallZoneModel.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -63,6 +64,7 @@ const MapComponent = (props: any) => {
   const selectedLegendSync = useSelector((state:any) => state.filters.selectedLegendSync);
   const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
   const currentYear = useSelector((state:any) => state.filters.currentYear);
+  const currentMonth = useSelector((state:any) => state.filters.currentMonth);
   const selectedYear = useSelector((state:any) => state.filters.selectedYear);
   const primaryIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
@@ -75,6 +77,7 @@ const MapComponent = (props: any) => {
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
   const dispatch = useDispatch();
+  const rainfallZoneModel = new RainfallZoneModel();
 
 
   // Data-related variables
@@ -182,6 +185,10 @@ const MapComponent = (props: any) => {
     const L = require('leaflet');
     const initialView = [14.4, -15];
 
+    if (mapObj) {
+      return;
+    }
+
     mapObj = L.map(chart.current, {
       zoomSnap: 0.25,
       zoomDelta: 0.25,
@@ -225,6 +232,10 @@ const MapComponent = (props: any) => {
       }
     };
 
+    const rainfallFeatureHandler = (feature:Feature) => {
+      return {color: 'red', fillColor: 'red', weight: 1, fillOpacity: 0};
+    };
+
     // create map layer
     geojson = L.geoJSON(geoJson, {
       style: (feature: Feature) => {
@@ -246,6 +257,19 @@ const MapComponent = (props: any) => {
     const stationClicked = (station: RainfallStation) => {
       dispatch(changeSelectedRainfallStation(station.Station));
     };
+
+    // for adding weather zones layer
+    const weatherZoneClicked = (zone: string) => {
+      dispatch(changeSelectedRainfallZone(zone));
+    };
+
+    const rainfallLayer = L.GeoJSON.geometryToLayer(
+        rainfallZoneModel.getRainfallZoneGeoJson(),
+    );
+
+    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked);
+
+    layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
 
     // add health clinic markers
     addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
@@ -338,7 +362,7 @@ const MapComponent = (props: any) => {
   /**
    * Component Initialization
    */
-  useEffect(() => {
+  useLayoutEffect(() => {
     mapSetup();
     return (() => {
     });
