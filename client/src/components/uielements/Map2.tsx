@@ -8,17 +8,17 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {addHealthClinicMarkers, addRainfallStations} from './MapUtil';
+import {addHealthClinicMarkers} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
 import {IndicatorConfig} from '../constTs.tsx';
-import {HealthClinic, MapData, RainfallStation} from '../../common/types';
+import {HealthClinic, RainfallStation} from '../../common/types';
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
-import RainfallStations from '../../data/rainfall_stations.json';
 import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
 import RainfallZoneModel from '../../model/rainfallZoneModel.js';
+import {addRainfallStations} from '../../model/rainfallStationModel.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -275,7 +275,7 @@ const MapComponent = (props: any) => {
     addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
 
     // add rainfall stations
-    addRainfallStations(RainfallStations, layerControl, intl.formatMessage, stationClicked);
+    addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
 
     mapObj.on('overlayadd', (data)=>{
       setSelectedLayer(data.name);

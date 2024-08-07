@@ -30,13 +30,6 @@ export class RainfallZoneModel {
   getRainfallZoneGeoJson = () => {
     return rainfallZonesGeoJson;
   };
-  /**
-   * getRainfall zone data
-   * @return {*} rainfall zone data
-   */
-  // getRainfallZoneData = () => {
-  //   return rainfallZoneData;
-  // };
 
   /**
    * @param {*} zone

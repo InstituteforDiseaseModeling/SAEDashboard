@@ -193,8 +193,9 @@ const MapLegend = (props) => {
    */
   const healthClinicLegend = (layer) => {
     const numberOfSteps = 5;
+    const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
 
-    if (layer) {
+    if (layer == sentinelFacilitylayer) {
       return (<div className={classes.blueLegend} ref={legend} id={id}>
         {unitLabel(legendTitle)}
         {Array.from(blues.colors(5)).map((c) => {
