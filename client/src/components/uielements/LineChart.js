@@ -38,7 +38,7 @@ const LineChart = (props) => {
   const {minYAxisVal, setMinYAxisVal} = useContext(ChartContext);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
   const indicator = useSelector((state) => state.filters.selectedIndicator);
-  const unit = IndicatorConfig[indicator].unit;
+  const unit = _.get(IndicatorConfig[indicator], 'unit');
 
   const creatSeries = (x, yAxis) => {
     const series = x.series.push(new am4charts.LineSeries());

@@ -66,5 +66,6 @@
   "rainfall_measured_at": "Rainfall data collected for ",
   "zone": "zone",
   "station": "station",
-  "weather_zones": "weather zones"
+  "weather_zones": "weather zones",
+  "Correct Treatment": "Correct treatment"
 }
