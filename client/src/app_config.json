@@ -14,6 +14,10 @@
     "CDM": "RdBu",
     "CDM_Coverage": "RdBu",
     "MILDA": "RdBu",
-    "MILDA_Coverage": "RdBu"
+    "MILDA_Coverage": "RdBu",
+    "IPTp3": "RdBu",
+    "SMC": "RdBu",
+    "testing_rates": "RdBu",
+    "correct_treatment": "RdBu"
   }
 }

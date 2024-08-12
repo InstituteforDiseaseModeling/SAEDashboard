@@ -19,7 +19,11 @@ LABELS = {
     "CDM": "CDM - Number of Nets",
     "MILDA": "MILDA - Number of Nets",
     "predicted_incidence": "Predicted Incidence",
-    "reported_incidence": "Reported Incidence"
+    "reported_incidence": "Reported Incidence",
+    "SMC": "Seasonal Malaria Chemoprophylaxis Coverage",
+    "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
+    "testing_rates": "Tested Suspected Malaria Cases",
+    "correct_treatment": "% Cases with Correct Treatment"
 }
 
 
