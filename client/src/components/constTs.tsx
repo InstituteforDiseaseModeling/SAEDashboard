@@ -27,5 +27,14 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'decimalPt': 0},
   'unmet_need': {'unitLabel': 'unmet_need', 'multiper': 100, 'unit': '%',
     'mapLabel': '%', 'decimalPt': 0},
+  'correct_treatment': {'unitLabel': 'correct_treatment', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'decimalPt': 1},
+  'testing_rates': {'unitLabel': 'testing_rates', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'decimalPt': 1},
+  'SMC': {'unitLabel': 'testing_rates', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'decimalPt': 1},
+  'IPTp3': {'unitLabel': 'testing_rates', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'decimalPt': 1},
+
 };
 

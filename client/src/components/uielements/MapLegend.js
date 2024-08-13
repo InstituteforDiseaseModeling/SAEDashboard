@@ -104,11 +104,9 @@ const MapLegend = (props) => {
       </div>);
   };
 
-  console.log(IndicatorConfig);
+  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'mapLabel');
 
-  console.log(IndicatorConfig[selectedIndicator]);
-
-  const yLabel = _.get(translations[selectedLocale], IndicatorConfig[selectedIndicator].unitLabel);
+  const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
 
   /**
@@ -171,7 +169,7 @@ const MapLegend = (props) => {
     const multiper = selectedIndicator && IndicatorConfig[selectedIndicator] ?
       IndicatorConfig[selectedIndicator].multiper : 1;
     const unit = selectedIndicator && IndicatorConfig[selectedIndicator] ?
-      IndicatorConfig[selectedIndicator].unit : '';
+      IndicatorConfig[selectedIndicator].unit.replace('\'', '') : '';
     return (<div className={classes.gradLegend} ref={legend} id={id}>
       {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
