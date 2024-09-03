@@ -90,7 +90,12 @@ export default function(state = initialState, action) {
     case SET_INDICATOR_DATA:
       // Pick the first indicator as selected
       const indicators = action.indicatorData['indicators'];
-      const selectedIndicator = indicators.length > 0 ? indicators[0].id : null;
+      const foundTarget =_.find(indicators, {id: config.defaultIndicator});
+
+
+      const selectedIndicator = indicators.length > 0 ?
+        foundTarget ? foundTarget.id : indicators[0].id :
+        null;
       return {...state, indicators: indicators, selectedIndicator: selectedIndicator};
 
     case SET_MAP_SUBGROUPS_DATA:

@@ -13,9 +13,9 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': 'cases_per_1000', 'decimalPt': 2},
   'reported_incidence': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
     'mapLabel': 'cases_per_1000', 'decimalPt': 2},
-  'CDM': {'unitLabel': 'number_of_nets', 'multiper': 1, 'unit': '', 'mapLabel': 'units',
+  'CDM': {'unitLabel': 'number_of_nets', 'multiper': 1, 'unit': '', 'mapLabel': 'unit',
     'decimalPt': 0},
-  'MILDA': {'unitLabel': 'number_of_nets', 'multiper': 1, 'unit': '', 'mapLabel': 'units',
+  'MILDA': {'unitLabel': 'number_of_nets', 'multiper': 1, 'unit': '', 'mapLabel': 'unit',
     'decimalPt': 0},
   'CDM_Coverage': {'unitLabel': 'population_coverage_rates', 'multiper': 100, 'unit': '%',
     'mapLabel': '%', 'decimalPt': 0},
@@ -35,6 +35,8 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'decimalPt': 1},
   'IPTp3': {'unitLabel': 'testing_rates', 'multiper': 1, 'unit': '\'%',
     'mapLabel': '%', 'decimalPt': 1},
+  'weather_zones': {'unitLabel': 'weather_zones', 'multiper': 1, 'unit': '',
+    'mapLabel': ' ', 'decimalPt': 1},
 
 };
 

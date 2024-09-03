@@ -12,6 +12,7 @@ import MapPanelMap from './MapPanelMap';
 import * as _ from 'lodash';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
+import config from '../app_config.json';
 
 
 const styles = {
@@ -65,7 +66,7 @@ const MapPanel = (props) => {
   if (subgroups.length !== 0 && !_.find(subgroups, {id: selectedSubgroup})) {
     // try to find the next indicator/subgroup when there is only "All women" subgroup
     if (subgroups[0].id === 'all' && indicators.length > 1 && !primary) {
-      changeIndicator(indicators[1].id);
+      changeIndicator(config.defaultComparisonIndicator);
     }
     const allSubgroup = _.find(subgroups, {id: 'all'});
 
@@ -78,7 +79,6 @@ const MapPanel = (props) => {
 
   useEffect(()=>{
     changeSubgroup(null);
-    changeIndicator(null);
   }, [isAdm3]);
 
   return (
