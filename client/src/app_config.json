@@ -18,6 +18,9 @@
     "IPTp3": "RdBu",
     "SMC": "RdBu",
     "testing_rates": "RdBu",
-    "correct_treatment": "RdBu"
-  }
+    "correct_treatment": "RdBu",
+    "weather_zones": "RdBu"
+  },
+  "defaultIndicator" : "predicted_incidence",
+  "defaultComparisonIndicator" : "reported_incidence"
 }

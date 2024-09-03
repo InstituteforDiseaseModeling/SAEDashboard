@@ -91,6 +91,7 @@ export function changeIsAdm3(isAdm3) {
 
 /**
  * change selected legend indicator
+ * true means normal legend and false means custom legend
  * @param {*} selectedLegend
  * @return {*} legend message
  */
