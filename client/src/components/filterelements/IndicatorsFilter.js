@@ -59,9 +59,6 @@ const IndicatorFilter = (props) => {
         <MenuItem value="SMC" key={6} className={classes.menuItem}>
           <FormattedMessage id="SMC"/></MenuItem>
         {/* case management */}
-        <ListSubheader className={classes.subHeader}>
-          <FormattedMessage id="case_management"/>
-        </ListSubheader>
         <MenuItem value="correct_treatment" key={7} className={classes.menuItem}>
           <FormattedMessage id="correct_treatment"/></MenuItem>
         <MenuItem value="testing_rates" key={8} className={classes.menuItem}>

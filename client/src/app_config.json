@@ -21,6 +21,6 @@
     "correct_treatment": "RdBu",
     "weather_zones": "RdBu"
   },
-  "defaultIndicator" : "predicted_incidence",
-  "defaultComparisonIndicator" : "reported_incidence"
+  "defaultIndicator" : "reported_incidence",
+  "defaultComparisonIndicator" : "predicted_incidence"
 }
