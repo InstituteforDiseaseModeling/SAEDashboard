@@ -75,5 +75,14 @@
   "intervention": "Intervention",
   "case_management": "Gestion des cas",
   "malaria_epidemiology": "Épidémiologie du paludisme", 
-  "environmental": "Données environnementales"
+  "environmental": "Données environnementales",
+  "mm_rain": "mm pluie",
+  "CDMLegendLabel": "nombre de moustiquaires",
+  "CDMCoverageLegendLabel": "% de couverture",
+  "MILDALegendLabel": "nombre de moustiquaires",
+  "MILDACoverageLegendLabel": "% de couverture",
+  "IPTPLegendLabel": "% couverture TPI3",
+  "SMCLegendLabel": "% couverture CPS",
+  "PercentTreatedLegendLabel": "% traités",
+  "TestingRatesLegendLabel": "% testés"
 }
