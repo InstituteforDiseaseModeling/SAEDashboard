@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import withStyles from '@mui/styles/withStyles';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  changeSelectedIndicator,
+  changeSelectedIndicator, changeSelectedComparisonIndicator,
   changeSelectedMapTheme,
   changeSelectedState,
 } from '../redux/actions/filters';
@@ -32,18 +32,24 @@ const MapPanel = (props) => {
   const subgroups = useSelector((state) => state.filters.mapSubgroups);
   const indicators = useSelector((state) => state.filters.indicators);
 
-  const selectedIndicatorRedux = useSelector((state) => state.filters.selectedIndicator);
+  const selectedIndicator = useSelector((state) => state.filters.selectedIndicator);
+  const selectedComparisonIndicator = useSelector(
+      (state) => state.filters.selectedComparisonIndicator);
   const selectedMapThemeRedux = useSelector((state) => state.filters.selectedMapTheme);
   const selectedYear = useSelector((state) => state.filters.selectedYear);
   const currentYear = useSelector((state) => state.filters.currentYear);
   const isAdm3 = useSelector((state) => state.filters.isAdm3);
 
   const [selectedSubgroup, changeSubgroup] = useState();
-  const [selectedIndicator, changeIndicator] = useState();
 
   // Handle changing indicator for main map.
-  const changeSelectedIndicatorRedux = (indicator) => {
-    dispatch(changeSelectedIndicator(indicator, props.primary));
+  const changeSelectedIndicatorHandler = (indicator) => {
+    dispatch(changeSelectedIndicator(indicator));
+  };
+
+  // Handle changing indicator for main map.
+  const changeSelectedComparisonIndicatorHandler = (indicator) => {
+    dispatch(changeSelectedComparisonIndicator(indicator));
   };
 
   // Handle changing the map theme color.
@@ -58,15 +64,12 @@ const MapPanel = (props) => {
     }
   };
 
-  if (indicators.length !== 0 && !selectedIndicator) {
-    changeIndicator(indicators[0].id);
-  }
 
   // By default assign the first element
   if (subgroups.length !== 0 && !_.find(subgroups, {id: selectedSubgroup})) {
     // try to find the next indicator/subgroup when there is only "All women" subgroup
     if (subgroups[0].id === 'all' && indicators.length > 1 && !primary) {
-      changeIndicator(config.defaultComparisonIndicator);
+      changeSelectedComparisonIndicator(config.defaultComparisonIndicator);
     }
     const allSubgroup = _.find(subgroups, {id: 'all'});
 
@@ -75,7 +78,7 @@ const MapPanel = (props) => {
 
   useEffect(()=>{
     changeSubgroup(null);
-  }, [indicators.length, selectedIndicatorRedux]);
+  }, [indicators.length, selectedIndicator]);
 
   useEffect(()=>{
     changeSubgroup(null);
@@ -87,16 +90,18 @@ const MapPanel = (props) => {
         title={primary ?
           <FormattedMessage id='main_map' /> : <FormattedMessage id='comparison_map' />}
         changeSubgroup={changeSubgroup}
-        changeIndicator={primary ? changeSelectedIndicatorRedux : changeIndicator}
+        changeIndicator={primary ? changeSelectedIndicatorHandler :
+          changeSelectedComparisonIndicatorHandler}
         changeMapTheme={changeSelectedMapThemeRedux}
         selectedSubgroup={selectedSubgroup}
-        selectedIndicator={primary ? selectedIndicatorRedux : selectedIndicator}
+        selectedIndicator={primary ? selectedIndicator : selectedComparisonIndicator}
         selectedMapTheme={selectedMapThemeRedux}
         parentClasses={primary ? {} : classes}
         primary={primary} />
       <MapPanelMap changeSelectedState={setSelectedState}
-        subgroup={selectedSubgroup} indicator={primary ? selectedIndicatorRedux : selectedIndicator}
-        key={selectedIndicator+selectedIndicatorRedux +
+        subgroup={selectedSubgroup} indicator={primary ? selectedIndicator :
+          selectedComparisonIndicator}
+        key={selectedIndicator+selectedComparisonIndicator +
           primary ? currentYear : selectedYear}
         primary={primary}/>
     </Paper>

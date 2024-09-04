@@ -3,6 +3,7 @@ import {
   CHANGE_SELECTED_YEAR,
   CHANGE_SELECTED_MONTH,
   CHANGE_SELECTED_INDICATOR,
+  CHANGE_SELECTED_COMPARISON_INDICATOR,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
@@ -137,6 +138,18 @@ export function changeSelectedIndicator(selectedIndicator) {
   return {
     type: CHANGE_SELECTED_INDICATOR,
     selectedIndicator,
+  };
+}
+
+/**
+ * change selected comparison indicator
+ * @param {*} selectedComparisonIndicator
+ * @return {*} selected comparison indicator message
+ */
+export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
+  return {
+    type: CHANGE_SELECTED_COMPARISON_INDICATOR,
+    selectedComparisonIndicator,
   };
 }
 
