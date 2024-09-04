@@ -80,7 +80,6 @@ const MapComponent = (props: any) => {
   const dispatch = useDispatch();
   const rainfallZoneModel = new RainfallZoneModel();
 
-
   // Data-related variables
 
   const minValueFromData = _.get(_.minBy(mapData, 'value'), 'value');
@@ -370,6 +369,10 @@ const MapComponent = (props: any) => {
   useLayoutEffect(() => {
     mapSetup();
     return (() => {
+      if (mapObj) {
+        mapObj.remove();
+        mapObj = null;
+      }
     });
   }, []);
 

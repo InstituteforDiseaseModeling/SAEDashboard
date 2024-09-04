@@ -41,7 +41,7 @@ const styles = makeStyles(({
 }));
 
 const MapPanelMap = (props) => {
-  const {changeSelectedState, indicator, subgroup, primary} = props;
+  const {changeSelectedState, subgroup, primary} = props;
   const currentYear = useSelector((state) => state.filters.currentYear);
   const currentMonth = useSelector((state) => state.filters.currentMonth);
   const selectedYear = useSelector((state) => state.filters.selectedYear);
@@ -50,6 +50,8 @@ const MapPanelMap = (props) => {
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const mapLegendMax = useSelector((state) => state.filters.mapLegendMax);
   const selectedIndicator =useSelector((state) => state.filters.selectedIndicator);
+  const selectedComparisonIndicator =useSelector((state) =>
+    state.filters.selectedComparisonIndicator);
   const geoJson = useSelector((state) => state.dashboard.geoJson);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
@@ -60,6 +62,8 @@ const MapPanelMap = (props) => {
   const [error, setError] = useState();
   const classes = styles();
   const dispatch = useDispatch();
+
+  const indicator = primary ? selectedIndicator : selectedComparisonIndicator;
 
   const fetchData = async () => {
     axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
@@ -74,7 +78,8 @@ const MapPanelMap = (props) => {
       );
 
       const result2Raw = await axios(
-          '/map?dot_name=' + dotName + '&channel=' + indicator + '&subgroup=' + subgroup +
+          '/map?dot_name=' + dotName + '&channel=' + selectedComparisonIndicator +
+            '&subgroup=' + subgroup +
           '&year=' + selectedYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2) +
           (currentMonth ? '&month=' + currentMonth : ''),
@@ -116,6 +121,7 @@ const MapPanelMap = (props) => {
         return ({id: item.id, value: itemTocompare ? itemTocompare.value - item.value : undefined});
       });
 
+
       setData(primary ?
         result :
         selectedDiffMap ? diffResult : result2 );
@@ -150,8 +156,8 @@ const MapPanelMap = (props) => {
       // Fetch data for map
       fetchData();
     }
-  }, [indicator, subgroup, currentYear, currentMonth, selectedCountry, selectedIsAdm3,
-    selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
+  }, [indicator, subgroup, currentYear, currentMonth, selectedCountry,
+    selectedIsAdm3, selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
 
 
   if (error) {
