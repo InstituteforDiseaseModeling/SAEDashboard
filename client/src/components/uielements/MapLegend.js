@@ -98,8 +98,8 @@ const MapLegend = (props) => {
     return (
       <div className={classes.domainLabelCustom}
         style={{
-          width: 0, top: 40, left: -45, backgroundColor: 'darkgrey',
-          color: 'white', width: 100, textAlign: 'center',
+          width: 0, top: 50, left: -55, backgroundColor: 'darkgrey',
+          color: 'white', width: 120, textAlign: 'center',
         }}>
         {label}
       </div>);

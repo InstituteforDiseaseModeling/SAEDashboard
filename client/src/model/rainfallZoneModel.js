@@ -65,8 +65,9 @@ export class RainfallZoneModel {
    * @param {*} month
    * @param {*} mapObj
    * @param {*} clickHandler
+   * @param {*} formatMessage
    */
-  setupLayer = (rainfallLayer, yr, month, mapObj, clickHandler) => {
+  setupLayer = (rainfallLayer, yr, month, mapObj, clickHandler, formatMessage) => {
     for (const layerId in rainfallLayer._layers) {
       if (Object.hasOwn(rainfallLayer._layers, layerId)) {
         let nameIndex = '';
@@ -99,7 +100,7 @@ export class RainfallZoneModel {
           const msg = rainfallLayer._layers[layerId]['name'] + ' : ' +
             (rainfallLayer._layers[layerId]['data'] ?
             Math.round(rainfallLayer._layers[layerId]['data']['Average_rain_mm'] * 100) / 100 +
-            ' mm' : 'No data');
+            ' ' + formatMessage({id: 'mm_rain'}) : 'No data');
 
           window.L.popup()
               .setContent(msg)

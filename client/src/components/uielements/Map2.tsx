@@ -267,7 +267,7 @@ const MapComponent = (props: any) => {
         rainfallZoneModel.getRainfallZoneGeoJson(),
     );
 
-    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked);
+    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
 
     // add weather zones layer
     layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
