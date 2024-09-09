@@ -14,6 +14,8 @@
     "CDM": "RdBu",
     "CDM_Coverage": "RdBu",
     "MILDA": "RdBu",
-    "MILDA_Coverage": "RdBu"
+    "MILDA_Coverage": "RdBu",
+    "high_model_predictions": "RdBu",
+    "low_model_predictions": "RdBu"
   }
 }

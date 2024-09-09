@@ -353,7 +353,7 @@ def get_shapes(dot_name, admin_level, version):
     feature_collection = {'type': 'FeatureCollection', 'features': []}
 
     available_versions = detect_shape_versions(country=dot_name.country)
-    if version not in available_versions:
+    if str(version) not in available_versions:
         raise ControllerException('Invalid version %s for country %s . Available versions: %s' %
                                   (version, dot_name.country, ','.join(available_versions)))
 
@@ -453,6 +453,18 @@ def read_admin_level(request, required=True):
         if admin_level < 1:
             raise ControllerException('Admin level must be an integer > 0')
     return admin_level
+
+
+def read_shape_version(request, required=True):
+    shapefile_version = request.query_params.get("shape_version")
+    if shapefile_version is None and required:
+        raise ControllerException('Parameter shapefile_version is missing from the request.')
+    if shapefile_version is not None:
+        shapefile_version = int(shapefile_version)
+    if required:
+        if shapefile_version < 1:
+            raise ControllerException('shapefile_version must be an integer > 0')
+    return shapefile_version
 
 
 def read_upfill(request):
