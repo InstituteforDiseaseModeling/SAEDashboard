@@ -455,13 +455,12 @@ def read_admin_level(request, required=True):
     return admin_level
 
 
-def read_shape_version(request, required=True):
+def read_shape_version(request):
     shapefile_version = request.query_params.get("shape_version")
-    if shapefile_version is None and required:
-        raise ControllerException('Parameter shapefile_version is missing from the request.')
-    if shapefile_version is not None:
+    if shapefile_version is None:
+        shapefile_version = 1
+    else:
         shapefile_version = int(shapefile_version)
-    if required:
         if shapefile_version < 1:
             raise ControllerException('shapefile_version must be an integer > 0')
     return shapefile_version

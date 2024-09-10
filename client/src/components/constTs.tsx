@@ -27,5 +27,9 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'decimalPt': 0},
   'unmet_need': {'unitLabel': 'unmet_need', 'multiper': 100, 'unit': '%',
     'mapLabel': '%', 'decimalPt': 0},
+  'low_model_predictions': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
+    'mapLabel': 'cases_per_1000', 'decimalPt': 2},
+  'high_model_predictions': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
+    'mapLabel': 'cases_per_1000', 'decimalPt': 2},
 };
 
