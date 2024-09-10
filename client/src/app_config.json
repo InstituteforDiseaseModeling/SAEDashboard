@@ -16,6 +16,13 @@
     "MILDA": "RdBu",
     "MILDA_Coverage": "RdBu",
     "high_model_predictions": "RdBu",
-    "low_model_predictions": "RdBu"
-  }
+    "low_model_predictions": "RdBu",
+    "IPTp3": "RdBu",
+    "SMC": "RdBu",
+    "testing_rates": "RdBu",
+    "correct_treatment": "RdBu",
+    "weather_zones": "RdBu"
+  },
+  "defaultIndicator" : "reported_incidence",
+  "defaultComparisonIndicator" : "predicted_incidence"
 }

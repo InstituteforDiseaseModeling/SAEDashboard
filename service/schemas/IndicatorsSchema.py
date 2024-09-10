@@ -16,7 +16,12 @@ LABELS = {
     "predicted_incidence": "Predicted Incidence",
     "reported_incidence": "Reported Incidence",
     "low_model_predictions": "Low Model Predictions",
-    "high_model_predictions": "High Model Predictions"
+    "high_model_predictions": "High Model Predictions",
+    "SMC": "Seasonal Malaria Chemoprophylaxis Coverage",
+    "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
+    "testing_rates": "Tested Suspected Malaria Cases",
+    "correct_treatment": "% Cases with Correct Treatment",
+    "weather_zones": "Weather Zones"
 }
 
 class IndicatorSchema(BaseModel):

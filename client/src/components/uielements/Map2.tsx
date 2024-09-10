@@ -70,6 +70,7 @@ const MapComponent = (props: any) => {
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
+  const [unselectedLayer, setUnselectedLayer] = useState('');
   const {intl} = props;
   const mapLabel = IndicatorConfig[indicator] ?
     intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
@@ -78,7 +79,6 @@ const MapComponent = (props: any) => {
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
   const dispatch = useDispatch();
   const rainfallZoneModel = new RainfallZoneModel();
-
 
   // Data-related variables
 
@@ -267,8 +267,9 @@ const MapComponent = (props: any) => {
         rainfallZoneModel.getRainfallZoneGeoJson(),
     );
 
-    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked);
+    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
 
+    // add weather zones layer
     layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
 
     // add health clinic markers
@@ -277,10 +278,13 @@ const MapComponent = (props: any) => {
     // add rainfall stations
     addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
 
+
     mapObj.on('overlayadd', (data)=>{
       setSelectedLayer(data.name);
+      setUnselectedLayer(null);
     });
-    mapObj.on('overlayremove', ()=>{
+    mapObj.on('overlayremove', (data)=>{
+      setUnselectedLayer(data.name);
       setSelectedLayer(null);
     });
     comparisonEventSetup(mapObj);
@@ -365,6 +369,10 @@ const MapComponent = (props: any) => {
   useLayoutEffect(() => {
     mapSetup();
     return (() => {
+      if (mapObj) {
+        mapObj.remove();
+        mapObj = null;
+      }
     });
   }, []);
 
@@ -373,6 +381,7 @@ const MapComponent = (props: any) => {
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
         selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
+        unselectedLayer={unselectedLayer}
         selectedIndicator={indicator}
         key={minValue + maxValue + selectedLayer + indicator}/>
 
