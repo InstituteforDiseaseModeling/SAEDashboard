@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
-    read_admin_level, read_version, ControllerException, get_all_countries, get_dataframe, DataFileKeys
+    read_admin_level, ControllerException, get_all_countries, get_dataframe, DataFileKeys, read_shape_version
 
 router = APIRouter()
 
@@ -17,7 +17,7 @@ async def get_map(request: Request):
             ...
          }
 
-    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data
+    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&version=2
     return:
         [
             {
@@ -45,13 +45,12 @@ async def get_map(request: Request):
         year = read_year(request=request)
         month = read_month(request=request)
         data_key = read_data(request=request)
+        shape_version = read_shape_version(request=request)
         requested_admin_level = read_admin_level(request=request)   #TODO: Map examples above don't include admin but shown
                                                                     # as required in controller_helpers.py read_admin_level
         if requested_admin_level < dot_name.admin_level:
             raise ControllerException('Cannot request an admin_level shallower than the provided dot_name.')
 
-        # TODO: the call to read version REALLY depends on how we version. Currently assumes file-based versioning,
-        # which the rest of the code may/moy not be able to handle at the moment.
         # Handle the case where continent-level dot_name is provided, too
         if dot_name.country is None:
             countries = get_all_countries()
@@ -62,9 +61,9 @@ async def get_map(request: Request):
 
         return_list = []
         for country in countries:
-            version = read_version(request=request, country=country, channel=channel, subgroup=subgroup)
+            #version = read_version(request=request, country=country, channel=channel, subgroup=subgroup)
 
-            df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=version)
+            df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=shape_version)
 
             # limit data to the descendant dot_names at the requested admin level
             all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
