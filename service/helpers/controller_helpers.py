@@ -240,7 +240,7 @@ def get_channels(dot_name, subgroup=None, version=None, use_descendent_dot_names
 def get_dataframe(country, channel, subgroup, version):
     # country = get_country_name(dot_name=dot_name)
     available_versions = detect_versions(country=country, channel=channel, subgroup=subgroup)
-    if version not in available_versions:
+    if str(version) not in available_versions:
         raise ControllerException('Invalid version %s for country %s channel %s subgroup %s. Available versions: %s' %
                                   (version, country, channel, subgroup, ','.join(available_versions)))
 

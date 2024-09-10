@@ -9,7 +9,7 @@ router = APIRouter()
 async def get_years(request: Request):
     """
     Example 1:
-    /years?dot_name=Africa:Benin:Borgou&channel=unmet_need&subgroup=all
+    /years?dot_name=Africa:Benin:Borgou&channel=unmet_need&subgroup=all&shape_version=2
     return: {"dot_name": "Africa:Benin:Borgou", "fromYear":1990, "to_year":1994}
 
     Example 2:
@@ -28,9 +28,10 @@ async def get_years(request: Request):
 
         # TODO: the call to read version REALLY depends on how we version. Currently assumes file-based versioning,
         # which the rest of the code may/moy not be able to handle at the moment.
-        version = read_version(request=request, country=dot_name.country, channel=channel, subgroup=subgroup)
+        #version = read_version(request=request, country=dot_name.country, channel=channel, subgroup=subgroup)
+        shape_version = read_shape_version(request=request)
 
-        df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=version)
+        df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=shape_version)
 
         # limit data to the requested dot_name only
         df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]

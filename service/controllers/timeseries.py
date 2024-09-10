@@ -1,6 +1,6 @@
 from helpers.dot_name import DotName
 from service.helpers.controller_helpers import DataFileKeys, read_dot_names, ControllerException, read_channel, \
-    read_subgroup, read_version, get_dataframe
+    read_subgroup, get_dataframe, read_shape_version
 from fastapi import APIRouter, Request
 
 router = APIRouter()
@@ -10,7 +10,7 @@ router = APIRouter()
 async def get_timeseries(request: Request):
     """
     Example 1:
-    /timeseries?dot_name=Africa:Benin:Borgou&channel=traditional_method&subgroup=15-24_urban
+    /timeseries?dot_name=Africa:Benin:Borgou&channel=traditional_method&subgroup=15-24_urban&shape_version=2
     return:
         [
             {
@@ -40,12 +40,13 @@ async def get_timeseries(request: Request):
         dot_name = DotName(dot_name_str=dot_names[0])
         channel = read_channel(request=request)
         subgroup = read_subgroup(request=request)
+        shape_version = read_shape_version(request=request)
 
         # TODO: the call to read version REALLY depends on how we version. Currently assumes file-based versioning,
         # which the rest of the code may/moy not be able to handle at the moment.
-        version = read_version(request=request, country=dot_name.country, channel=channel, subgroup=subgroup)
+        #version = read_version(request=request, country=dot_name.country, channel=channel, subgroup=subgroup)
 
-        df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=version)
+        df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=shape_version)
 
         # limit data to the requested dot_name only
         df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
