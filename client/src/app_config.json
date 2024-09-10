@@ -15,13 +15,17 @@
     "CDM_Coverage": "RdBu",
     "MILDA": "RdBu",
     "MILDA_Coverage": "RdBu",
-    "high_model_predictions": "RdBu",
-    "low_model_predictions": "RdBu",
+    "high_model_predictions": "BuRd",
+    "low_model_predictions": "BuRd",
     "IPTp3": "RdBu",
     "SMC": "RdBu",
     "testing_rates": "RdBu",
     "correct_treatment": "RdBu",
     "weather_zones": "RdBu"
+  },
+  "shapefileVersion": {
+    "high_model_predictions": 2,
+    "low_model_predictions": 2
   },
   "defaultIndicator" : "reported_incidence",
   "defaultComparisonIndicator" : "predicted_incidence"
