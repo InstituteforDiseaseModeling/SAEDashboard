@@ -8,6 +8,7 @@ import {showError} from '../redux/actions/messaging';
 import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
+import config from '../app_config.json';
 
 const styles = {
   title: {
@@ -23,6 +24,9 @@ const StateDataChart = (props) => {
   const [isError, setIsError] = useState(false);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
 
+  const shapeFileVersion = config.shapefileVersion[channel] ?
+    config.shapefileVersion[channel] : 1;
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +34,8 @@ const StateDataChart = (props) => {
       axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
       try {
         const result = await axios(
-            '/timeseries?dot_name=' + selectedState + '&channel=' + channel + '&subgroup=' + group,
+            '/timeseries?dot_name=' + selectedState + '&channel=' + channel + '&subgroup=' +
+            group + '&shape_version=' + shapeFileVersion,
         );
         setData(result.data);
       } catch (error) {

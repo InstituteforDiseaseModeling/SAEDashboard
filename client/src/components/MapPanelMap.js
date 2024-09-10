@@ -69,11 +69,18 @@ const MapPanelMap = (props) => {
     axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
     const dotName = selectedCountry;
 
+    const mainShapeFileVersion = config.shapefileVersion[selectedIndicator] ?
+      config.shapefileVersion[selectedIndicator] : 1;
+
+    const comparisonShapeFileVersion = config.shapefileVersion[selectedComparisonIndicator] ?
+      config.shapefileVersion[selectedComparisonIndicator] : 1;
+
     try {
       const resultRaw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' + subgroup +
           '&year=' + currentYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          '&shape_version=' + mainShapeFileVersion +
           (currentMonth ? '&month=' + currentMonth : ''),
       );
 
@@ -82,6 +89,7 @@ const MapPanelMap = (props) => {
             '&subgroup=' + subgroup +
           '&year=' + selectedYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          '&shape_version=' + comparisonShapeFileVersion +
           (currentMonth ? '&month=' + currentMonth : ''),
       );
 
