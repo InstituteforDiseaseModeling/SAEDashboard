@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from service.helpers.dot_name import DotName
 from service.helpers.controller_helpers import get_shapes, read_dot_names, read_admin_level, read_upfill, \
-    ControllerException, get_all_countries_for_shapes, read_version
+    ControllerException, get_all_countries_for_shapes, read_shape_version
 from fastapi import APIRouter, Request
 
 router = APIRouter()
@@ -11,7 +11,7 @@ router = APIRouter()
 @router.get("/shapes")
 async def get_features(request: Request):
     """
-    Example: /shapes?dot_name=Africa:Benin&admin_level=2
+    Example: /shapes?dot_name=Africa:Benin&admin_level=2&shape_version=1
     :return: Returns GeoJSON shape objects at the specified admin_level under the provided dot_name
         {
             "Africa:Benin": {
@@ -48,6 +48,7 @@ async def get_features(request: Request):
         # handle get arguments
         dot_names = read_dot_names(request=request)
         requested_admin_level = read_admin_level(request=request)
+        shape_version = read_shape_version(request=request)
         upfill = read_upfill(request=request)
         # TODO: add version input as an option and use it below
 
@@ -62,13 +63,13 @@ async def get_features(request: Request):
             for country in countries:
                 admin_level = requested_admin_level
                 # TODO: shapefile version may differ from data
-                version = read_version(country=country, channel=None, subgroup=None, request=request)
+                #version = read_version(country=country, channel=None, subgroup=None, request=request)
 
                 dn = dot_name if dot_name.country else DotName.from_parts([dot_name.continent, country])
-                shapes = get_shapes(dot_name=dn, admin_level=admin_level, version=version)
+                shapes = get_shapes(dot_name=dn, admin_level=admin_level, version=shape_version)
                 while upfill and len(shapes['features']) == 0 and admin_level > dot_name.admin_level:
                     admin_level -= 1
-                    shapes = get_shapes(dot_name=dn, admin_level=admin_level, version=version)
+                    shapes = get_shapes(dot_name=dn, admin_level=admin_level, version=shape_version)
 
                 # Extend the features with whats coming from the shapes
                 shapes_by_dot_name[str(dot_name)]["features"].extend(shapes["features"])

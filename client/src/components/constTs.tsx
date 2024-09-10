@@ -27,6 +27,10 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'decimalPt': 0},
   'unmet_need': {'unitLabel': 'unmet_need', 'multiper': 100, 'unit': '%',
     'mapLabel': '%', 'decimalPt': 0},
+  'low_model_predictions': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
+    'mapLabel': 'cases_per_1000', 'decimalPt': 2},
+  'high_model_predictions': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
+    'mapLabel': 'cases_per_1000', 'decimalPt': 2},
   'correct_treatment': {'unitLabel': 'correct_treatment', 'multiper': 1, 'unit': '\'%',
     'mapLabel': 'PercentTreatedLegendLabel', 'decimalPt': 1},
   'testing_rates': {'unitLabel': 'testing_rates', 'multiper': 1, 'unit': '\'%',
@@ -37,6 +41,5 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': 'IPTPLegendLabel', 'decimalPt': 1},
   'weather_zones': {'unitLabel': 'weather_zones', 'multiper': 1, 'unit': 'mm',
     'mapLabel': ' ', 'decimalPt': 1},
-
 };
 
