@@ -49,8 +49,34 @@ const LineChart = (props) => {
     series.tooltipText = '{yearDate} : {valueY}';
     series.fill = am4core.color('#e07b39');
     series.stroke = am4core.color('#e07b39');
-    series.bullets.push(new am4charts.CircleBullet());
+
+
+    const errorBullet = series.bullets.create(am4charts.ErrorBullet);
+    errorBullet.isDynamic = true;
+    errorBullet.strokeWidth = 2;
+
+    const circle = errorBullet.createChild(am4core.Circle);
+    circle.radius = 3;
+    circle.fill = am4core.color('#ffffff');
+
+    // adapter adjusts height of a bullet
+    errorBullet.adapter.add('pixelHeight', function(pixelHeight, target) {
+      const dataItem = target.dataItem;
+
+      if (dataItem && dataItem.dataContext) {
+        const errorTopValue = dataItem.dataContext.upper_bound;
+        const errorTopY = yAxis.valueToPoint(errorTopValue).y;
+
+        const errorBottomValue = dataItem.dataContext.lower_bound;
+        const errorBottomY = yAxis.valueToPoint(errorBottomValue).y;
+
+        return Math.abs(errorTopY - errorBottomY);
+      }
+      return pixelHeight;
+    });
+    // ===============================================================
   };
+
 
   useLayoutEffect(() => {
     const x = am4core.create(chartId, am4charts.XYChart);
@@ -89,6 +115,9 @@ const LineChart = (props) => {
     x.legend.paddingTop = '0px';
     x.legend.position = 'bottom';
     x.legend.height = '100px';
+
+    x.paddingTop = 0;
+    x.paddingBottom = 0;
 
     // add Event
     if (props.selectedState && props.selectedState.indexOf('Touba') >= 0) {
@@ -135,14 +164,6 @@ const LineChart = (props) => {
       }
     });
 
-    if (maxdata && maxdata.reference_upper_bound &&
-      maxdata.reference_upper_bound > maxdata.upper_bound &&
-        maxdata.reference_upper_bound > maxYAxisVal) {
-      setMaxYAxisVal(maxdata.reference_upper_bound);
-    } else if (maxdata && maxdata.upper_bound > maxYAxisVal) {
-      setMaxYAxisVal(maxdata.upper_bound);
-    }
-
     const minData = _.minBy(props.chartData, (o)=> {
       if (o.reference_lower_bound && (o.reference_lower_bound < o.lower_bound)) {
         return o.reference_lower_bound;
@@ -151,12 +172,27 @@ const LineChart = (props) => {
       }
     });
 
+    // for spacing the chat from bottom so users can see the entire error bullet
+    let delta = 0;
+    if (maxdata && minData) {
+      delta = maxdata.upper_bound - minData.lower_bound;
+      console.log('delta', delta);
+    }
+
+    if (maxdata && maxdata.reference_upper_bound &&
+      maxdata.reference_upper_bound > maxdata.upper_bound &&
+        maxdata.reference_upper_bound > maxYAxisVal) {
+      setMaxYAxisVal(maxdata.reference_upper_bound * 1.1);
+    } else if (maxdata && maxdata.upper_bound > maxYAxisVal) {
+      setMaxYAxisVal(maxdata.upper_bound * 1.1);
+    }
+
     if (minData && minData.reference_lower_bound &&
       minData.reference_lower_bound < minData.lower_bound &&
       minData.reference_lower_bound < minYAxisVal) {
-      setMinYAxisVal(minData.reference_lower_bound);
+      setMinYAxisVal(minData.reference_lower_bound - delta*0.1);
     } else if (minData && minData.lower_bound < minYAxisVal) {
-      setMinYAxisVal(minData.lower_bound);
+      setMinYAxisVal(minData.lower_bound - delta*0.1);
     }
 
 

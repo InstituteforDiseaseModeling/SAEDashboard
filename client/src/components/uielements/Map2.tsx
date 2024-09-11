@@ -53,8 +53,14 @@ interface CustomTheme {
 
 const extenededlegendTheme: CustomTheme[] = customTheme;
 
+const IncidenceMap = ['reported_incidence',
+  'predicted_incidence',
+  'high_model_predictions',
+  'low_model_predictions',
+];
+
 export const isIncidenceMap = (indicator:string) => {
-  return (indicator == 'reported_incidence' || indicator == 'predicted_incidence');
+  return IncidenceMap.includes(indicator);
 };
 
 const MapComponent = (props: any) => {
@@ -193,6 +199,9 @@ const MapComponent = (props: any) => {
       zoomSnap: 0.25,
       zoomDelta: 0.25,
       scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
+
+    // const stripes = new L.Pattern({});
+    // stripes.addTo(mapObj);
 
     const customFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
