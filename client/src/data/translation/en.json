@@ -87,5 +87,7 @@
   "IPTPLegendLabel": "% IPTp coverage",
   "SMCLegendLabel": "% SMC coverage",
   "PercentTreatedLegendLabel": "% treated",
-  "TestingRatesLegendLabel": "% tested"
+  "TestingRatesLegendLabel": "% tested",
+  "low_model_predictions": "GLM incidence - low prevalence",
+  "high_model_predictions": "GLM incidence - high prevalence"
 }

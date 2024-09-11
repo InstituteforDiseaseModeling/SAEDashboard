@@ -84,5 +84,7 @@
   "IPTPLegendLabel": "% couverture TPI3",
   "SMCLegendLabel": "% couverture CPS",
   "PercentTreatedLegendLabel": "% traités",
-  "TestingRatesLegendLabel": "% testés"
+  "TestingRatesLegendLabel": "% testés",
+  "low_model_predictions": "MLG incidence - faible prévalence",
+  "high_model_predictions": "MLG incidence - prévalence élevée"
 }
