@@ -41,7 +41,7 @@ const styles = makeStyles(({
 }));
 
 const MapPanelMap = (props) => {
-  const {changeSelectedState, indicator, subgroup, primary} = props;
+  const {changeSelectedState, subgroup, primary} = props;
   const currentYear = useSelector((state) => state.filters.currentYear);
   const currentMonth = useSelector((state) => state.filters.currentMonth);
   const selectedYear = useSelector((state) => state.filters.selectedYear);
@@ -50,6 +50,8 @@ const MapPanelMap = (props) => {
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const mapLegendMax = useSelector((state) => state.filters.mapLegendMax);
   const selectedIndicator =useSelector((state) => state.filters.selectedIndicator);
+  const selectedComparisonIndicator =useSelector((state) =>
+    state.filters.selectedComparisonIndicator);
   const geoJson = useSelector((state) => state.dashboard.geoJson);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
@@ -61,22 +63,33 @@ const MapPanelMap = (props) => {
   const classes = styles();
   const dispatch = useDispatch();
 
+  const indicator = primary ? selectedIndicator : selectedComparisonIndicator;
+
   const fetchData = async () => {
     axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
     const dotName = selectedCountry;
+
+    const mainShapeFileVersion = config.shapefileVersion[selectedIndicator] ?
+      config.shapefileVersion[selectedIndicator] : 1;
+
+    const comparisonShapeFileVersion = config.shapefileVersion[selectedComparisonIndicator] ?
+      config.shapefileVersion[selectedComparisonIndicator] : 1;
 
     try {
       const resultRaw = await axios(
           '/map?dot_name=' + dotName + '&channel=' + selectedIndicator + '&subgroup=' + subgroup +
           '&year=' + currentYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          '&shape_version=' + mainShapeFileVersion +
           (currentMonth ? '&month=' + currentMonth : ''),
       );
 
       const result2Raw = await axios(
-          '/map?dot_name=' + dotName + '&channel=' + indicator + '&subgroup=' + subgroup +
+          '/map?dot_name=' + dotName + '&channel=' + selectedComparisonIndicator +
+            '&subgroup=' + subgroup +
           '&year=' + selectedYear + '&data=data' +
           '&admin_level=' + (selectedIsAdm3 ? 3:2) +
+          '&shape_version=' + comparisonShapeFileVersion +
           (currentMonth ? '&month=' + currentMonth : ''),
       );
 
@@ -116,6 +129,7 @@ const MapPanelMap = (props) => {
         return ({id: item.id, value: itemTocompare ? itemTocompare.value - item.value : undefined});
       });
 
+
       setData(primary ?
         result :
         selectedDiffMap ? diffResult : result2 );
@@ -150,8 +164,8 @@ const MapPanelMap = (props) => {
       // Fetch data for map
       fetchData();
     }
-  }, [indicator, subgroup, currentYear, currentMonth, selectedCountry, selectedIsAdm3,
-    selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
+  }, [indicator, subgroup, currentYear, currentMonth, selectedCountry,
+    selectedIsAdm3, selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
 
 
   if (error) {

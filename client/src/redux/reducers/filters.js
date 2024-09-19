@@ -4,6 +4,7 @@ import {
   CHANGE_MAP_LEGEND_MIN,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_INDICATOR,
+  CHANGE_SELECTED_COMPARISON_INDICATOR,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_SELECTED_STATE,
   CHANGE_SELECTED_YEAR,
@@ -13,6 +14,8 @@ import {
   CHANGE_DIFF_MAP,
   CHANGE_LEGEND_SYNC,
   CHANGE_LANGUAGE,
+  CHANGE_SELECTED_RAINFALL_STATION,
+  CHANGE_SELECTED_RAINFALL_ZONE,
   SET_COUNTRY_DATA,
   SET_INDICATOR_DATA,
   SET_MAP_SUBGROUPS_DATA,
@@ -73,6 +76,9 @@ export default function(state = initialState, action) {
     case CHANGE_SELECTED_INDICATOR:
       return {...state, selectedIndicator: action.selectedIndicator};
 
+    case CHANGE_SELECTED_COMPARISON_INDICATOR:
+      return {...state, selectedComparisonIndicator: action.selectedComparisonIndicator};
+
     case CHANGE_SELECTED_MAP_THEME:
       return {...state, selectedMapTheme: action.selectedMapTheme};
 
@@ -88,8 +94,20 @@ export default function(state = initialState, action) {
     case SET_INDICATOR_DATA:
       // Pick the first indicator as selected
       const indicators = action.indicatorData['indicators'];
-      const selectedIndicator = indicators.length > 0 ? indicators[0].id : null;
-      return {...state, indicators: indicators, selectedIndicator: selectedIndicator};
+      const foundTarget =_.find(indicators, {id: config.defaultIndicator});
+      const found2ndTarget =_.find(indicators, {id: config.defaultComparisonIndicator});
+
+      const selectedIndicator = indicators.length > 0 ?
+        foundTarget ? foundTarget.id : indicators[0].id :
+        null;
+
+      const selectedComparisonIndicator = indicators.length > 1 ?
+        found2ndTarget ? found2ndTarget.id : indicators[1].id :
+        null;
+
+      return {...state, indicators: indicators,
+        selectedComparisonIndicator: selectedComparisonIndicator,
+        selectedIndicator: selectedIndicator};
 
     case SET_MAP_SUBGROUPS_DATA:
       // Pick the first subgroup as selected
@@ -123,6 +141,16 @@ export default function(state = initialState, action) {
 
     case CHANGE_LANGUAGE:
       return {...state, selectedLanguage: action.language};
+
+    case CHANGE_SELECTED_RAINFALL_STATION:
+      return {...state,
+        selectedRainfallZone: null,
+        selectedRainfallStation: action.rainfallStation};
+
+    case CHANGE_SELECTED_RAINFALL_ZONE:
+      return {...state,
+        selectedRainfallStation: null,
+        selectedRainfallZone: action.rainfallZone};
 
     default:
       return state;

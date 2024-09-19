@@ -1,0 +1,2442 @@
+[
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "3",
+    "Cumulative_rain_mm": 0.8,
+    "Average_rain_mm": 0.1
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "5",
+    "Cumulative_rain_mm": 16,
+    "Average_rain_mm": 2
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "6",
+    "Cumulative_rain_mm": 306.8,
+    "Average_rain_mm": 38.35
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "7",
+    "Cumulative_rain_mm": 450.5,
+    "Average_rain_mm": 56.3125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "8",
+    "Cumulative_rain_mm": 1545.7,
+    "Average_rain_mm": 193.2125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "9",
+    "Cumulative_rain_mm": 1295.9,
+    "Average_rain_mm": 161.9875
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "10",
+    "Cumulative_rain_mm": 181.5,
+    "Average_rain_mm": 22.6875
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "11",
+    "Cumulative_rain_mm": 4,
+    "Average_rain_mm": 0.5
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2018,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3801.2,
+    "Average_rain_mm": 475.15
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "3",
+    "Cumulative_rain_mm": 0.7,
+    "Average_rain_mm": 0.0875
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "6",
+    "Cumulative_rain_mm": 99.8,
+    "Average_rain_mm": 12.475
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "7",
+    "Cumulative_rain_mm": 230.2,
+    "Average_rain_mm": 28.775
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "8",
+    "Cumulative_rain_mm": 1629.8,
+    "Average_rain_mm": 203.725
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "9",
+    "Cumulative_rain_mm": 1340.3,
+    "Average_rain_mm": 167.5375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "10",
+    "Cumulative_rain_mm": 377.6,
+    "Average_rain_mm": 47.2
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "12",
+    "Cumulative_rain_mm": 0.6,
+    "Average_rain_mm": 0.075
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2019,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3679,
+    "Average_rain_mm": 459.875
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "6",
+    "Cumulative_rain_mm": 194.1,
+    "Average_rain_mm": 24.2625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "7",
+    "Cumulative_rain_mm": 1620,
+    "Average_rain_mm": 202.5
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "8",
+    "Cumulative_rain_mm": 1676.4,
+    "Average_rain_mm": 209.55
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "9",
+    "Cumulative_rain_mm": 2306.6,
+    "Average_rain_mm": 288.325
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "10",
+    "Cumulative_rain_mm": 464.3,
+    "Average_rain_mm": 58.0375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "11",
+    "Cumulative_rain_mm": 4.5,
+    "Average_rain_mm": 0.5625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2020,
+    "Month": "Total",
+    "Cumulative_rain_mm": 6265.9,
+    "Average_rain_mm": 783.2375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "5",
+    "Cumulative_rain_mm": 2.7,
+    "Average_rain_mm": 0.3375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "6",
+    "Cumulative_rain_mm": 406.4,
+    "Average_rain_mm": 50.8
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "7",
+    "Cumulative_rain_mm": 597,
+    "Average_rain_mm": 74.625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "8",
+    "Cumulative_rain_mm": 2454.2,
+    "Average_rain_mm": 306.775
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "9",
+    "Cumulative_rain_mm": 844.8,
+    "Average_rain_mm": 105.6
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "10",
+    "Cumulative_rain_mm": 532.9,
+    "Average_rain_mm": 66.6125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "11",
+    "Cumulative_rain_mm": 0.6,
+    "Average_rain_mm": 0.075
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "12",
+    "Cumulative_rain_mm": 0.3,
+    "Average_rain_mm": 0.0375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2021,
+    "Month": "Total",
+    "Cumulative_rain_mm": 4838.9,
+    "Average_rain_mm": 604.8625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "5",
+    "Cumulative_rain_mm": 181.1,
+    "Average_rain_mm": 22.6375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "6",
+    "Cumulative_rain_mm": 382.5,
+    "Average_rain_mm": 47.8125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "7",
+    "Cumulative_rain_mm": 1438,
+    "Average_rain_mm": 179.75
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "8",
+    "Cumulative_rain_mm": 1886,
+    "Average_rain_mm": 235.75
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "9",
+    "Cumulative_rain_mm": 1975.7,
+    "Average_rain_mm": 246.9625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "10",
+    "Cumulative_rain_mm": 493.1,
+    "Average_rain_mm": 61.6375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "12",
+    "Cumulative_rain_mm": 0.1,
+    "Average_rain_mm": 0.0125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2022,
+    "Month": "Total",
+    "Cumulative_rain_mm": 6356.5,
+    "Average_rain_mm": 794.5625
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "5",
+    "Cumulative_rain_mm": 1.4,
+    "Average_rain_mm": 0.175
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "6",
+    "Cumulative_rain_mm": 160.1,
+    "Average_rain_mm": 20.0125
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "7",
+    "Cumulative_rain_mm": 1207.5,
+    "Average_rain_mm": 150.9375
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "8",
+    "Cumulative_rain_mm": 1877.2,
+    "Average_rain_mm": 234.65
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "9",
+    "Cumulative_rain_mm": 1645.4,
+    "Average_rain_mm": 205.675
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "10",
+    "Cumulative_rain_mm": 279.9,
+    "Average_rain_mm": 34.9875
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Centre",
+    "Strata": "Yellow",
+    "Year": 2023,
+    "Month": "Total",
+    "Cumulative_rain_mm": 5171.5,
+    "Average_rain_mm": 646.4375
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "6",
+    "Cumulative_rain_mm": 194.4,
+    "Average_rain_mm": 27.77142857
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "7",
+    "Cumulative_rain_mm": 427.3,
+    "Average_rain_mm": 61.04285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "8",
+    "Cumulative_rain_mm": 489.7,
+    "Average_rain_mm": 69.95714286
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "9",
+    "Cumulative_rain_mm": 850.8,
+    "Average_rain_mm": 121.5428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "10",
+    "Cumulative_rain_mm": 214.9,
+    "Average_rain_mm": 30.7
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "11",
+    "Cumulative_rain_mm": 4,
+    "Average_rain_mm": 0.571428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "12",
+    "Cumulative_rain_mm": 0.3,
+    "Average_rain_mm": 0.042857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2018,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2182.2,
+    "Average_rain_mm": 311.7428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "6",
+    "Cumulative_rain_mm": 4.2,
+    "Average_rain_mm": 0.6
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "7",
+    "Cumulative_rain_mm": 151.5,
+    "Average_rain_mm": 21.64285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "8",
+    "Cumulative_rain_mm": 752.1,
+    "Average_rain_mm": 107.4428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "9",
+    "Cumulative_rain_mm": 709.4,
+    "Average_rain_mm": 101.3428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "10",
+    "Cumulative_rain_mm": 432.5,
+    "Average_rain_mm": 61.78571429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2019,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2050.9,
+    "Average_rain_mm": 292.9857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "2",
+    "Cumulative_rain_mm": 0.3,
+    "Average_rain_mm": 0.042857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "6",
+    "Cumulative_rain_mm": 41.3,
+    "Average_rain_mm": 5.9
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "7",
+    "Cumulative_rain_mm": 1220.2,
+    "Average_rain_mm": 174.3142857
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "8",
+    "Cumulative_rain_mm": 929.4,
+    "Average_rain_mm": 132.7714286
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "9",
+    "Cumulative_rain_mm": 1320.2,
+    "Average_rain_mm": 188.6
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "10",
+    "Cumulative_rain_mm": 213.3,
+    "Average_rain_mm": 30.47142857
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2020,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3727.9,
+    "Average_rain_mm": 532.5571429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "6",
+    "Cumulative_rain_mm": 125.6,
+    "Average_rain_mm": 17.94285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "7",
+    "Cumulative_rain_mm": 217.9,
+    "Average_rain_mm": 31.12857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "8",
+    "Cumulative_rain_mm": 1478.9,
+    "Average_rain_mm": 211.2714286
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "9",
+    "Cumulative_rain_mm": 656.9,
+    "Average_rain_mm": 93.84285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "10",
+    "Cumulative_rain_mm": 71.1,
+    "Average_rain_mm": 10.15714286
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "11",
+    "Cumulative_rain_mm": 1.6,
+    "Average_rain_mm": 0.228571429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "12",
+    "Cumulative_rain_mm": 1.91,
+    "Average_rain_mm": 0.272857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2021,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2554.91,
+    "Average_rain_mm": 364.9871429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "1",
+    "Cumulative_rain_mm": 5.3,
+    "Average_rain_mm": 0.757142857
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "5",
+    "Cumulative_rain_mm": 59,
+    "Average_rain_mm": 8.428571429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "7",
+    "Cumulative_rain_mm": 710.7,
+    "Average_rain_mm": 101.5285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "8",
+    "Cumulative_rain_mm": 1223.9,
+    "Average_rain_mm": 174.8428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "9",
+    "Cumulative_rain_mm": 1039.8,
+    "Average_rain_mm": 148.5428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "10",
+    "Cumulative_rain_mm": 245.3,
+    "Average_rain_mm": 35.04285714
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "12",
+    "Cumulative_rain_mm": 10.3,
+    "Average_rain_mm": 1.471428571
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2022,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3544.2,
+    "Average_rain_mm": 506.3142857
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "5",
+    "Cumulative_rain_mm": 2,
+    "Average_rain_mm": 0.285714286
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "6",
+    "Cumulative_rain_mm": 80,
+    "Average_rain_mm": 11.42857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "8",
+    "Cumulative_rain_mm": 1134.6,
+    "Average_rain_mm": 162.0857143
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "9",
+    "Cumulative_rain_mm": 802.6,
+    "Average_rain_mm": 114.6571429
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "10",
+    "Cumulative_rain_mm": 139.3,
+    "Average_rain_mm": 19.9
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Nord et ouest",
+    "Strata": "Green",
+    "Year": 2023,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3036.4,
+    "Average_rain_mm": 433.7714286
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "5",
+    "Cumulative_rain_mm": 75.1,
+    "Average_rain_mm": 12.51666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "6",
+    "Cumulative_rain_mm": 406.7,
+    "Average_rain_mm": 67.78333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "7",
+    "Cumulative_rain_mm": 1130,
+    "Average_rain_mm": 188.3333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "8",
+    "Cumulative_rain_mm": 1219.2,
+    "Average_rain_mm": 203.2
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "9",
+    "Cumulative_rain_mm": 1231.7,
+    "Average_rain_mm": 205.2833333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "10",
+    "Cumulative_rain_mm": 533.8,
+    "Average_rain_mm": 88.96666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "11",
+    "Cumulative_rain_mm": 113.6,
+    "Average_rain_mm": 18.93333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2018,
+    "Month": "Total",
+    "Cumulative_rain_mm": 4710.1,
+    "Average_rain_mm": 785.0166667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "3",
+    "Cumulative_rain_mm": 0.3,
+    "Average_rain_mm": 0.05
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "4",
+    "Cumulative_rain_mm": 5,
+    "Average_rain_mm": 0.833333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "5",
+    "Cumulative_rain_mm": 3.3,
+    "Average_rain_mm": 0.55
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "6",
+    "Cumulative_rain_mm": 398.3,
+    "Average_rain_mm": 66.38333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "7",
+    "Cumulative_rain_mm": 896.6,
+    "Average_rain_mm": 149.4333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "8",
+    "Cumulative_rain_mm": 1500.1,
+    "Average_rain_mm": 250.0166667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "9",
+    "Cumulative_rain_mm": 1140.6,
+    "Average_rain_mm": 190.1
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "10",
+    "Cumulative_rain_mm": 530.3,
+    "Average_rain_mm": 88.38333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "11",
+    "Cumulative_rain_mm": 9.1,
+    "Average_rain_mm": 1.516666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2019,
+    "Month": "Total",
+    "Cumulative_rain_mm": 4483.6,
+    "Average_rain_mm": 747.2666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "1",
+    "Cumulative_rain_mm": 3.2,
+    "Average_rain_mm": 0.533333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "4",
+    "Cumulative_rain_mm": 4.6,
+    "Average_rain_mm": 0.766666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "5",
+    "Cumulative_rain_mm": 28.8,
+    "Average_rain_mm": 4.8
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "6",
+    "Cumulative_rain_mm": 693.7,
+    "Average_rain_mm": 115.6166667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "7",
+    "Cumulative_rain_mm": 1315.1,
+    "Average_rain_mm": 219.1833333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "8",
+    "Cumulative_rain_mm": 1354.9,
+    "Average_rain_mm": 225.8166667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "9",
+    "Cumulative_rain_mm": 2038.8,
+    "Average_rain_mm": 339.8
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "10",
+    "Cumulative_rain_mm": 480.9,
+    "Average_rain_mm": 80.15
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2020,
+    "Month": "Total",
+    "Cumulative_rain_mm": 5920,
+    "Average_rain_mm": 986.6666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "5",
+    "Cumulative_rain_mm": 25.1,
+    "Average_rain_mm": 4.183333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "6",
+    "Cumulative_rain_mm": 379.2,
+    "Average_rain_mm": 63.2
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "7",
+    "Cumulative_rain_mm": 896.9,
+    "Average_rain_mm": 149.4833333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "8",
+    "Cumulative_rain_mm": 1729.2,
+    "Average_rain_mm": 288.2
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "9",
+    "Cumulative_rain_mm": 1294.6,
+    "Average_rain_mm": 215.7666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "10",
+    "Cumulative_rain_mm": 307.7,
+    "Average_rain_mm": 51.28333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "11",
+    "Cumulative_rain_mm": 0.4,
+    "Average_rain_mm": 0.066666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2021,
+    "Month": "Total",
+    "Cumulative_rain_mm": 4633.1,
+    "Average_rain_mm": 772.1833333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "3",
+    "Cumulative_rain_mm": 3,
+    "Average_rain_mm": 0.5
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "4",
+    "Cumulative_rain_mm": 1,
+    "Average_rain_mm": 0.166666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "5",
+    "Cumulative_rain_mm": 280.3,
+    "Average_rain_mm": 46.71666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "6",
+    "Cumulative_rain_mm": 967,
+    "Average_rain_mm": 161.1666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "7",
+    "Cumulative_rain_mm": 1015.8,
+    "Average_rain_mm": 169.3
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "8",
+    "Cumulative_rain_mm": 1515.2,
+    "Average_rain_mm": 252.5333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "9",
+    "Cumulative_rain_mm": 1536.8,
+    "Average_rain_mm": 256.1333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "10",
+    "Cumulative_rain_mm": 625.2,
+    "Average_rain_mm": 104.2
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "11",
+    "Cumulative_rain_mm": 0.2,
+    "Average_rain_mm": 0.033333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "12",
+    "Cumulative_rain_mm": 8.6,
+    "Average_rain_mm": 1.433333333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2022,
+    "Month": "Total",
+    "Cumulative_rain_mm": 5953.1,
+    "Average_rain_mm": 992.1833333
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "5",
+    "Cumulative_rain_mm": 20.5,
+    "Average_rain_mm": 3.416666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "6",
+    "Cumulative_rain_mm": 709.9,
+    "Average_rain_mm": 118.3166667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "7",
+    "Cumulative_rain_mm": 1345.8,
+    "Average_rain_mm": 224.3
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "8",
+    "Cumulative_rain_mm": 1099,
+    "Average_rain_mm": 183.1666667
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "9",
+    "Cumulative_rain_mm": 1345.2,
+    "Average_rain_mm": 224.2
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "10",
+    "Cumulative_rain_mm": 491.4,
+    "Average_rain_mm": 81.9
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud et sud-est",
+    "Strata": "Red",
+    "Year": 2023,
+    "Month": "Total",
+    "Cumulative_rain_mm": 5011.8,
+    "Average_rain_mm": 835.3
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "6",
+    "Cumulative_rain_mm": 100.4,
+    "Average_rain_mm": 50.2
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "7",
+    "Cumulative_rain_mm": 668.2,
+    "Average_rain_mm": 334.1
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "8",
+    "Cumulative_rain_mm": 823.6,
+    "Average_rain_mm": 411.8
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "9",
+    "Cumulative_rain_mm": 732.7,
+    "Average_rain_mm": 366.35
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "10",
+    "Cumulative_rain_mm": 191.4,
+    "Average_rain_mm": 95.7
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "11",
+    "Cumulative_rain_mm": 0.5,
+    "Average_rain_mm": 0.25
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2018,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2516.8,
+    "Average_rain_mm": 1258.4
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "3",
+    "Cumulative_rain_mm": 0.2,
+    "Average_rain_mm": 0.1
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "6",
+    "Cumulative_rain_mm": 34.1,
+    "Average_rain_mm": 17.05
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "7",
+    "Cumulative_rain_mm": 420.7,
+    "Average_rain_mm": 210.35
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "8",
+    "Cumulative_rain_mm": 671.3,
+    "Average_rain_mm": 335.65
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "9",
+    "Cumulative_rain_mm": 586.6,
+    "Average_rain_mm": 293.3
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "10",
+    "Cumulative_rain_mm": 289.4,
+    "Average_rain_mm": 144.7
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2019,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2002.3,
+    "Average_rain_mm": 1001.15
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "2",
+    "Cumulative_rain_mm": 0.4,
+    "Average_rain_mm": 0.2
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "6",
+    "Cumulative_rain_mm": 173,
+    "Average_rain_mm": 86.5
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "7",
+    "Cumulative_rain_mm": 1003.4,
+    "Average_rain_mm": 501.7
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "8",
+    "Cumulative_rain_mm": 1500.5,
+    "Average_rain_mm": 750.25
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "9",
+    "Cumulative_rain_mm": 1116.5,
+    "Average_rain_mm": 558.25
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "10",
+    "Cumulative_rain_mm": 269.3,
+    "Average_rain_mm": 134.65
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "11",
+    "Cumulative_rain_mm": 1,
+    "Average_rain_mm": 0.5
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2020,
+    "Month": "Total",
+    "Cumulative_rain_mm": 4064.1,
+    "Average_rain_mm": 2032.05
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "5",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "6",
+    "Cumulative_rain_mm": 86.3,
+    "Average_rain_mm": 43.15
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "7",
+    "Cumulative_rain_mm": 430.3,
+    "Average_rain_mm": 215.15
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "8",
+    "Cumulative_rain_mm": 721.7,
+    "Average_rain_mm": 360.85
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "9",
+    "Cumulative_rain_mm": 670.1,
+    "Average_rain_mm": 335.05
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "10",
+    "Cumulative_rain_mm": 153.6,
+    "Average_rain_mm": 76.8
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "11",
+    "Cumulative_rain_mm": 1.5,
+    "Average_rain_mm": 0.75
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2021,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2063.5,
+    "Average_rain_mm": 1031.75
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "5",
+    "Cumulative_rain_mm": 45.3,
+    "Average_rain_mm": 22.65
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "6",
+    "Cumulative_rain_mm": 285,
+    "Average_rain_mm": 142.5
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "7",
+    "Cumulative_rain_mm": 982.9,
+    "Average_rain_mm": 491.45
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "8",
+    "Cumulative_rain_mm": 1110.7,
+    "Average_rain_mm": 555.35
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "9",
+    "Cumulative_rain_mm": 810,
+    "Average_rain_mm": 405
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "10",
+    "Cumulative_rain_mm": 374,
+    "Average_rain_mm": 187
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2022,
+    "Month": "Total",
+    "Cumulative_rain_mm": 3607.9,
+    "Average_rain_mm": 1803.95
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "1",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "2",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "3",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "4",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "5",
+    "Cumulative_rain_mm": 0.3,
+    "Average_rain_mm": 0.15
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "6",
+    "Cumulative_rain_mm": 148.4,
+    "Average_rain_mm": 74.2
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "7",
+    "Cumulative_rain_mm": 446.1,
+    "Average_rain_mm": 223.05
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "8",
+    "Cumulative_rain_mm": 1430.1,
+    "Average_rain_mm": 715.05
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "9",
+    "Cumulative_rain_mm": 580.5,
+    "Average_rain_mm": 290.25
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "10",
+    "Cumulative_rain_mm": 292.9,
+    "Average_rain_mm": 146.45
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "11",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "12",
+    "Cumulative_rain_mm": 0,
+    "Average_rain_mm": 0
+  },
+  {
+    "Zone": "Sud-ouest",
+    "Strata": "Orange",
+    "Year": 2023,
+    "Month": "Total",
+    "Cumulative_rain_mm": 2898.3,
+    "Average_rain_mm": 1449.15
+  }
+]

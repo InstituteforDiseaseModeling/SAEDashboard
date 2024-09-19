@@ -3,6 +3,7 @@ import {
   CHANGE_SELECTED_YEAR,
   CHANGE_SELECTED_MONTH,
   CHANGE_SELECTED_INDICATOR,
+  CHANGE_SELECTED_COMPARISON_INDICATOR,
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
@@ -18,6 +19,8 @@ import {
   SET_MAP_SUBGROUPS_DATA,
   SET_COUNTRY_DATA,
   SHOW_ERROR,
+  CHANGE_SELECTED_RAINFALL_STATION,
+  CHANGE_SELECTED_RAINFALL_ZONE,
 } from './types';
 import {apiAction} from './api';
 import {AFRICA_STR} from '../../const';
@@ -89,6 +92,7 @@ export function changeIsAdm3(isAdm3) {
 
 /**
  * change selected legend indicator
+ * true means normal legend and false means custom legend
  * @param {*} selectedLegend
  * @return {*} legend message
  */
@@ -134,6 +138,18 @@ export function changeSelectedIndicator(selectedIndicator) {
   return {
     type: CHANGE_SELECTED_INDICATOR,
     selectedIndicator,
+  };
+}
+
+/**
+ * change selected comparison indicator
+ * @param {*} selectedComparisonIndicator
+ * @return {*} selected comparison indicator message
+ */
+export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
+  return {
+    type: CHANGE_SELECTED_COMPARISON_INDICATOR,
+    selectedComparisonIndicator,
   };
 }
 
@@ -294,3 +310,28 @@ export function changeLanguage(language) {
     language,
   };
 }
+
+/**
+ * change selected rainfall station
+ * @param {*} rainfallStation
+ * @return {*} selected rainfall station message
+ */
+export function changeSelectedRainfallStation(rainfallStation) {
+  return {
+    type: CHANGE_SELECTED_RAINFALL_STATION,
+    rainfallStation,
+  };
+};
+
+/**
+ * change selected rainfall zone
+ * @param {*} rainfallZone
+ * @return {*} selected rainfall zone message
+ */
+export function changeSelectedRainfallZone(rainfallZone) {
+  return {
+    type: CHANGE_SELECTED_RAINFALL_ZONE,
+    rainfallZone,
+  };
+};
+

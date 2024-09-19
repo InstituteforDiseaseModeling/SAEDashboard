@@ -1,5 +1,5 @@
 /* eslint-disable  no-unused-vars */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import chroma from 'chroma-js';
@@ -66,12 +66,13 @@ const styles = {
  */
 const MapLegend = (props) => {
   const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id,
-    selectedLayer, primary, selectedIndicator} = props;
+    selectedLayer, primary, selectedIndicator, unselectedLayer} = props;
 
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+  let [showClinic, setShowClinic] = React.useState(false);
 
   // Data-related variables
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
@@ -97,18 +98,16 @@ const MapLegend = (props) => {
     return (
       <div className={classes.domainLabelCustom}
         style={{
-          width: 0, top: 85, left: -85, backgroundColor: 'darkgrey',
-          color: 'white', width: 190, textAlign: 'center',
+          width: 0, top: 50, left: -55, backgroundColor: 'darkgrey',
+          color: 'white', width: 120, textAlign: 'center',
         }}>
         {label}
       </div>);
   };
 
-  console.log(IndicatorConfig);
+  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'mapLabel');
 
-  console.log(IndicatorConfig[selectedIndicator]);
-
-  const yLabel = _.get(translations[selectedLocale], IndicatorConfig[selectedIndicator].unitLabel);
+  const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
 
   /**
@@ -168,10 +167,15 @@ const MapLegend = (props) => {
    * @return {*} standard legend
    */
   const standardLegend = (selectedIndicator) => {
+    //  todo : remove this when the weather zones are implemented
+    if (selectedIndicator === 'weather_zones') {
+      return <></>;
+    }
+
     const multiper = selectedIndicator && IndicatorConfig[selectedIndicator] ?
       IndicatorConfig[selectedIndicator].multiper : 1;
     const unit = selectedIndicator && IndicatorConfig[selectedIndicator] ?
-      IndicatorConfig[selectedIndicator].unit : '';
+      IndicatorConfig[selectedIndicator].unit.replace('\'', '') : '';
     return (<div className={classes.gradLegend} ref={legend} id={id}>
       {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
@@ -189,13 +193,17 @@ const MapLegend = (props) => {
 
   /**
    * @param {string} layer
+   * @param {string} unselectedLayer
    * @return {*} standard legend
    */
-  const healthClinicLegend = (layer) => {
+  const healthClinicLegend = (layer, unselectedLayer) => {
     const numberOfSteps = 5;
-    if (!layer) {
+    const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
+
+    if (!showClinic) {
       return <></>;
     }
+
     return (<div className={classes.blueLegend} ref={legend} id={id}>
       {unitLabel(legendTitle)}
       {Array.from(blues.colors(5)).map((c) => {
@@ -213,6 +221,19 @@ const MapLegend = (props) => {
     </div>);
   };
 
+  useEffect(() => {
+    const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
+
+    if (selectedLayer === sentinelFacilitylayer) {
+      setShowClinic(true);
+      showClinic = true;
+    }
+
+    if (unselectedLayer === sentinelFacilitylayer) {
+      setShowClinic(false);
+      showClinic = false;
+    };
+  }, [selectedLayer, unselectedLayer]);
 
   /**
    *
@@ -249,18 +270,18 @@ const MapLegend = (props) => {
   if (selectedLegend) {
     return <>
       {standardLegend(selectedIndicator)}
-      {healthClinicLegend(selectedLayer)}
+      {healthClinicLegend(selectedLayer, unselectedLayer)}
     </>;
   } else {
     if (isIncidenceMap(selectedIndicator)) {
       return <>
         {customLegend()}
-        {healthClinicLegend(selectedLayer)}
+        {healthClinicLegend(selectedLayer, unselectedLayer)}
       </>;
     } else {
       return <>
         {standardLegend(selectedIndicator)}
-        {healthClinicLegend(selectedLayer)}
+        {healthClinicLegend(selectedLayer, unselectedLayer)}
       </>;
     }
   };
@@ -277,6 +298,7 @@ MapLegend.propTypes = {
   id: PropTypes.string,
   primary: PropTypes.bool,
   selectedLayer: PropTypes.string,
+  unselectedLayer: PropTypes.string,
   mapLegendMax: PropTypes.number,
   selectedIndicator: PropTypes.string,
 };

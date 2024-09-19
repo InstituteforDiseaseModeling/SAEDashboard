@@ -137,3 +137,35 @@ export function colorMarker(color) {
     iconAnchor: [12, 40],
   });
 };
+
+
+/**
+ * To add sentinel site markers
+ * @param {*} siteData
+ * @param {*} layerControl
+ * @param {*} createSitePopup
+ * @param {*} formatMessage
+ */
+export function addHealthClinicMarkers(siteData, layerControl, createSitePopup, formatMessage) {
+  const L = require('leaflet');
+  const sites = [];
+  const blues = chroma.scale('Blues').domain([0, 1]).classes(5); // used for health clinic markers
+  const blueColors = blues.colors(5);
+
+  for (const site in siteData) {
+    if (site) {
+      const clinic = siteData[site];
+      let colorIndex = Math.ceil(clinic.Fraction_polygenomic * 5) - 1;
+      if (!clinic.Fraction_polygenomic) {
+        colorIndex = -1;
+      }
+      const marker = L.marker([clinic.Lat_2, clinic.Long_2],
+          {icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
+      sites.push(marker);
+    }
+  };
+
+  const lg = L.layerGroup(sites);
+  layerControl.addOverlay(lg, formatMessage({id: 'sentinel_facilities'}));
+};
+

@@ -9,6 +9,7 @@ import YearFilter from '../components/filterelements/YearFilter';
 import MonthFilter from '../components/filterelements/MonthFilter';
 import CountryFilter from '../components/filterelements/CountryFilter';
 import StateData from '../components/StateData';
+import RainfallData from '../components/RainfallData';
 import {fetchCountryData, fetchIndicatorData, fetchMapSubgroupData} from '../redux/actions/filters';
 import {MapContext} from '../components/context/mapContext';
 import ComparisonMapProvider from '../components/provider/comparisonMapProvider';
@@ -95,8 +96,11 @@ const Dashboard = (props) => {
           </Grid>
         </MapContext.Provider>
       </ComparisonMapProvider>
-      <Grid item xs={12}>
-        {selectedState && <StateData selectedState={selectedState} indicators={indicators}/>}
+      <Grid item xs={6} md={6}>
+        <StateData selectedState={selectedState} indicators={indicators}/>
+      </Grid>
+      <Grid item xs={6} md={6}>
+        <RainfallData />
       </Grid>
     </Grid>
   );
