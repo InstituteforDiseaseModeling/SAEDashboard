@@ -253,15 +253,20 @@ def get_indicator_time(country, channel):
     df = get_dataframe(country=country, channel=channel, subgroup='all', version='1')
     # Load unique years from df
     years = df[DataFileKeys.YEAR].unique()
+    time_dict = {}
     # Check if 'month' column exists
     if DataFileKeys.MONTH in df.columns:
         # Group by 'year' and aggregate 'month'
         year_month_dict = df.groupby(DataFileKeys.YEAR)[DataFileKeys.MONTH].unique().to_dict()
         # Convert numpy arrays to lists
-        year_month_dict = {year: months.tolist() for year, months in year_month_dict.items()}
+        for year,months in year_month_dict.items():
+            if pd.isna(months[0]):
+                time_dict[year] = []
+            else:
+                time_dict[year] = months.tolist()
     else:
-        year_month_dict = {year: [] for year in years}
-    return year_month_dict
+        time_dict = {year: [] for year in years}
+    return time_dict
 
 
 def open_data_file(filename, use_cache=True):
