@@ -1,5 +1,5 @@
 from service.helpers.controller_helpers import ControllerException, read_dot_names, get_channels, \
-    read_admin_level, read_use_descendant_dot_names, get_indicator_time
+    read_admin_level, read_use_descendant_dot_names, get_indicator_time, get_indicator_version
 from service.helpers.dot_name import DotName
 from service.schemas.IndicatorsSchema import IndicatorsListSchema
 from fastapi import APIRouter, Request
@@ -78,9 +78,10 @@ async def get_indicators(request: Request):
                                          admin_level=requested_admin_level))
         indicators_response = []
         for ind in indicators:
-            data_time = get_indicator_time(country=country, channel=ind)
+            version = get_indicator_version(country, ind)
+            data_time = get_indicator_time(country=country, channel=ind, version=version)
             label = generate_label(ind)
-            indicators_response.append({"id": ind, "text": label, "time": data_time})
+            indicators_response.append({"id": ind, "text": label, "version": version, "time": data_time})
 
         return {"indicators": indicators_response}
 

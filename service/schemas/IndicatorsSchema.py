@@ -27,6 +27,7 @@ LABELS = {
 class IndicatorSchema(BaseModel):
     id: str
     text: str
+    version: int
     time: Dict[int, List[int]]
 
 
