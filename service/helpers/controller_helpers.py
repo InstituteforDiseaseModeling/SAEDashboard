@@ -249,6 +249,48 @@ def get_dataframe(country, channel, subgroup, version):
     return df
 
 
+def get_indicator_version(country, channel):
+    """
+    Get the shapefile version(s) of data files based on filters provided.
+    :param country: Which country to filter on.
+    :param channel: Which channel to filter on.
+    :return: An array of versions corresponding to country and indicator provided
+    """
+    # returns match objects for further filtering
+    regex_str = '^%s__%s__.+__(?P<version>\d+)\.csv$'
+    country_pattern = '(?P<country>.+)' if country is None else country
+    channel_pattern = '(?P<channel>.+)' if channel is None else channel
+
+    # Compile regex and list all files in dir matching regex
+    regex = re.compile(regex_str % (country_pattern, channel_pattern))
+    matches = [regex.match(fn) for fn in os.listdir(data_dir)]
+
+    # Extract version from matched files and convert them to int
+    version = [int(m.group('version')) for m in matches if m][0]
+
+    return version
+
+
+def get_indicator_time(country, channel, version):
+    time_dict = {}
+    df = get_dataframe(country=country, channel=channel, subgroup='all', version=version)
+    # Load unique years from df
+    years = df[DataFileKeys.YEAR].unique()
+    # Check if 'month' column exists
+    if DataFileKeys.MONTH in df.columns:
+        # Group by 'year' and aggregate 'month'
+        year_month_dict = df.groupby(DataFileKeys.YEAR)[DataFileKeys.MONTH].unique().to_dict()
+        # Convert numpy arrays to lists
+        for year,months in year_month_dict.items():
+            if pd.isna(months[0]):
+                time_dict[year] = []
+            else:
+                time_dict[year] = months.tolist()
+    else:
+        time_dict = {year: [] for year in years}
+    return time_dict
+
+
 def open_data_file(filename, use_cache=True):
     full_path = os.path.join(data_dir, filename)
 
