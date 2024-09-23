@@ -87,6 +87,12 @@ const IndicatorFilter = (props) => {
         <MenuItem value="weather_zones" key={13} className={classes.menuItem}>
           <FormattedMessage id="weather_zones"/>
         </MenuItem>
+        <MenuItem value="neg_covars" key={13} className={classes.menuItem}>
+          <FormattedMessage id="neg_covars"/>
+        </MenuItem>
+        <MenuItem value="pos_covars" key={13} className={classes.menuItem}>
+          <FormattedMessage id="pos_covars"/>
+        </MenuItem>
 
       </Select>
     </FormControl>);

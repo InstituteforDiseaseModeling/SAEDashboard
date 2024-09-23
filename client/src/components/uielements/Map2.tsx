@@ -19,6 +19,8 @@ import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
 import RainfallZoneModel from '../../model/rainfallZoneModel.js';
 import {addRainfallStations} from '../../model/rainfallStationModel.js';
+import CoVarsLegend from './CoVarsLegend';
+import {CoVariatesLookup} from '../../const.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -101,8 +103,14 @@ const MapComponent = (props: any) => {
     }
   }
 
-
   const numberOfSteps: number = 10;
+  const isCovariateMap = () => {
+    if (primary) {
+      return primaryIndicator == 'neg_covars' || primaryIndicator == 'pos_covars';
+    } else {
+      return indicator == 'neg_covars' || indicator == 'pos_covars';
+    }
+  };
   const legend = useRef(null);
 
   interface FeatureAddOn extends GeoJSONOptions {
@@ -164,12 +172,20 @@ const MapComponent = (props: any) => {
 
       if (region) {
         const regionName = region.id.split(':').splice(2).join(':');
+        let entireMsg = regionName + ' : ';
+        if (isCovariateMap()) {
+          const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
+          const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          entireMsg += intl.formatMessage({id: labelId});
+          entireMsg += ' (' + intl.formatMessage({id: 'coVar_'+coVariate+'_short'}) + ')';
+        } else {
+          entireMsg += Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+          ' ' + mapLabel;
+        };
 
         window.L.popup()
             .setLatLng(e.latlng)
-            .setContent(regionName + ' : ' +
-              Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
-              ' ' + mapLabel)
+            .setContent(entireMsg)
             .openOn(mapObj);
       }
     }
@@ -182,7 +198,6 @@ const MapComponent = (props: any) => {
   const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme as any});
 
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, maxValue]).classes(numberOfSteps);
-
 
   /**
    * Map setup
@@ -200,12 +215,10 @@ const MapComponent = (props: any) => {
       zoomDelta: 0.25,
       scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
 
-    // const stripes = new L.Pattern({});
-    // stripes.addTo(mapObj);
-
     const customFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
-      const colors = scale.colors(10);
+      const colors = !isCovariateMap() ? scale.colors(10) :
+        _.find(customTheme, {color: selectedMapTheme as any}).values;
 
       let color = '#CCCCCC';
       if (region && region.value) {
@@ -234,7 +247,9 @@ const MapComponent = (props: any) => {
     const standardFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
       if (region && region.value) {
-        const color2 = scale(region.value);
+        const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
+        const color2 = !isCovariateMap() ? scale(region.value) :
+          colors[region.value-1];
         return {fillColor: color2.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
         return {color: 'lightgrey'};
@@ -385,14 +400,28 @@ const MapComponent = (props: any) => {
     });
   }, []);
 
+
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
-      <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
-        selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
-        unselectedLayer={unselectedLayer}
-        selectedIndicator={indicator}
-        key={minValue + maxValue + selectedLayer + indicator}/>
+      {/* Map Legend */}
+      { !isCovariateMap() &&
+        <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
+          selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+      { isCovariateMap() &&
+        <CoVarsLegend
+          selectedMapTheme="CoVars" legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          id="covars"
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
 
       {/* Difference note */}
       {!primary && selectedDiffMap &&
