@@ -5,4 +5,10 @@
 {
   "color" : "GnRd",
   "values" : ["#19cc43", "#60eb81", "#8cff66", "#b3ff66", "#d9ff66", "#ffff66","#ffd966", "#ffb366",  "#ff8c66" , "#ff6666"]
-}]
+},
+{
+  "color" : "CoVars",
+  "values" : ["#415878", "#7972a5", "#7bc4cd", "#55a461", "#e99f30", "#fdb86c", "#98272e", "#cfe7bb",
+  "#8d9bae", "#afaac9", "#b0dce1", "#99e9a0", "#f2c583", "#fde8a7", "#c17d82", "#e2ddd6"]
+}
+]
