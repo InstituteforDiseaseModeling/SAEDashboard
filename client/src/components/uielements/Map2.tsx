@@ -36,6 +36,7 @@ const styles = makeStyles({
     padding: '0 5px',
     width: 'fit-content',
     left: 13,
+    whiteSpace: 'pre-wrap',
   },
 });
 
@@ -176,8 +177,12 @@ const MapComponent = (props: any) => {
         if (isCovariateMap()) {
           const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
           const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
-          entireMsg += intl.formatMessage({id: labelId});
-          entireMsg += ' (' + intl.formatMessage({id: 'coVar_'+coVariate+'_short'}) + ')';
+          if (labelId) {
+            entireMsg += intl.formatMessage({id: labelId});
+            entireMsg += ' (' + intl.formatMessage({id: 'coVar_'+coVariate+'_short'}) + ')';
+          } else {
+            entireMsg += 'NA';
+          }
         } else {
           entireMsg += Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
           ' ' + mapLabel;
@@ -250,7 +255,7 @@ const MapComponent = (props: any) => {
         const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
         const color2 = !isCovariateMap() ? scale(region.value) :
           colors[region.value-1];
-        return {fillColor: color2.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
+        return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
         return {color: 'lightgrey'};
       }
@@ -400,6 +405,7 @@ const MapComponent = (props: any) => {
     });
   }, []);
 
+  const dataSourceMsg = intl.formatMessage({id: 'data_source_'+indicator});
 
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
@@ -432,6 +438,14 @@ const MapComponent = (props: any) => {
           selectedYear + ' - ' + primaryIndicator + ' ' +
           intl.formatMessage({id: 'in'}) + ' ' +
           currentYear}
+        </div>
+      }
+      {/* Caveat note */}
+      {
+        <div className={classes.note_diff}
+          title={dataSourceMsg}
+          style={{top: dataSourceMsg.length > 90 ? -40 : -20}}>
+          {dataSourceMsg}
         </div>
       }
     </div>
