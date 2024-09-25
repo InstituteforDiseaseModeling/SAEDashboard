@@ -179,7 +179,6 @@ const MapComponent = (props: any) => {
           const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
           if (labelId) {
             entireMsg += intl.formatMessage({id: labelId});
-            entireMsg += ' (' + intl.formatMessage({id: 'coVar_'+coVariate+'_short'}) + ')';
           } else {
             entireMsg += 'NA';
           }
