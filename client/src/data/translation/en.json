@@ -135,10 +135,12 @@
   "data_source_SMC": "Data source: reported to the PNLP",
   "data_source_testing_rates": "Data source: reported to the PNLP",
   "data_source_correct_treatment": "Data source: reported to the PNLP",  
+  "data_source_weather_zones": "Data source: reported to the PNLP",
   "data_source_reported_incidence": "Data source: modeled by the Malaria Atlas Project",
   "data_source_low_model_predictions": "Data source: Wong et al, 2024\nNote: there is greater heterogeneity in the relationship between genetics and incidence where prevalence is <10%.",
   "data_source_high_model_predictions": "Data source: Wong et al, 2024",
   "data_source_neg_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
-  "data_source_pos_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making."
-  
+  "data_source_pos_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
+  "lower": "lower",
+  "upper": "upper"
 }
