@@ -5,7 +5,7 @@ import axios from 'axios';
 import {useSelector} from 'react-redux';
 import Map2 from './uielements/Map2.tsx';
 import loader from '../image/loader.gif';
-import {setGeoJsonData} from '../redux/actions/dashboard';
+import {setGeoJsonPrimary, setGeoJsonComparison} from '../redux/actions/dashboard';
 import {showError} from '../redux/actions/messaging';
 import {useDispatch} from 'react-redux';
 import {Typography} from '@mui/material';
@@ -52,7 +52,9 @@ const MapPanelMap = (props) => {
   const selectedIndicator =useSelector((state) => state.filters.selectedIndicator);
   const selectedComparisonIndicator =useSelector((state) =>
     state.filters.selectedComparisonIndicator);
-  const geoJson = useSelector((state) => state.dashboard.geoJson);
+  const geoJsonPrimary = useSelector((state) => state.dashboard.geoJsonPrimary);
+  const geoJsonComparison = useSelector((state) => state.dashboard.geoJsonComparison);
+
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
@@ -157,7 +159,8 @@ const MapPanelMap = (props) => {
   useEffect(() => {
     if (indicator && subgroup && selectedCountry) {
       // Reset data for map
-      setGeoJsonData(null);
+      setGeoJsonPrimary(null);
+      setGeoJsonComparison(null);
       setData(null);
       setError();
 
@@ -165,7 +168,9 @@ const MapPanelMap = (props) => {
       fetchData();
     }
   }, [indicator, subgroup, currentYear, currentMonth, selectedCountry,
-    selectedIsAdm3, selectedMapTheme, selectedLegendSync, selectedYear, selectedDiffMap]);
+    selectedIsAdm3, selectedMapTheme, selectedLegendSync, selectedYear,
+    geoJsonPrimary, geoJsonComparison,
+    selectedDiffMap]);
 
 
   if (error) {
@@ -177,7 +182,9 @@ const MapPanelMap = (props) => {
       </div>);
   }
 
-  if (!MapData || !geoJson || !selectedMapTheme) {
+
+  if (!MapData || !(geoJsonPrimary) || !(geoJsonComparison) ||
+    !selectedMapTheme) {
     return (
       <div className={classes.loading}>
         <img src={loader} alt={'Loading...'}/>
@@ -198,7 +205,9 @@ const MapPanelMap = (props) => {
             selectPlace={(state) => {
               changeSelectedState(state);
             }}
-            geoJson={geoJson[selectedCountry]}
+            geoJson={primary ? geoJsonPrimary[selectedCountry] :
+              geoJsonComparison[selectedCountry]
+            }
             mapData={MapData}
             primary={primary}
             zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}

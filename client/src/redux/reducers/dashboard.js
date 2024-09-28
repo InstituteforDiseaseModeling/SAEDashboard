@@ -1,5 +1,7 @@
 import {
-  SET_GEOJSON_DATA, SET_HEALTH_CLINIC_DATA, SET_EVENT_DATA,
+  SET_GEOJSON_DATA_PRIMARY,
+  SET_GEOJSON_DATA_COMPARISON,
+  SET_HEALTH_CLINIC_DATA, SET_EVENT_DATA,
 } from '../actions/types';
 
 
@@ -17,8 +19,10 @@ const initialState = {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case SET_GEOJSON_DATA:
-      return {...state, geoJson: action.geoJson};
+    case SET_GEOJSON_DATA_PRIMARY:
+      return {...state, geoJsonPrimary: action.geoJson};
+    case SET_GEOJSON_DATA_COMPARISON:
+      return {...state, geoJsonComparison: action.geoJson};
     case SET_HEALTH_CLINIC_DATA:
       return {...state, healthClinicData: action.healthClinicData};
     case SET_EVENT_DATA:

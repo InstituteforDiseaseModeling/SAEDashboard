@@ -41,9 +41,9 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': 'IPTPLegendLabel', 'decimalPt': 1},
   'weather_zones': {'unitLabel': 'weather_zones', 'multiper': 1, 'unit': 'mm',
     'mapLabel': ' ', 'decimalPt': 1},
-  'neg_covars': {'unitLabel': 'neg_covars', 'multiper': 1, 'unit': 'idk',
+  'neg_covars': {'unitLabel': 'neg_covars', 'multiper': 1, 'unit': '(mode)',
     'mapLabel': 'neg_covars_map_label', 'decimalPt': 1},
-  'pos_covars': {'unitLabel': 'pos_covars', 'multiper': 1, 'unit': 'idk',
+  'pos_covars': {'unitLabel': 'pos_covars', 'multiper': 1, 'unit': '(mode)',
     'mapLabel': 'pos_covars_map_label', 'decimalPt': 1},
 };
 

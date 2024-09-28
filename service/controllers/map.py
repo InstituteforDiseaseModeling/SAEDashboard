@@ -80,7 +80,7 @@ async def get_map(request: Request):
                     df = df.loc[df[DataFileKeys.MONTH] == month]
 
             # update the return with the newly found entries
-            new_values = df[[DataFileKeys.DOT_NAME, data_key]].rename(
+            new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
                 columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
             return_list.extend(new_values)
         return return_list

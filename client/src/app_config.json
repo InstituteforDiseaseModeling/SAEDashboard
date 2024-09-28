@@ -21,13 +21,14 @@
     "SMC": "RdBu",
     "testing_rates": "RdBu",
     "correct_treatment": "RdBu",
-    "weather_zones": "RdBu",
     "neg_covars": "CoVars",
-    "pos_covars": "CoVars"
+    "pos_covars": "CoVars",
+    "weather_zones": "BrBG"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,
-    "low_model_predictions": 2
+    "low_model_predictions": 2,
+    "weather_zones": 3
   },
   "defaultIndicator" : "reported_incidence",
   "defaultComparisonIndicator" : "predicted_incidence"

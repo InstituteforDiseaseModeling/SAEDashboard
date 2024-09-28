@@ -2,10 +2,11 @@ import {
   FETCH_DASHBOARD_DATA,
   FETCH_HEALTH_CLINIC_DATA,
   FETCH_EVENT_DATA,
-  SET_GEOJSON_DATA,
   SET_HEALTH_CLINIC_DATA,
   SET_EVENT_DATA,
   SHOW_ERROR,
+  SET_GEOJSON_DATA_PRIMARY,
+  SET_GEOJSON_DATA_COMPARISON,
 } from './types';
 import {apiAction} from './api';
 
@@ -18,9 +19,21 @@ import AfricaAdm3Json from '../../data/Africa_shape_adm3.json';
  * @param {object} geoJson - map data in geo json
  * @return {object} geoJson action object
  */
-export function setGeoJsonData(geoJson) {
+export function setGeoJsonPrimary(geoJson) {
   return {
-    type: SET_GEOJSON_DATA,
+    type: SET_GEOJSON_DATA_PRIMARY,
+    geoJson,
+  };
+}
+
+/**
+ * for setting geoJson action
+ * @param {object} geoJson - map data in geo json
+ * @return {object} geoJson action object
+ */
+export function setGeoJsonComparison(geoJson) {
+  return {
+    type: SET_GEOJSON_DATA_COMPARISON,
     geoJson,
   };
 }
@@ -82,16 +95,26 @@ function setError(data) {
  * Fetch geoJson data
  * @param {*} dotName - dot name
  * @param {*} isAdm3 - whether it is for admin3
+ * @param {*} isPrimary - whether it is for primary map
+ * @param {*} shapeVersion - shape version
  * @return {*} api action object
  */
-export function fetchGeoJsonData(dotName, isAdm3) {
+export function fetchGeoJsonData(dotName, isAdm3, isPrimary, shapeVersion=1) {
   if (dotName==='Africa') {
     return (setAfricaGeoJsonData(isAdm3));
   } else {
     return apiAction({
-      url: dotName!=='Africa' && dotName ? '/shapes?dot_name=' + dotName +
-        '&admin_level=' + (isAdm3?3:2) : '/africa_map' + '?admin_level=' + (isAdm3?3:2),
-      onSuccess: setGeoJsonData,
+      url: dotName!=='Africa' && dotName ?
+        '/shapes?dot_name=' + dotName + '&admin_level=' + (isAdm3?3:2) +
+        '&shape_version=' + shapeVersion + '&primary=' + isPrimary :
+        '/africa_map' + '?admin_level=' + (isAdm3?3:2),
+      onSuccess: (geoJson) => {
+        if (isPrimary) {
+          return setGeoJsonPrimary(geoJson);
+        } else {
+          return setGeoJsonComparison(geoJson);
+        }
+      },
       onFailure: setError,
       label: FETCH_DASHBOARD_DATA,
       headers: {'Access-Control-Allow-Origin': '*'},

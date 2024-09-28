@@ -13,6 +13,7 @@ import RainfallData from '../components/RainfallData';
 import {fetchCountryData, fetchIndicatorData, fetchMapSubgroupData} from '../redux/actions/filters';
 import {MapContext} from '../components/context/mapContext';
 import ComparisonMapProvider from '../components/provider/comparisonMapProvider';
+import appConfig from '../app_config.json';
 
 const styles = {
   content2: {
@@ -33,6 +34,9 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
   const selectedState = useSelector((state) => state.filters.selectedState);
   const selectedCountry = useSelector((state) => state.filters.selectedCountry);
+  const selectedIndicator = useSelector((state) => state.filters.selectedIndicator);
+  const selectedComparisonIndicator = useSelector((state) =>
+    state.filters.selectedComparisonIndicator);
   const countries = useSelector((state) => state.filters.countries);
   const indicators = useSelector((state) => state.filters.indicators);
   const selectedIsAdm3 = useSelector((state) => state.filters.isAdm3);
@@ -57,8 +61,15 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     if (selectedCountry) {
-      // Fetch the geoJSON data
-      dispatch(fetchGeoJsonData(selectedCountry, selectedIsAdm3));
+      // Fetch the geoJSON data for primary map
+      dispatch(fetchGeoJsonData(selectedCountry, selectedIsAdm3, true,
+          appConfig.shapefileVersion[selectedIndicator],
+      ));
+
+      // Fetch the geoJSON data for comparison map
+      dispatch(fetchGeoJsonData(selectedCountry, selectedIsAdm3, false,
+          appConfig.shapefileVersion[selectedComparisonIndicator],
+      ));
 
       // Fetch the indicator data
       dispatch(fetchIndicatorData(selectedCountry, selectedIsAdm3));
@@ -73,6 +84,21 @@ const Dashboard = (props) => {
       dispatch(fetchHealthClinicData());
     }
   }, [selectedCountry, selectedIsAdm3]);
+
+
+  useEffect(() => {
+    if (selectedCountry) {
+      // Fetch the geoJSON data for primary map
+      dispatch(fetchGeoJsonData(selectedCountry, selectedIsAdm3, true,
+          appConfig.shapefileVersion[selectedIndicator],
+      ));
+
+      // Fetch the geoJSON data for comparison map
+      dispatch(fetchGeoJsonData(selectedCountry, selectedIsAdm3, false,
+          appConfig.shapefileVersion[selectedComparisonIndicator],
+      ));
+    }
+  }, [selectedComparisonIndicator, selectedIndicator]);
 
   return (
     <Grid container justify="center" className={classes.content2}>

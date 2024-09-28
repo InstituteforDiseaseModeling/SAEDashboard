@@ -54,7 +54,7 @@ async def get_timeseries(request: Request):
         data = {}
 
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage']:
+            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'weather_zones']:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
                 data[entry] = {
                     'year': row[DataFileKeys.YEAR],

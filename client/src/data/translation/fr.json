@@ -134,10 +134,12 @@
   "data_source_SMC": "Source des données : rapporté au PNLP",
   "data_source_testing_rates": "Source des données : rapporté au PNLP",
   "data_source_correct_treatment": "Source des données : rapporté au PNLP",  
+  "data_source_weather_zones": "Source des données : rapporté au PNLP",
   "data_source_reported_incidence": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)",
   "data_source_low_model_predictions": "Source des données : Wong et al, 2024\nRemarque : la relation entre la génétique et l'incidence est plus hétérogène lorsque la prévalence est inférieure à 10 %.",
   "data_source_high_model_predictions": "Source des données : Wong et al, 2024",
   "data_source_neg_covars": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)\nRemarque: les résultats de ce modèle ne doivent pas être utilisés isolément pour la prise de décision.",
-  "data_source_pos_covars": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)\nRemarque: les résultats de ce modèle ne doivent pas être utilisés isolément pour la prise de décision."
-  
+  "data_source_pos_covars": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)\nRemarque: les résultats de ce modèle ne doivent pas être utilisés isolément pour la prise de décision.",
+  "lower": "inférieure",
+  "upper": "supérieure"
 }

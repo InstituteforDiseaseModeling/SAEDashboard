@@ -183,8 +183,13 @@ const MapComponent = (props: any) => {
             entireMsg += 'NA';
           }
         } else {
-          entireMsg += Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
-          ' ' + mapLabel;
+          entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+          '</b> ' + mapLabel + '<br/>';
+
+          if (indicator == 'high_model_predictions' || indicator == 'low_model_predictions') {
+            entireMsg += '<div style="display:flex"><div style="width:70px">'+props.intl.formatMessage({id: 'lower'})+':</div>' + '<b>' + region['data_lower_bound'].toFixed(indicatorConfig.decimalPt).toLocaleString() + '</b><br/></div>';
+            entireMsg += '<div style="display:flex"><div style="width:70px">'+props.intl.formatMessage({id: 'upper'})+':</div>' + '<b>' +region['data_upper_bound'].toFixed(indicatorConfig.decimalPt).toLocaleString() + '</b><br/></div>';
+          }
         };
 
         window.L.popup()
@@ -252,8 +257,15 @@ const MapComponent = (props: any) => {
       const region = _.find(mapData, {id: feature.id as any});
       if (region && region.value) {
         const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
-        const color2 = !isCovariateMap() ? scale(region.value) :
+
+        let color2 = 'lightgrey';
+        try {
+          color2 = !isCovariateMap() ? scale(region.value) :
           colors[region.value-1];
+        } catch (e) {
+          // todo: log error
+          console.log('Error in color setting');
+        }
         return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
         return {color: 'lightgrey'};
@@ -287,18 +299,18 @@ const MapComponent = (props: any) => {
     };
 
     // for adding weather zones layer
-    const weatherZoneClicked = (zone: string) => {
-      dispatch(changeSelectedRainfallZone(zone));
-    };
+    // const weatherZoneClicked = (zone: string) => {
+    //   dispatch(changeSelectedRainfallZone(zone));
+    // };
 
-    const rainfallLayer = L.GeoJSON.geometryToLayer(
-        rainfallZoneModel.getRainfallZoneGeoJson(),
-    );
+    // const rainfallLayer = L.GeoJSON.geometryToLayer(
+    //     rainfallZoneModel.getRainfallZoneGeoJson(),
+    // );
 
-    rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
+    // rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
 
     // add weather zones layer
-    layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
+    // layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
 
     // add health clinic markers
     addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
