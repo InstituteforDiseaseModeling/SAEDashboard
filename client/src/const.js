@@ -29,3 +29,12 @@ export const CoVariatesLookup =
   {'mode': 15, 'coVariate': 'TCB', 'label': 'coVar_TCB'},
   {'mode': 16, 'coVariate': 'TCW', 'label': 'coVar_TCW'},
 ];
+
+export const CoVariatesCategoryLookup =
+[
+  {'category': 1, 'coVariate': 'Hydrology', 'label': 'coVar_Hydrology_short'},
+  {'category': 2, 'coVariate': 'Temperature', 'label': 'coVar_Temperature_short'},
+  {'category': 3, 'coVariate': 'Topography', 'label': 'coVar_Topography_short'},
+  {'category': 4, 'coVariate': 'Urban/rural', 'label': 'coVar_Urban/rural_short'},
+  {'category': 5, 'coVariate': 'Vegetation', 'label': 'coVar_Vegetation_short'},
+];

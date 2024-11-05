@@ -19,8 +19,9 @@ import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
 import RainfallZoneModel from '../../model/rainfallZoneModel.js';
 import {addRainfallStations} from '../../model/rainfallStationModel.js';
-import CoVarsLegend from './CoVarsLegend';
-import {CoVariatesLookup} from '../../const.js';
+import CoVarsLegend from './CoVarsLegend.js';
+import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
+import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -112,6 +113,13 @@ const MapComponent = (props: any) => {
       return indicator == 'neg_covars' || indicator == 'pos_covars';
     }
   };
+  const isCovariateCategoryMap = () => {
+    if (primary) {
+      return primaryIndicator == 'neg_covars_category' || primaryIndicator == 'pos_covars_category';
+    } else {
+      return indicator == 'neg_covars_category' || indicator == 'pos_covars_category';
+    }
+  };
   const legend = useRef(null);
 
   interface FeatureAddOn extends GeoJSONOptions {
@@ -176,7 +184,14 @@ const MapComponent = (props: any) => {
         let entireMsg = regionName + ' : ';
         if (isCovariateMap()) {
           const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
-          const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          // const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          if (labelId) {
+            entireMsg += intl.formatMessage({id: labelId});
+          } else {
+            entireMsg += 'NA';
+          }
+        } else if (isCovariateCategoryMap()) {
+          const labelId = _.get(_.find(CoVariatesCategoryLookup, {'category': region.value}), 'label');
           if (labelId) {
             entireMsg += intl.formatMessage({id: labelId});
           } else {
@@ -261,7 +276,7 @@ const MapComponent = (props: any) => {
         let color2 = 'lightgrey';
         try {
           color2 = !isCovariateMap() ? scale(region.value) :
-          colors[region.value-1];
+            colors[region.value-1];
         } catch (e) {
           // todo: log error
           console.log('Error in color setting');
@@ -422,7 +437,7 @@ const MapComponent = (props: any) => {
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       {/* Map Legend */}
-      { !isCovariateMap() &&
+      { !isCovariateMap() && !isCovariateCategoryMap() &&
         <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
           selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
           unselectedLayer={unselectedLayer}
@@ -433,6 +448,15 @@ const MapComponent = (props: any) => {
       { isCovariateMap() &&
         <CoVarsLegend
           selectedMapTheme="CoVars" legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          id="covars"
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+      { isCovariateCategoryMap() &&
+        <CoVarsCategoryLegend
+          selectedMapTheme="CoVarsCategory" legend={legend} primary={primary} selectedLayer={selectedLayer}
           unselectedLayer={unselectedLayer}
           selectedIndicator={indicator}
           id="covars"

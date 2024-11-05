@@ -141,6 +141,15 @@
   "data_source_high_model_predictions": "Data source: Wong et al, 2024",
   "data_source_neg_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
   "data_source_pos_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
+  "data_source_neg_covars_category": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
+  "data_source_pos_covars_category": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
   "lower": "lower",
-  "upper": "upper"
+  "upper": "upper",
+  "coVar_Vegetation_short": "Vegetation",
+  "coVar_Urban/rural_short": "Urban / rural",
+  "coVar_Topography_short": "Topography",
+  "coVar_Temperature_short": "Temperature",
+  "coVar_Hydrology_short": "Hydrology",
+  "neg_covars_category": "Negative dominant covariates categories",
+  "pos_covars_category": "Positive dominant covariates categories"
 }

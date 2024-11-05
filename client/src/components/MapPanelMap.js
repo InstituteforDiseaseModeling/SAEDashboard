@@ -192,9 +192,13 @@ const MapPanelMap = (props) => {
   }
 
   // calculate final theme based on config
-  const finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedMapTheme)>=0 ?
+  let finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedMapTheme)>=0 ?
                    config.defaultThemeByIndicator[indicator] :
                    selectedMapTheme;
+  // keep theme for covars related indicators
+  if (indicator.indexOf('covars')>-1) {
+    finalTheme =config.defaultThemeByIndicator[indicator];
+  }
 
 
   return (
