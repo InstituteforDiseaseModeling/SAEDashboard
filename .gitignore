@@ -9,3 +9,6 @@ node_modules
 ./service/data/data
 venv2
 client/build
+client/scripts
+service/data
+service/data copy
