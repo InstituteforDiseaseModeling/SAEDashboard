@@ -56,6 +56,7 @@
   "correct_treatment": "% Cases with Correct Treatment",
   "unit": "units",
   "NoData": "No data in this month / year",
+  "NoData_short": "no data",
   "month-All": "All",
   "month-Jan": "Jan",
   "month-Feb": "Feb",

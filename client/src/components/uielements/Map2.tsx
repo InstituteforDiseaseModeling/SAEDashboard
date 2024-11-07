@@ -164,7 +164,7 @@ const MapComponent = (props: any) => {
       weight: 3,
       color: color ? color : '#FFCE74',
       dashArray: '',
-      fillOpacity: 0.7,
+      fillOpacity: 1,
     });
 
     if (e.latlng && !fromEffect) {
@@ -210,6 +210,13 @@ const MapComponent = (props: any) => {
         window.L.popup()
             .setLatLng(e.latlng)
             .setContent(entireMsg)
+            .openOn(mapObj);
+      } else {
+        // no data popup
+        const region = feature.feature.id.split(':').splice(2).join(':');
+        window.L.popup()
+            .setLatLng(e.latlng)
+            .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
             .openOn(mapObj);
       }
     }
@@ -270,7 +277,7 @@ const MapComponent = (props: any) => {
 
     const standardFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
-      if (region && region.value) {
+      if (region && region.value != null) {
         const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
 
         let color2 = 'lightgrey';
@@ -283,7 +290,7 @@ const MapComponent = (props: any) => {
         }
         return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'lightgrey'};
+        return {color: 'red'};
       }
     };
 

@@ -105,7 +105,7 @@ const MapLegend = (props) => {
       </div>);
   };
 
-  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'mapLabel');
+  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'legendLabel');
 
   const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');

@@ -46,6 +46,7 @@
   "github": "github",
   "unit": "units",
   "NoData": "Aucune donnée cette année ou ce mois",
+  "NoData_short": "pas de données",
   "CDM_Coverage": "CDM – Taux de couverture de la population",
   "CDM": "CDM – Nombre de MILDA distribuées",
   "MILDA_Coverage": "MILDA Routine - Taux de couverture de la population",
