@@ -25,7 +25,9 @@
     "pos_covars": "CoVars",
     "neg_covars_category": "CoVarsCategory",
     "pos_covars_category": "CoVarsCategory",
-    "weather_zones": "BrBG"
+    "weather_zones": "BrBG",
+    "tpr": "BuRd",
+    "incidence": "BuRd"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,

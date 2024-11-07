@@ -40,7 +40,7 @@ const getRainfallRangeYrMonth = (yr, month) => {
   const _rainfallData = RainfallData;
   let data = null;
   if (month) {
-    data = _.filter(_rainfallData, {'Year': yr, 'Month': month});
+    data = _.filter(_rainfallData, {'Year': yr, 'Month': month-1});
   } else {
     data = _.filter(_rainfallData, {'Year': yr});
   }

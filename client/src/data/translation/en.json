@@ -56,6 +56,7 @@
   "correct_treatment": "% Cases with Correct Treatment",
   "unit": "units",
   "NoData": "No data in this month / year",
+  "NoData_short": "no data",
   "month-All": "All",
   "month-Jan": "Jan",
   "month-Feb": "Feb",
@@ -143,13 +144,17 @@
   "data_source_pos_covars": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
   "data_source_neg_covars_category": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
   "data_source_pos_covars_category": "Data source: modeled by the Malaria Atlas Project\nNote: these model results should not be used in isolation for decision making.",
-  "lower": "lower",
-  "upper": "upper",
   "coVar_Vegetation_short": "Vegetation",
   "coVar_Urban/rural_short": "Urban / rural",
   "coVar_Topography_short": "Topography",
   "coVar_Temperature_short": "Temperature",
   "coVar_Hydrology_short": "Hydrology",
   "neg_covars_category": "Negative dominant covariates categories",
-  "pos_covars_category": "Positive dominant covariates categories"
+  "pos_covars_category": "Positive dominant covariates categories",
+  "data_source_tpr": "Data source: reported to the PNLP",
+  "data_source_incidence": "Data source: reported to the PNLP",
+  "lower": "lower",
+  "upper": "upper",
+  "tpr": "Test positivity rate (TPR)",
+  "incidence": "Incidence rate (monthly)"
 }
