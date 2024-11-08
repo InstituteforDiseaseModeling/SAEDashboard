@@ -59,5 +59,7 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'legendLabel': 'tpr', 'decimalPt': 1, 'useAvg': true},
   'incidence': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
     'mapLabel': 'cases_per_1000', 'legendLabel': 'cases_per_1000', 'decimalPt': 1, 'useAvg': true},
+  'a_gambiae': {'unitLabel': 'a_gambiae', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'legendLabel': 'legend_a_gambiae', 'decimalPt': 1, 'useAvg': true},
 };
 

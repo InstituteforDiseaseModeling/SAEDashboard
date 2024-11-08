@@ -156,5 +156,8 @@
   "lower": "lower",
   "upper": "upper",
   "tpr": "Test positivity rate (TPR)",
-  "incidence": "Incidence rate (monthly)"
+  "incidence": "Incidence rate (monthly)",
+  "legend_a_gambiae": "% Anopheles gambiae",
+  "data_source_a_gambiae": "Data source: reported to the PNLP",
+  "a_gambiae": "An. gambiae composition"
 }

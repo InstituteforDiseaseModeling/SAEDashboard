@@ -1,6 +1,6 @@
 {
   "Senegal": {
-    "2020": {
+    "2019": {
       "site_data": {
         "SUGAR COMPANY CLINIC": {
           "CODE": "CSS",
@@ -341,6 +341,98 @@
           "heterozygosity": 0.0257
         }
       }
-    }
+    },
+    "2020": [
+      {
+        "SITE": "THIES",
+        "CODE": "SLP",
+        "Latitude": 14.791054,
+        "Longitude": -16.925124,
+        "n": 50,
+        "poly_fract": 0.34,
+        "poly_fract_ci": "(0.2243, 0.4785)",
+        "monoclonality": 0.151515152,
+        "monoclonality_ci": "(0.0665, 0.3092)",
+        "RH": 0.217597547,
+        "cotx": 0.5868,
+        "mccoil_coi": 1.6,
+        "mccoil_coi_poly": 3.307692308
+      },
+      {
+        "SITE": "SESSINE",
+        "CODE": "SES",
+        "Latitude": 14.920131,
+        "Longitude": -16.358667,
+        "n": 199,
+        "poly_fract": 0.100502513,
+        "poly_fract_ci": "(0.0660, 0.1501)",
+        "monoclonality": 0.826815642,
+        "monoclonality_ci": "(0.7647, 0.8752)",
+        "RH": 0.421357394,
+        "cotx": 0.65235,
+        "mccoil_coi": 1.070351759,
+        "mccoil_coi_poly": 2.076923077
+      },
+      {
+        "SITE": "KEDOUGOU",
+        "CODE": "KDG",
+        "Latitude": 12.8615715,
+        "Longitude": -12.305834,
+        "n": 145,
+        "poly_fract": 0.565517241,
+        "poly_fract_ci": "(0.4842, 0.6435)",
+        "monoclonality": 0.031746032,
+        "monoclonality_ci": "(0.0087, 0.1086)",
+        "RH": 0.179188406,
+        "cotx": 0.5106,
+        "mccoil_coi": 1.910344828,
+        "mccoil_coi_poly": 3.237288136
+      },
+      {
+        "SITE": "TOUBA",
+        "CODE": "MAD",
+        "Latitude": 14.8589,
+        "Longitude": -15.909,
+        "n": 65,
+        "poly_fract": 0.4,
+        "poly_fract_ci": "(0.2897, 0.5214)",
+        "monoclonality": 0.307692308,
+        "monoclonality_ci": "(0.1857, 0.4642)",
+        "RH": 0.57414258,
+        "cotx": 0.88085,
+        "mccoil_coi": 1.169230769,
+        "mccoil_coi_poly": 2.222222222
+      },
+      {
+        "SITE": "NDOGA BABACAR",
+        "CODE": "NDO",
+        "Latitude": 13.7535,
+        "Longitude": -13.6729,
+        "n": 120,
+        "poly_fract": 0.308333333,
+        "poly_fract_ci": "(0.2327, 0.3958)",
+        "monoclonality": 0.120481928,
+        "monoclonality_ci": "(0.0668, 0.2078)",
+        "RH": 0.4295278,
+        "cotx": 0.75545,
+        "mccoil_coi": 1.266666667,
+        "mccoil_coi_poly": 2.28
+      },
+      {
+        "SITE": "BANDAFASSI",
+        "CODE": "BAN",
+        "Latitude": 12.5388,
+        "Longitude": -12.3106,
+        "n": 83,
+        "poly_fract": 0.518072289,
+        "poly_fract_ci": "(0.4122, 0.6224)",
+        "monoclonality": 0,
+        "monoclonality_ci": "(0.0, 0.0876)",
+        "RH": 0.209644227,
+        "cotx": 0.46245,
+        "mccoil_coi": 1.56626506,
+        "mccoil_coi_poly": 2.305555556
+      }
+    ]
   }
 }
