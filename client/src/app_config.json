@@ -2,7 +2,7 @@
   "title": "Subnational Family Planning Estimation Tool",
   "disableAdmin2" : false,
   "defaultYear": 2022,
-  "defaultRegion" : "Africa:Senegal:Thies:Thies",
+  "defaultRegion" : "Africa:Senegal:Diourbel:Diourbel",
   "defaultCountry" : "Africa:Senegal",
   "defaultThemeByIndicator" : {
     "modern_method" : "RdBu",
@@ -27,7 +27,8 @@
     "pos_covars_category": "CoVarsCategory",
     "weather_zones": "BrBG",
     "tpr": "BuRd",
-    "incidence": "BuRd"
+    "incidence": "BuRd",
+    "a_gambiae": "BuRd"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,
