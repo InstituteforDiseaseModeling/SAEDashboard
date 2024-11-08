@@ -291,7 +291,7 @@ const MapComponent = (props: any) => {
         }
         return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'black'};
+        return {color: 'grey', weight: 1};
       }
     };
 
