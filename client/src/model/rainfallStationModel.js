@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable no-invalid-this */
 import RainfallStations from '../data/rainfall_stations.json';
 import RainfallData from '../data/rainfall_2018_2023.json';
 import * as _ from 'lodash';
@@ -73,7 +74,10 @@ export function addRainfallStations(mapObj, layerControl, yr, month, formatMessa
       const stationRainfall = getRainfallByStationYrMonth(_station.Station, yr, month);
       const color = greens(stationRainfall);
       const marker = L.marker([parseFloat(_station.Lat_y), parseFloat(_station.Long_x)],
-          {icon: rainMarker(color)});
+          {icon: rainMarker(color)})
+          .on('mouseover', function(e) {
+            this.openPopup();
+          });
       // .bindPopup(_station.Station + ' ' + 'station', {'className': 'popupCustom'});/
       marker.on('click', function() {
         clickHandler(_station);

@@ -219,12 +219,12 @@ const MapLegend = (props) => {
   useEffect(() => {
     const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
 
-    if (selectedLayer === sentinelFacilitylayer) {
+    if (selectedLayer && selectedLayer.indexOf('barcode_data') > -1) {
       setShowClinic(true);
       showClinic = true;
     }
 
-    if (unselectedLayer === sentinelFacilitylayer) {
+    if (unselectedLayer && unselectedLayer.indexOf('barcode_data') > -1) {
       setShowClinic(false);
       showClinic = false;
     };
