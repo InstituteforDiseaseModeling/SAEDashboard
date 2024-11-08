@@ -126,7 +126,7 @@
   "coVar_TCB_short": "Luminosité 'tasselled cap' (sécheresse)",
   "coVar_TCW_short": "Humidité 'tasselled cap' (humidité du sol)",
 
-  "data_source_predicted_incidence": "Source des données : rapporté au PNLP",
+  "data_source_reported_incidence": "Source des données : rapporté au PNLP",
   "data_source_CDM": "Source des données : rapporté au PNLP",
   "data_source_CDM_Coverage": "Source des données : rapporté au PNLP",
   "data_source_MILDA": "Source des données : rapporté au PNLP",
@@ -136,7 +136,7 @@
   "data_source_testing_rates": "Source des données : rapporté au PNLP",
   "data_source_correct_treatment": "Source des données : rapporté au PNLP",  
   "data_source_weather_zones": "Source des données : rapporté au PNLP",
-  "data_source_reported_incidence": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)",
+  "data_source_predicted_incidence": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)",
   "data_source_low_model_predictions": "Source des données : Wong et al, 2024\nRemarque : la relation entre la génétique et l'incidence est plus hétérogène lorsque la prévalence est inférieure à 10 %.",
   "data_source_high_model_predictions": "Source des données : Wong et al, 2024",
   "data_source_neg_covars": "Source des données : modélisées par le projet d'atlas du paludisme (Malaria Atlas Project)\nRemarque: les résultats de ce modèle ne doivent pas être utilisés isolément pour la prise de décision.",
@@ -158,5 +158,5 @@
   "incidence": "Incidence (mensuelle)",
   "legend_a_gambiae": "% Anopheles gambiae",
   "data_source_a_gambiae": "Source des données : rapporté au PNLP",
-  "a_gambiae": "An. gambiae composition"
+  "a_gambiae": "Composition des espèces (An. gambiae)"
 }
