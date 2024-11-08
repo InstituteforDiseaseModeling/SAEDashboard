@@ -8,7 +8,7 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {addHealthClinicMarkers} from './MapUtil';
+import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -61,6 +61,7 @@ const IncidenceMap = ['reported_incidence',
   'predicted_incidence',
   'high_model_predictions',
   'low_model_predictions',
+  'incidence',
 ];
 
 export const isIncidenceMap = (indicator:string) => {
@@ -252,7 +253,7 @@ const MapComponent = (props: any) => {
         _.find(customTheme, {color: selectedMapTheme as any}).values;
 
       let color = '#CCCCCC';
-      if (region && region.value) {
+      if (region && region.value != null) {
         if (region.value <= 5) {
           color = '#1d9660'; // colors[0];
         } else if (region.value <= 50) {
@@ -290,7 +291,7 @@ const MapComponent = (props: any) => {
         }
         return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'red'};
+        return {color: 'black'};
       }
     };
 
@@ -320,22 +321,11 @@ const MapComponent = (props: any) => {
       dispatch(changeSelectedRainfallStation(station.Station));
     };
 
-    // for adding weather zones layer
-    // const weatherZoneClicked = (zone: string) => {
-    //   dispatch(changeSelectedRainfallZone(zone));
-    // };
+    // add 2019 clinic markers
+    add2019Barcode(healthClinicData.Senegal[2019].site_data, layerControl, create2019SitePopup, intl.formatMessage);
 
-    // const rainfallLayer = L.GeoJSON.geometryToLayer(
-    //     rainfallZoneModel.getRainfallZoneGeoJson(),
-    // );
-
-    // rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
-
-    // add weather zones layer
-    // layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
-
-    // add health clinic markers
-    addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
+    // add 2020 clinic markers
+    add2020Barcode(healthClinicData.Senegal[2020], layerControl, create2020SitePopup, intl.formatMessage);
 
     // add rainfall stations
     addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
@@ -363,19 +353,19 @@ const MapComponent = (props: any) => {
     });
   };
 
-  const createSitePopup = (clinic: HealthClinic, name: string) => {
-    return '<div class="popupCustom">' +
-    '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
-    '</div>';
-  };
+  // const createSitePopup = (clinic: HealthClinic, name: string) => {
+  //   return '<div class="popupCustom">' +
+  //   '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
+  //   '</div>';
+  // };
 
   /**
    * to find a map feature when a LGA is given

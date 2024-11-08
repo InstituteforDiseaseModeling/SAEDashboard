@@ -58,6 +58,6 @@ export const IndicatorConfig: IndicatorConfig = {
   'tpr': {'unitLabel': 'tpr', 'multiper': 1, 'unit': '\'%',
     'mapLabel': '%', 'legendLabel': 'tpr', 'decimalPt': 1, 'useAvg': true},
   'incidence': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
-    'mapLabel': 'cases_per_1000', 'legendLabel': 'cases_per_1000', 'decimalPt': 1, 'useAvg': false},
+    'mapLabel': 'cases_per_1000', 'legendLabel': 'cases_per_1000', 'decimalPt': 1, 'useAvg': true},
 };
 
