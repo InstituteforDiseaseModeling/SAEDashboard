@@ -45,5 +45,7 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': 'neg_covars_map_label', 'decimalPt': 1},
   'pos_covars': {'unitLabel': 'pos_covars', 'multiper': 1, 'unit': '(mode)',
     'mapLabel': 'pos_covars_map_label', 'decimalPt': 1},
+  'species': {'unitLabel': 'species', 'multiper': 100, 'unit': '%',
+    'mapLabel': '%', 'decimalPt': 0},
 };
 

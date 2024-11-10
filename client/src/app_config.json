@@ -23,7 +23,8 @@
     "correct_treatment": "RdBu",
     "neg_covars": "CoVars",
     "pos_covars": "CoVars",
-    "weather_zones": "BrBG"
+    "weather_zones": "BrBG",
+    "species": "RdBu"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,

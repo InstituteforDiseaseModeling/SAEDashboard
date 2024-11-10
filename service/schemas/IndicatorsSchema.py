@@ -21,7 +21,8 @@ LABELS = {
     "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
     "testing_rates": "Tested Suspected Malaria Cases",
     "correct_treatment": "% Cases with Correct Treatment",
-    "weather_zones": "Weather Zones"
+    "weather_zones": "Weather Zones",
+    "species": "Mosquito Species"
 }
 
 class IndicatorSchema(BaseModel):

@@ -79,6 +79,9 @@ const IndicatorFilter = (props) => {
         <MenuItem value="high_model_predictions" key={11} className={classes.menuItem}>
           <FormattedMessage id="high_model_predictions"/>
         </MenuItem>
+        <MenuItem value="species" key={11} className={classes.menuItem}>
+          <FormattedMessage id="species"/>
+        </MenuItem>
 
         {/* Environmental */}
         <ListSubheader className={classes.subHeader}>
