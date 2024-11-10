@@ -1,4 +1,8 @@
 /* eslint-disable max-len */
+/* eslint-disable valid-jsdoc */
+/* eslint-disable no-invalid-this */
+/* eslint-disable comma-dangle */
+
 
 import * as am4core from '@amcharts/amcharts4/core';
 import customTheme from '../../customTheme.json';
@@ -138,15 +142,59 @@ export function colorMarker(color) {
   });
 };
 
+/**
+ * this function is used to create a map marker.
+ * @param {*} clinic
+ * @param {*} name
+ * @param {*} formatMessage
+ * @returns
+ */
+export function create2019SitePopup(clinic, name, formatMessage) {
+  return '<div class="popupCustom">' +
+  '<div class="row border"><div class="col">'+ formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
+  '</div>';
+};
 
 /**
- * To add sentinel site markers
+ * this function is used to create a map marker.
+ * @param {*} clinic
+ * @param {*} name
+ * @param {*} formatMessage
+ * @returns
+ */
+export function create2020SitePopup(clinic, name, formatMessage) {
+  return '<div class="popupCustom">' +
+  '<div class="row border"><div class="col">'+ formatMessage({id: 'site'}) +':</div><div>' + clinic.SITE + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'rh'}) +':</div><div>' + clinic.RH + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'poly_fract'}) +':</div><div>' + clinic.poly_fract + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'poly_fract_ci'}) +':</div><div>' + clinic.poly_fract_ci + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'cotx'}) +':</div><div>' + clinic.cotx + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'mccoil_coi'}) +':</div><div>' + clinic.mccoil_coi + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'mccoil_coi_poly'}) +':</div><div>' + clinic.mccoil_coi_poly + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'monoclonality'}) +':</div><div>' + clinic.monoclonality + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'monoclonality_ci'}) +':</div><div>' + clinic.monoclonality_ci + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'n'}) +':</div><div>' + clinic.n + '</div></div></div>' +
+  '</div>';
+};
+
+
+/**
+ * To add 2019 barcode site markers
  * @param {*} siteData
  * @param {*} layerControl
  * @param {*} createSitePopup
  * @param {*} formatMessage
  */
-export function addHealthClinicMarkers(siteData, layerControl, createSitePopup, formatMessage) {
+export function add2019Barcode(siteData, layerControl, createSitePopup, formatMessage) {
   const L = require('leaflet');
   const sites = [];
   const blues = chroma.scale('Blues').domain([0, 1]).classes(5); // used for health clinic markers
@@ -160,12 +208,52 @@ export function addHealthClinicMarkers(siteData, layerControl, createSitePopup, 
         colorIndex = -1;
       }
       const marker = L.marker([clinic.Lat_2, clinic.Long_2],
-          {icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])}).bindPopup(createSitePopup(clinic, site), {'className': 'popupCustom'});
+          {icon: colorMarker(colorIndex == -1 ? 'crimson' :
+            blueColors[colorIndex])})
+          .bindPopup(createSitePopup(clinic, site, formatMessage), {'className': 'popupCustom'})
+          .on('mouseover', function(e) {
+            this.openPopup();
+          });
       sites.push(marker);
     }
   };
 
   const lg = L.layerGroup(sites);
-  layerControl.addOverlay(lg, formatMessage({id: 'sentinel_facilities'}));
+  layerControl.addOverlay(lg, formatMessage({id: '2019_barcode_data'}));
+};
+
+/**
+ * To add 2020 barcode site markers
+ * @param {*} siteData
+ * @param {*} layerControl
+ * @param {*} createSitePopup
+ * @param {*} formatMessage
+ */
+export function add2020Barcode(siteData, layerControl, createSitePopup, formatMessage) {
+  const L = require('leaflet');
+  const sites = [];
+  const blues = chroma.scale('Blues').domain([0, 1]).classes(5); // used for health clinic markers
+  const blueColors = blues.colors(5);
+
+  for (const site in siteData) {
+    if (site) {
+      const clinic = siteData[site];
+      let colorIndex = Math.ceil(clinic.poly_fract * 5) - 1;
+      if (!clinic.poly_fract) {
+        colorIndex = -1;
+      }
+      const marker = L.marker([clinic.Latitude, clinic.Longitude], {
+        icon: colorMarker(colorIndex == -1 ? 'crimson' : blueColors[colorIndex])
+      }).bindPopup(createSitePopup(clinic, site, formatMessage), {
+        className: 'popupCustom'
+      }).on('mouseover', function(e) {
+        this.openPopup();
+      });
+      sites.push(marker);
+    }
+  };
+
+  const lg = L.layerGroup(sites);
+  layerControl.addOverlay(lg, formatMessage({id: '2020_barcode_data'}));
 };
 

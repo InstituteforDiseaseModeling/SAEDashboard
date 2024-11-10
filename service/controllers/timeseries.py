@@ -54,7 +54,7 @@ async def get_timeseries(request: Request):
         data = {}
 
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'weather_zones']:
+            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'weather_zones', 'tpr', 'incidence']:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
                 data[entry] = {
                     'year': row[DataFileKeys.YEAR],
@@ -75,7 +75,7 @@ async def get_timeseries(request: Request):
         # Add directly to the prediction
         df = df.loc[df[DataFileKeys.REFERENCE].notna(), :]
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage']:
+            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'tpr', 'incidence']:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
             else:
                 entry = row[DataFileKeys.YEAR]

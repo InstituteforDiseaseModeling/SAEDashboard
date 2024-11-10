@@ -105,7 +105,7 @@ const MapLegend = (props) => {
       </div>);
   };
 
-  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'mapLabel');
+  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'legendLabel');
 
   const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
@@ -219,12 +219,12 @@ const MapLegend = (props) => {
   useEffect(() => {
     const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
 
-    if (selectedLayer === sentinelFacilitylayer) {
+    if (selectedLayer && selectedLayer.indexOf('barcode_data') > -1) {
       setShowClinic(true);
       showClinic = true;
     }
 
-    if (unselectedLayer === sentinelFacilitylayer) {
+    if (unselectedLayer && unselectedLayer.indexOf('barcode_data') > -1) {
       setShowClinic(false);
       showClinic = false;
     };

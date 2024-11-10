@@ -79,22 +79,38 @@ const IndicatorFilter = (props) => {
         <MenuItem value="high_model_predictions" key={11} className={classes.menuItem}>
           <FormattedMessage id="high_model_predictions"/>
         </MenuItem>
-        <MenuItem value="species" key={11} className={classes.menuItem}>
-          <FormattedMessage id="species"/>
+        <MenuItem value="tpr" key={15} className={classes.menuItem}>
+          <FormattedMessage id="tpr"/>
+        </MenuItem>
+        <MenuItem value="incidence" key={15} className={classes.menuItem}>
+          <FormattedMessage id="incidence"/>
         </MenuItem>
 
         {/* Environmental */}
         <ListSubheader className={classes.subHeader}>
           <FormattedMessage id="environmental"/>
         </ListSubheader>
-        <MenuItem value="weather_zones" key={13} className={classes.menuItem}>
+        <MenuItem value="weather_zones" key={12} className={classes.menuItem}>
           <FormattedMessage id="weather_zones"/>
         </MenuItem>
         <MenuItem value="neg_covars" key={13} className={classes.menuItem}>
           <FormattedMessage id="neg_covars"/>
         </MenuItem>
-        <MenuItem value="pos_covars" key={13} className={classes.menuItem}>
+        <MenuItem value="pos_covars" key={14} className={classes.menuItem}>
           <FormattedMessage id="pos_covars"/>
+        </MenuItem>
+        <MenuItem value="neg_covars_category" key={15} className={classes.menuItem}>
+          <FormattedMessage id="neg_covars_category"/>
+        </MenuItem>
+        <MenuItem value="pos_covars_category" key={16} className={classes.menuItem}>
+          <FormattedMessage id="pos_covars_category"/>
+        </MenuItem>
+        {/* Entomology */}
+        <ListSubheader className={classes.subHeader}>
+          <FormattedMessage id="entomology"/>
+        </ListSubheader>
+        <MenuItem value="species" key={11} className={classes.menuItem}>
+          <FormattedMessage id="species"/>
         </MenuItem>
 
       </Select>

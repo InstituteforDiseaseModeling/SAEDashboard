@@ -8,7 +8,7 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {addHealthClinicMarkers} from './MapUtil';
+import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -19,8 +19,9 @@ import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
 import RainfallZoneModel from '../../model/rainfallZoneModel.js';
 import {addRainfallStations} from '../../model/rainfallStationModel.js';
-import CoVarsLegend from './CoVarsLegend';
-import {CoVariatesLookup} from '../../const.js';
+import CoVarsLegend from './CoVarsLegend.js';
+import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
+import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
 
 const styles = makeStyles({
   MapContainer: {
@@ -60,6 +61,7 @@ const IncidenceMap = ['reported_incidence',
   'predicted_incidence',
   'high_model_predictions',
   'low_model_predictions',
+  'incidence',
 ];
 
 export const isIncidenceMap = (indicator:string) => {
@@ -112,6 +114,13 @@ const MapComponent = (props: any) => {
       return indicator == 'neg_covars' || indicator == 'pos_covars';
     }
   };
+  const isCovariateCategoryMap = () => {
+    if (primary) {
+      return primaryIndicator == 'neg_covars_category' || primaryIndicator == 'pos_covars_category';
+    } else {
+      return indicator == 'neg_covars_category' || indicator == 'pos_covars_category';
+    }
+  };
   const legend = useRef(null);
 
   interface FeatureAddOn extends GeoJSONOptions {
@@ -156,7 +165,7 @@ const MapComponent = (props: any) => {
       weight: 3,
       color: color ? color : '#FFCE74',
       dashArray: '',
-      fillOpacity: 0.7,
+      fillOpacity: 1,
     });
 
     if (e.latlng && !fromEffect) {
@@ -176,7 +185,14 @@ const MapComponent = (props: any) => {
         let entireMsg = regionName + ' : ';
         if (isCovariateMap()) {
           const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
-          const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          // const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          if (labelId) {
+            entireMsg += intl.formatMessage({id: labelId});
+          } else {
+            entireMsg += 'NA';
+          }
+        } else if (isCovariateCategoryMap()) {
+          const labelId = _.get(_.find(CoVariatesCategoryLookup, {'category': region.value}), 'label');
           if (labelId) {
             entireMsg += intl.formatMessage({id: labelId});
           } else {
@@ -195,6 +211,13 @@ const MapComponent = (props: any) => {
         window.L.popup()
             .setLatLng(e.latlng)
             .setContent(entireMsg)
+            .openOn(mapObj);
+      } else {
+        // no data popup
+        const region = feature.feature.id.split(':').splice(2).join(':');
+        window.L.popup()
+            .setLatLng(e.latlng)
+            .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
             .openOn(mapObj);
       }
     }
@@ -230,7 +253,7 @@ const MapComponent = (props: any) => {
         _.find(customTheme, {color: selectedMapTheme as any}).values;
 
       let color = '#CCCCCC';
-      if (region && region.value) {
+      if (region && region.value != null) {
         if (region.value <= 5) {
           color = '#1d9660'; // colors[0];
         } else if (region.value <= 50) {
@@ -255,20 +278,20 @@ const MapComponent = (props: any) => {
 
     const standardFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
-      if (region && region.value) {
+      if (region && region.value != null) {
         const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
 
         let color2 = 'lightgrey';
         try {
           color2 = !isCovariateMap() ? scale(region.value) :
-          colors[region.value-1];
+            colors[region.value-1];
         } catch (e) {
           // todo: log error
           console.log('Error in color setting');
         }
         return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'lightgrey'};
+        return {color: 'grey', weight: 1};
       }
     };
 
@@ -298,22 +321,11 @@ const MapComponent = (props: any) => {
       dispatch(changeSelectedRainfallStation(station.Station));
     };
 
-    // for adding weather zones layer
-    // const weatherZoneClicked = (zone: string) => {
-    //   dispatch(changeSelectedRainfallZone(zone));
-    // };
+    // add 2019 clinic markers
+    add2019Barcode(healthClinicData.Senegal[2019].site_data, layerControl, create2019SitePopup, intl.formatMessage);
 
-    // const rainfallLayer = L.GeoJSON.geometryToLayer(
-    //     rainfallZoneModel.getRainfallZoneGeoJson(),
-    // );
-
-    // rainfallZoneModel.setupLayer(rainfallLayer, currentYear, currentMonth, mapObj, weatherZoneClicked, intl.formatMessage);
-
-    // add weather zones layer
-    // layerControl.addOverlay(rainfallLayer, intl.formatMessage({id: 'weather_zones'}));
-
-    // add health clinic markers
-    addHealthClinicMarkers(healthClinicData.Senegal[2020].site_data, layerControl, createSitePopup, intl.formatMessage);
+    // add 2020 clinic markers
+    add2020Barcode(healthClinicData.Senegal[2020], layerControl, create2020SitePopup, intl.formatMessage);
 
     // add rainfall stations
     addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
@@ -341,19 +353,19 @@ const MapComponent = (props: any) => {
     });
   };
 
-  const createSitePopup = (clinic: HealthClinic, name: string) => {
-    return '<div class="popupCustom">' +
-    '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
-    '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
-    '</div>';
-  };
+  // const createSitePopup = (clinic: HealthClinic, name: string) => {
+  //   return '<div class="popupCustom">' +
+  //   '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
+  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
+  //   '</div>';
+  // };
 
   /**
    * to find a map feature when a LGA is given
@@ -422,7 +434,7 @@ const MapComponent = (props: any) => {
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       {/* Map Legend */}
-      { !isCovariateMap() &&
+      { !isCovariateMap() && !isCovariateCategoryMap() &&
         <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
           selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
           unselectedLayer={unselectedLayer}
@@ -433,6 +445,15 @@ const MapComponent = (props: any) => {
       { isCovariateMap() &&
         <CoVarsLegend
           selectedMapTheme="CoVars" legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          id="covars"
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+      { isCovariateCategoryMap() &&
+        <CoVarsCategoryLegend
+          selectedMapTheme="CoVarsCategory" legend={legend} primary={primary} selectedLayer={selectedLayer}
           unselectedLayer={unselectedLayer}
           selectedIndicator={indicator}
           id="covars"

@@ -10,5 +10,10 @@
   "color" : "CoVars",
   "values" : ["#415878", "#7972a5", "#7bc4cd", "#55a461", "#e99f30", "#fdb86c", "#98272e", "#cfe7bb",
   "#8d9bae", "#afaac9", "#b0dce1", "#99e9a0", "#f2c583", "#fde8a7", "#c17d82", "#e2ddd6"]
+},
+{
+  "color" : "CoVarsCategory",
+  "values" : ["#415878", "#7972a5", "#7bc4cd", "#55a461", "#e99f30"]
 }
+
 ]

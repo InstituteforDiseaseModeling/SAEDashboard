@@ -16,6 +16,8 @@ import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
 import {find, clone} from 'lodash';
 import {FormattedMessage} from 'react-intl';
+import {IndicatorConfig} from './constTs.tsx';
+
 
 const styles = makeStyles(({
   error: {
@@ -116,14 +118,41 @@ const MapPanelMap = (props) => {
         return results;
       };
 
+      /**
+       * for averaging monthly data into annual data
+       * @param {*} results
+       * @param {*} current
+       * @return {*} array with average annual data
+       */
+      const averageFn = (results, current) => {
+        if (!Array.isArray(results)) {
+          return [current];
+        }
+        const existing = find(results, {id: current.id});
+
+        if (existing) {
+          // existing.value += current.value;
+          existing.value = (existing.value * existing.count + current.value) / (existing.count + 1);
+          existing.count += 1;
+        } else {
+          current.count = 1;
+          results.push(clone(current));
+        }
+
+        return results;
+      };
+
       let result = [];
       let result2 = [];
 
+      const result1UseAvg = IndicatorConfig[selectedIndicator].useAvg;
+      const result2UseAvg = IndicatorConfig[selectedComparisonIndicator].useAvg;
+
       if (resultRaw && resultRaw.data) {
-        result = resultRaw.data.reduce(aggregateFn, []);
+        result = resultRaw.data.reduce(result1UseAvg ? averageFn : aggregateFn, []);
       }
       if (result2Raw && result2Raw.data) {
-        result2 = result2Raw.data.reduce(aggregateFn, []);
+        result2 = result2Raw.data.reduce(result2UseAvg ? averageFn : aggregateFn, []);
       }
 
       const diffResult = result.map( (item, i) => {
@@ -192,9 +221,13 @@ const MapPanelMap = (props) => {
   }
 
   // calculate final theme based on config
-  const finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedMapTheme)>=0 ?
+  let finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedMapTheme)>=0 ?
                    config.defaultThemeByIndicator[indicator] :
                    selectedMapTheme;
+  // keep theme for covars related indicators
+  if (indicator.indexOf('covars')>-1) {
+    finalTheme =config.defaultThemeByIndicator[indicator];
+  }
 
 
   return (
