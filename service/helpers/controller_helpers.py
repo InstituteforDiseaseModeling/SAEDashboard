@@ -271,9 +271,32 @@ def get_indicator_version(country, channel):
     return version
 
 
-def get_indicator_time(country, channel, version):
+def get_indicator_subgroups(country, channel, version):
+    """
+    Get the shapefile version(s) of data files based on filters provided.
+    :param country: Which country to filter on.
+    :param channel: Which channel to filter on.
+    :return: An array of versions corresponding to country and indicator provided
+    """
+    # returns match objects for further filtering
+    regex_str = '^%s__%s__(?P<subgroup>.+)__%s\.csv$'
+    country_pattern = '(?P<country>.+)' if country is None else country
+    channel_pattern = '(?P<channel>.+)' if channel is None else channel
+    version_pattern = '(?P<version>.+)' if version is None else version
+
+    # Compile regex and list all files in dir matching regex
+    regex = re.compile(regex_str % (country_pattern, channel_pattern, version))
+    matches = [regex.match(fn) for fn in os.listdir(data_dir)]
+
+    # Extract version from matched files and convert them to int
+    subgroups = [m.group('subgroup') for m in matches if m]
+
+    return subgroups
+
+
+def get_indicator_time(country, channel, subgroup, version):
     time_dict = {}
-    df = get_dataframe(country=country, channel=channel, subgroup='all', version=version)
+    df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=version)
     # Load unique years from df
     years = df[DataFileKeys.YEAR].unique()
     # Check if 'month' column exists

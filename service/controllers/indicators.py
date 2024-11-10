@@ -1,5 +1,6 @@
 from service.helpers.controller_helpers import ControllerException, read_dot_names, get_channels, \
-    read_admin_level, read_use_descendant_dot_names, get_indicator_time, get_indicator_version
+    read_admin_level, read_use_descendant_dot_names, get_indicator_time, get_indicator_version, get_data_filenames, \
+    get_indicator_subgroups
 from service.helpers.dot_name import DotName
 from service.schemas.IndicatorsSchema import IndicatorsListSchema
 from fastapi import APIRouter, Request
@@ -25,7 +26,8 @@ LABELS = {
     "SMC": "Seasonal Malaria Chemoprophylaxis Coverage",
     "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
     "testing_rates": "Tested Suspected Malaria Cases",
-    "correct_treatment": "% Cases with Correct Treatment"
+    "correct_treatment": "% Cases with Correct Treatment",
+    "species": "% of Mosquito Species"
 }
 
 
@@ -79,7 +81,11 @@ async def get_indicators(request: Request):
         indicators_response = []
         for ind in indicators:
             version = get_indicator_version(country, ind)
-            data_time = get_indicator_time(country=country, channel=ind, version=version)
+            subgroups = get_indicator_subgroups(country, ind, version)
+            if len(subgroups)==1:
+                subgroup = subgroups[0]
+            # TODO: else statement; how to handle?
+            data_time = get_indicator_time(country=country, channel=ind, subgroup=subgroup, version=version)
             label = generate_label(ind)
             indicators_response.append({"id": ind, "text": label, "version": version, "time": data_time})
 
