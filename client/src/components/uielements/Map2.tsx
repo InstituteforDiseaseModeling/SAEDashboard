@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, {useRef, useEffect, useLayoutEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map, layerGroup} from 'leaflet';
+import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
@@ -22,11 +22,22 @@ import {addRainfallStations} from '../../model/rainfallStationModel.js';
 import CoVarsLegend from './CoVarsLegend.js';
 import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
 import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
+import {Typography} from '@mui/material';
 
 const styles = makeStyles({
   MapContainer: {
     backgroundColor: 'white',
     height: '100%',
+  },
+  mapTitle: {
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    top: 13,
+    left: 0,
+    width: '100%',
+    height: 30,
+    zIndex: 100,
   },
   note_diff: {
     top: -20,
@@ -353,20 +364,6 @@ const MapComponent = (props: any) => {
     });
   };
 
-  // const createSitePopup = (clinic: HealthClinic, name: string) => {
-  //   return '<div class="popupCustom">' +
-  //   '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
-  //   '</div>';
-  // };
-
   /**
    * to find a map feature when a LGA is given
    * @param {*} mapObj
@@ -432,6 +429,10 @@ const MapComponent = (props: any) => {
 
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
+      <div className={classes.mapTitle}>
+        {/* Map Title */}
+        <Typography variant="h5">{intl.formatMessage({id: indicator})}</Typography>
+      </div>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       {/* Map Legend */}
       { !isCovariateMap() && !isCovariateCategoryMap() &&
