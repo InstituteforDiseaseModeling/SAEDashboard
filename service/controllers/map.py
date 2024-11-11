@@ -1,3 +1,4 @@
+import pandas as pd
 from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
@@ -12,7 +13,7 @@ MULTIVARIATE_INDICATORS = [
 @router.get("/map")
 async def get_map(request: Request):
     """
-    Example 1: /map?dot_name=Africa:Benin&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data
+    Example 1: /map?dot_name=Africa:Benin&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&admin_level=2
     return:
         {
             'Africa:Benin:Borgou': 0.1,
@@ -20,7 +21,7 @@ async def get_map(request: Request):
             ...
          }
 
-    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&version=2
+    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&version=2&admin_level=2
     return:
         [
             {
@@ -69,7 +70,7 @@ async def get_map(request: Request):
             df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=shape_version)
 
             # limit data to the descendant dot_names at the requested admin level
-            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
+            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique() if pd.notnull(dn)]
             parent_dot_name = DotName.from_parts(parts=[dot_name.continent, country]) if all_countries_on_continent else dot_name
             child_dot_names = [str(dn) for dn in all_dot_names
                                if dn.is_descendant_or_self(parent_dot_name) and dn.admin_level == requested_admin_level]
@@ -80,7 +81,9 @@ async def get_map(request: Request):
 
             if month is not None:
                 if DataFileKeys.MONTH in df.columns:
-                    df = df.loc[df[DataFileKeys.MONTH] == month]
+                    df = df.loc[df[DataFileKeys.MONTH] == str(month)]
+            elif month is None and 'all' in df[DataFileKeys.MONTH].values:
+                df = df.loc[df[DataFileKeys.MONTH] == 'all']
 
             if channel in MULTIVARIATE_INDICATORS:
                 data_columns = [col for col in df.columns if f'{data_key}__' in col]
