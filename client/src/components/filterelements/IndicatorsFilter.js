@@ -85,13 +85,6 @@ const IndicatorFilter = (props) => {
         <MenuItem value="incidence" key={15} className={classes.menuItem}>
           <FormattedMessage id="incidence"/>
         </MenuItem>
-        <MenuItem value="gambiae" key={17} className={classes.menuItem}>
-          <FormattedMessage id="species"/>
-        </MenuItem>
-        <MenuItem value="indoor_resting_gambiae" key={17} className={classes.menuItem}>
-          <FormattedMessage id="indoor_resting"/>
-        </MenuItem>
-
         {/* Environmental */}
         <ListSubheader className={classes.subHeader}>
           <FormattedMessage id="environmental"/>
@@ -116,6 +109,13 @@ const IndicatorFilter = (props) => {
         <ListSubheader className={classes.subHeader}>
           <FormattedMessage id="entomology"/>
         </ListSubheader>
+        <MenuItem value="gambiae" key={17} className={classes.menuItem}>
+          <FormattedMessage id="gambiae"/>
+        </MenuItem>
+        <MenuItem value="indoor_resting_gambiae" key={17} className={classes.menuItem}>
+          <FormattedMessage id="indoor_resting"/>
+        </MenuItem>
+
       </Select>
     </FormControl>);
 };
