@@ -6,7 +6,7 @@ from helpers.controller_helpers import read_dot_names, read_subgroup, read_chann
 router = APIRouter()
 
 MULTIVARIATE_INDICATORS = [
-    'species'
+    'gambiae'
 ]
 
 @router.get("/map")
@@ -83,14 +83,17 @@ async def get_map(request: Request):
                     df = df.loc[df[DataFileKeys.MONTH] == month]
 
             if channel in MULTIVARIATE_INDICATORS:
-                data_columns = [col for col in df.columns if f'{data_key}__' in col]
+                addl_data_columns = [col for col in df.columns if f'pred_' in col]
 
                 new_values = []
                 for _, row in df.iterrows():
                     entry = {
                         'id': row[DataFileKeys.DOT_NAME],
-                        'values': {
-                            col.strip(f'{data_key}__'): row[col] for col in data_columns
+                        'value': row[data_key],
+                        'data_upper_bound': row['data_upper_bound'],
+                        'data_lower_bound': row['data_lower_bound'],
+                        'others': {
+                            col.strip(f'pred_'): row[col] for col in addl_data_columns
                         }
                     }
                     new_values.append(entry)
