@@ -27,7 +27,7 @@ LABELS = {
     "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
     "testing_rates": "Tested Suspected Malaria Cases",
     "correct_treatment": "% Cases with Correct Treatment",
-    "species": "% of Mosquito Species"
+    "gambiae": "% of Mosquito Species"
 }
 
 

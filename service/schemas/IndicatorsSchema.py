@@ -22,7 +22,7 @@ LABELS = {
     "testing_rates": "Tested Suspected Malaria Cases",
     "correct_treatment": "% Cases with Correct Treatment",
     "weather_zones": "Weather Zones",
-    "species": "Mosquito Species"
+    "gambiae": "Mosquito Species"
 }
 
 class IndicatorSchema(BaseModel):

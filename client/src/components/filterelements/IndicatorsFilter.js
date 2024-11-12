@@ -85,7 +85,7 @@ const IndicatorFilter = (props) => {
         <MenuItem value="incidence" key={15} className={classes.menuItem}>
           <FormattedMessage id="incidence"/>
         </MenuItem>
-        <MenuItem value="species" key={17} className={classes.menuItem}>
+        <MenuItem value="gambiae" key={17} className={classes.menuItem}>
           <FormattedMessage id="species"/>
         </MenuItem>
 

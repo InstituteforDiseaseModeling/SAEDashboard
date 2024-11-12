@@ -59,6 +59,6 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'legendLabel': 'tpr', 'decimalPt': 1, 'useAvg': true},
   'incidence': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
     'mapLabel': 'cases_per_1000', 'legendLabel': 'cases_per_1000', 'decimalPt': 1, 'useAvg': true},
-  'species': {'unitLabel': 'species', 'multiper': 1, 'unit': '\'%',
+  'gambiae': {'unitLabel': 'species', 'multiper': 1, 'unit': '\'%',
     'mapLabel': '%', 'legendLabel': 'species', 'decimalPt': 0},
 };

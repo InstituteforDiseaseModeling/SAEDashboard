@@ -63,7 +63,7 @@ async def get_timeseries(request: Request):
                     'middle': row[DataFileKeys.DATA],
                     'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
                 }
-            elif channel in ['species']:
+            elif channel in ['gambiae']:
                 entry = {'year': row[DataFileKeys.YEAR]}
                 multivar_data = {}
 
