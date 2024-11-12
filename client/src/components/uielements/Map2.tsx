@@ -209,6 +209,17 @@ const MapComponent = (props: any) => {
           } else {
             entireMsg += 'NA';
           }
+        } else if (region.others) {
+          entireMsg += '<br>';
+          entireMsg += indicator + ' : ' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+          ' ' + mapLabel + '<br/>';
+
+          for (const key in region.others) {
+            if (region.others[key]) {
+              entireMsg += key + ' : ' + Number((region.others[key] * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt + 2)).toLocaleString() +
+              ' ' + mapLabel + '<br/>';
+            }
+          }
         } else {
           entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
           '</b> ' + mapLabel + '<br/>';
