@@ -82,9 +82,9 @@ async def get_map(request: Request):
             elif month is None and 'all' in df[DataFileKeys.MONTH].values:
                 df = df.loc[df[DataFileKeys.MONTH] == 'all']
 
-                # update the return with the newly found entries
-                new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
-                    columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
+            # update the return with the newly found entries
+            new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
+                columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
             return_list.extend(new_values)
         return return_list
     except ControllerException as e:
