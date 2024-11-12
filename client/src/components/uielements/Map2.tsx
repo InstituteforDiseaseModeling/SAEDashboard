@@ -97,6 +97,8 @@ const MapComponent = (props: any) => {
   const mapLabel = IndicatorConfig[indicator] ?
     intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
 
+  const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
+
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
   const dispatch = useDispatch();
@@ -210,16 +212,20 @@ const MapComponent = (props: any) => {
             entireMsg += 'NA';
           }
         } else if (region.others) {
-          entireMsg += '<br>';
-          entireMsg += indicator + ' : ' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
-          ' ' + mapLabel + '<br/>';
+          // for indicators with additional data
+          const rowHTML = (val1: string, val2: string, val3: string) => (
+            '<div class="row"><div class="col">' + val1 + '</div><div>' + val2 + val3 + '</div></div>'
+          );
+          entireMsg = '<div class="popupCustom">';
+          entireMsg += '<div class="row border"><div class="col">'+ regionName +'</div></div>';
+          entireMsg += rowHTML(mainSpeciesName, Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
 
           for (const key in region.others) {
             if (region.others[key]) {
-              entireMsg += key + ' : ' + Number((region.others[key] * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt + 2)).toLocaleString() +
-              ' ' + mapLabel + '<br/>';
+              entireMsg += rowHTML(key, Number((region.others[key] * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
             }
           }
+          entireMsg += '</div>';
         } else {
           entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
           '</b> ' + mapLabel + '<br/>';
@@ -235,12 +241,13 @@ const MapComponent = (props: any) => {
             .setContent(entireMsg)
             .openOn(mapObj);
       } else {
-        // no data popup
-        const region = feature.feature.id.split(':').splice(2).join(':');
-        window.L.popup()
-            .setLatLng(e.latlng)
-            .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
-            .openOn(mapObj);
+      // todo: commented out as it is causing issue in
+      // no data popup
+      // const region = feature.feature.id.split(':').splice(2).join(':');
+      // window.L.popup()
+      //     .setLatLng(e.latlng)
+      //     .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
+      //     .openOn(mapObj);
       }
     }
   };

@@ -159,5 +159,7 @@
   "incidence": "Incidence rate (monthly)",
   "legend_a_gambiae": "% Anopheles gambiae",
   "data_source_a_gambiae": "Data source: reported to the PNLP",
-  "gambiae": "Species composition (An. Gambiae)"
+  "gambiae": "Species composition (An. Gambiae)",
+  "indoor_resting": "Indoor resting count",
+  "data_source_indoor_resting_gambiae": "Data source: reported to the PNLP"
 }
