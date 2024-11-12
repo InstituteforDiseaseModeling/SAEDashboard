@@ -5,8 +5,10 @@ from helpers.controller_helpers import read_dot_names, read_subgroup, read_chann
 
 router = APIRouter()
 
+# TODO: Separate this out to separate json
 MULTIVARIATE_INDICATORS = [
-    'gambiae'
+    'gambiae',
+    'indoor_resting_gambiae'
 ]
 
 @router.get("/map")

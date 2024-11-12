@@ -5,6 +5,10 @@ from fastapi import APIRouter, Request
 
 router = APIRouter()
 
+MULTIVARIATE_INDICATORS = [
+    'gambiae',
+    'indoor_resting_gambiae'
+]
 
 @router.get("/timeseries")
 async def get_timeseries(request: Request):
@@ -63,7 +67,7 @@ async def get_timeseries(request: Request):
                     'middle': row[DataFileKeys.DATA],
                     'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
                 }
-            elif channel in ['gambiae']:
+            elif channel in MULTIVARIATE_INDICATORS:
                 entry = {'year': row[DataFileKeys.YEAR]}
                 multivar_data = {}
 

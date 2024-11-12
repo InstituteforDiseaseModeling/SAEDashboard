@@ -27,7 +27,8 @@ LABELS = {
     "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
     "testing_rates": "Tested Suspected Malaria Cases",
     "correct_treatment": "% Cases with Correct Treatment",
-    "gambiae": "% of Mosquito Species"
+    "gambiae": "% of Mosquito Species",
+    "indoor_resting_gambiae": "DHIS2 Indoor Resting"
 }
 
 
@@ -84,7 +85,7 @@ async def get_indicators(request: Request):
             subgroups = get_indicator_subgroups(country, ind, version)
             if len(subgroups)==1:
                 subgroup = subgroups[0]
-            # TODO: else statement; how to handle?
+            # TODO: add logic to accommodate for multiple subgroups
             data_time = get_indicator_time(country=country, channel=ind, subgroup=subgroup, version=version)
             label = generate_label(ind)
             indicators_response.append({"id": ind, "text": label, "version": version, "time": data_time})

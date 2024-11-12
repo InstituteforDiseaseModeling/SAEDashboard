@@ -88,6 +88,9 @@ const IndicatorFilter = (props) => {
         <MenuItem value="gambiae" key={17} className={classes.menuItem}>
           <FormattedMessage id="species"/>
         </MenuItem>
+        <MenuItem value="indoor_resting_gambiae" key={17} className={classes.menuItem}>
+          <FormattedMessage id="indoor_resting"/>
+        </MenuItem>
 
         {/* Environmental */}
         <ListSubheader className={classes.subHeader}>

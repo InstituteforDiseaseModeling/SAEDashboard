@@ -28,7 +28,8 @@
     "weather_zones": "BrBG",
     "tpr": "BuRd",
     "incidence": "BuRd",
-    "gambiae": "RdBu"
+    "gambiae": "RdBu",
+    "indoor_resting_gambiae": "RdBu"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,
