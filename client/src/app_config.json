@@ -28,7 +28,7 @@
     "weather_zones": "BrBG",
     "tpr": "BuRd",
     "incidence": "BuRd",
-    "species": "RdBu"
+    "a_gambiae": "BuRd"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,

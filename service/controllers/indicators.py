@@ -26,8 +26,7 @@ LABELS = {
     "SMC": "Seasonal Malaria Chemoprophylaxis Coverage",
     "IPTp3": "Intermittent Preventative Treatment in Pregnancy",
     "testing_rates": "Tested Suspected Malaria Cases",
-    "correct_treatment": "% Cases with Correct Treatment",
-    "species": "% of Mosquito Species"
+    "correct_treatment": "% Cases with Correct Treatment"
 }
 
 
