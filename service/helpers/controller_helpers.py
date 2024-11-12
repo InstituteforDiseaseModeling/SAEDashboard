@@ -308,7 +308,9 @@ def get_indicator_time(country, channel, subgroup, version):
             if pd.isna(months[0]):
                 time_dict[year] = []
             else:
-                time_dict[year] = months.tolist()
+                if 'all' in months:
+                    months = [x for x in months if x != 'all']
+                time_dict[year] = months
     else:
         time_dict = {year: [] for year in years}
     return time_dict
