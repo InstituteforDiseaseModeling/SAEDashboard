@@ -64,6 +64,6 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'legendLabel': 'species', 'decimalPt': 2,
     'mainSpeciesName': 'a. gambiae'},
   'indoor_resting_gambiae': {'unitLabel': 'indoor_resting', 'multiper': 1, 'unit': '',
-    'mapLabel': ' ', 'legendLabel': 'indoor_resting', 'decimalPt': 2,
+    'mapLabel': ' ', 'legendLabel': 'indoor_resting_site', 'decimalPt': 2,
     'mainSpeciesName': 'a. gambiae'},
 };

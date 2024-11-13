@@ -160,6 +160,7 @@
   "legend_a_gambiae": "% Anopheles gambiae",
   "data_source_a_gambiae": "Data source: reported to the PNLP",
   "gambiae": "Species composition (An. Gambiae)",
-  "indoor_resting": "Indoor resting count",
+  "indoor_resting": "Indoor resting density",
+  "indoor_resting_site": "Indoor resting density per site",
   "data_source_indoor_resting_gambiae": "Data source: reported to the PNLP"
 }
