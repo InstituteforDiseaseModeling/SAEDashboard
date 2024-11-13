@@ -78,6 +78,7 @@ async def get_map(request: Request):
 
             if month is not None:
                 if DataFileKeys.MONTH in df.columns:
+                    df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype('str')
                     df = df.loc[df[DataFileKeys.MONTH] == str(month)]
             elif month is None and 'all' in df[DataFileKeys.MONTH].values:
                 df = df.loc[df[DataFileKeys.MONTH] == 'all']
