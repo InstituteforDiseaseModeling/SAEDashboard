@@ -44,5 +44,5 @@ subgroup_labels:
   'urban': 'Urban'
 
 multivariate_indicators:
-  'gambiae'
-  'indoor_resting_gambiae'
+  - gambiae
+  - indoor_resting_gambiae
