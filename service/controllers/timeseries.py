@@ -2,13 +2,9 @@ from helpers.dot_name import DotName
 from service.helpers.controller_helpers import DataFileKeys, read_dot_names, ControllerException, read_channel, \
     read_subgroup, get_dataframe, read_shape_version
 from fastapi import APIRouter, Request
+import yaml
 
 router = APIRouter()
-
-MULTIVARIATE_INDICATORS = [
-    'gambiae',
-    'indoor_resting_gambiae'
-]
 
 @router.get("/timeseries")
 async def get_timeseries(request: Request):
@@ -60,6 +56,11 @@ async def get_timeseries(request: Request):
 
         data = {}
 
+        # Extract the multivariate indicator names
+        with open("config.yaml", "r") as file:
+            config = yaml.safe_load(file)
+        multivariate_indicators = config.get("multivariate_indicators", [])
+
         for index, row in df.iterrows():
             if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
@@ -70,7 +71,7 @@ async def get_timeseries(request: Request):
                     'middle': row[DataFileKeys.DATA],
                     'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
                 }
-            elif channel in MULTIVARIATE_INDICATORS:
+            elif channel in multivariate_indicators:
                 entry = {'year': row[DataFileKeys.YEAR]}
                 multivar_data = {}
 

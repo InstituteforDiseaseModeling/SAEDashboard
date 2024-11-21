@@ -42,3 +42,7 @@ subgroup_labels:
   'all-NA': 'All-NA'
   'rural': 'Rural'
   'urban': 'Urban'
+
+multivariate_indicators:
+  'gambiae'
+  'indoor_resting_gambiae'
