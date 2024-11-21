@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, {useRef, useEffect, useLayoutEffect, useState, useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map, layerGroup} from 'leaflet';
+import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
@@ -22,11 +22,22 @@ import {addRainfallStations} from '../../model/rainfallStationModel.js';
 import CoVarsLegend from './CoVarsLegend.js';
 import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
 import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
+import {Typography} from '@mui/material';
 
 const styles = makeStyles({
   MapContainer: {
     backgroundColor: 'white',
     height: '100%',
+  },
+  mapTitle: {
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    top: 13,
+    left: 0,
+    width: '100%',
+    height: 30,
+    zIndex: 100,
   },
   note_diff: {
     top: -20,
@@ -85,6 +96,8 @@ const MapComponent = (props: any) => {
   const {intl} = props;
   const mapLabel = IndicatorConfig[indicator] ?
     intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
+
+  const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
 
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
@@ -198,6 +211,21 @@ const MapComponent = (props: any) => {
           } else {
             entireMsg += 'NA';
           }
+        } else if (region.others) {
+          // for indicators with additional data
+          const rowHTML = (val1: string, val2: string, val3: string) => (
+            '<div class="row"><div class="col">' + val1 + '</div><div>' + val2 + val3 + '</div></div>'
+          );
+          entireMsg = '<div class="popupCustom">';
+          entireMsg += '<div class="row border"><div class="col">'+ regionName +'</div></div>';
+          entireMsg += rowHTML(mainSpeciesName, Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
+
+          for (const key in region.others) {
+            if (region.others[key]) {
+              entireMsg += rowHTML(key, Number((region.others[key] * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
+            }
+          }
+          entireMsg += '</div>';
         } else {
           entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
           '</b> ' + mapLabel + '<br/>';
@@ -213,12 +241,13 @@ const MapComponent = (props: any) => {
             .setContent(entireMsg)
             .openOn(mapObj);
       } else {
-        // no data popup
-        const region = feature.feature.id.split(':').splice(2).join(':');
-        window.L.popup()
-            .setLatLng(e.latlng)
-            .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
-            .openOn(mapObj);
+      // todo: commented out as it is causing issue in
+      // no data popup
+      // const region = feature.feature.id.split(':').splice(2).join(':');
+      // window.L.popup()
+      //     .setLatLng(e.latlng)
+      //     .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
+      //     .openOn(mapObj);
       }
     }
   };
@@ -353,20 +382,6 @@ const MapComponent = (props: any) => {
     });
   };
 
-  // const createSitePopup = (clinic: HealthClinic, name: string) => {
-  //   return '<div class="popupCustom">' +
-  //   '<div class="row border"><div class="col">'+ props.intl.formatMessage({id: 'site'}) +':</div><div>' + name + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'alternate'}) +':</div><div>' + clinic.ALT + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'code'}) +':</div><div>' + clinic.CODE + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_polygenomic'}) +':</div><div>' + clinic.Fraction_polygenomic + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'fraction_unique'}) +':</div><div>' + clinic.Fraction_unique + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'heterozygosity'}) +':</div><div>' + clinic.heterozygosity + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
-  //   '<div class="row"><div class="col">'+ props.intl.formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
-  //   '</div>';
-  // };
-
   /**
    * to find a map feature when a LGA is given
    * @param {*} mapObj
@@ -432,6 +447,10 @@ const MapComponent = (props: any) => {
 
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
+      <div className={classes.mapTitle}>
+        {/* Map Title */}
+        <Typography variant="h5">{intl.formatMessage({id: indicator})}</Typography>
+      </div>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
       {/* Map Legend */}
       { !isCovariateMap() && !isCovariateCategoryMap() &&

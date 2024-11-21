@@ -19,6 +19,9 @@ indicator_labels:
   "IPTp3": "Intermittent Preventative Treatment in Pregnancy"
   "testing_rates": "Tested Suspected Malaria Cases"
   "correct_treatment": "% Cases with Correct Treatment"
+  "gambiae": "% of Mosquito Species"
+  "indoor_resting_gambiae": "DHIS2 Indoor Resting"
+  "weather_zones": "Weather Zones"
 
 subgroup_labels:
   "all": "All"

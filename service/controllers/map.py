@@ -1,4 +1,3 @@
-import pandas as pd
 from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
@@ -6,6 +5,11 @@ from helpers.controller_helpers import read_dot_names, read_subgroup, read_chann
 
 router = APIRouter()
 
+# TODO: Separate this out to separate json
+MULTIVARIATE_INDICATORS = [
+    'gambiae',
+    'indoor_resting_gambiae'
+]
 
 @router.get("/map")
 async def get_map(request: Request):
@@ -67,7 +71,7 @@ async def get_map(request: Request):
             df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=shape_version)
 
             # limit data to the descendant dot_names at the requested admin level
-            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique() if pd.notnull(dn)]
+            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
             parent_dot_name = DotName.from_parts(parts=[dot_name.continent, country]) if all_countries_on_continent else dot_name
             child_dot_names = [str(dn) for dn in all_dot_names
                                if dn.is_descendant_or_self(parent_dot_name) and dn.admin_level == requested_admin_level]
@@ -78,14 +82,27 @@ async def get_map(request: Request):
 
             if month is not None:
                 if DataFileKeys.MONTH in df.columns:
-                    df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype('str')
-                    df = df.loc[df[DataFileKeys.MONTH] == str(month)]
-            elif month is None and 'all' in df[DataFileKeys.MONTH].values:
-                df = df.loc[df[DataFileKeys.MONTH] == 'all']
+                    df = df.loc[df[DataFileKeys.MONTH] == month]
 
-            # update the return with the newly found entries
-            new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
-                columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
+            if channel in MULTIVARIATE_INDICATORS:
+                addl_data_columns = [col for col in df.columns if f'pred_' in col]
+
+                new_values = []
+                for _, row in df.iterrows():
+                    entry = {
+                        'id': row[DataFileKeys.DOT_NAME],
+                        'value': row[data_key],
+                        'data_upper_bound': row['data_upper_bound'],
+                        'data_lower_bound': row['data_lower_bound'],
+                        'others': {
+                            col.strip(f'pred_'): row[col] for col in addl_data_columns
+                        }
+                    }
+                    new_values.append(entry)
+            else:
+                # update the return with the newly found entries
+                new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
+                    columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
             return_list.extend(new_values)
         return return_list
     except ControllerException as e:

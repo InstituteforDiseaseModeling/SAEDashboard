@@ -5,7 +5,9 @@ from service.helpers.dot_name import DotName
 from service.schemas.IndicatorsSchema import IndicatorsListSchema
 from fastapi import APIRouter, Request
 import yaml
+
 router = APIRouter()
+
 
 def generate_label(indicator):
     # if we have a specific display name known, use it
@@ -69,7 +71,7 @@ async def get_indicators(request: Request):
             subgroups = get_indicator_subgroups(country, ind, version)
             if len(subgroups)==1:
                 subgroup = subgroups[0]
-            # TODO: else statement; how to handle?
+            # TODO: add logic to accommodate for multiple subgroups
             data_time = get_indicator_time(country=country, channel=ind, subgroup=subgroup, version=version)
             label = generate_label(ind)
             indicators_response.append({"id": ind, "text": label, "version": version, "time": data_time})

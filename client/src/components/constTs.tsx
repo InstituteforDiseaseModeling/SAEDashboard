@@ -7,6 +7,7 @@ interface IndicatorConfig {
     decimalPt: number;
     legendLabel: string;
     useAvg?: boolean;
+    mainSpeciesName?: string,
   };
 }
 
@@ -59,7 +60,10 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': '%', 'legendLabel': 'tpr', 'decimalPt': 1, 'useAvg': true},
   'incidence': {'unitLabel': 'cases_per_1000', 'multiper': 1, 'unit': '',
     'mapLabel': 'cases_per_1000', 'legendLabel': 'cases_per_1000', 'decimalPt': 1, 'useAvg': true},
-  'a_gambiae': {'unitLabel': 'a_gambiae', 'multiper': 1, 'unit': '\'%',
-    'mapLabel': '%', 'legendLabel': 'legend_a_gambiae', 'decimalPt': 1, 'useAvg': true},
+  'gambiae': {'unitLabel': 'species', 'multiper': 1, 'unit': '\'%',
+    'mapLabel': '%', 'legendLabel': 'species', 'decimalPt': 2,
+    'mainSpeciesName': 'a. gambiae'},
+  'indoor_resting_gambiae': {'unitLabel': 'indoor_resting', 'multiper': 1, 'unit': '',
+    'mapLabel': ' ', 'legendLabel': 'indoor_resting', 'decimalPt': 2,
+    'mainSpeciesName': 'a. gambiae'},
 };
-
