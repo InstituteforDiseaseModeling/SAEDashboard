@@ -51,10 +51,13 @@ async def get_timeseries(request: Request):
         # limit data to the requested dot_name only
         df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
 
+        # Flag to indicate whether data contains monthly values
+        has_monthly_values = df['month'].notnull().any()
+
         data = {}
 
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'weather_zones', 'tpr', 'incidence']:
+            if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
                 data[entry] = {
                     'year': row[DataFileKeys.YEAR],
@@ -75,7 +78,7 @@ async def get_timeseries(request: Request):
         # Add directly to the prediction
         df = df.loc[df[DataFileKeys.REFERENCE].notna(), :]
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'tpr', 'incidence']:
+            if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
             else:
                 entry = row[DataFileKeys.YEAR]
