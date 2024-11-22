@@ -308,7 +308,9 @@ def get_indicator_time(country, channel, subgroup, version):
             if pd.isna(months[0]):
                 time_dict[year] = []
             else:
-                time_dict[year] = months.tolist()
+                if 'all' in months:
+                    months = [x for x in months if x != 'all']
+                time_dict[year] = months
     else:
         time_dict = {year: [] for year in years}
     return time_dict
@@ -326,23 +328,6 @@ def open_data_file(filename, use_cache=True):
     channel = MASTER_DATA_FILE_REGEX.match(filename)['channel']
 
     df = pd.read_csv(full_path)
-    # Number of data variables in indicator file
-    num_vars = len([col for col in df.columns if 'pred_upper' in col])
-
-    # If the data has multiple variables (multiple 'pred' values)
-    if num_vars > 1:
-        pred_columns = [col for col in df.columns if 'pred' in col]
-        # Extract the value column names to rename them with DataFileKeys
-        rename_dict = {}
-        for col in pred_columns:
-            col_tokens = col.split('__')
-            if col_tokens[0] == 'pred':
-                rename_dict[col] = f'{DataFileKeys.DATA}__{col_tokens[1]}'
-            elif col_tokens[0] == 'pred_upper':
-                rename_dict[col] = f'{DataFileKeys.DATA_UPPER_BOUND}__{col_tokens[1]}'
-            elif col_tokens[0] == 'pred_lower':
-                rename_dict[col] = f'{DataFileKeys.DATA_LOWER_BOUND}__{col_tokens[1]}'
-        df = df.rename(columns=rename_dict)
 
     # rename columns and massage data to usable format
     df = df.rename(columns={

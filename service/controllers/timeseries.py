@@ -2,13 +2,9 @@ from helpers.dot_name import DotName
 from service.helpers.controller_helpers import DataFileKeys, read_dot_names, ControllerException, read_channel, \
     read_subgroup, get_dataframe, read_shape_version
 from fastapi import APIRouter, Request
+import yaml
 
 router = APIRouter()
-
-MULTIVARIATE_INDICATORS = [
-    'gambiae',
-    'indoor_resting_gambiae'
-]
 
 @router.get("/timeseries")
 async def get_timeseries(request: Request):
@@ -55,10 +51,18 @@ async def get_timeseries(request: Request):
         # limit data to the requested dot_name only
         df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
 
+        # Flag to indicate whether data contains monthly values
+        has_monthly_values = df['month'].notnull().any()
+
         data = {}
 
+        # Extract the multivariate indicator names
+        with open("../config.yaml", "r") as file:
+            config = yaml.safe_load(file)
+        multivariate_indicators = config.get("multivariate_indicators", [])
+
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'weather_zones', 'tpr', 'incidence']:
+            if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
                 data[entry] = {
                     'year': row[DataFileKeys.YEAR],
@@ -67,7 +71,7 @@ async def get_timeseries(request: Request):
                     'middle': row[DataFileKeys.DATA],
                     'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
                 }
-            elif channel in MULTIVARIATE_INDICATORS:
+            elif channel in multivariate_indicators:
                 entry = {'year': row[DataFileKeys.YEAR]}
                 multivar_data = {}
 
@@ -97,7 +101,7 @@ async def get_timeseries(request: Request):
         # Add directly to the prediction
         df = df.loc[df[DataFileKeys.REFERENCE].notna(), :]
         for index, row in df.iterrows():
-            if channel in ['CDM', 'MILDA', 'CDM_Coverage', 'MILDA_Coverage', 'tpr', 'incidence']:
+            if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
             else:
                 entry = row[DataFileKeys.YEAR]

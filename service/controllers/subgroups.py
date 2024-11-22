@@ -3,34 +3,20 @@ from service.helpers.controller_helpers import get_subgroups, read_dot_names, Co
 from service.helpers.dot_name import DotName
 from service.schemas.SubgroupsSchema import SubgroupsListSchema
 from fastapi import APIRouter, Request
-
+import yaml
 router = APIRouter()
-
-LABELS = {
-    "all": "All",
-    "25plus_rural": "Women 25+, Rural",
-    "25plus_urban": "Women 25+, Urban",
-    "15-24_urban": "Women 15-24, Urban",
-    "15-24_rural": "Women 15-24, Rural",
-    "15-24": "Women 15-24",
-    "25plus": "Women 25+",
-    "15-24_Parity-0": "Women 15-24, Parity 0",
-    "15-24_Parity-1plus": "Women 15-24, Parity 1+",
-    "25plus_Parity-0": "Women 25+, Parity 0",
-    "25plus_Parity-1": "Women 25+, Parity 1",
-    "25plus_Parity-1plus": "Women 25+, Parity 1+",
-    "Parity-0": "Parity 0",
-    "Parity-1plus": "Parity 1+",
-    'all-1': 'All-1',
-    'all-NA': 'All-NA',
-    'rural': 'Rural',
-    'urban': 'Urban'
-}
-
 
 def generate_label(subgroup):
     # if we have a specific display name known, use it
-    label = LABELS.get(subgroup, None)
+
+    # Load the YAML file
+    with open("../config.yaml", "r") as file:
+        config = yaml.safe_load(file)
+
+    # Retrieve the list of indicator_labels
+    subgroup_labels = config.get("subgroup_labels", {})
+
+    label = subgroup_labels.get(subgroup, None)
     if label is None:
         # generate a display name according to a standard set of rules
         label = " ".join(p.capitalize() for p in subgroup.split('_'))

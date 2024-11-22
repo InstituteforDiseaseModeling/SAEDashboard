@@ -2,19 +2,14 @@ from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
     read_admin_level, ControllerException, get_all_countries, get_dataframe, DataFileKeys, read_shape_version
+import yaml
 
 router = APIRouter()
-
-# TODO: Separate this out to separate json
-MULTIVARIATE_INDICATORS = [
-    'gambiae',
-    'indoor_resting_gambiae'
-]
 
 @router.get("/map")
 async def get_map(request: Request):
     """
-    Example 1: /map?dot_name=Africa:Benin&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data
+    Example 1: /map?dot_name=Africa:Benin&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&admin_level=2
     return:
         {
             'Africa:Benin:Borgou': 0.1,
@@ -22,7 +17,7 @@ async def get_map(request: Request):
             ...
          }
 
-    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&version=2
+    Example 2: /map?dot_name=Africa&channel=unmet_need&subgroup=15-24_urban&year=2007&data=data&version=2&admin_level=2
     return:
         [
             {
@@ -84,7 +79,12 @@ async def get_map(request: Request):
                 if DataFileKeys.MONTH in df.columns:
                     df = df.loc[df[DataFileKeys.MONTH] == month]
 
-            if channel in MULTIVARIATE_INDICATORS:
+            # Extract the multivariate indicator names
+            with open("../config.yaml", "r") as file:
+                config = yaml.safe_load(file)
+            multivariate_indicators = config.get("multivariate_indicators", [])
+
+            if channel in multivariate_indicators:
                 addl_data_columns = [col for col in df.columns if f'pred_' in col]
 
                 new_values = []
