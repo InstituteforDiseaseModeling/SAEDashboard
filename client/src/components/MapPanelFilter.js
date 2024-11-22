@@ -9,6 +9,9 @@ import MapSubgroupsFilter from './filterelements/MapSubgroupsFilter';
 import MapTheme from './filterelements/MapTheme';
 import PropTypes from 'prop-types';
 import LegendPicker from './filterelements/LegendPicker';
+import YearMonthPicker from './filterelements/YearMonthPicker';
+import DiffMapPicker from './filterelements/DiffMapPicker';
+import LegendSyncPicker from './filterelements/LegendSyncPicker';
 
 const styles = ({
   root: {
@@ -47,6 +50,9 @@ const Filters = (props) => {
         {primary ? <MapTheme changeMapTheme={changeMapTheme}
           selectedMapTheme={selectedMapTheme}
           indicator={selectedIndicator} /> : null} &nbsp;&nbsp;&nbsp;
+        {!primary ? <LegendSyncPicker/> : null}
+        {!primary ? <DiffMapPicker/> : null}
+        {!primary ? <YearMonthPicker/> : null}
         <IndicatorFilter changeIndicator={changeIndicator}
           selectedIndicator={selectedIndicator} primary={primary} key={primary}/> &nbsp;&nbsp;&nbsp;
         <MapSubgroupsFilter changeSubgroup={changeSubgroup} selectedSubgroup={selectedSubgroup}/>

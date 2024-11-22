@@ -1,26 +1,24 @@
-import os
-from rse_api import get_application
-from rse_api.utils import dynamic_import_all
+import uvicorn
+from fastapi import FastAPI
+from controllers import africa_map, map, dot_names, indicators, subgroups, timeseries, shapes, years, events, health_clinics
 
-APP_NAME = 'service'
-SETTING_OBJECT = 'service.default_settings'
+app = FastAPI()
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+app.include_router(africa_map.router)
+app.include_router(dot_names.router)
+app.include_router(map.router)
+app.include_router(indicators.router)
+app.include_router(shapes.router)
+app.include_router(subgroups.router)
+app.include_router(timeseries.router)
+app.include_router(years.router)
+app.include_router(events.router)
+app.include_router(health_clinics.router)
 
-# Initialize our Flask application. We provide the path to our default settings object
-# If you do not need dramtiq, use the following instead
-# application = get_application(SETTING_OBJECT, setup_broker_func=None)
-application = get_application(SETTING_OBJECT)
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
-# setup controllers
-dynamic_import_all('service.controllers')
-# setup tasks
-# dynamic_import_all('service.tasks')
-
-# Run the cli and let the parameters determine what we
-# To run, run python app.py manage run
-# or to setup db run
-# python app.py db create
 if __name__ == "__main__":
-    application.cli()
+    uvicorn.run(app, host='127.0.0.1', port=5000)

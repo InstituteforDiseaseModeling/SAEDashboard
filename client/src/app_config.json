@@ -1,15 +1,41 @@
 {
   "title": "Subnational Family Planning Estimation Tool",
-  "disableAdmin2" : true,
-  "defaultYear": 2020,
-  "defaultRegion" : "Africa:Senegal:Thiès",
+  "disableAdmin2" : false,
+  "defaultYear": 2022,
+  "defaultRegion" : "Africa:Senegal:Diourbel:Diourbel",
   "defaultCountry" : "Africa:Senegal",
   "defaultThemeByIndicator" : {
     "modern_method" : "RdBu",
     "traditional_method": "RdBu",
     "unmet_need": "BuRd",
-    "predicted": "BuRd",
-    "reported": "BuRd",
-    "polygenomic_fraction": "BuRd"
-  }
+    "predicted_incidence": "BuRd",
+    "reported_incidence": "BuRd",
+    "polygenomic_fraction": "BuRd",
+    "CDM": "RdBu",
+    "CDM_Coverage": "RdBu",
+    "MILDA": "RdBu",
+    "MILDA_Coverage": "RdBu",
+    "high_model_predictions": "BuRd",
+    "low_model_predictions": "BuRd",
+    "IPTp3": "RdBu",
+    "SMC": "RdBu",
+    "testing_rates": "RdBu",
+    "correct_treatment": "RdBu",
+    "neg_covars": "CoVars",
+    "pos_covars": "CoVars",
+    "neg_covars_category": "CoVarsCategory",
+    "pos_covars_category": "CoVarsCategory",
+    "weather_zones": "BrBG",
+    "tpr": "BuRd",
+    "incidence": "BuRd",
+    "gambiae": "RdBu",
+    "indoor_resting_gambiae": "RdBu"
+  },
+  "shapefileVersion": {
+    "high_model_predictions": 2,
+    "low_model_predictions": 2,
+    "weather_zones": 3
+  },
+  "defaultIndicator" : "reported_incidence",
+  "defaultComparisonIndicator" : "predicted_incidence"
 }

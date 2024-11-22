@@ -1,7 +1,8 @@
-from marshmallow import post_dump, Schema, fields
+from pydantic import BaseModel
+from typing import List
 
 LABELS = {
-    "all": "All Ages",
+    "all": "all_ages",
     "25plus_rural": "Women 25+, Rural",
     "25plus_urban": "Women 25+, Urban",
     "15-24_urban": "Women 15-24, Urban",
@@ -21,21 +22,10 @@ LABELS = {
     'urban': 'Urban'
 }
 
-
-def generate_label(indicator):
-    # if we have a specific display name known, use it
-    subgroup_name = indicator['subgroup']
-    label = LABELS.get(subgroup_name, None)
-    if label is None:
-        # generate a display name according to a standard set of rules
-        label = " ".join(p.capitalize() for p in subgroup_name.split('_'))
-    return label
+class SubgroupSchema(BaseModel):
+    id: str
+    text: str
 
 
-class SubgroupsSchema(Schema):
-    subgroup = fields.Str(data_key="id")
-    label = fields.Function(generate_label, data_key="text")
-
-    @post_dump(pass_many=True)
-    def wrap_with_envelope(self, data, many, **kwargs):
-        return {"subgroups": data}
+class SubgroupsListSchema(BaseModel):
+    subgroups: List[SubgroupSchema]

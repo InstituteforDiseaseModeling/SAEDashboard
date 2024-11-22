@@ -1,24 +1,54 @@
 /* eslint-disable camelcase */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
-import React, {useRef, useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useRef, useEffect, useLayoutEffect, useState, useContext} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
-import chroma from 'chroma-js';
+import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-
-// import {MapContainer, TileLayer} from "react-leaflet";
-// import {LatLngExpression} from "leaflet";
+import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
+import {injectIntl} from 'react-intl';
+import {IndicatorConfig} from '../constTs.tsx';
+import {HealthClinic, RainfallStation} from '../../common/types';
+import {ComparisonMapContext} from '../provider/comparisonMapProvider';
+import {changeSelectedRainfallStation, changeSelectedRainfallZone} from '../../redux/actions/filters.js';
+import RainfallZoneModel from '../../model/rainfallZoneModel.js';
+import {addRainfallStations} from '../../model/rainfallStationModel.js';
+import CoVarsLegend from './CoVarsLegend.js';
+import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
+import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
+import {Typography} from '@mui/material';
 
 const styles = makeStyles({
   MapContainer: {
     backgroundColor: 'white',
     height: '100%',
+  },
+  mapTitle: {
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    top: 13,
+    left: 0,
+    width: '100%',
+    height: 30,
+    zIndex: 100,
+  },
+  note_diff: {
+    top: -20,
+    color: 'darkred',
+    position: 'inherit',
+    fontSize: '0.8rem',
+    backgroundColor: 'yellow',
+    padding: '0 5px',
+    width: 'fit-content',
+    left: 13,
+    whiteSpace: 'pre-wrap',
   },
 });
 
@@ -38,13 +68,72 @@ interface CustomTheme {
 
 const extenededlegendTheme: CustomTheme[] = customTheme;
 
+const IncidenceMap = ['reported_incidence',
+  'predicted_incidence',
+  'high_model_predictions',
+  'low_model_predictions',
+  'incidence',
+];
+
+export const isIncidenceMap = (indicator:string) => {
+  return IncidenceMap.includes(indicator);
+};
+
 const MapComponent = (props: any) => {
-  const {mapData, geoJson, height, selectPlace, selectedMapTheme, mapLegendMax} = props;
+  const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator} = props;
   const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
+  const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
+  const selectedLegendSync = useSelector((state:any) => state.filters.selectedLegendSync);
+  const healthClinicData = useSelector((state:any) => state.dashboard.healthClinicData);
+  const currentYear = useSelector((state:any) => state.filters.currentYear);
+  const currentMonth = useSelector((state:any) => state.filters.currentMonth);
+  const selectedYear = useSelector((state:any) => state.filters.selectedYear);
+  const primaryIndicator = useSelector((state:any) => state.filters.selectedIndicator);
+  const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
+  const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
+  const [selectedLayer, setSelectedLayer] = useState('');
+  const [unselectedLayer, setUnselectedLayer] = useState('');
+  const {intl} = props;
+  const mapLabel = IndicatorConfig[indicator] ?
+    intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
+
+  const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
+
+  const indicatorConfig = IndicatorConfig[indicator];
+  const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
+  const dispatch = useDispatch();
+  const rainfallZoneModel = new RainfallZoneModel();
 
   // Data-related variables
-  const minValue: number = 0;
+
+  const minValueFromData = _.get(_.minBy(mapData, 'value'), 'value');
+  const maxValueFromData = _.get(_.maxBy(mapData, 'value'), 'value');
+  let maxValue = (selectedDiffMap || !selectedLegendSync) ? maxValueFromData : mapLegendMax;
+  let minValue = (selectedDiffMap || !selectedLegendSync) ? minValueFromData : mapLegendMin;
+
+  if (selectedDiffMap && !primary) {
+    if (maxValue > minValue * -1) {
+      minValue = maxValue * -1;
+    } else {
+      maxValue = minValue * -1;
+    }
+  }
+
   const numberOfSteps: number = 10;
+  const isCovariateMap = () => {
+    if (primary) {
+      return primaryIndicator == 'neg_covars' || primaryIndicator == 'pos_covars';
+    } else {
+      return indicator == 'neg_covars' || indicator == 'pos_covars';
+    }
+  };
+  const isCovariateCategoryMap = () => {
+    if (primary) {
+      return primaryIndicator == 'neg_covars_category' || primaryIndicator == 'pos_covars_category';
+    } else {
+      return indicator == 'neg_covars_category' || indicator == 'pos_covars_category';
+    }
+  };
   const legend = useRef(null);
 
   interface FeatureAddOn extends GeoJSONOptions {
@@ -72,7 +161,7 @@ const MapComponent = (props: any) => {
     layerFeature.properties['name'] = placeName;
 
     layer.on({
-      mouseover: highlightFeature,
+      mouseover: (e) => highlightFeature(e, null, false),
       mouseout: resetHighlight,
       click: ((e: LeafletMouseEvent) => {
         if (feature && feature.id) {
@@ -83,25 +172,82 @@ const MapComponent = (props: any) => {
   };
 
 
-  const highlightFeature = (e: LeafletMouseEvent, color: string = null) => {
+  const highlightFeature = (e: any, color: string = null, fromEffect: boolean) => {
     const feature = e.target;
     feature.setStyle({
       weight: 3,
-      color: color ? color : 'yellow',
+      color: color ? color : '#FFCE74',
       dashArray: '',
-      fillOpacity: 0.7,
+      fillOpacity: 1,
     });
 
+    if (e.latlng && !fromEffect) {
+      setLatLngClicked({...e.latlng, LGA: feature.feature.properties.name});
+    };
+
+    showPopup(e, false);
+  };
+
+  const showPopup = (e: any, fromEffect: boolean) => {
+    const feature = e.target;
     if (feature && feature.feature) {
       const region = _.find(mapData, {id: feature.feature.id});
+
       if (region) {
         const regionName = region.id.split(':').splice(2).join(':');
-        const latlng = Array.isArray(feature._latlngs[0][0]) ?
-          feature._latlngs[0][0][0] : feature._latlngs[0][0];
+        let entireMsg = regionName + ' : ';
+        if (isCovariateMap()) {
+          const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
+          // const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
+          if (labelId) {
+            entireMsg += intl.formatMessage({id: labelId});
+          } else {
+            entireMsg += 'NA';
+          }
+        } else if (isCovariateCategoryMap()) {
+          const labelId = _.get(_.find(CoVariatesCategoryLookup, {'category': region.value}), 'label');
+          if (labelId) {
+            entireMsg += intl.formatMessage({id: labelId});
+          } else {
+            entireMsg += 'NA';
+          }
+        } else if (region.others) {
+          // for indicators with additional data
+          const rowHTML = (val1: string, val2: string, val3: string) => (
+            '<div class="row"><div class="col">' + val1 + '</div><div>' + val2 + val3 + '</div></div>'
+          );
+          entireMsg = '<div class="popupCustom">';
+          entireMsg += '<div class="row border"><div class="col">'+ regionName +'</div></div>';
+          entireMsg += rowHTML(mainSpeciesName, Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
+
+          for (const key in region.others) {
+            if (region.others[key]) {
+              entireMsg += rowHTML(key, Number((region.others[key] * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString(), mapLabel);
+            }
+          }
+          entireMsg += '</div>';
+        } else {
+          entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+          '</b> ' + mapLabel + '<br/>';
+
+          if (indicator == 'high_model_predictions' || indicator == 'low_model_predictions') {
+            entireMsg += '<div style="display:flex"><div style="width:70px">'+props.intl.formatMessage({id: 'lower'})+':</div>' + '<b>' + region['data_lower_bound'].toFixed(indicatorConfig.decimalPt).toLocaleString() + '</b><br/></div>';
+            entireMsg += '<div style="display:flex"><div style="width:70px">'+props.intl.formatMessage({id: 'upper'})+':</div>' + '<b>' +region['data_upper_bound'].toFixed(indicatorConfig.decimalPt).toLocaleString() + '</b><br/></div>';
+          }
+        };
+
         window.L.popup()
             .setLatLng(e.latlng)
-            .setContent(regionName + ' : ' + (region.value).toFixed(2) + ' cases/1000')
+            .setContent(entireMsg)
             .openOn(mapObj);
+      } else {
+      // todo: commented out as it is causing issue in
+      // no data popup
+      // const region = feature.feature.id.split(':').splice(2).join(':');
+      // window.L.popup()
+      //     .setLatLng(e.latlng)
+      //     .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
+      //     .openOn(mapObj);
       }
     }
   };
@@ -110,59 +256,84 @@ const MapComponent = (props: any) => {
     geojson.resetStyle(e.target);
   };
 
-  const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme} as any);
+  const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme as any});
 
-  const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, mapLegendMax]).classes(numberOfSteps);
+  const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, maxValue]).classes(numberOfSteps);
 
   /**
    * Map setup
    */
   const mapSetup = function() {
     const L = require('leaflet');
-
-    // const accessToken = 'pk.eyJ1IjoiaWRtLW1hcGJveCIsImEiOiJjajF3ZmxmYjIwMDBnMnhwaDM1bGthMHIyIn0.SY_9QXFsEGZYN0CmFBU_rQ';
-
     const initialView = [14.4, -15];
 
-    mapObj = L.map(chart.current).setView(initialView, 6.8) as MapExtension;
+    if (mapObj) {
+      return;
+    }
 
+    mapObj = L.map(chart.current, {
+      zoomSnap: 0.25,
+      zoomDelta: 0.25,
+      scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
 
     const customFeatureHandler = (feature:Feature) => {
-      const region = _.find(mapData, {id: feature.id});
-      const colors = scale.colors(10);
+      const region = _.find(mapData, {id: feature.id as any});
+      const colors = !isCovariateMap() ? scale.colors(10) :
+        _.find(customTheme, {color: selectedMapTheme as any}).values;
+
       let color = '#CCCCCC';
-      if (region && region.value) {
+      if (region && region.value != null) {
         if (region.value <= 5) {
-          color = '#16af39'; // colors[0];
-        } else if (region.value <= 15) {
-          color = '#f4ca18'; // colors[4];
-        } else if (region.value > 15) {
-          color = '#c81325'; // colors[9];
+          color = '#1d9660'; // colors[0];
+        } else if (region.value <= 50) {
+          color = '#1bd357'; // colors[4];
+        } else if (region.value <= 100) {
+          color = '#9efe66'; // colors[9];
+        } else if (region.value <= 250) {
+          color = '#fdff01'; // colors[9];
+        } else if (region.value <= 450) {
+          color = '#fca725'; // colors[9];
+        } else if (region.value <= 650) {
+          color = '#fb0000'; // colors[9];
         } else {
-          color = '#CCCCCC';
+          color = '#850428';
         };
 
         return {fillColor: color.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'transparent'};
+        return {color: 'lightgrey'};
       }
     };
 
     const standardFeatureHandler = (feature:Feature) => {
-      const region = _.find(mapData, {id: feature.id});
-      if (region && region.value) {
-        const color2 = scale(region.value);
-        return {fillColor: color2.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
+      const region = _.find(mapData, {id: feature.id as any});
+      if (region && region.value != null) {
+        const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
+
+        let color2 = 'lightgrey';
+        try {
+          color2 = !isCovariateMap() ? scale(region.value) :
+            colors[region.value-1];
+        } catch (e) {
+          // todo: log error
+          console.log('Error in color setting');
+        }
+        return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
-        return {color: 'transparent'};
+        return {color: 'grey', weight: 1};
       }
     };
 
+    const rainfallFeatureHandler = (feature:Feature) => {
+      return {color: 'red', fillColor: 'red', weight: 1, fillOpacity: 0};
+    };
 
-    // ... our listeners
+    // create map layer
     geojson = L.geoJSON(geoJson, {
       style: (feature: Feature) => {
-        if (selectedLegend) {
+        if (selectedLegend || (selectedDiffMap && !primary) ||
+          !isIncidenceMap(indicator)) {
+          // if it is a difference map, use the standard feature handler
           return standardFeatureHandler(feature);
         } else {
           return customFeatureHandler(feature);
@@ -172,25 +343,165 @@ const MapComponent = (props: any) => {
     });
 
     geojson.addTo(mapObj);
+
+    const layerControl = L.control.layers().addTo(mapObj);
+
+    const stationClicked = (station: RainfallStation) => {
+      dispatch(changeSelectedRainfallStation(station.Station));
+    };
+
+    // add 2019 clinic markers
+    add2019Barcode(healthClinicData.Senegal[2019].site_data, layerControl, create2019SitePopup, intl.formatMessage);
+
+    // add 2020 clinic markers
+    add2020Barcode(healthClinicData.Senegal[2020], layerControl, create2020SitePopup, intl.formatMessage);
+
+    // add rainfall stations
+    addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
+
+
+    mapObj.on('overlayadd', (data)=>{
+      setSelectedLayer(data.name);
+      setUnselectedLayer(null);
+    });
+    mapObj.on('overlayremove', (data)=>{
+      setUnselectedLayer(data.name);
+      setSelectedLayer(null);
+    });
+    comparisonEventSetup(mapObj);
+    setMapObj(mapObj);
   };
+
+  const comparisonEventSetup = (mapObj: MapExtension) => {
+    // setup events
+    mapObj.on('zoomend', () => {
+      setZoom(mapObj.getZoom());
+    });
+    mapObj.on('dragend', () => {
+      setCenter(mapObj.getCenter());
+    });
+  };
+
+  /**
+   * to find a map feature when a LGA is given
+   * @param {*} mapObj
+   * @param {*} latLng
+   * @return {*} a leaflet feature
+   */
+  const findFeatureByLGA = (mapObj: any, latLng:any) => {
+    if (!mapObj) return;
+    const feature = _.find(mapObj._layers, (layer) => {
+      if (layer.feature) {
+        const f: any = layer.feature;
+        return f.properties['name'] === latLng.LGA;
+      } else {
+        return false;
+      }
+    });
+    return feature;
+  };
+
+  // update zoom for comparisom map
+  useEffect(() => {
+    if (mapObj && zoom > 0) {
+      mapObj.setZoom(zoom);
+    }
+  }, [zoom]);
+  // update pan for comparisom map
+  useEffect(() => {
+    if (mapObj && center) {
+      mapObj.panTo([center.lat, center.lng]);
+    }
+  }, [center]);
+
+  /**
+ * for opening popup for the 2nd map on the comparison maps
+ */
+  useEffect(() => {
+    // if (forCompare) {
+    const feature = findFeatureByLGA(mapObj, latLngClicked);
+
+    if (feature) {
+      const mouseEvent : any = {
+        target: feature,
+        latlng: latLngClicked,
+      };
+      showPopup(mouseEvent, true);
+    }
+  }, [latLngClicked]);
 
   /**
    * Component Initialization
    */
-  useEffect(() => {
+  useLayoutEffect(() => {
     mapSetup();
     return (() => {
+      if (mapObj) {
+        mapObj.remove();
+        mapObj = null;
+      }
     });
   }, []);
 
+  const dataSourceMsg = intl.formatMessage({id: 'data_source_'+indicator});
+
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
+      <div className={classes.mapTitle}>
+        {/* Map Title */}
+        <Typography variant="h5">{intl.formatMessage({id: indicator})}</Typography>
+      </div>
       <div ref={chart} className={classes.MapContainer} id="chartContainer" />
-      <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={mapLegendMax}
-        selectedMapTheme={selectedMapTheme} legend={legend} />
+      {/* Map Legend */}
+      { !isCovariateMap() && !isCovariateCategoryMap() &&
+        <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
+          selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+      { isCovariateMap() &&
+        <CoVarsLegend
+          selectedMapTheme="CoVars" legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          id="covars"
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+      { isCovariateCategoryMap() &&
+        <CoVarsCategoryLegend
+          selectedMapTheme="CoVarsCategory" legend={legend} primary={primary} selectedLayer={selectedLayer}
+          unselectedLayer={unselectedLayer}
+          selectedIndicator={indicator}
+          id="covars"
+          key={minValue + maxValue + selectedLayer + indicator} />
+      }
+
+
+      {/* Difference note */}
+      {!primary && selectedDiffMap &&
+        <div className={classes.note_diff}>
+          {intl.formatMessage({id: 'difference_calculate_by'}) + ' : ' +
+           indicator + ' ' +
+          intl.formatMessage({id: 'in'}) + ' ' +
+          selectedYear + ' - ' + primaryIndicator + ' ' +
+          intl.formatMessage({id: 'in'}) + ' ' +
+          currentYear}
+        </div>
+      }
+      {/* Caveat note */}
+      {
+        <div className={classes.note_diff}
+          title={dataSourceMsg}
+          style={{top: dataSourceMsg.length > 90 ? -40 : -20}}>
+          {dataSourceMsg}
+        </div>
+      }
     </div>
   );
 };
 
-export default MapComponent;
+export default injectIntl(MapComponent);
 

@@ -22,7 +22,11 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "react": [ "./node_modules/@types/react" ]
+    },
+    "allowImportingTsExtensions": true,
   },
   "include": [
     "src"

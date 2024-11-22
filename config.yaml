@@ -1,0 +1,48 @@
+
+indicator_labels:
+  "NoU5": "No children under 5 (NoU5)"
+  "Parity0": "No children (Parity0)"
+  "UnVx": "Majority of children under 5 unvaccinated (UnVx)"
+  "Vx": "Majority of children vaccinated (Vx)"
+  "unmet_need_limit": "Unmet need for limiting"
+  "unmet_need_space": "Unmet need for spacing"
+  "ALL_STD": "All STD"
+  "CDM_Coverage": "CDM - Population Coverage Rates"
+  "MILDA_Coverage": "MILDA - Population Coverage Rates"
+  "CDM": "CDM - Number of Nets"
+  "MILDA": "MILDA - Number of Nets"
+  "predicted_incidence": "Predicted Incidence"
+  "reported_incidence": "Reported Incidence"
+  "low_model_predictions": "Low Model Predictions"
+  "high_model_predictions": "High Model Predictions"
+  "SMC": "Seasonal Malaria Chemoprophylaxis Coverage"
+  "IPTp3": "Intermittent Preventative Treatment in Pregnancy"
+  "testing_rates": "Tested Suspected Malaria Cases"
+  "correct_treatment": "% Cases with Correct Treatment"
+  "gambiae": "% of Mosquito Species"
+  "indoor_resting_gambiae": "DHIS2 Indoor Resting"
+  "weather_zones": "Weather Zones"
+
+subgroup_labels:
+  "all": "All"
+  "25plus_rural": "Women 25+, Rural"
+  "25plus_urban": "Women 25+, Urban"
+  "15-24_urban": "Women 15-24, Urban"
+  "15-24_rural": "Women 15-24, Rural"
+  "15-24": "Women 15-24"
+  "25plus": "Women 25+"
+  "15-24_Parity-0": "Women 15-24, Parity 0"
+  "15-24_Parity-1plus": "Women 15-24, Parity 1+"
+  "25plus_Parity-0": "Women 25+, Parity 0"
+  "25plus_Parity-1": "Women 25+, Parity 1"
+  "25plus_Parity-1plus": "Women 25+, Parity 1+"
+  "Parity-0": "Parity 0"
+  "Parity-1plus": "Parity 1+"
+  'all-1': 'All-1'
+  'all-NA': 'All-NA'
+  'rural': 'Rural'
+  'urban': 'Urban'
+
+multivariate_indicators:
+  - gambiae
+  - indoor_resting_gambiae

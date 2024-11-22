@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeSelectedYear} from '../../redux/actions/filters';
+import {changeSelectedYear, changeCompareYearFilter} from '../../redux/actions/filters';
 import {TimeseriesSlider} from './TimeseriesSlider';
 
 /**
@@ -26,6 +26,7 @@ const YearFilter = () => {
       }}
       onChangeCommitted={(event, value) => {
         dispatch(changeSelectedYear(value));
+        dispatch(changeCompareYearFilter(value));
       }}
     />
   );

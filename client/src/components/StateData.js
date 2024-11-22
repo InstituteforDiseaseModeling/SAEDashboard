@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {Toolbar, AppBar, Link} from '@mui/material';
 import {ChartContext} from '../components/context/chartContext';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
 
 const styles = {
   title: {
@@ -22,6 +23,7 @@ const styles = {
   chartArea: {
     padding: 5,
     margin: '-10px 5px 0px 5px',
+    minHeight: 478,
   },
   toggles: {
     textAlign: 'center',
@@ -40,7 +42,7 @@ const styles = {
     flexDirection: 'column',
     marginTop: 5,
     marginRight: -15,
-    width: 50,
+    width: 80,
   },
   link: {
     color: 'white',
@@ -132,10 +134,14 @@ const StateData = (props) => {
           <div className={classes.grow} key={1}/>
           <div className={classes.linkContainer} key={2}>
             <Link className={classes.link} onClick={showAll}>
-              <Typography variant="subtitle2">show all</Typography>
+              <Typography variant="subtitle2">
+                <FormattedMessage id="show_all"/>
+              </Typography>
             </Link>
             <Link className={classes.link} onClick={hideAll}>
-              <Typography variant="subtitle2">hide all</Typography>
+              <Typography variant="subtitle2">
+                <FormattedMessage id="hide_all"/>
+              </Typography>
             </Link>
           </div>
         </Toolbar>
@@ -153,7 +159,7 @@ const StateData = (props) => {
             const groupName = g ? g.text: '';
 
             return (
-              <Grid item xs={12} md={6} xl={4} key={groupName} >
+              <Grid item xs={12} md={12} key={groupName} >
                 <StateDataChart
                   group={group}
                   groupName={groupName}

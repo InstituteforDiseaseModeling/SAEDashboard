@@ -1,12 +1,14 @@
 /* eslint-disable  no-unused-vars */
-
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import chroma from 'chroma-js';
 import withStyles from '@mui/styles/withStyles';
-// import * as _ from 'lodash';
 import customTheme from '../../customTheme.json';
+import {createArray} from '../../utils/utils';
+import * as translations from '../../data/translation';
+import {IndicatorConfig} from '../constTs.tsx';
+import {isIncidenceMap} from './Map2.tsx';
 
 const styles = {
   gradLegend: {
@@ -15,7 +17,17 @@ const styles = {
     whiteSpace: 'nowrap',
     display: 'inline-block',
     position: 'absolute',
-    top: '185px', // Position of the legend depending on the top of the parent block
+    top: '195px', // Position of the legend depending on the top of the parent block
+    left: '-84px', // Position of the legend depending on the left of the parent block
+    transform: 'rotate(-90deg)',
+  },
+  blueLegend: {
+    zIndex: 1000,
+    width: '220px',
+    whiteSpace: 'nowrap',
+    display: 'inline-block',
+    position: 'absolute',
+    top: '355px', // Position of the legend depending on the top of the parent block
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },
@@ -23,6 +35,9 @@ const styles = {
     display: 'inline-block',
     height: '20px',
     float: 'left',
+    borderTop: '1px solid grey',
+    borderLeft: '1px solid grey',
+    borderBottom: '1px solid grey',
   },
   domainLabelCustom: {
     position: 'absolute',
@@ -34,11 +49,12 @@ const styles = {
   },
   domainLabelStandard: {
     position: 'absolute',
-    top: '28px', // Edit this to move the labels horizontally (+ right / - left)
+    top: '22px', // Edit this to move the labels horizontally (+ right / - left)
     fontSize: ' 11px',
     transform: 'rotate(90deg)',
-    marginLeft: '-8px', // Edit this to move the labels vertically (- down / + up)
+    marginLeft: '-2px', // Edit this to move the labels vertically (- down / + up)
     fontWeight: 'bold',
+    width: 5,
   },
 };
 
@@ -49,76 +65,225 @@ const styles = {
  * @return {*} map legend component
  */
 const MapLegend = (props) => {
-  const {minValue, numberOfSteps, selectedMapTheme, legend, classes, id} = props;
+  const {minValue, mapLegendMax, numberOfSteps, selectedMapTheme, legend, classes, id,
+    selectedLayer, primary, selectedIndicator, unselectedLayer} = props;
 
-  const mapLegendMax = useSelector((state) => state.filters.mapLegendMax);
+  // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
+  const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+  let [showClinic, setShowClinic] = React.useState(false);
 
   // Data-related variables
-  // const step = (mapLegendMax - minValue) / numberOfSteps;
-
   const themeStr = _.find(customTheme, {color: selectedMapTheme} );
 
   // To get a continuous color scheme, remove the .classes()
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme)
       .domain([minValue, mapLegendMax]).classes(numberOfSteps);
 
-  const colors = scale.colors(10);
+  // To get a continuous color scheme, remove the .classes()
+  const blues = chroma.scale('Blues').domain([0, 1]).classes(5);
 
-  const step = (mapLegendMax - minValue) / numberOfSteps;
+  let step = (mapLegendMax - minValue) / numberOfSteps;
 
+  if (minValue < 0) {
+    if (minValue * -1 > mapLegendMax) {
+      step = minValue * -1 / ( numberOfSteps / 2);
+    } else {
+      step = mapLegendMax / ( numberOfSteps / 2);
+    }
+  }
+
+  const unitLabel = (label) => {
+    return (
+      <div className={classes.domainLabelCustom}
+        style={{
+          width: 0, top: 50, left: -55, backgroundColor: 'darkgrey',
+          color: 'white', width: 120, textAlign: 'center',
+        }}>
+        {label}
+      </div>);
+  };
+
+  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'legendLabel');
+
+  const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
+  const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
+
+  /**
+   *
+   * @return {*} custom legend
+   */
   const customLegend = () => {
     return (
       <div className={classes.gradLegend} ref={legend} id={id}>
-        <span style={{background: '#16af39', width: 20}}
+        {/* unit  */}
+        {unitLabel(yLabel)}
+        <span style={{background: '#1d9660', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
           0
         </span>
-        <span style={{background: '#f4ca18', width: 20}}
+        <span style={{background: '#1bd357', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
           5
         </span>
-        <span style={{background: '#c81325', width: 20}}
+        <span style={{background: '#9efe66', width: 20}}
           className={classes.gradStep} />
         <span className={classes.domainLabelCustom} style={{width: 20}}>
-          15
+          50
+        </span>
+        <span style={{background: '#fdff01', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          100
+        </span>
+        <span style={{background: '#fca725', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          250
+        </span>
+        <span style={{background: '#fb0000', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          450
+        </span>
+        <span style={{background: '#850428', width: 20}}
+          className={classes.gradStep} />
+        <span className={classes.domainLabelCustom} style={{width: 20}}>
+          650
         </span>
 
-        <span className={classes.domainLabelCustom} style={{left: 55, top: 55}} >
-          &gt; 15 cases/1000
+        <span className={classes.domainLabelCustom} style={{left: 158, top: 32}}>
+          &gt; 650
         </span>
       </div>
     );
   };
 
-  const standardLegend = () => {
+  /**
+   * @param {*} selectedIndicator - maximum legend value
+   * @return {*} standard legend
+   */
+  const standardLegend = (selectedIndicator) => {
+    const multiper = selectedIndicator && IndicatorConfig[selectedIndicator] ?
+      IndicatorConfig[selectedIndicator].multiper : 1;
+    const unit = selectedIndicator && IndicatorConfig[selectedIndicator] ?
+      IndicatorConfig[selectedIndicator].unit.replace('\'', '') : '';
     return (<div className={classes.gradLegend} ref={legend} id={id}>
+      {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {
         return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
+          className={classes.gradStep}/>;
+      })}
+      {_.times(numberOfSteps+1, (num) => {
+        return <span key={num} className={classes.domainLabelStandard}
+          style={{left: (100 / numberOfSteps) * num + '%'}}>
+          {Math.round(((minValue + step * num) * multiper)).toLocaleString() + unit }
+        </span>;
+      })}
+    </div>);
+  };
+
+  /**
+   * @param {string} layer
+   * @param {string} unselectedLayer
+   * @return {*} standard legend
+   */
+  const healthClinicLegend = (layer, unselectedLayer) => {
+    const numberOfSteps = 5;
+    const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
+
+    if (!showClinic) {
+      return <></>;
+    }
+
+    return (<div className={classes.blueLegend} ref={legend} id={id}>
+      {unitLabel(legendTitle)}
+      {Array.from(blues.colors(5)).map((c) => {
+        return <span key={c} style={{background: c, width: 10 + '%'}}
           className={classes.gradStep}/>;
       })}
 
       {_.times(numberOfSteps+1, (num) => {
         return <span key={num} className={classes.domainLabelStandard}
-          style={{left: (100 / numberOfSteps) * num + '%'}}>
-          {(minValue + step * num).toFixed(0)}
+          style={{left: 10 * num + '%'}}>
+          {(0 + num*20/100).toFixed(1)}
         </span>;
       })}
 
     </div>);
   };
 
-  if (selectedLegend) {
-    return standardLegend();
-  } else {
-    return customLegend();
+  useEffect(() => {
+    const sentinelFacilitylayer = _.get(translations[selectedLocale], 'sentinel_facilities');
+
+    if (selectedLayer && selectedLayer.indexOf('barcode_data') > -1) {
+      setShowClinic(true);
+      showClinic = true;
+    }
+
+    if (unselectedLayer && unselectedLayer.indexOf('barcode_data') > -1) {
+      setShowClinic(false);
+      showClinic = false;
+    };
+  }, [selectedLayer, unselectedLayer]);
+
+  /**
+   *
+   * @return {*} legend used for showing changes in cases
+   */
+  const diffLegend = () => {
+    return (<div className={classes.gradLegend} ref={legend} id={id}>
+      {unitLabel(yLabel)}
+      {Array.from(scale.colors(numberOfSteps)).map((c) => {
+        return <span key={c} style={{background: c, width: (100 / numberOfSteps) + '%'}}
+          className={classes.gradStep}/>;
+      })}
+      {
+        createArray(-5, 5).map((num) => {
+          return <span key={num+5} className={classes.domainLabelStandard}
+            style={{left: (100 / numberOfSteps) * (num+5) + '%'}}>
+            {(step * num).toFixed(0)}
+          </span>;
+        })
+      }
+
+    </div>);
+  };
+
+
+  // use difference map legend when diff map is 'on' and not primary map
+  if (selectedDiffMap && !primary) {
+    return <>
+      {diffLegend()}
+      {healthClinicLegend(selectedLayer)}
+    </>;
   }
+
+  if (selectedLegend) {
+    return <>
+      {standardLegend(selectedIndicator)}
+      {healthClinicLegend(selectedLayer, unselectedLayer)}
+    </>;
+  } else {
+    if (isIncidenceMap(selectedIndicator)) {
+      return <>
+        {customLegend()}
+        {healthClinicLegend(selectedLayer, unselectedLayer)}
+      </>;
+    } else {
+      return <>
+        {standardLegend(selectedIndicator)}
+        {healthClinicLegend(selectedLayer, unselectedLayer)}
+      </>;
+    }
+  };
 };
 
 MapLegend.propTypes = {
-  selectPlace: PropTypes.func.isRequired,
+  selectPlace: PropTypes.func,
   minValue: PropTypes.number.isRequired,
   numberOfSteps: PropTypes.number.isRequired,
   selectedMapTheme: PropTypes.string.isRequired,
@@ -126,6 +291,11 @@ MapLegend.propTypes = {
   legend: PropTypes.object,
   classes: PropTypes.object,
   id: PropTypes.string,
+  primary: PropTypes.bool,
+  selectedLayer: PropTypes.string,
+  unselectedLayer: PropTypes.string,
+  mapLegendMax: PropTypes.number,
+  selectedIndicator: PropTypes.string,
 };
 
 export default withStyles(styles)(MapLegend);

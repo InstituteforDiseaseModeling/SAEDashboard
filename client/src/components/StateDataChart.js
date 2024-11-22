@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Typography} from '@mui/material';
-import LineChart from './uielements/LineChart';
+import EventLineChart from './uielements/EventLineChart';
 import axios from 'axios';
 import withStyles from '@mui/styles/withStyles';
 import loader from '../image/loader.gif';
 import {showError} from '../redux/actions/messaging';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
+import config from '../app_config.json';
 
 const styles = {
   title: {
@@ -20,6 +22,11 @@ const StateDataChart = (props) => {
   const {classes, group, groupName, selectedState, channel} = props;
   const [data, setData] = useState(null);
   const [isError, setIsError] = useState(false);
+  const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
+
+  const shapeFileVersion = config.shapefileVersion[channel] ?
+    config.shapefileVersion[channel] : 1;
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +34,8 @@ const StateDataChart = (props) => {
       axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
       try {
         const result = await axios(
-            '/timeseries?dot_name=' + selectedState + '&channel=' + channel + '&subgroup=' + group,
+            '/timeseries?dot_name=' + selectedState + '&channel=' + channel + '&subgroup=' +
+            group + '&shape_version=' + shapeFileVersion,
         );
         setData(result.data);
       } catch (error) {
@@ -44,7 +52,7 @@ const StateDataChart = (props) => {
     if (selectedState && group && channel) {
       fetchData();
     }
-  }, [selectedState, channel, group]);
+  }, [selectedState, channel, group, selectedLocale]);
 
   if (!data && !isError) {
     return (
@@ -55,11 +63,14 @@ const StateDataChart = (props) => {
 
   return (
     <>
-      <Typography variant="subtitle2" className={classes.title}>{groupName}</Typography>
+      <Typography variant="subtitle2" className={classes.title}>
+        <FormattedMessage id={groupName}/>
+      </Typography>
       {isError ?
         <div style={{height: '100%', width: '100%', textAlign: 'center'}}>
           Error loading chart data...</div> :
-        <LineChart chartData={data} title={group} channel={channel} />}
+        <EventLineChart chartData={data} title={group} channel={channel}
+          selectedState={selectedState} />}
     </>
   );
 };
