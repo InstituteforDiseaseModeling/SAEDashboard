@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
     "@mui/styles": "^5.10.16",
-    "axios": "^1.2.0",
+    "axios": "^1.7.4",
     "chroma-js": "^2.1.0",
     "clsx": "^1.2.1",
     "json-2-csv": "^5.5.6",
