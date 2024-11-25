@@ -1,3 +1,4 @@
+import pandas as pd
 from helpers.dot_name import DotName
 from service.helpers.controller_helpers import DataFileKeys, read_dot_names, ControllerException, read_channel, \
     read_subgroup, get_dataframe, read_shape_version
@@ -52,7 +53,10 @@ async def get_timeseries(request: Request):
         df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
 
         # Flag to indicate whether data contains monthly values
-        has_monthly_values = df['month'].notnull().any()
+        if 'month' in df.columns:
+            has_monthly_values = df['month'].notnull().any()
+        else:
+            has_monthly_values = False
 
         data = {}
 
@@ -64,50 +68,30 @@ async def get_timeseries(request: Request):
         for index, row in df.iterrows():
             if has_monthly_values:
                 entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
-                data[entry] = {
-                    'year': row[DataFileKeys.YEAR],
-                    'month': row['month'],
-                    'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
-                    'middle': row[DataFileKeys.DATA],
-                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
-                }
-            elif channel in multivariate_indicators:
-                entry = {'year': row[DataFileKeys.YEAR]}
-                multivar_data = {}
-
-                # Extract species names
-                data_columns = [col for col in df.columns if f'{DataFileKeys.DATA}__' in col]
-                var_names = [name.strip(f'{DataFileKeys.DATA}__') for name in data_columns]
-
-                for var in var_names:
-                    if var not in multivar_data:
-                        multivar_data[var] = {}
-                    multivar_data[var]['lower_bound'] = row[f'{DataFileKeys.DATA_LOWER_BOUND}__{var}']
-                    multivar_data[var]['middle'] = row[f'{DataFileKeys.DATA}__{var}']
-                    multivar_data[var]['upper_bound'] = row[f'{DataFileKeys.DATA_UPPER_BOUND}__{var}']
-
-                entry.update(multivar_data)
-                data[f'{row[DataFileKeys.YEAR]}'] = entry
-
-            else:
-                data[row[DataFileKeys.YEAR]] = {
-                    'year': row[DataFileKeys.YEAR],
-                    'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
-                    'middle': row[DataFileKeys.DATA],
-                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
-                }
-
-        # now further limit the data to rows where reference data exists
-        # Add directly to the prediction
-        df = df.loc[df[DataFileKeys.REFERENCE].notna(), :]
-        for index, row in df.iterrows():
-            if has_monthly_values:
-                entry = "{} {}".format(row['month'], row[DataFileKeys.YEAR])
             else:
                 entry = row[DataFileKeys.YEAR]
-            data[entry]['reference_lower_bound'] = row[DataFileKeys.REFERENCE_LOWER_BOUND]
-            data[entry]['reference_middle'] = row[DataFileKeys.REFERENCE]
-            data[entry]['reference_upper_bound'] = row[DataFileKeys.REFERENCE_UPPER_BOUND]
+
+            data[entry] = {
+                    'year': row[DataFileKeys.YEAR],
+                    'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
+                    'middle': row[DataFileKeys.DATA],
+                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND],
+                    **({'month': row['month']} if 'month' in row else {})
+            }
+
+            if channel in multivariate_indicators:
+                addl_data_columns = [col for col in df.columns if f'pred_' in col]
+
+                multivar_data = {
+                    col.removeprefix(f'pred_'): row[col] for col in addl_data_columns
+                }
+
+                data[entry]['others'] = multivar_data
+
+            if pd.notna(row[DataFileKeys.REFERENCE]):
+                data[entry]['reference_lower_bound'] = row[DataFileKeys.REFERENCE_LOWER_BOUND]
+                data[entry]['reference_middle'] = row[DataFileKeys.REFERENCE]
+                data[entry]['reference_upper_bound'] = row[DataFileKeys.REFERENCE_UPPER_BOUND]
 
         return list(data.values())
 

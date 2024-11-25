@@ -95,7 +95,7 @@ async def get_map(request: Request):
                         'data_upper_bound': row['data_upper_bound'],
                         'data_lower_bound': row['data_lower_bound'],
                         'others': {
-                            col.strip(f'pred_'): row[col] for col in addl_data_columns
+                            col.removeprefix(f'pred_'): row[col] for col in addl_data_columns
                         }
                     }
                     new_values.append(entry)
