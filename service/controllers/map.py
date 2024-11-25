@@ -76,11 +76,17 @@ async def get_map(request: Request):
             # limit to requested data year
             df = df.loc[df[DataFileKeys.YEAR] == year]
 
-            if month is not None:
-                if DataFileKeys.MONTH in df.columns:
+            # Flag to indicate whether data contains monthly values
+            if 'month' in df.columns:
+                has_monthly_values = df['month'].notnull().any()
+            else:
+                has_monthly_values = False
+
+            if month is not None and has_monthly_values:
                     df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype('str')
                     df = df.loc[df[DataFileKeys.MONTH] == str(month)]
-            elif month is None and 'all' in df[DataFileKeys.MONTH].values:
+            elif month is None and has_monthly_values:
+                if 'all' in df[DataFileKeys.MONTH].values:
                     df = df.loc[df[DataFileKeys.MONTH] == 'all']
 
             # Extract the multivariate indicator names
