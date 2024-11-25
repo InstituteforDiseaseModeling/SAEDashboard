@@ -75,9 +75,11 @@ async def get_timeseries(request: Request):
                     'year': row[DataFileKeys.YEAR],
                     'lower_bound': row[DataFileKeys.DATA_LOWER_BOUND],
                     'middle': row[DataFileKeys.DATA],
-                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND],
-                    **({'month': row['month']} if 'month' in row else {})
+                    'upper_bound': row[DataFileKeys.DATA_UPPER_BOUND]
             }
+
+            if has_monthly_values:
+                data[entry]['month'] = row['month']
 
             if channel in multivariate_indicators:
                 addl_data_columns = [col for col in df.columns if f'pred_' in col]
