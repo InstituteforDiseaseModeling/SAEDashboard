@@ -1,3 +1,4 @@
+import pandas as pd
 from fastapi import APIRouter, Request, HTTPException
 from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
@@ -66,7 +67,7 @@ async def get_map(request: Request):
             df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=shape_version)
 
             # limit data to the descendant dot_names at the requested admin level
-            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique()]
+            all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].unique() if pd.notnull(dn)]
             parent_dot_name = DotName.from_parts(parts=[dot_name.continent, country]) if all_countries_on_continent else dot_name
             child_dot_names = [str(dn) for dn in all_dot_names
                                if dn.is_descendant_or_self(parent_dot_name) and dn.admin_level == requested_admin_level]
@@ -75,9 +76,18 @@ async def get_map(request: Request):
             # limit to requested data year
             df = df.loc[df[DataFileKeys.YEAR] == year]
 
-            if month is not None:
-                if DataFileKeys.MONTH in df.columns:
-                    df = df.loc[df[DataFileKeys.MONTH] == month]
+            # Flag to indicate whether data contains monthly values
+            if 'month' in df.columns:
+                has_monthly_values = df['month'].notnull().any()
+            else:
+                has_monthly_values = False
+
+            if month is not None and has_monthly_values:
+                    df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype('str')
+                    df = df.loc[df[DataFileKeys.MONTH] == str(month)]
+            elif month is None and has_monthly_values:
+                if 'all' in df[DataFileKeys.MONTH].values:
+                    df = df.loc[df[DataFileKeys.MONTH] == 'all']
 
             # Extract the multivariate indicator names
             with open("../config.yaml", "r") as file:
@@ -95,7 +105,7 @@ async def get_map(request: Request):
                         'data_upper_bound': row['data_upper_bound'],
                         'data_lower_bound': row['data_lower_bound'],
                         'others': {
-                            col.strip(f'pred_'): row[col] for col in addl_data_columns
+                            col.removeprefix(f'pred_'): row[col] for col in addl_data_columns
                         }
                     }
                     new_values.append(entry)
