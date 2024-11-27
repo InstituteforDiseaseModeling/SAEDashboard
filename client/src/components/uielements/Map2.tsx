@@ -96,6 +96,7 @@ const MapComponent = (props: any) => {
   const {intl} = props;
   const mapLabel = IndicatorConfig[indicator] ?
     intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
+  const rasterFile = IndicatorConfig[indicator] ? IndicatorConfig[indicator].rasterFile : '';
 
   const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
 
@@ -127,6 +128,7 @@ const MapComponent = (props: any) => {
       return indicator == 'neg_covars' || indicator == 'pos_covars';
     }
   };
+
   const isCovariateCategoryMap = () => {
     if (primary) {
       return primaryIndicator == 'neg_covars_category' || primaryIndicator == 'pos_covars_category';
@@ -178,7 +180,7 @@ const MapComponent = (props: any) => {
       weight: 3,
       color: color ? color : '#FFCE74',
       dashArray: '',
-      fillOpacity: 1,
+      fillOpacity: 0.9,
     });
 
     if (e.latlng && !fromEffect) {
@@ -195,22 +197,21 @@ const MapComponent = (props: any) => {
 
       if (region) {
         const regionName = region.id.split(':').splice(2).join(':');
-        let entireMsg = regionName + ' : ';
+        let entireMsg = regionName;
         if (isCovariateMap()) {
-          const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
-          // const coVariate = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'coVariate');
-          if (labelId) {
-            entireMsg += intl.formatMessage({id: labelId});
-          } else {
-            entireMsg += 'NA';
-          }
+          // const labelId = _.get(_.find(CoVariatesLookup, {'mode': region.value}), 'label');
+          // if (labelId) {
+          //   entireMsg += intl.formatMessage({id: labelId});
+          // } else {
+          //   entireMsg += 'NA';
+          // }
         } else if (isCovariateCategoryMap()) {
-          const labelId = _.get(_.find(CoVariatesCategoryLookup, {'category': region.value}), 'label');
-          if (labelId) {
-            entireMsg += intl.formatMessage({id: labelId});
-          } else {
-            entireMsg += 'NA';
-          }
+          // const labelId = _.get(_.find(CoVariatesCategoryLookup, {'category': region.value}), 'label');
+          // if (labelId) {
+          //   entireMsg += intl.formatMessage({id: labelId});
+          // } else {
+          //   entireMsg += 'NA';
+          // }
         } else if (region.others) {
           // for indicators with additional data
           const rowHTML = (val1: string, val2: string, val3: string) => (
@@ -227,7 +228,7 @@ const MapComponent = (props: any) => {
           }
           entireMsg += '</div>';
         } else {
-          entireMsg += '<b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
+          entireMsg += ' : <b>' + Number((region.value * indicatorConfig.multiper).toFixed(indicatorConfig.decimalPt)).toLocaleString() +
           '</b> ' + mapLabel + '<br/>';
 
           if (indicator == 'high_model_predictions' || indicator == 'low_model_predictions') {
@@ -299,7 +300,8 @@ const MapComponent = (props: any) => {
           color = '#850428';
         };
 
-        return {fillColor: color.toString(), fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
+        return {fillColor: color.toString(),
+          fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
       } else {
         return {color: 'lightgrey'};
       }
@@ -318,9 +320,9 @@ const MapComponent = (props: any) => {
           // todo: log error
           console.log('Error in color setting');
         }
-        return {fillColor: color2, fillOpacity: 0.7, fill: true, color: 'grey', weight: 0.8};
+        return {fillColor: isCovariateMap() ? '' : color2, fillOpacity: 0.7, fill: !isCovariateMap(), color: 'grey', weight: 1};
       } else {
-        return {color: 'grey', weight: 1};
+        return {color: 'grey', weight: 1, fillColor: ''};
       }
     };
 
@@ -359,6 +361,12 @@ const MapComponent = (props: any) => {
     // add rainfall stations
     addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
 
+    // add raster layer
+
+    if (isCovariateMap()) {
+      const imageBounds = [[16.693711862000043, -17.53041685499994], [12.307859596000071, -11.342469724999944]];
+      L.imageOverlay(rasterFile, imageBounds).addTo(mapObj);
+    }
 
     mapObj.on('overlayadd', (data)=>{
       setSelectedLayer(data.name);
@@ -415,8 +423,8 @@ const MapComponent = (props: any) => {
   }, [center]);
 
   /**
- * for opening popup for the 2nd map on the comparison maps
- */
+  * for opening popup for the 2nd map on the comparison maps
+  */
   useEffect(() => {
     // if (forCompare) {
     const feature = findFeatureByLGA(mapObj, latLngClicked);
