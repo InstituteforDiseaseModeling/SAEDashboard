@@ -8,6 +8,7 @@ interface IndicatorConfig {
     legendLabel: string;
     useAvg?: boolean;
     mainSpeciesName?: string,
+    rasterFile?: string,
   };
 }
 
@@ -49,9 +50,12 @@ export const IndicatorConfig: IndicatorConfig = {
   'weather_zones': {'unitLabel': 'weather_zones', 'multiper': 1, 'unit': ' mm',
     'mapLabel': 'mm', 'legendLabel': 'mm', 'decimalPt': 1},
   'neg_covars': {'unitLabel': 'neg_covars', 'multiper': 1, 'unit': '(mode)',
-    'mapLabel': 'neg_covars_map_label', 'legendLabel': 'neg_covars_map_label', 'decimalPt': 1},
+    'mapLabel': 'neg_covars_map_label', 'legendLabel': 'neg_covars_map_label', 'decimalPt': 1,
+    'rasterFile': '/NegativeCovariates.png',
+  },
   'pos_covars': {'unitLabel': 'pos_covars', 'multiper': 1, 'unit': '(mode)',
-    'mapLabel': 'pos_covars_map_label', 'legendLabel': 'pos_covars_map_label', 'decimalPt': 1},
+    'mapLabel': 'pos_covars_map_label', 'legendLabel': 'pos_covars_map_label', 'decimalPt': 1,
+    'rasterFile': '/PositiveCovariates.png'},
   'neg_covars_category': {'unitLabel': 'neg_covars_category', 'multiper': 1, 'unit': '',
     'mapLabel': 'neg_covars_map_label', 'legendLabel': 'neg_covars_map_label', 'decimalPt': 1},
   'pos_covars_category': {'unitLabel': 'pos_covars_category', 'multiper': 1, 'unit': '',

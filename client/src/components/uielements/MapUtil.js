@@ -208,7 +208,7 @@ export function add2019Barcode(siteData, layerControl, createSitePopup, formatMe
         colorIndex = -1;
       }
       const marker = L.marker([clinic.Lat_2, clinic.Long_2],
-          {icon: colorMarker(colorIndex == -1 ? 'crimson' :
+          {icon: colorMarker(colorIndex == -1 ? 'darkgray' :
             blueColors[colorIndex])})
           .bindPopup(createSitePopup(clinic, site, formatMessage), {'className': 'popupCustom'})
           .on('mouseover', function(e) {
