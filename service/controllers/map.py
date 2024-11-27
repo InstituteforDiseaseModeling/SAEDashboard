@@ -4,6 +4,7 @@ from helpers.dot_name import DotName
 from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
     read_admin_level, ControllerException, get_all_countries, get_dataframe, DataFileKeys, read_shape_version
 import yaml
+import os
 
 router = APIRouter()
 
@@ -90,7 +91,8 @@ async def get_map(request: Request):
                     df = df.loc[df[DataFileKeys.MONTH] == 'all']
 
             # Extract the multivariate indicator names
-            with open("../config.yaml", "r") as file:
+            full_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../config.yaml')
+            with open(full_path, "r") as file:
                 config = yaml.safe_load(file)
             multivariate_indicators = config.get("multivariate_indicators", [])
 
