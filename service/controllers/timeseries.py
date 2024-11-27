@@ -4,6 +4,7 @@ from service.helpers.controller_helpers import DataFileKeys, read_dot_names, Con
     read_subgroup, get_dataframe, read_shape_version
 from fastapi import APIRouter, Request
 import yaml
+import os
 
 router = APIRouter()
 
@@ -61,7 +62,8 @@ async def get_timeseries(request: Request):
         data = {}
 
         # Extract the multivariate indicator names
-        with open("../config.yaml", "r") as file:
+        full_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../config.yaml')
+        with open(full_path, "r") as file:
             config = yaml.safe_load(file)
         multivariate_indicators = config.get("multivariate_indicators", [])
 

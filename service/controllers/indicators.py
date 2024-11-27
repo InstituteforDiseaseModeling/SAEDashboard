@@ -5,15 +5,16 @@ from service.helpers.dot_name import DotName
 from service.schemas.IndicatorsSchema import IndicatorsListSchema
 from fastapi import APIRouter, Request
 import yaml
+import os
 
 router = APIRouter()
 
 
 def generate_label(indicator):
     # if we have a specific display name known, use it
-
     # Load the YAML file
-    with open("../config.yaml", "r") as file:
+    full_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../config.yaml')
+    with open(full_path, "r") as file:
         config = yaml.safe_load(file)
 
     # Retrieve the list of indicator_labels

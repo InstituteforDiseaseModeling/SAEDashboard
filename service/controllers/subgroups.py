@@ -3,6 +3,8 @@ from service.helpers.controller_helpers import get_subgroups, read_dot_names, Co
 from service.helpers.dot_name import DotName
 from service.schemas.SubgroupsSchema import SubgroupsListSchema
 from fastapi import APIRouter, Request
+import os
+
 import yaml
 router = APIRouter()
 
@@ -10,7 +12,8 @@ def generate_label(subgroup):
     # if we have a specific display name known, use it
 
     # Load the YAML file
-    with open("../config.yaml", "r") as file:
+    full_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../config.yaml')
+    with open(full_path, "r") as file:
         config = yaml.safe_load(file)
 
     # Retrieve the list of indicator_labels
