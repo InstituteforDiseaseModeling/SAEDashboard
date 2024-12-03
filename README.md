@@ -25,7 +25,7 @@ countries is covered by a a different license Austria: Creative Commons
 Attribution-ShareAlike 2.0 (source: Government of Ausria)
 ```
 
-Prerequisies
+Prerequisites
 ------------
 To run this project using Docker, you will need the following software:
 - [Docker desktop](https://www.docker.com/products/docker-desktop/)
