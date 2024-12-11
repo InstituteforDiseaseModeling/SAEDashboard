@@ -7,6 +7,8 @@
 import * as am4core from '@amcharts/amcharts4/core';
 import customTheme from '../../customTheme.json';
 import chroma from 'chroma-js';
+import lakes from '../../data/lakes.json';
+import hyrdrographie from '../../data/Hydrographie.json';
 
 
 /**
@@ -256,4 +258,33 @@ export function add2020Barcode(siteData, layerControl, createSitePopup, formatMe
   const lg = L.layerGroup(sites);
   layerControl.addOverlay(lg, formatMessage({id: '2020_barcode_data'}));
 };
+
+/**
+ *
+ * @param {*} layerControl
+ * @param {*} formatMessage
+ */
+export function addLakesLayer(layerControl, formatMessage) {
+  const L = require('leaflet');
+  const lakesLayer = L.geoJSON(lakes, {
+    style: function(feature) {
+      return {
+        color: 'black',
+        weight: 2,
+        opacity: 0.65,
+      };
+    },
+  });
+  const hydrographieLayer = L.geoJSON(hyrdrographie, {
+    style: function(feature) {
+      return {
+        color: 'green',
+        weight: 2,
+        opacity: 0.65,
+      };
+    },
+  });
+  layerControl.addOverlay(hydrographieLayer, formatMessage({id: 'hydrographie'}));
+  layerControl.addOverlay(lakesLayer, formatMessage({id: 'lakes'}));
+}
 

@@ -162,5 +162,7 @@
   "gambiae": "Species composition (An. Gambiae)",
   "indoor_resting": "Indoor resting density",
   "indoor_resting_site": "Indoor resting density per site",
-  "data_source_indoor_resting_gambiae": "Data source: reported to the PNLP"
+  "data_source_indoor_resting_gambiae": "Data source: reported to the PNLP",
+  "lakes": "lakes",
+  "hydrography": "hydrography"
 }
