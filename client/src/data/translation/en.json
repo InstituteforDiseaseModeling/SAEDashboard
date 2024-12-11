@@ -164,5 +164,10 @@
   "indoor_resting_site": "Indoor resting density per site",
   "data_source_indoor_resting_gambiae": "Data source: reported to the PNLP",
   "lakes": "lakes",
-  "hydrography": "hydrography"
+  "hydrography": "hydrography",
+  "extra_info": "Extra info",
+  "coVar_Accessibility_explanation": "Incidence is shown to increase further away from cities",
+  "coVar_Distance_to_water_explanation": "Incidence is shown to decrease further away from water sources",
+  "coVar_Population_explanation": "Incidence is shown to decrease in areas with greater population density",
+  "coVar_VIIRS_explanation": "Incidence is shown to increase where there are nighttime lights (due to gathering outside at night)"
 }

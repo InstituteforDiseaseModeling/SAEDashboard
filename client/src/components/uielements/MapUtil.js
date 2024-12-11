@@ -3,12 +3,13 @@
 /* eslint-disable no-invalid-this */
 /* eslint-disable comma-dangle */
 
-
+import React from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import customTheme from '../../customTheme.json';
 import chroma from 'chroma-js';
 import lakes from '../../data/lakes.json';
 import hyrdrographie from '../../data/Hydrographie.json';
+import {FormattedMessage} from 'react-intl';
 
 
 /**
@@ -286,5 +287,23 @@ export function addLakesLayer(layerControl, formatMessage) {
   });
   layerControl.addOverlay(hydrographieLayer, formatMessage({id: 'hydrographie'}));
   layerControl.addOverlay(lakesLayer, formatMessage({id: 'lakes'}));
+}
+
+/**
+ *
+ * @returns covariates extra info
+ */
+export function covariatesExtraInfo() {
+  return (
+    <div style={{fontSize: '0.8rem'}}>
+      <div className='flex'><div className='min-w-[80px]'><b><FormattedMessage id='coVar_Accessibility_short'/>:</b></div>
+        <div style={{paddingLeft: 20}}><FormattedMessage id='coVar_Accessibility_explanation'/></div></div>
+      <div className='flex'><div className='min-w-[80px]'><b><FormattedMessage id='coVar_Distance_to_water_short'/>:</b></div>
+        <div style={{paddingLeft: 20}}><FormattedMessage id='coVar_Distance_to_water_explanation'/></div></div>
+      <div className='flex'><div className='min-w-[80px]'><b><FormattedMessage id='coVar_Population'/>:</b></div>
+        <div style={{paddingLeft: 20}}><FormattedMessage id='coVar_Population_explanation'/></div></div>
+      <div className='flex'><div className='min-w-[80px]'><b><FormattedMessage id='coVar_VIIRS'/>:</b></div>
+        <div style={{paddingLeft: 20}}><FormattedMessage id='coVar_VIIRS_explanation'/></div></div>
+    </div>);
 }
 
