@@ -163,5 +163,11 @@
   "indoor_resting_site": "Densité de repos à l'intérieur par site",
   "data_source_indoor_resting_gambiae": "Source des données : rapporté au PNLP",
   "lakes": "lacs",
-  "hydrography": "hydrographie"
+  "hydrography": "hydrographie",
+  "extra_info": "Infos supplémentaires",
+  "coVar_Accessibility_explanation": "L'incidence augmente à mesure que l'on s'éloigne des villes",
+  "coVar_Distance_to_water_explanation": "L'incidence diminue à mesure que l'on s'éloigne des sources d'eau",
+  "coVar_Population_explanation": "L'incidence diminue dans les zones à forte densité de population",
+  "coVar_VIIRS_explanation": "L'incidence augmente là où il y a des lumières nocturnes (en raison des rassemblements à l'extérieur la nuit)"
+
 }

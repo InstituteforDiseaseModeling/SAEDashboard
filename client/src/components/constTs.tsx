@@ -9,6 +9,7 @@ interface IndicatorConfig {
     useAvg?: boolean;
     mainSpeciesName?: string,
     rasterFile?: string,
+    extraInfo?: boolean,
   };
 }
 
@@ -52,10 +53,13 @@ export const IndicatorConfig: IndicatorConfig = {
   'neg_covars': {'unitLabel': 'neg_covars', 'multiper': 1, 'unit': '(mode)',
     'mapLabel': 'neg_covars_map_label', 'legendLabel': 'neg_covars_map_label', 'decimalPt': 1,
     'rasterFile': '/NegativeCovariates.png',
+    'extraInfo': true,
   },
   'pos_covars': {'unitLabel': 'pos_covars', 'multiper': 1, 'unit': '(mode)',
     'mapLabel': 'pos_covars_map_label', 'legendLabel': 'pos_covars_map_label', 'decimalPt': 1,
-    'rasterFile': '/PositiveCovariates.png'},
+    'rasterFile': '/PositiveCovariates.png',
+    'extraInfo': true,
+  },
   'neg_covars_category': {'unitLabel': 'neg_covars_category', 'multiper': 1, 'unit': '',
     'mapLabel': 'neg_covars_map_label', 'legendLabel': 'neg_covars_map_label', 'decimalPt': 1},
   'pos_covars_category': {'unitLabel': 'pos_covars_category', 'multiper': 1, 'unit': '',

@@ -8,7 +8,7 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup, addLakesLayer} from './MapUtil';
+import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup, addLakesLayer, covariatesExtraInfo} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -22,7 +22,8 @@ import {addRainfallStations} from '../../model/rainfallStationModel.js';
 import CoVarsLegend from './CoVarsLegend.js';
 import CoVarsCategoryLegend from './CoVarsCategoryLegend.js';
 import {CoVariatesLookup, CoVariatesCategoryLookup} from '../../const.js';
-import {Typography} from '@mui/material';
+import {Typography, Tooltip} from '@mui/material';
+import {FormattedMessage} from 'react-intl';
 
 const styles = makeStyles({
   MapContainer: {
@@ -40,15 +41,31 @@ const styles = makeStyles({
     zIndex: 100,
   },
   note_diff: {
-    top: -20,
+    // top: -20,
     color: 'darkred',
-    position: 'inherit',
+    position: 'absolute',
     fontSize: '0.8rem',
     backgroundColor: 'yellow',
     padding: '0 5px',
-    width: 'fit-content',
     left: 13,
     whiteSpace: 'pre-wrap',
+    display: 'flex',
+    width: 'fit-content',
+    marginRight: 70,
+    bottom: 0,
+    alignItems: 'center',
+  },
+  extraInfo: {
+    marginLeft: 5,
+    color: 'white',
+    backgroundColor: '#256baf',
+    cursor: 'pointer',
+    padding: '0 5px',
+    height: 20,
+  },
+  flex: {
+    display: 'flex',
+    width: 'fit-content',
   },
 });
 
@@ -99,6 +116,7 @@ const MapComponent = (props: any) => {
   const rasterFile = IndicatorConfig[indicator] ? IndicatorConfig[indicator].rasterFile : '';
 
   const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
+  const hasExtraInfo = IndicatorConfig[indicator].extraInfo;
 
   const indicatorConfig = IndicatorConfig[indicator];
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
@@ -505,10 +523,19 @@ const MapComponent = (props: any) => {
       }
       {/* Caveat note */}
       {
-        <div className={classes.note_diff}
-          title={dataSourceMsg}
-          style={{top: dataSourceMsg.length > 90 ? -40 : -20}}>
-          {dataSourceMsg}
+        <div className={classes.note_diff}>
+          <div className={classes.flex} title={dataSourceMsg}>
+            {dataSourceMsg}
+          </div>
+          {hasExtraInfo &&
+            <div>
+              <Tooltip title={covariatesExtraInfo()}>
+                <div className={classes.extraInfo}>
+                  <FormattedMessage id="extra_info" />
+                </div>
+              </Tooltip>
+            </div>
+          }
         </div>
       }
     </div>
