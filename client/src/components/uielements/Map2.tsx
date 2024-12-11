@@ -8,7 +8,7 @@ import MapLegend from './MapLegend';
 import {Feature, GeometryObject} from 'geojson';
 import chroma, {Color} from 'chroma-js';
 import customTheme from '../../customTheme.json';
-import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup} from './MapUtil';
+import {add2019Barcode, add2020Barcode, create2019SitePopup, create2020SitePopup, addLakesLayer} from './MapUtil';
 import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
@@ -360,6 +360,10 @@ const MapComponent = (props: any) => {
 
     // add rainfall stations
     addRainfallStations(mapObj, layerControl, currentYear, currentMonth, intl.formatMessage, stationClicked);
+
+    // add lakes
+    addLakesLayer(layerControl, intl.formatMessage);
+
 
     // add raster layer
 
