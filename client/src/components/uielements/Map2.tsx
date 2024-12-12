@@ -338,7 +338,7 @@ const MapComponent = (props: any) => {
           // todo: log error
           console.log('Error in color setting');
         }
-        return {fillColor: isCovariateMap() ? '' : color2, fillOpacity: 0.7, fill: !isCovariateMap(), color: 'grey', weight: 1};
+        return {fillColor: isCovariateMap() ? '' : color2, fillOpacity: isCovariateMap() ? 0.02 : 0.7, fill: true, color: 'grey', weight: 1};
       } else {
         return {color: 'grey', weight: 1, fillColor: ''};
       }
