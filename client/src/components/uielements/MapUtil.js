@@ -163,6 +163,7 @@ export function create2019SitePopup(clinic, name, formatMessage) {
   '<div class="row"><div class="col">'+ formatMessage({id: 'repeat_multiple'}) +':</div><div>' + clinic.repeated_multiple + '</div></div></div>' +
   '<div class="row"><div class="col">'+ formatMessage({id: 'repeat_twice'}) +':</div><div>' + clinic.repeated_twice + '</div></div></div>' +
   '<div class="row"><div class="col">'+ formatMessage({id: 'type'}) +':</div><div>' + clinic.TYPE + '</div></div></div>' +
+  '<div class="row"><div class="col">'+ formatMessage({id: 'n'}) +':</div><div>' + clinic.n + '</div></div></div>' +
   '</div>';
 };
 

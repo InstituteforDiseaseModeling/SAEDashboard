@@ -13,7 +13,8 @@
           "Fraction_polygenomic": 0.667,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0284
+          "heterozygosity": 0.0284,
+          "n": 26
         },
         "DIAWAR": {
           "CODE": "DWR",
@@ -26,7 +27,8 @@
           "Fraction_polygenomic": null,
           "repeated_twice": null,
           "repeated_multiple": null,
-          "heterozygosity": null
+          "heterozygosity": null,
+          "n": 1
         },
         "GALLO MALICK": {
           "CODE": "GMK",
@@ -39,7 +41,8 @@
           "Fraction_polygenomic": 0.5,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0394
+          "heterozygosity": 0.0394,
+          "n": 4
         },
         "NIASSENE": {
           "CODE": "NSN",
@@ -52,7 +55,8 @@
           "Fraction_polygenomic": null,
           "repeated_twice": null,
           "repeated_multiple": null,
-          "heterozygosity": null
+          "heterozygosity": null,
+          "n": 1
         },
         "ROSSO SENEGAL": {
           "CODE": "ROS",
@@ -65,7 +69,8 @@
           "Fraction_polygenomic": 0.286,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0351
+          "heterozygosity": 0.0351,
+          "n": 7
         },
         "TAOUEY": {
           "CODE": "TAO",
@@ -78,7 +83,8 @@
           "Fraction_polygenomic": 0.4,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0258
+          "heterozygosity": 0.0258,
+          "n": 7
         },
         "NDIATENE": {
           "CODE": "NDT",
@@ -91,7 +97,8 @@
           "Fraction_polygenomic": null,
           "repeated_twice": null,
           "repeated_multiple": null,
-          "heterozygosity": null
+          "heterozygosity": null,
+          "n": 1
         },
         "ROSS BETHIO": {
           "CODE": "ROB",
@@ -104,7 +111,8 @@
           "Fraction_polygenomic": 0.353,
           "repeated_twice": 1,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0278
+          "heterozygosity": 0.0278,
+          "n": 17
         },
         "NABADJI CIVOR": {
           "CODE": "NJC",
@@ -117,7 +125,8 @@
           "Fraction_polygenomic": 0.4,
           "repeated_twice": 0,
           "repeated_multiple": 1,
-          "heterozygosity": 0.0336
+          "heterozygosity": 0.0336,
+          "n": 10
         },
         "KOUTAL": {
           "CODE": "KTL",
@@ -130,7 +139,8 @@
           "Fraction_polygenomic": 0.45,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0352
+          "heterozygosity": 0.0352,
+          "n": 19
         },
         "KEUR MBAYE SARR": {
           "CODE": "SMS",
@@ -143,7 +153,8 @@
           "Fraction_polygenomic": 0.458,
           "repeated_twice": 1,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0316
+          "heterozygosity": 0.0316,
+          "n": 60
         },
         "DEGGO": {
           "CODE": "DEG",
@@ -156,7 +167,8 @@
           "Fraction_polygenomic": 0.407,
           "repeated_twice": 1,
           "repeated_multiple": 1,
-          "heterozygosity": 0.023
+          "heterozygosity": 0.023,
+          "n": 49
         },
         "GABOU": {
           "CODE": "GAB",
@@ -169,7 +181,8 @@
           "Fraction_polygenomic": 0.49,
           "repeated_twice": 4,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0237
+          "heterozygosity": 0.0237,
+          "n": 93
         },
         "MOUDERY": {
           "CODE": "MDR",
@@ -182,7 +195,8 @@
           "Fraction_polygenomic": 0.44,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0283
+          "heterozygosity": 0.0283,
+          "n": 24
         },
         "TOMBORONKOTO": {
           "CODE": "TBK",
@@ -195,7 +209,8 @@
           "Fraction_polygenomic": 0.633,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0265
+          "heterozygosity": 0.0265,
+          "n": 41
         },
         "KAFOUNTINE": {
           "CODE": "KAF",
@@ -208,7 +223,8 @@
           "Fraction_polygenomic": 0.516,
           "repeated_twice": 2,
           "repeated_multiple": 1,
-          "heterozygosity": 0.032
+          "heterozygosity": 0.032,
+          "n": 53
         },
         "BAGADADJI": {
           "CODE": "KLD",
@@ -221,7 +237,8 @@
           "Fraction_polygenomic": 0.359,
           "repeated_twice": 6,
           "repeated_multiple": 1,
-          "heterozygosity": 0.0215
+          "heterozygosity": 0.0215,
+          "n": 124
         },
         "TAMBACOUNDA": {
           "CODE": "TAM",
@@ -234,7 +251,8 @@
           "Fraction_polygenomic": 0.48,
           "repeated_twice": 2,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0225
+          "heterozygosity": 0.0225,
+          "n": 89
         },
         "VELINGARA": {
           "CODE": "VLG",
@@ -247,7 +265,8 @@
           "Fraction_polygenomic": 0.577,
           "repeated_twice": 1,
           "repeated_multiple": 1,
-          "heterozygosity": 0.0237
+          "heterozygosity": 0.0237,
+          "n": 99
         },
         "KEDOUGOU": {
           "CODE": "KDG",
@@ -260,7 +279,8 @@
           "Fraction_polygenomic": 0.56,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0254
+          "heterozygosity": 0.0254,
+          "n": 100
         },
         "KEDOUGOU--MAKO": {
           "CODE": "MAK",
@@ -273,7 +293,8 @@
           "Fraction_polygenomic": 0.551,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0202
+          "heterozygosity": 0.0202,
+          "n": 76
         },
         "KAMEL": {
           "CODE": "KML",
@@ -286,7 +307,8 @@
           "Fraction_polygenomic": 0.517,
           "repeated_twice": 0,
           "repeated_multiple": 0,
-          "heterozygosity": 0.0303
+          "heterozygosity": 0.0303,
+          "n": 24
         },
         "SEDHIOU GOUDONUP": {
           "CODE": "SED",
@@ -299,7 +321,8 @@
           "Fraction_polygenomic": 0.444,
           "repeated_twice": 1,
           "repeated_multiple": 1,
-          "heterozygosity": 0.0232
+          "heterozygosity": 0.0232,
+          "n": 35
         },
         "SESSINE": {
           "CODE": "SES",
@@ -312,7 +335,8 @@
           "Fraction_polygenomic": 0.22,
           "repeated_twice": 2,
           "repeated_multiple": 3,
-          "heterozygosity": 0.0299
+          "heterozygosity": 0.0299,
+          "n": 115
         },
         "TOUBA": {
           "CODE": "TBA",
@@ -325,7 +349,8 @@
           "Fraction_polygenomic": 0.247,
           "repeated_twice": 6,
           "repeated_multiple": 3,
-          "heterozygosity": 0.0283
+          "heterozygosity": 0.0283,
+          "n": 87
         },
         "THIES": {
           "CODE": "SLP",
@@ -338,7 +363,8 @@
           "Fraction_polygenomic": 0.351,
           "repeated_twice": 3,
           "repeated_multiple": 1,
-          "heterozygosity": 0.0257
+          "heterozygosity": 0.0257,
+          "n": 79
         }
       }
     },
