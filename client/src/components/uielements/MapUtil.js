@@ -7,7 +7,6 @@ import React from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import customTheme from '../../customTheme.json';
 import chroma from 'chroma-js';
-import lakes from '../../data/lakes.json';
 import hyrdrographie from '../../data/Hydrographie.json';
 import {FormattedMessage} from 'react-intl';
 
@@ -268,15 +267,7 @@ export function add2020Barcode(siteData, layerControl, createSitePopup, formatMe
  */
 export function addLakesLayer(layerControl, formatMessage) {
   const L = require('leaflet');
-  const lakesLayer = L.geoJSON(lakes, {
-    style: function(feature) {
-      return {
-        color: 'black',
-        weight: 2,
-        opacity: 0.65,
-      };
-    },
-  });
+
   const hydrographieLayer = L.geoJSON(hyrdrographie, {
     style: function(feature) {
       return {
@@ -286,8 +277,7 @@ export function addLakesLayer(layerControl, formatMessage) {
       };
     },
   });
-  layerControl.addOverlay(hydrographieLayer, formatMessage({id: 'hydrographie'}));
-  layerControl.addOverlay(lakesLayer, formatMessage({id: 'lakes'}));
+  layerControl.addOverlay(hydrographieLayer, formatMessage({id: 'waterbodies'}));
 }
 
 /**
