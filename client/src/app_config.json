@@ -29,7 +29,9 @@
     "tpr": "BuRd",
     "incidence": "BuRd",
     "gambiae": "RdBu",
-    "indoor_resting_gambiae": "RdBu"
+    "indoor_resting_gambiae": "RdBu",
+    "precip_projections": "BuRd",
+    "temp_projections": "BuRd"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,

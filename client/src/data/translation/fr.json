@@ -167,6 +167,11 @@
   "coVar_Accessibility_explanation": "L'incidence augmente à mesure que l'on s'éloigne des villes",
   "coVar_Distance_to_water_explanation": "L'incidence diminue à mesure que l'on s'éloigne des sources d'eau",
   "coVar_Population_explanation": "L'incidence diminue dans les zones à forte densité de population",
-  "coVar_VIIRS_explanation": "L'incidence augmente là où il y a des lumières nocturnes (en raison des rassemblements à l'extérieur la nuit)"
-
+  "coVar_VIIRS_explanation": "L'incidence augmente là où il y a des lumières nocturnes (en raison des rassemblements à l'extérieur la nuit)",
+  "temp_projections": "Projections de température",
+  "temperature": "température",
+  "data_source_temp_projections": "Source des données : rapporté au PNLP",  
+  "precip_projections": "Projections de précipitations",
+  "precipitation": "précipitation",
+  "data_source_precip_projections": "Source des données : rapporté au PNLP"
 }
