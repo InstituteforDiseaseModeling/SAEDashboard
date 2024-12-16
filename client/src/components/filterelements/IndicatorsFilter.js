@@ -98,12 +98,12 @@ const IndicatorFilter = (props) => {
         <MenuItem value="pos_covars" key={14} className={classes.menuItem}>
           <FormattedMessage id="pos_covars"/>
         </MenuItem>
-        {/* <MenuItem value="neg_covars_category" key={15} className={classes.menuItem}>
-          <FormattedMessage id="neg_covars_category"/>
+        <MenuItem value="precip_projections" key={14} className={classes.menuItem}>
+          <FormattedMessage id="precip_projections"/>
         </MenuItem>
-        <MenuItem value="pos_covars_category" key={16} className={classes.menuItem}>
-          <FormattedMessage id="pos_covars_category"/>
-        </MenuItem> */}
+        <MenuItem value="temp_projections" key={14} className={classes.menuItem}>
+          <FormattedMessage id="temp_projections"/>
+        </MenuItem>
 
         {/* Entomology */}
         <ListSubheader className={classes.subHeader}>

@@ -74,4 +74,8 @@ export const IndicatorConfig: IndicatorConfig = {
   'indoor_resting_gambiae': {'unitLabel': 'indoor_resting', 'multiper': 1, 'unit': '',
     'mapLabel': ' ', 'legendLabel': 'indoor_resting_site', 'decimalPt': 2,
     'mainSpeciesName': 'a. gambiae'},
+  'precip_projections': {'unitLabel': 'precip', 'multiper': 1, 'unit': 'mm',
+    'mapLabel': 'mm', 'legendLabel': 'precip', 'decimalPt': 2},
+  'temp_projections': {'unitLabel': 'temperature', 'multiper': 1, 'unit': '°C',
+    'mapLabel': '°C', 'legendLabel': 'temperature', 'decimalPt': 2},
 };
