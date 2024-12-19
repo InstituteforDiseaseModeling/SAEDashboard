@@ -22,6 +22,12 @@ indicator_labels:
   "gambiae": "% of Mosquito Species"
   "indoor_resting_gambiae": "DHIS2 Indoor Resting"
   "weather_zones": "Weather Zones"
+  "precip_projections": "Precipitation Projections"
+  "temp_projections": "Temperature Projections"
+  "precip_historical": "Historical Precipitation"
+  "temp_historical": "Historical Temperature"
+  "precip_variation": "Precipitation Variation"
+  "temp_variation": "Temperature Variation"
 
 subgroup_labels:
   "all": "All"
