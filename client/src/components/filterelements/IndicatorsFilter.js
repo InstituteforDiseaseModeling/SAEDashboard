@@ -104,6 +104,18 @@ const IndicatorFilter = (props) => {
         <MenuItem value="temp_projections" key={14} className={classes.menuItem}>
           <FormattedMessage id="temp_projections"/>
         </MenuItem>
+        <MenuItem value="precip_historical" key={14} className={classes.menuItem}>
+          <FormattedMessage id="precip_historical"/>
+        </MenuItem>
+        <MenuItem value="temp_historical" key={14} className={classes.menuItem}>
+          <FormattedMessage id="temp_historical"/>
+        </MenuItem>
+        <MenuItem value="precip_variation" key={14} className={classes.menuItem}>
+          <FormattedMessage id="precip_variation"/>
+        </MenuItem>
+        <MenuItem value="temp_variation" key={14} className={classes.menuItem}>
+          <FormattedMessage id="temp_variation"/>
+        </MenuItem>
 
         {/* Entomology */}
         <ListSubheader className={classes.subHeader}>

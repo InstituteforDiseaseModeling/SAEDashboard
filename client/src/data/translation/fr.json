@@ -173,5 +173,9 @@
   "data_source_temp_projections": "Source des données : rapporté au PNLP",  
   "precip_projections": "Projections de précipitations",
   "precipitation": "précipitation",
-  "data_source_precip_projections": "Source des données : rapporté au PNLP"
+  "data_source_precip_projections": "Source des données : rapporté au PNLP",
+  "temp_historical": "Température historique",
+  "precip_historical": "Précipitations historiques",
+  "temp_variation": "Variation de température",
+  "precip_variation": "Variation de précipitations"
 }

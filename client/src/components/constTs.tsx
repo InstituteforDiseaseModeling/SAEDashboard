@@ -78,4 +78,13 @@ export const IndicatorConfig: IndicatorConfig = {
     'mapLabel': 'mm', 'legendLabel': 'precip', 'decimalPt': 2},
   'temp_projections': {'unitLabel': 'temperature', 'multiper': 1, 'unit': '°C',
     'mapLabel': '°C', 'legendLabel': 'temperature', 'decimalPt': 2},
+  'precip_historical': {'unitLabel': 'precip', 'multiper': 1, 'unit': 'mm',
+    'mapLabel': 'mm', 'legendLabel': 'precip', 'decimalPt': 2},
+  'temp_historical': {'unitLabel': 'temperature', 'multiper': 1, 'unit': '°C',
+    'mapLabel': '°C', 'legendLabel': 'temperature', 'decimalPt': 2},
+  'precip_variation': {'unitLabel': 'precip', 'multiper': 1, 'unit': 'mm',
+    'mapLabel': 'mm', 'legendLabel': 'precip', 'decimalPt': 2},
+  'temp_variation': {'unitLabel': 'temperature', 'multiper': 1, 'unit': '°C',
+    'mapLabel': '°C', 'legendLabel': 'temperature', 'decimalPt': 2},
+
 };

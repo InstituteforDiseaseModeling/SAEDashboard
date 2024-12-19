@@ -31,7 +31,11 @@
     "gambiae": "RdBu",
     "indoor_resting_gambiae": "RdBu",
     "precip_projections": "BuRd",
-    "temp_projections": "BuRd"
+    "temp_projections": "BuRd",
+    "precip_historical": "BuRd",
+    "temp_historical": "BuRd",
+    "precip_variation": "BuRd",
+    "temp_variation": "BuRd"
   },
   "shapefileVersion": {
     "high_model_predictions": 2,
