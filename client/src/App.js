@@ -65,7 +65,7 @@ function App() {
           <CssBaseline />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Layout view='dashboard'/>}/>
+              <Route path="/" element={<Layout view='welcome'/>}/>
               <Route path="dashboard" element={<Layout view='dashboard'/>}/>
               <Route path="about" element={<Layout view='about'/>}/>
               <Route path="welcome" element={<Layout view='welcome'/>}/>
