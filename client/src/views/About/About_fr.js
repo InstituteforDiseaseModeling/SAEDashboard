@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 const styles = ({
   content: {
-    minWidth: '48rem',
     maxWidth: '700px',
     width: '70%',
     margin: '5rem auto',
