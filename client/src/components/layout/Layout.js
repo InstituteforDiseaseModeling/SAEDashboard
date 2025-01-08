@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Footer from './Footer';
 import Dashboard from '../../views/Dashboard';
 import About from '../../views/About';
+import Welcome from '../../views/Welcome';
 import Libraries from '../../views/Libraries';
 import SnackbarContentWrapper from '../uielements/SnackBarContentWrapper';
 import {showStop} from '../../redux/actions/messaging';
@@ -61,7 +62,7 @@ const styles = (theme) => ({
 
 const Layout = (props) => {
   const {classes} = props;
-  const [selectedView, setSelectedView] = useState('dashboard');
+  const [selectedView, setSelectedView] = useState(props.view);
   const [anchorEl, setAnchorEl] = useState(null);
   const variant = useSelector((state) => state.showMsg.variant);
   const infoMsg = useSelector((state) => state.showMsg.msg);
@@ -70,17 +71,17 @@ const Layout = (props) => {
   const dispatch = useDispatch();
 
   const menuEntries = [
+    {urlFrag: 'welcome', id: 'dropdown_welcome'},
     {urlFrag: 'dashboard', id: 'dropdown_dashboard'},
     {urlFrag: 'about', id: 'dropdown_about'},
     {urlFrag: 'libraries', id: 'dropdown_lib'},
-
   ];
 
   const showView = (target) => {
     return (() => {
       setAnchorEl(null);
       setSelectedView(target);
-      window.location.href = '/#/' + target;
+      window.location.href = target;
     });
   };
 
@@ -115,6 +116,9 @@ const Layout = (props) => {
 
   let selectedTabContent;
   switch (selectedView) {
+    case 'welcome':
+      selectedTabContent = <Welcome />;
+      break;
     case 'dashboard':
       selectedTabContent = <Dashboard />;
       break;
@@ -205,6 +209,7 @@ const Layout = (props) => {
 
 Layout.propTypes = {
   classes: PropTypes.object,
+  view: PropTypes.string,
 };
 
 export default withStyles(styles)(Layout);

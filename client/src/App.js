@@ -4,6 +4,7 @@ import Provider from 'react-redux/es/components/Provider';
 import {createTheme, CssBaseline, StyledEngineProvider, ThemeProvider} from '@mui/material';
 import blue from '@mui/material/colors/blue';
 import Layout from './components/layout/Layout';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import './App.css';
 
@@ -62,7 +63,15 @@ function App() {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Layout />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout view='dashboard'/>}/>
+              <Route path="dashboard" element={<Layout view='dashboard'/>}/>
+              <Route path="about" element={<Layout view='about'/>}/>
+              <Route path="welcome" element={<Layout view='welcome'/>}/>
+              <Route path="libraries" element={<Layout view='libraries'/>}/>
+            </Routes>
+          </BrowserRouter>
         </ThemeProvider>
       </StyledEngineProvider>
     </Provider>
