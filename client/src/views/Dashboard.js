@@ -48,6 +48,12 @@ const Dashboard = (props) => {
     // Fetch the country data
     dispatch(fetchCountryData(selectedIsAdm3));
 
+    // // Fetch the indicator data
+    dispatch(fetchIndicatorData(selectedCountry, selectedIsAdm3));
+
+    // // Fetch the subgroup data
+    dispatch(fetchMapSubgroupData(selectedCountry, selectedIsAdm3));
+
     document.onkeydown = (e) => {
       if (e.key==='1' && e.ctrlKey) {
         setAmChartsInUse(true);
@@ -71,11 +77,9 @@ const Dashboard = (props) => {
           appConfig.shapefileVersion[selectedComparisonIndicator],
       ));
 
-      // Fetch the indicator data
+      // // Fetch the indicator data
       dispatch(fetchIndicatorData(selectedCountry, selectedIsAdm3));
 
-      // Fetch the subgroup data
-      dispatch(fetchMapSubgroupData(selectedCountry, selectedIsAdm3));
 
       // // Fetch event data
       dispatch(fetchEventData());
@@ -108,7 +112,6 @@ const Dashboard = (props) => {
       <Grid item xs={12} md={8}>
         <div className={classes.filters}>
           <YearFilter/>
-          &nbsp;
           <MonthFilter/>
         </div>
       </Grid>

@@ -10,23 +10,23 @@ export const TimeseriesSlider = withStyles({
     width: 'calc(100% - 85px)',
     marginRight: 50,
     marginLeft: 0,
-    marginTop: 5,
+    marginTop: 15,
   },
   thumb: {
     width: 50,
     height: 30,
-    marginTop: 13,
+    marginTop: 0,
     borderRadius: 4,
     boxShadow: '0 1px 5px rgba(0,0,0,0.65)',
     color: '#24323c',
   },
   track: {
     height: 5,
-    marginTop: 15,
+    // marginTop: 15,
   },
   rail: {
     height: 5,
-    marginTop: 15,
+    // marginTop: 15,
     marginLeft: 0,
   },
   valueLabel: {
