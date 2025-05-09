@@ -20,10 +20,14 @@ const styles = makeStyles({
     backgroundColor: 'white',
     height: '100%',
   },
-  note_diff: {
-    top: -20,
-    color: 'darkred',
-    position: 'inherit',
+
+  note: {
+    top: -22,
+    position: 'relative',
+    width: '100%',
+    textAlign: 'center',
+    textDecoration: 'underline',
+    fontSize: '0.9em',
   },
 });
 
@@ -159,7 +163,13 @@ const MapComponent = (props: MapPros) => {
 
     const initialView = [14.4, -15];
 
-    mapObj = L.map(chart.current).setView(initialView, 6.8) as MapExtension;
+    mapObj = L.map(chart.current,
+        {
+          zoomSnap: 0.25,
+          zoomDelta: 0.25,
+          scrollWheelZoom: false,
+        },
+    ).setView(initialView, 6.8) as MapExtension;
 
     const standardFeatureHandler = (feature:Feature) => {
       const region = _.find(mapData, {id: feature.id as any});
@@ -214,8 +224,14 @@ const MapComponent = (props: MapPros) => {
 
       {/* Difference note */}
       {!primary && selectedDiffMap &&
-        <div className={classes.note_diff}>
+        <div className={classes.note} style={{'color': 'darkred'}}>
           Difference is calculated by : {indicator} cases in { selectedYearMonth } - {selectedIndicator} cases in { currentYear}
+        </div>
+      }
+      {/* show chart note */}
+      {primary &&
+        <div className={classes.note}>
+            To show the time-series plots, click a region on the main map
         </div>
       }
     </div>
