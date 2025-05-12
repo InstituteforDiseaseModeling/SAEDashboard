@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
-import Map from './uielements/Map';
 import Map2 from './uielements/Map2.tsx';
 import loader from '../image/loader.gif';
 import {setGeoJsonData} from '../redux/actions/dashboard';
@@ -11,7 +10,6 @@ import {Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import {AFRICA_STR, DEFAULT_THEMES} from '../const';
 import config from '../app_config.json';
-import {MapContext} from '../components/context/mapContext';
 import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
 
@@ -50,7 +48,6 @@ const MapPanelMap = (props) => {
   const [error, setError] = useState();
   const classes = styles();
   const dispatch = useDispatch();
-  const {amChartsInUse} = useContext(MapContext);
 
   const fetchData = async () => {
     axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
@@ -139,36 +136,20 @@ const MapPanelMap = (props) => {
 
   return (
     <div className={classes.root}>
-      { amChartsInUse &&
-        <Map
-          selectPlace={(state) => {
-            changeSelectedState(state);
-          }}
-          geoJson={geoJson[selectedCountry]}
-          mapData={MapData}
-          primary={primary}
-          zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
-          selectedMapTheme={finalTheme}
-          mapLegendMax={mapLegendMax}
-          key ={mapLegendMax}
-        />
-      }
-      { !amChartsInUse &&
-        <Map2
-          selectPlace={(state) => {
-            changeSelectedState(state);
-          }}
-          geoJson={geoJson[selectedCountry]}
-          mapData={MapData}
-          primary={primary}
-          zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
-          selectedMapTheme={finalTheme}
-          subgroup={subgroup}
-          indicator={indicator}
-          mapLegendMax={mapLegendMax}
-          key ={mapLegendMax+selectedLegend}
-        />
-      }
+      <Map2
+        selectPlace={(state) => {
+          changeSelectedState(state);
+        }}
+        geoJson={geoJson[selectedCountry]}
+        mapData={MapData}
+        primary={primary}
+        zoomLevel={selectedCountry === AFRICA_STR? -1 : 1}
+        selectedMapTheme={finalTheme}
+        subgroup={subgroup}
+        indicator={indicator}
+        mapLegendMax={mapLegendMax}
+        key ={mapLegendMax+selectedLegend}
+      />
     </div>
   );
 };
