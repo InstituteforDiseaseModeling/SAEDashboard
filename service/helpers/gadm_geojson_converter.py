@@ -3,7 +3,7 @@ GeoJSON Converter Script
 Author: Emily Driano
 ----------------------------------
 
-This script converts a directory of GADM formatted GeoJSON files (admin levels 0–2) into the GeoJSON format expected by
+This script converts a directory of GADM formatted GeoJSON files (admin levels 0–3) into the GeoJSON format expected by
 the service, and then consequently serializes the .json files into .shp.pickle files. Each output file contains a dictionary
 of features keyed by hierarchical IDs, optionally scoped to a continent.
 
@@ -18,7 +18,7 @@ Arguments:
 Input Requirements:
     - Input files are expected to follow the GADM format, in which generally:
         - Each GeoJSON file must contain a "features" array with:
-            - "properties": includes "COUNTRY", "NAME_1", and optionally "NAME_2"
+            - "properties": country key ("NAME_0", "COUNTRY", or "ADMIN_0"), "NAME_1"/"ADMIN_1", and optionally "NAME_2"/"ADMIN_2", "NAME_3"/"ADMIN_3"
             - "geometry": standard GeoJSON geometry
 
 Output:
@@ -61,12 +61,31 @@ def parse_args():
     return args
 
 def determine_admin_level(props):
-    if "NAME_2" in props:
-        return 2
-    elif "NAME_1" in props:
-        return 1
-    else:
-        return 0
+    for prefix in ("NAME_", "ADMIN_"):
+        if f"{prefix}3" in props:
+            return 3
+        elif f"{prefix}2" in props:
+            return 2
+        elif f"{prefix}1" in props:
+            return 1
+    return 0
+
+
+def get_country(props):
+    """Return the country name from a feature's properties, trying known GADM key variants."""
+    for key in ("NAME_0", "COUNTRY", "ADMIN_0"):
+        if key in props:
+            return props[key]
+    raise KeyError("No country key found (tried NAME_0, COUNTRY, ADMIN_0)")
+
+
+def get_admin_name(props, level):
+    """Return the admin name for a given level, trying NAME_N then ADMIN_N variants."""
+    for prefix in ("NAME_", "ADMIN_"):
+        key = f"{prefix}{level}"
+        if key in props:
+            return props[key]
+    raise KeyError(f"No admin level {level} key found (tried NAME_{level}, ADMIN_{level})")
 
 
 def process_file(file_path, output_folder, continent):
@@ -87,9 +106,11 @@ def process_file(file_path, output_folder, continent):
 
     new_json = {}
     try:
-        level = determine_admin_level(data["features"][0]["properties"])
+        first_props = data["features"][0]["properties"]
+        level = determine_admin_level(first_props)
+        country = get_country(first_props)
     except Exception as e:
-        logging.error(f"Could not determine admin level in {file_path.name}: {e}")
+        logging.error(f"Could not determine admin level or country in {file_path.name}: {e}")
         return
 
     for feature in data["features"]:
@@ -98,15 +119,11 @@ def process_file(file_path, output_folder, continent):
             geometry = feature["geometry"]
             feature_type = feature["type"]
 
-            country = props["COUNTRY"]
+            country = get_country(props)
             feature_id = f"{continent}:{country}"
 
-            if level >= 1:
-                admin1 = props["NAME_1"]
-                feature_id += f":{admin1}"
-            if level == 2:
-                admin2 = props["NAME_2"]
-                feature_id += f":{admin2}"
+            for lvl in range(1, level + 1):
+                feature_id += f":{get_admin_name(props, lvl)}"
 
             new_json[feature_id] = {
                 "type": feature_type,

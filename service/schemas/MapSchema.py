@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import Any, List, Dict, Optional
 from pydantic import BaseModel, RootModel
 
 
@@ -18,7 +18,7 @@ class MapSchema(BaseModel):
     value: float
     data_lower_bound: float
     data_upper_bound: float
-    others: Optional[Dict[str, float]] = None
+    others: Optional[Dict[str, Any]] = None
 
 class MapListSchema(RootModel[List[MapSchema]]):
     """

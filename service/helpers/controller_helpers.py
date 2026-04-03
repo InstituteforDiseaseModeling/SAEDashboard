@@ -75,7 +75,7 @@ def detect_shape_versions(country):
     """
     Return available shapefile versions for a given country.
     """
-    regex = re.compile('^%s__l(?P<admin_level>.+)__(?P<version>.+)\.shp\.pickle$' % country)
+    regex = re.compile('^%s__l(?P<admin_level>.+)__(?P<version>.+)\.shp\.pickle$' % country, re.IGNORECASE)
     country_datafiles = {}
     for fn in os.listdir(shape_dir):
         match_obj = regex.match(fn)
@@ -110,13 +110,14 @@ def extract_shape_info_from_filename(filename: str) -> (str, str, str):
         return None, None, None
 
 
-def get_data_filenames(country=None, channel=None, subgroup=None, version=None):
+def get_data_filenames(country=None, channel=None, subgroup=None, version=None, data_dir=data_dir):
     """
     Get the filenames of data files based on filters provided.
     :param country: Which country to filter on.
     :param channel: Which channel to filter on.
     :param subgroup:  Which subgroup to filter on.
     :param version: Which version to filter on.
+    :param data_dir: Directory to search (defaults to the standard indicator data directory).
     :return: A list of matches. Each match can carry a "country", "channel", "subgroup" or "version" if set to null in
     the arguments.
     """
@@ -126,10 +127,39 @@ def get_data_filenames(country=None, channel=None, subgroup=None, version=None):
     channel_pattern = '(?P<channel>.+)' if channel is None else channel
     subgroup_pattern = '(?P<subgroup>.+)' if subgroup is None else subgroup
     version_pattern = '(?P<version>.+)' if version is None else version
-    regex = re.compile(regex_str % (country_pattern, channel_pattern, subgroup_pattern, version_pattern))
+    regex = re.compile(regex_str % (country_pattern, channel_pattern, subgroup_pattern, version_pattern), re.IGNORECASE)
     matches = [regex.match(fn) for fn in os.listdir(data_dir)]
     matches = [m for m in matches if m is not None]
     return matches
+
+
+LAYER_DATA_DIR = os.path.join(data_root, 'layers')
+
+
+def open_layer_csv(country: str, layer_id: str) -> dict:
+    """
+    Load all CSVs for a given layer_id from the layers directory, grouped by year.
+
+    Returns:
+      - { year: { site: {...} } }  for multi-year layers
+      - { site: {...} }            for single-year layers (subgroup == "all")
+    """
+    matches = get_data_filenames(country=country, channel=layer_id, data_dir=LAYER_DATA_DIR)
+    if not matches:
+        raise ControllerException(f"No CSV found for layer '{layer_id}' (country: {country})")
+
+    result = {}
+    for m in matches:
+        year = m["subgroup"]
+        df = pd.read_csv(os.path.join(LAYER_DATA_DIR, m.string))
+        df = df.where(pd.notna(df), None)
+        key_col = df.columns[0]
+        records = df.set_index(key_col).to_dict(orient="index")
+        if year == "all":
+            return records
+        result[year] = records
+
+    return result
 
 
 def get_all_countries():
@@ -201,8 +231,8 @@ def get_subgroups(dot_name, channel=None, version=None, use_descendent_dot_names
             if any([lambda_compare(ddn) for ddn in data_dot_names]):
                 subgroups.add(m['subgroup'])
         else:
-            # Use exact dot_name
-            if str(dot_name) in df[DataFileKeys.DOT_NAME].values:
+            # Use exact dot_name (case-insensitive)
+            if str(dot_name).lower() in df[DataFileKeys.DOT_NAME].str.lower().values:
                 subgroups.add(m['subgroup'])
     return list(subgroups)
 
@@ -229,8 +259,8 @@ def get_channels(dot_name, subgroup=None, version=None, use_descendent_dot_names
             if any([lambda_compare(ddn) for ddn in data_dot_names]):
                 channels.add(m['channel'])
         else:
-            # exact dot_name matching only
-            if str(dot_name) in df[DataFileKeys.DOT_NAME].values:
+            # exact dot_name matching only (case-insensitive)
+            if str(dot_name).lower() in df[DataFileKeys.DOT_NAME].str.lower().values:
                 channels.add(m['channel'])
     return list(channels)
 
@@ -241,7 +271,7 @@ def get_dataframe(country, channel, subgroup, version):
     """
     # Compile pattern and filter filenames directly
     regex_str = f'^{country}__{channel}__{subgroup}__{version}\\.csv$'
-    regex = re.compile(regex_str)
+    regex = re.compile(regex_str, re.IGNORECASE)
     matches = [regex.match(fn) for fn in os.listdir(data_dir) if regex.match(fn)]
 
     if len(matches) == 0:
@@ -264,7 +294,7 @@ def get_indicator_version(country, channel):
 
     Raises error if more than one version is found (to enforce uniqueness).
     """
-    regex = re.compile(rf'^{country}__{channel}__.+__(?P<version>\d+)\.csv$')
+    regex = re.compile(rf'^{country}__{channel}__.+__(?P<version>\d+)\.csv$', re.IGNORECASE)
 
     versions = set()
     for fn in os.listdir(data_dir):
@@ -299,7 +329,7 @@ def get_indicator_admin_levels(country, channel, version):
     for file in matches:
         df = open_data_file(filename=file.string)
 
-        admin_levels.update((df['dot_name'].str.split(':').apply(len) - 2).unique())
+        admin_levels.update((df['dot_name'].str.split(':').apply(len) - 1).unique())
 
     return admin_levels
 
@@ -319,7 +349,7 @@ def get_indicator_subgroups(country, channel, version):
     version_pattern = '(?P<version>.+)' if version is None else version
 
     # Compile regex and list all files in dir matching regex
-    regex = re.compile(regex_str % (country_pattern, channel_pattern, version_pattern))
+    regex = re.compile(regex_str % (country_pattern, channel_pattern, version_pattern), re.IGNORECASE)
     matches = [regex.match(fn) for fn in os.listdir(data_dir)]
 
     # Extract subgroup from matched files and convert them to int
@@ -439,7 +469,7 @@ def get_shape_filenames(country=None, admin_level=None, version=None):
     country_pattern = '(?P<country>.+)' if country is None else country
     admin_pattern = '(?P<admin_level>.+)' if admin_level is None else admin_level
     version_pattern = '(?P<version>.+)' if version is None else version
-    regex = re.compile(regex_str % (country_pattern, admin_pattern, version_pattern))
+    regex = re.compile(regex_str % (country_pattern, admin_pattern, version_pattern), re.IGNORECASE)
     matches = [regex.match(fn) for fn in os.listdir(shape_dir)]
     matches = [m for m in matches if m is not None]
     return matches

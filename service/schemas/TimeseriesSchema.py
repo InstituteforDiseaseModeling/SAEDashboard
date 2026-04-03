@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Any, Optional, Dict, List
 from pydantic import BaseModel, RootModel
 
 
@@ -18,7 +18,7 @@ class TimeseriesEstimate(BaseModel):
     lower_bound: float
     middle: float
     upper_bound: float
-    others: Optional[Dict[str, float]] = None
+    others: Optional[Dict[str, Any]] = None
 
 
 class TimeseriesEstimatesList(RootModel[List[TimeseriesEstimate]]):

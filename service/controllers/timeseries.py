@@ -119,7 +119,7 @@ async def get_timeseries(request: Request):
         df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=shape_version)
 
         # limit data to the requested dot_name only
-        df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
+        df = df.loc[df[DataFileKeys.DOT_NAME].str.lower() == str(dot_name).lower(), :]
 
         # Flag to indicate whether data contains monthly values
         if 'month' in df.columns:

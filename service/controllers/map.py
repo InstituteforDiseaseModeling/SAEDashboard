@@ -1,3 +1,4 @@
+import math
 import pandas as pd
 import yaml
 import os
@@ -145,7 +146,7 @@ async def get_map(request: Request):
                         'data_upper_bound': row['data_upper_bound'],
                         'data_lower_bound': row['data_lower_bound'],
                         'others': {
-                            col.removeprefix(f'pred_'): row[col] for col in addl_data_columns
+                            col.removeprefix(f'pred_'): str(row[col]) if pd.notna(row[col]) else "" for col in addl_data_columns
                         }
                     }
                     new_values.append(entry)
@@ -154,12 +155,24 @@ async def get_map(request: Request):
                 new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
                     columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
 
-            # Update 'data_lower_bound' and 'data_upper_bound' if they are NaN
+            # Drop records with non-finite values (NaN/inf are not JSON-serializable)
+            filtered_values = []
             for record in new_values:
-                if pd.isna(record['data_lower_bound']):
-                    record['data_lower_bound'] = record['value']
-                if pd.isna(record['data_upper_bound']):
-                    record['data_upper_bound'] = record['value']
+                val = record['value']
+                if isinstance(val, float) and not math.isfinite(val):
+                    continue
+                lb = record['data_lower_bound']
+                if pd.isna(lb):
+                    record['data_lower_bound'] = val
+                elif isinstance(lb, float) and not math.isfinite(lb):
+                    record['data_lower_bound'] = val
+                ub = record['data_upper_bound']
+                if pd.isna(ub):
+                    record['data_upper_bound'] = val
+                elif isinstance(ub, float) and not math.isfinite(ub):
+                    record['data_upper_bound'] = val
+                filtered_values.append(record)
+            new_values = filtered_values
 
             return_list.extend(new_values)
 

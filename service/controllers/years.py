@@ -56,7 +56,7 @@ async def get_years(request: Request):
         df = get_dataframe(country=dot_name.country, channel=channel, subgroup=subgroup, version=shape_version)
 
         # limit data to the requested dot_name only
-        df = df.loc[df[DataFileKeys.DOT_NAME] == str(dot_name), :]
+        df = df.loc[df[DataFileKeys.DOT_NAME].str.lower() == str(dot_name).lower(), :]
 
         years = sorted(list(set(df[DataFileKeys.YEAR])))
         result = {

@@ -24,6 +24,7 @@ class DotName:
             dot_name_str (str): The full dot name (e.g., 'Africa:Senegal:Saint-Louis')
         """
         self.parts = dot_name_str.split(self.DOT_NAME_SEPARATOR)
+        self._lower_parts = [p.lower() for p in self.parts]
 
     @property
     def admin_level(self):
@@ -49,9 +50,9 @@ class DotName:
 
     def __eq__(self, other):
         """
-        Equality comparison based on dot name parts.
+        Equality comparison based on dot name parts (case-insensitive).
         """
-        return True if self.parts == other.parts else False
+        return self._lower_parts == other._lower_parts
 
     def __repr__(self):
         """
@@ -63,7 +64,7 @@ class DotName:
         """
         Checks if self is an ancestor of the given DotName.
         """
-        return (dn.parts[0:self.admin_level + 1] == self.parts) and (dn.admin_level > self.admin_level)
+        return (dn._lower_parts[0:self.admin_level + 1] == self._lower_parts) and (dn.admin_level > self.admin_level)
 
     def is_descendant(self, dn):
         """
