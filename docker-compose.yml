@@ -1,0 +1,36 @@
+services:
+  client:
+    build:
+      context: ./client
+      args:
+        SITE_CONF: site.local.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - service
+      - mind
+
+  service:
+    build:
+      context: .
+      dockerfile: service/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./service/data/data:/app/service/data/data
+
+  mind:
+    build:
+      context: ./mind
+      dockerfile: Dockerfile
+    ports:
+      - "5020:5020"
+    env_file:
+      - .env
+    environment:
+      - SERVICE_URL=http://service:5000
+    volumes:
+      - ./mind-data:/data
+      - ./service/data/data:/app/service-indicators-source:ro
+    depends_on:
+      - service

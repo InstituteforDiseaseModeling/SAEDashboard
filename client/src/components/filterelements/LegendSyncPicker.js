@@ -1,67 +1,40 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Switch, FormControl, FormLabel, FormControlLabel} from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
+import {Switch, FormControl, FormLabel, FormControlLabel, Typography} from '@mui/material';
 import {changeLegendSync} from '../../redux/actions/filters';
-import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
-
-const styles = {
-  formControlLabel: {
-    marginLeft: 5,
-    marginTop: 0,
-    color: 'black',
-    height: 22,
-  },
-  formLabel: {
-    color: 'white',
-    top: -6,
-    left: 15,
-    fontSize: '0.75rem',
-  },
-  menuPaper: {
-    maxHeight: 400,
-  },
-  root: {
-    width: 110,
-  },
-};
+import {toolbarFormLabelSx, toolbarSwitchSx, toolbarSwitchLabelSx} from './controlStyles';
 
 /**
- * component for selecting a country
- * @param {LegendSyncPicker.propTypes} props
+ * Toggle for syncing legends between the primary and comparison maps.
  * @return {React.ReactElement}
  */
-const LegendSyncPicker = (props) => {
-  const {classes} = props;
+const LegendSyncPicker = () => {
   const dispatch = useDispatch();
   const selectedLegendSync = useSelector((state) => state.filters.selectedLegendSync);
 
-  const legendSyncChange = (e) => {
-    dispatch(changeLegendSync(e.target.checked));
-  };
-
   return (
-    <div className={classes.root}>
+    <div style={{minWidth: 100}}>
       <FormControl component='fieldset' variant='standard'>
-        <FormLabel component='legendSync' className={classes.formLabel}>
+        <FormLabel component='legend' sx={toolbarFormLabelSx}>
           <FormattedMessage id='Legend_Sync'/>
         </FormLabel>
-        <FormControlLabel className={classes.formControlLabel}
-          label={selectedLegendSync ? 'On': 'Off'}
+        <FormControlLabel
+          sx={{marginLeft: 0, marginTop: '2px', gap: '8px'}}
+          label={
+            <Typography sx={toolbarSwitchLabelSx}>
+              {selectedLegendSync ? 'On' : 'Off'}
+            </Typography>
+          }
           control={<Switch
-            color={'default'}
+            sx={toolbarSwitchSx}
             checked={selectedLegendSync}
-            onChange={legendSyncChange}
-          />}>
-        </FormControlLabel>
+            onChange={(e) => dispatch(changeLegendSync(e.target.checked))}
+          />}
+        />
       </FormControl>
     </div>
   );
 };
 
-LegendSyncPicker.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LegendSyncPicker);
+export default LegendSyncPicker;

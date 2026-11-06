@@ -1,15 +1,9 @@
 {
-  "title": "Subnational Family Planning Estimation Tool",
-  "disableAdmin2" : false,
-  "defaultYear": 2020,
-  "defaultRegion" : "Africa:Senegal:Diourbel",
-  "defaultCountry" : "Africa:Senegal",
-  "defaultThemeByIndicator" : {
-    "modern_method" : "RdBu",
-    "traditional_method": "RdBu",
-    "unmet_need": "BuRd"
-  },
-  "shapefileVersion": {},
-  "defaultIndicator" : "modern_method",
-  "defaultComparisonIndicator" : "traditional_method"
+  "title": "SAE Dashboard",
+  "disableAdmin2": false,
+  "defaultYear": 2024,
+  "defaultRegion": "Africa",
+  "defaultCountry": "Africa",
+  "defaultThemeByIndicator": {},
+  "shapefileVersion": {}
 }

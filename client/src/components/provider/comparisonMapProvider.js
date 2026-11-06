@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const initialSettings = {
@@ -30,6 +31,14 @@ function ComparisonMapProvider(props) {
   const [center, setCenter] = useState();
   // for closing popup
   const [closePopup, setClosePopup] = useState(false);
+
+  // A saved view belongs to one country; drop it on country switch so the
+  // maps re-fit to the new country's data instead of restoring the old view.
+  const selectedCountry = useSelector((state) => state.filters.selectedCountry);
+  useEffect(() => {
+    setZoom(undefined);
+    setCenter(undefined);
+  }, [selectedCountry]);
 
   const setLatLngClicked = (latLng) => {
     setLatLngClickedInternal({...latLng});

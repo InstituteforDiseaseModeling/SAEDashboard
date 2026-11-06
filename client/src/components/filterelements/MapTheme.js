@@ -2,53 +2,43 @@ import React, {useEffect} from 'react';
 import {MenuItem, Select} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import withStyles from '@mui/styles/withStyles';
+import {useSelector} from 'react-redux';
 import config from '../../app_config.json';
-import {DEFAULT_THEME} from '../../const';
+import {DEFAULT_THEME, MAP_THEMES} from '../../const';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
+import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
 
-const styles = {
-  menuPaper: {
-    maxHeight: 400,
-  },
-};
-
-const scales = [
-  'Accent', 'Blues', 'BrBG', 'BuGn', 'BuPu', 'BuRd', 'Dark2', 'GnBu', 'GnYlRd', 'Greens',
-  'Greys', 'OrRd', 'Oranges', 'PRGn', 'Paired', 'Pastel1', 'Pastel2', 'PiYG',
-  'PuBu', 'PuBuGn', 'PuOr', 'PuRd', 'Purples', 'RdBu', 'RdGy', 'RdPu', 'RdYlBu',
-  'RdYlGn', 'Reds', 'Set1', 'Set2', 'Set3', 'Spectral', 'Viridis', 'YlGn', 'YlGnBu',
-  'YlOrBr', 'YlOrRd', 'GnRd',
-];
-
-/**
- * component for color theme selection for the map chart
- * @param {MapTheme.propTypes} props
- * @return {React.ReactElement}
- */
 const MapTheme = (props) => {
   const {primary, selectedMapTheme, selectedComparisonMapTheme, changeMapTheme,
-    changeComparisonMapTheme, classes, indicator} = props;
+    changeComparisonMapTheme, indicator} = props;
+  const indicators = useSelector((state) => state.filters.indicators);
+
+  const getThemeForIndicator = (ind) => {
+    if (ind && config && config.defaultThemeByIndicator && config.defaultThemeByIndicator[ind]) {
+      return config.defaultThemeByIndicator[ind];
+    }
+    const indObj = indicators.find((i) => i.id === ind);
+    if (indObj && indObj.color_theme) return indObj.color_theme;
+    return DEFAULT_THEME;
+  };
 
   useEffect(()=> {
     if (!selectedMapTheme) {
-      changeMapTheme(indicator && config &&
-        config.defaultThemeByIndicator && config.defaultThemeByIndicator[indicator] ?
-        config.defaultThemeByIndicator[indicator] : DEFAULT_THEME);
+      changeMapTheme(getThemeForIndicator(indicator));
     }
     if (!selectedComparisonMapTheme) {
-      changeComparisonMapTheme(indicator && config &&
-        config.defaultThemeByIndicator && config.defaultThemeByIndicator[indicator] ?
-        config.defaultThemeByIndicator[indicator] : DEFAULT_THEME);
+      changeComparisonMapTheme(getThemeForIndicator(indicator));
     }
   }, []);
 
   useEffect(() => {
-    changeMapTheme(indicator && config && config.defaultThemeByIndicator &&
-      config.defaultThemeByIndicator[indicator] ?
-      config.defaultThemeByIndicator[indicator] : DEFAULT_THEME);
-  }, [indicator]);
+    if (primary) {
+      changeMapTheme(getThemeForIndicator(indicator));
+    } else {
+      changeComparisonMapTheme(getThemeForIndicator(indicator));
+    }
+  }, [indicator, indicators]);
 
   useEffect(() => {
     changeMapTheme(selectedMapTheme);
@@ -60,33 +50,28 @@ const MapTheme = (props) => {
     };
   }, [selectedComparisonMapTheme]);
 
+  const renderSelect = (value, onChange) => (
+    <Select
+      id="mapTheme-select"
+      value={value || MAP_THEMES[0]}
+      sx={{...toolbarSelectSx, minWidth: 110}}
+      MenuProps={{PaperProps: {sx: toolbarMenuPaperSx}}}
+      onChange={(e) => onChange(e.target.value)}
+    >
+      {MAP_THEMES.map((field, i) => (
+        <MenuItem value={field} key={i}>{field}</MenuItem>
+      ))}
+    </Select>
+  );
+
   return (
     <FormControl variant="standard">
-      <InputLabel htmlFor="mapTheme-select">
+      <InputLabel shrink htmlFor="mapTheme-select" sx={toolbarLabelSx}>
         <FormattedMessage id='themes'/>
       </InputLabel>
       {primary ?
-        <Select id="mapTheme-select" value={selectedMapTheme ? selectedMapTheme : scales[0]}
-          style={{minWidth: '100px'}}
-          onChange={(e) => changeMapTheme(e.target.value)}
-          MenuProps={{classes: {paper: classes.menuPaper}}}
-        >
-          {scales.map((field, i) => {
-            return (<MenuItem value={field} key={i}>{field}</MenuItem>);
-          })}
-        </Select> :
-        <Select id="mapTheme-select"
-          value={selectedComparisonMapTheme ? selectedComparisonMapTheme : scales[0]}
-          style={{minWidth: '100px'}}
-          onChange={(e) => changeComparisonMapTheme(e.target.value)}
-          MenuProps={{classes: {paper: classes.menuPaper}}}
-        >
-
-
-          {scales.map((field, i) => {
-            return (<MenuItem value={field} key={i}>{field}</MenuItem>);
-          })}
-        </Select>
+        renderSelect(selectedMapTheme, changeMapTheme) :
+        renderSelect(selectedComparisonMapTheme, changeComparisonMapTheme)
       }
     </FormControl>);
 };
@@ -101,4 +86,4 @@ MapTheme.propTypes = {
   indicator: PropTypes.string,
 };
 
-export default withStyles(styles)(MapTheme);
+export default MapTheme;

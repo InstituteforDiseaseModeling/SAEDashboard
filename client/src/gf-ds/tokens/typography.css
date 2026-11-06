@@ -1,0 +1,51 @@
+/* ============================================
+   TYPOGRAPHY  —  Gates Foundation
+   Cambria (serif) for display · Calibri (sans) for body.
+   Hierarchy comes from SIZE, not from switching fonts or colors.
+   ============================================ */
+
+:root {
+  /* ---- Families (approved webfonts shipped in fonts.css) ---- */
+  --font-display: "Noto Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Courier New", monospace;
+
+  /* Condensed headline families — the brand's display system.
+       H1 big uppercase black  ·  H2 editorial serif  ·  H3 uppercase subhead
+     Each falls back to the loaded regular-width Noto family. */
+  --font-headline: "Noto Sans ExtraCondensed", "Noto Sans", sans-serif;
+  --font-headline-serif: "Noto Serif ExtraCondensed", "Noto Serif", Georgia, serif;
+  --font-subhead: "Noto Sans Condensed", "Noto Sans", sans-serif;
+
+  /* Brand weights: body copy is Noto Sans LIGHT (300); emphasis is
+     ExtraBold (800) / Black (900). Headlines are Noto Serif. */
+  --weight-body: 300;
+  --weight-body-strong: 800;
+  --weight-display: 400;
+  --weight-display-strong: 700;
+
+  /* ---- Type scale (px) ---- */
+  --text-title-xl: 52px;   /* hero / cover titles */
+  --text-title:    44px;   /* standard slide titles */
+  --text-subtitle: 28px;   /* section heads, subtitles */
+  --text-subtitle-sm: 24px;
+  --text-lead:     20px;   /* lead paragraph / large body */
+  --text-body:     16px;   /* body */
+  --text-body-sm:  14px;   /* dense body, bullets */
+  --text-caption:  12px;   /* captions, labels */
+  --text-caption-xs: 10px; /* footnotes, source lines */
+
+  /* ---- Weights (generic aliases; prefer the semantic ones above) ---- */
+  --weight-regular: 400;
+  --weight-bold: 800;   /* Noto Sans ExtraBold — the loaded bold weight */
+
+  /* ---- Line heights ---- */
+  --leading-title: 1.2;
+  --leading-subtitle: 1.3;
+  --leading-body: 1.5;
+  --leading-tight: 1.3;
+
+  /* ---- Tracking ---- */
+  --tracking-title: -0.01em;
+  --tracking-label: 0.08em;  /* uppercase eyebrows / labels */
+}

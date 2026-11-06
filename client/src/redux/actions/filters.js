@@ -8,6 +8,7 @@ import {
   CHANGE_SELECTED_SUBGROUP,
   CHANGE_SELECTED_COMPARISON_SUBGROUP,
   CHANGE_SELECTED_COUNTRY,
+  CHANGE_INDICATOR_COLOR_THEME,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_SELECTED_COMPARISON_MAP_THEME,
   CHANGE_MAP_LEGEND_MAX,
@@ -28,11 +29,6 @@ import {apiAction} from './api';
 import {AFRICA_STR} from '../../const';
 
 
-/**
- * get change selected year message
- * @param {*} year
- * @return {*} change year message
- */
 export function changeSelectedYear(year) {
   return {
     type: CHANGE_SELECTED_YEAR,
@@ -40,11 +36,6 @@ export function changeSelectedYear(year) {
   };
 }
 
-/**
- * get change selected month message
- * @param {*} month
- * @return {*} change month message
- */
 export function changeSelectedMonth(month) {
   return {
     type: CHANGE_SELECTED_MONTH,
@@ -52,11 +43,6 @@ export function changeSelectedMonth(month) {
   };
 }
 
-/**
- * get setting error message
- * @param {*} data
- * @return {*} error message
- */
 function setError(data) {
   const response = data.response;
 
@@ -68,11 +54,6 @@ function setError(data) {
   };
 }
 
-/**
- * change selected country
- * @param {*} selectedCountry
- * @return {*} selectedCountry message
- */
 export function changeSelectedCountry(selectedCountry) {
   return {
     type: CHANGE_SELECTED_COUNTRY,
@@ -80,11 +61,6 @@ export function changeSelectedCountry(selectedCountry) {
   };
 }
 
-/**
- * change isAdm3 indicator
- * @param {*} isAdm3
- * @return {*} isAdm3 message
- */
 export function changeIsAdm3(isAdm3) {
   return {
     type: CHANGE_ISADM3,
@@ -92,12 +68,6 @@ export function changeIsAdm3(isAdm3) {
   };
 }
 
-/**
- * change selected legend indicator
- * true means normal legend and false means custom legend
- * @param {*} selectedLegend
- * @return {*} legend message
- */
 export function changeSelectedLegend(selectedLegend) {
   return {
     type: CHANGE_LEGEND,
@@ -105,12 +75,6 @@ export function changeSelectedLegend(selectedLegend) {
   };
 }
 
-
-/**
- * change select Year filter in the comparison map filter
- * @param {*} selectedYear
- * @return {*} change year filter message
- */
 export function changeCompareYearFilter(selectedYear) {
   return {
     type: CHANGE_COMPARE_YEAR,
@@ -118,12 +82,6 @@ export function changeCompareYearFilter(selectedYear) {
   };
 }
 
-
-/**
- * change selected country state / region
- * @param {*} state
- * @return {*} selected state message
- */
 export function changeSelectedState(state) {
   return {
     type: CHANGE_SELECTED_STATE,
@@ -131,11 +89,6 @@ export function changeSelectedState(state) {
   };
 }
 
-/**
- * change selected country state / region for comparison map
- * @param {*} state
- * @return {*} selected state message
- */
 export function changeSelectedComparisonState(state) {
   return {
     type: CHANGE_SELECTED_COMPARISON_STATE,
@@ -143,11 +96,6 @@ export function changeSelectedComparisonState(state) {
   };
 }
 
-/**
- * change selected indicator
- * @param {*} selectedIndicator
- * @return {*} selected indicator message
- */
 export function changeSelectedIndicator(selectedIndicator) {
   return {
     type: CHANGE_SELECTED_INDICATOR,
@@ -155,11 +103,6 @@ export function changeSelectedIndicator(selectedIndicator) {
   };
 }
 
-/**
- * change selected comparison indicator
- * @param {*} selectedComparisonIndicator
- * @return {*} selected comparison indicator message
- */
 export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
   return {
     type: CHANGE_SELECTED_COMPARISON_INDICATOR,
@@ -167,11 +110,14 @@ export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
   };
 }
 
-/**
- * change selected map color theme
- * @param {*} selectedMapTheme
- * @return {*} change selected map color theme message
- */
+export function changeIndicatorColorTheme(indicator, colorTheme) {
+  return {
+    type: CHANGE_INDICATOR_COLOR_THEME,
+    indicator,
+    colorTheme,
+  };
+}
+
 export function changeSelectedMapTheme(selectedMapTheme) {
   return {
     type: CHANGE_SELECTED_MAP_THEME,
@@ -179,11 +125,6 @@ export function changeSelectedMapTheme(selectedMapTheme) {
   };
 }
 
-/**
- * change selected map color theme for comparison map
- * @param {*} selectedComparisonMapTheme
- * @return {*} change selected map color theme message
- */
 export function changeSelectedComparisonMapTheme(selectedComparisonMapTheme) {
   return {
     type: CHANGE_SELECTED_COMPARISON_MAP_THEME,
@@ -191,11 +132,6 @@ export function changeSelectedComparisonMapTheme(selectedComparisonMapTheme) {
   };
 }
 
-/**
- * change mapLegend max value
- * @param {*} mapLegendMax
- * @return {*} change mapLegend max value message
- */
 export function changeMapLegendMax(mapLegendMax) {
   return {
     type: CHANGE_MAP_LEGEND_MAX,
@@ -203,11 +139,6 @@ export function changeMapLegendMax(mapLegendMax) {
   };
 }
 
-/**
- * change mapLegend min value
- * @param {*} mapLegendMin
- * @return {*} change mapLegend min value message
- */
 export function changeMapLegendMin(mapLegendMin) {
   return {
     type: CHANGE_MAP_LEGEND_MIN,
@@ -215,11 +146,6 @@ export function changeMapLegendMin(mapLegendMin) {
   };
 }
 
-/**
- * toggle diff map value
- * @param {*} diffMap
- * @return {*} change diff map toggle message
- */
 export function changeDiffMap(diffMap) {
   return {
     type: CHANGE_DIFF_MAP,
@@ -227,11 +153,6 @@ export function changeDiffMap(diffMap) {
   };
 }
 
-/**
- * toggle legend Sync value
- * @param {*} legendSync
- * @return {*} change legend sync toggle message
- */
 export function changeLegendSync(legendSync) {
   return {
     type: CHANGE_LEGEND_SYNC,
@@ -239,11 +160,6 @@ export function changeLegendSync(legendSync) {
   };
 }
 
-/**
- * set indicator
- * @param {*} indicatorData
- * @return {*} set indicator message
- */
 export function setIndicatorData(indicatorData) {
   return {
     type: SET_INDICATOR_DATA,
@@ -251,11 +167,6 @@ export function setIndicatorData(indicatorData) {
   };
 }
 
-/**
- * set map subgroups data
- * @param {*} subgroupsData
- * @return {*} set map subgroups data message
- */
 export function setMapSubgroupsData(subgroupsData) {
   return {
     type: SET_MAP_SUBGROUPS_DATA,
@@ -263,11 +174,6 @@ export function setMapSubgroupsData(subgroupsData) {
   };
 }
 
-/**
- * set country data
- * @param {*} countryData
- * @return {*} set country data message
- */
 export function setCountryData(countryData) {
   return {
     type: SET_COUNTRY_DATA,
@@ -275,15 +181,9 @@ export function setCountryData(countryData) {
   };
 }
 
-/**
- * Fetch indicator data
- * @param {*} dotName
- * @param {*} isAdm3
- * @return {*} fetch indicator data message
- */
 export function fetchIndicatorData(dotName, isAdm3) {
   return apiAction({
-    url: '/indicators?dot_name=' + dotName + '&use_descendant_dot_names=True', // (isAdm3?3:2),
+    url: '/indicators?dot_name=' + dotName + '&use_descendant_dot_names=True',
     onSuccess: setIndicatorData,
     onFailure: setError,
     label: FETCH_DASHBOARD_DATA,
@@ -291,16 +191,10 @@ export function fetchIndicatorData(dotName, isAdm3) {
   });
 }
 
-/**
- * Fetch subgroup data
- * @param {*} dotName
- * @param {*} isAdm3
- * @return {*} fetch subgroup data message
- */
 export function fetchMapSubgroupData(dotName=AFRICA_STR, isAdm3) {
   return apiAction({
     url: '/subgroups?dot_name=' + dotName + '&use_descendant_dot_names=True&admin_level=' +
-      (isAdm3?3:2),
+      (isAdm3?2:1),
     onSuccess: setMapSubgroupsData,
     onFailure: setError,
     label: FETCH_DASHBOARD_DATA,
@@ -308,15 +202,9 @@ export function fetchMapSubgroupData(dotName=AFRICA_STR, isAdm3) {
   });
 }
 
-
-/**
- * Fetch country data
- * @param {*} isAdm3
- * @return {*} Fetch country data message
- */
 export function fetchCountryData(isAdm3) {
   return apiAction({
-    url: '/dot_names?dot_name=Africa&admin_level=' + (isAdm3?3:2),
+    url: '/dot_names?dot_name=Africa&admin_level=' + (isAdm3?2:1),
     onSuccess: setCountryData,
     onFailure: setError,
     label: FETCH_DASHBOARD_DATA,
@@ -324,11 +212,6 @@ export function fetchCountryData(isAdm3) {
   });
 }
 
-/**
- * change language
- * @param {*} language
- * @return {*} set language message
- */
 export function changeLanguage(language) {
   return {
     type: CHANGE_LANGUAGE,
@@ -336,11 +219,6 @@ export function changeLanguage(language) {
   };
 }
 
-/**
- * change selected subgroup for primary map
- * @param {*} selectedSubgroup
- * @return {*} selected subgroup message
- */
 export function changeSelectedSubgroup(selectedSubgroup) {
   return {
     type: CHANGE_SELECTED_SUBGROUP,
@@ -348,11 +226,6 @@ export function changeSelectedSubgroup(selectedSubgroup) {
   };
 }
 
-/**
- * change selected comparison subgroup
- * @param {*} selectedComparisonSubgroup
- * @return {*} selected comparison subgroup message
- */
 export function changeSelectedComparisonSubgroup(selectedComparisonSubgroup) {
   return {
     type: CHANGE_SELECTED_COMPARISON_SUBGROUP,

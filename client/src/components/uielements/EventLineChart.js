@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
  * @return {React.ReactElement}
  */
 const EventLineChart = (props) => {
-  const {chartData, title, channel, selectedState} = props;
+  const {chartData, title, channel, selectedState, combined} = props;
 
   const eventData = useSelector((state) => state.dashboard.eventData);
 
   return (
     <LineChart chartData={chartData} title={title} channel={channel}
-      selectedState={selectedState} eventData={eventData}/>
+      selectedState={selectedState} eventData={eventData} combined={combined}/>
   );
 };
 
@@ -24,7 +24,8 @@ EventLineChart.propTypes = {
   chartData: PropTypes.array.isRequired,
   title: PropTypes.string,
   selectedState: PropTypes.string,
-  eventData: PropTypes.object,
+  eventData: PropTypes.array,
+  combined: PropTypes.bool,
 };
 
 export default EventLineChart;

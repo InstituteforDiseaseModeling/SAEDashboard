@@ -7,7 +7,7 @@ import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../../customTheme.json';
 import {createArray} from '../../../utils/utils.js';
 import * as translations from '../../../data/translation/index.js';
-import {IndicatorConfig} from '../../constTs.tsx';
+import {useIndicatorConfig} from '../../../hooks/useAppConfig.ts';
 import {isIncidenceMap} from '../Map2.tsx';
 
 const styles = {
@@ -69,6 +69,7 @@ const MapLegend = (props) => {
     selectedLayer, primary, selectedIndicator, unselectedLayer} = props;
 
   // const mapLegendMax = maxValue; // useSelector((state) => state.filters.mapLegendMax);
+  const indicatorConfig = useIndicatorConfig(selectedIndicator);
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state) => state.filters.selectedDiffMap);
   const selectedLocale = useSelector((state) => state.filters.selectedLanguage);
@@ -108,9 +109,9 @@ const MapLegend = (props) => {
       </div>);
   };
 
-  const indicatorUnitlabel = _.get(IndicatorConfig[selectedIndicator], 'legendLabel');
+  const indicatorUnitlabel = indicatorConfig?.legendLabel;
 
-  const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel);
+  const yLabel = _.get(translations[selectedLocale], indicatorUnitlabel, indicatorUnitlabel);
   const legendTitle = _.get(translations[selectedLocale], 'fraction_polygenomic');
 
   /**
@@ -118,10 +119,8 @@ const MapLegend = (props) => {
    * @return {*} standard legend
    */
   const standardLegend = (selectedIndicator) => {
-    const multiper = selectedIndicator && IndicatorConfig[selectedIndicator] ?
-      IndicatorConfig[selectedIndicator].multiper : 1;
-    const unit = selectedIndicator && IndicatorConfig[selectedIndicator] ?
-      IndicatorConfig[selectedIndicator].unit.replace('\'', '') : '';
+    const multiper = indicatorConfig?.multiper ?? 1;
+    const unit = (indicatorConfig?.unit || '').replace('\'', '');
     return (<div className={classes.gradLegend} ref={legend} id={id}>
       {unitLabel(yLabel)}
       {Array.from(scale.colors(numberOfSteps)).map((c) => {

@@ -1,0 +1,99 @@
+/* ============================================
+   FONTS  —  Gates Foundation (approved webfonts)
+   Noto Serif  → display / headlines
+   Noto Sans   → body, UI, labels (Light is the brand body weight)
+   Files: assets/fonts/*.ttf (paths relative to project root / styles.css)
+   ============================================ */
+
+/* ---- Noto Serif ---- */
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif-Bold.ttf") format("truetype");
+}
+
+/* ---- Noto Sans ---- */
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSans-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSans-Black.ttf") format("truetype");
+}
+
+/* ---- Condensed display families ----
+   The brand's headline system (per the visual-identity guidelines): Sans
+   ExtraCondensed Black for big uppercase titles/numerals, Serif ExtraCondensed
+   for editorial headlines, Sans Condensed Black for subheads. */
+@font-face {
+  font-family: "Noto Sans ExtraCondensed";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSans_ExtraCondensed-Black.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans Condensed";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSans_Condensed-Black.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif ExtraCondensed";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif_ExtraCondensed-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif Condensed";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/NotoSerif_Condensed-SemiBold.ttf") format("truetype");
+}

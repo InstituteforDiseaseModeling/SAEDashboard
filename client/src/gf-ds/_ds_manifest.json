@@ -1,0 +1,1831 @@
+{
+  "namespace": "GatesFoundationDesignSystem_a11bc3",
+  "components": [
+    {
+      "name": "Gate",
+      "sourcePath": "components/brand/Gate.jsx"
+    },
+    {
+      "name": "Badge",
+      "sourcePath": "components/core/Badge.jsx"
+    },
+    {
+      "name": "Button",
+      "sourcePath": "components/core/Button.jsx"
+    },
+    {
+      "name": "Callout",
+      "sourcePath": "components/core/Callout.jsx"
+    },
+    {
+      "name": "Card",
+      "sourcePath": "components/core/Card.jsx"
+    },
+    {
+      "name": "Icon",
+      "sourcePath": "components/icons/Icon.jsx"
+    }
+  ],
+  "startingPoints": [
+    {
+      "name": "Badge",
+      "path": "components/core/Badge.jsx",
+      "previewPath": "components/core/core.card.html",
+      "kind": "component",
+      "section": "Core",
+      "subtitle": "Badge / tag — solid and soft",
+      "viewport": "700x120"
+    },
+    {
+      "name": "Button",
+      "path": "components/core/Button.jsx",
+      "previewPath": "components/core/core.card.html",
+      "kind": "component",
+      "section": "Core",
+      "subtitle": "Buttons — primary, secondary, outline, ghost",
+      "viewport": "700x180"
+    },
+    {
+      "name": "Callout",
+      "path": "components/core/Callout.jsx",
+      "previewPath": "components/core/core.card.html",
+      "kind": "component",
+      "section": "Core",
+      "subtitle": "Callout note — default / warning / success",
+      "viewport": "700x160"
+    },
+    {
+      "name": "Card",
+      "path": "components/core/Card.jsx",
+      "previewPath": "components/core/core.card.html",
+      "kind": "component",
+      "section": "Core",
+      "subtitle": "Content card with optional accent bar",
+      "viewport": "700x220"
+    }
+  ],
+  "cards": [
+    {
+      "path": "guidelines/brand-elevation.card.html",
+      "group": "Brand",
+      "viewport": "700x150",
+      "subtitle": "Shadows · saffron divider · soft corners",
+      "name": "Elevation & divider"
+    },
+    {
+      "path": "guidelines/brand-imagery.card.html",
+      "group": "Brand",
+      "viewport": "700x190",
+      "subtitle": "Documentary, warm, human — full-color",
+      "name": "Photography"
+    },
+    {
+      "path": "guidelines/brand-logos.card.html",
+      "group": "Brand",
+      "viewport": "700x200",
+      "subtitle": "Primary · Stacked · Monogram — Slate / Saffron / Parchment",
+      "name": "Logo lockups & colorways"
+    },
+    {
+      "path": "guidelines/brand-wordmark.card.html",
+      "group": "Brand",
+      "viewport": "700x150",
+      "subtitle": "Weathered Slate on Parchment",
+      "name": "Primary logo"
+    },
+    {
+      "path": "guidelines/color-accents.card.html",
+      "group": "Colors",
+      "viewport": "700x230",
+      "subtitle": "Six hue families × Light / Medium / Dark",
+      "name": "Secondary palette"
+    },
+    {
+      "path": "guidelines/color-dominance.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "60–70% light · 20–30% navy · 10–20% one accent",
+      "name": "Dominance ratio"
+    },
+    {
+      "path": "guidelines/color-neutrals.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Weathered Slate · Parchment · Blooming Saffron + White/Black",
+      "name": "Core palette"
+    },
+    {
+      "path": "guidelines/color-zigzag.card.html",
+      "group": "Colors",
+      "viewport": "700x180",
+      "subtitle": "Anchor on core, then one Light + Medium + Dark from different columns",
+      "name": "Zig-zag method"
+    },
+    {
+      "path": "components/brand/gate.card.html",
+      "group": "Components",
+      "viewport": "700x340",
+      "subtitle": "Signature framing device — saffron field, rounded content panel",
+      "name": "The Gate"
+    },
+    {
+      "path": "components/core/core.card.html",
+      "group": "Components",
+      "viewport": "700x420",
+      "subtitle": "Button, Card, Callout, Badge",
+      "name": "Core primitives"
+    },
+    {
+      "path": "components/icons/icons.card.html",
+      "group": "Components",
+      "viewport": "700x460",
+      "subtitle": "Functional (24) + Metaphorical (20) brand glyphs",
+      "name": "Icons"
+    },
+    {
+      "path": "guidelines/dataviz-palette.card.html",
+      "group": "Data viz",
+      "viewport": "700x260",
+      "subtitle": "Sequential ramps · categorical · diverging (Parchment neutral)",
+      "name": "DV palette & modes"
+    },
+    {
+      "path": "slides/gallery-columns.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1360x660",
+      "subtitle": "2 / 3 / 4 columns, headers & photos",
+      "name": "00 · All column options"
+    },
+    {
+      "path": "slides/layout23.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 23 · 1280×720",
+      "name": "23 · 2 Columns + headers"
+    },
+    {
+      "path": "slides/layout24.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 24 · 1280×720",
+      "name": "24 · 2 Columns, no headers"
+    },
+    {
+      "path": "slides/layout25.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 25 · 1280×720",
+      "name": "25 · 3 Columns + headers"
+    },
+    {
+      "path": "slides/layout26.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 26 · 1280×720",
+      "name": "26 · 4 Columns + headers"
+    },
+    {
+      "path": "slides/layout27.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 27 · 1280×720",
+      "name": "27 · 4 Columns + photos"
+    },
+    {
+      "path": "slides/layout71.card.html",
+      "group": "Slides · Columns",
+      "viewport": "1280x720",
+      "subtitle": "Layout 71 · 1280×720",
+      "name": "71 · 3 Columns, no headers"
+    },
+    {
+      "path": "slides/gallery-dividers.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1360x660",
+      "subtitle": "Compare the 6 section-divider colorways",
+      "name": "00 · All divider options"
+    },
+    {
+      "path": "slides/layout07.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 7 · 1280×720",
+      "name": "07 · Section Divider — Slate"
+    },
+    {
+      "path": "slides/layout08.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 8 · 1280×720",
+      "name": "08 · Section Divider — Parchment"
+    },
+    {
+      "path": "slides/layout09.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 9 · 1280×720",
+      "name": "09 · Section Divider — Saffron"
+    },
+    {
+      "path": "slides/layout10.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 10 · 1280×720",
+      "name": "10 · Section Divider — Light Turquoise"
+    },
+    {
+      "path": "slides/layout11.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 11 · 1280×720",
+      "name": "11 · Section Divider — Orange"
+    },
+    {
+      "path": "slides/layout12.card.html",
+      "group": "Slides · Dividers",
+      "viewport": "1280x720",
+      "subtitle": "Layout 12 · 1280×720",
+      "name": "12 · Section Divider — Dark Blue"
+    },
+    {
+      "path": "slides/gallery-end.card.html",
+      "group": "Slides · End",
+      "viewport": "1360x360",
+      "subtitle": "Saffron & Slate",
+      "name": "00 · All end-slide options"
+    },
+    {
+      "path": "slides/layout69.card.html",
+      "group": "Slides · End",
+      "viewport": "1280x720",
+      "subtitle": "Layout 69 · 1280×720",
+      "name": "69 · End Slide — Saffron"
+    },
+    {
+      "path": "slides/layout70.card.html",
+      "group": "Slides · End",
+      "viewport": "1280x720",
+      "subtitle": "Layout 70 · 1280×720",
+      "name": "70 · End Slide — Slate"
+    },
+    {
+      "path": "slides/gallery-grids.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1360x960",
+      "subtitle": "Photo & image grids",
+      "name": "00 · All grid options"
+    },
+    {
+      "path": "slides/layout42.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 42 · 1280×720",
+      "name": "42 · 4-col text + images + headers"
+    },
+    {
+      "path": "slides/layout43.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 43 · 1280×720",
+      "name": "43 · 4-col images + headings"
+    },
+    {
+      "path": "slides/layout44.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 44 · 1280×720",
+      "name": "44 · 2×2 grid + text"
+    },
+    {
+      "path": "slides/layout45.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 45 · 1280×720",
+      "name": "45 · 3 photos + text"
+    },
+    {
+      "path": "slides/layout46.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 46 · 1280×720",
+      "name": "46 · 5 images + headings"
+    },
+    {
+      "path": "slides/layout47.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 47 · 1280×720",
+      "name": "47 · 2×1 grid"
+    },
+    {
+      "path": "slides/layout48.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 48 · 1280×720",
+      "name": "48 · 2×2 grid"
+    },
+    {
+      "path": "slides/layout49.card.html",
+      "group": "Slides · Grids",
+      "viewport": "1280x720",
+      "subtitle": "Layout 49 · 1280×720",
+      "name": "49 · 2×3 grid"
+    },
+    {
+      "path": "slides/gallery-headshots.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1360x960",
+      "subtitle": "5 to 30 people",
+      "name": "00 · All headshot options"
+    },
+    {
+      "path": "slides/layout61.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 61 · 1280×720",
+      "name": "61 · Headshots — up to 5"
+    },
+    {
+      "path": "slides/layout62.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 62 · 1280×720",
+      "name": "62 · Headshots — up to 10"
+    },
+    {
+      "path": "slides/layout63.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 63 · 1280×720",
+      "name": "63 · Headshots — up to 12"
+    },
+    {
+      "path": "slides/layout64.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 64 · 1280×720",
+      "name": "64 · Headshots — up to 14"
+    },
+    {
+      "path": "slides/layout65.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 65 · 1280×720",
+      "name": "65 · Headshots — up to 16"
+    },
+    {
+      "path": "slides/layout66.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 66 · 1280×720",
+      "name": "66 · Headshots — up to 20"
+    },
+    {
+      "path": "slides/layout67.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 67 · 1280×720",
+      "name": "67 · Headshots — up to 24"
+    },
+    {
+      "path": "slides/layout68.card.html",
+      "group": "Slides · Headshots",
+      "viewport": "1280x720",
+      "subtitle": "Layout 68 · 1280×720",
+      "name": "68 · Headshots — up to 30"
+    },
+    {
+      "path": "slides/gallery-imagery.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1360x960",
+      "subtitle": "Full image/graphic, text + visual, split",
+      "name": "00 · All imagery options"
+    },
+    {
+      "path": "slides/layout28.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 28 · 1280×720",
+      "name": "28 · Image + title & subhead"
+    },
+    {
+      "path": "slides/layout29.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 29 · 1280×720",
+      "name": "29 · Graphic + title & subhead"
+    },
+    {
+      "path": "slides/layout30.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 30 · 1280×720",
+      "name": "30 · Graphic, no title"
+    },
+    {
+      "path": "slides/layout31.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 31 · 1280×720",
+      "name": "31 · Large text + image"
+    },
+    {
+      "path": "slides/layout32.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 32 · 1280×720",
+      "name": "32 · Large text + table/chart"
+    },
+    {
+      "path": "slides/layout33.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 33 · 1280×720",
+      "name": "33 · Text + image"
+    },
+    {
+      "path": "slides/layout34.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 34 · 1280×720",
+      "name": "34 · Text + table/chart"
+    },
+    {
+      "path": "slides/layout35.card.html",
+      "group": "Slides · Imagery",
+      "viewport": "1280x720",
+      "subtitle": "Layout 35 · 1280×720",
+      "name": "35 · Split — 2 objects 1:3"
+    },
+    {
+      "path": "slides/gallery-quotes.card.html",
+      "group": "Slides · Quotes",
+      "viewport": "1360x360",
+      "subtitle": "Compare the 3 quote backgrounds",
+      "name": "00 · All quote options"
+    },
+    {
+      "path": "slides/layout13.card.html",
+      "group": "Slides · Quotes",
+      "viewport": "1280x720",
+      "subtitle": "Layout 13 · 1280×720",
+      "name": "13 · Quote — Slate"
+    },
+    {
+      "path": "slides/layout14.card.html",
+      "group": "Slides · Quotes",
+      "viewport": "1280x720",
+      "subtitle": "Layout 14 · 1280×720",
+      "name": "14 · Quote — Saffron"
+    },
+    {
+      "path": "slides/layout15.card.html",
+      "group": "Slides · Quotes",
+      "viewport": "1280x720",
+      "subtitle": "Layout 15 · 1280×720",
+      "name": "15 · Quote — Parchment"
+    },
+    {
+      "path": "slides/gallery-sidebar.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1360x660",
+      "subtitle": "Image / graphic sidebars × colors",
+      "name": "00 · All sidebar options"
+    },
+    {
+      "path": "slides/layout36.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 36 · 1280×720",
+      "name": "36 · Sidebar — image, Parchment"
+    },
+    {
+      "path": "slides/layout37.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 37 · 1280×720",
+      "name": "37 · Sidebar — graphic, Parchment"
+    },
+    {
+      "path": "slides/layout38.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 38 · 1280×720",
+      "name": "38 · Sidebar — image, Slate"
+    },
+    {
+      "path": "slides/layout39.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 39 · 1280×720",
+      "name": "39 · Sidebar — image, Saffron"
+    },
+    {
+      "path": "slides/layout40.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 40 · 1280×720",
+      "name": "40 · Sidebar — graphic, Slate"
+    },
+    {
+      "path": "slides/layout41.card.html",
+      "group": "Slides · Sidebar",
+      "viewport": "1280x720",
+      "subtitle": "Layout 41 · 1280×720",
+      "name": "41 · Sidebar — graphic, Saffron"
+    },
+    {
+      "path": "slides/gallery-stats.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1360x1260",
+      "subtitle": "Key figures, box rows, topics, icons",
+      "name": "00 · All stats & box options"
+    },
+    {
+      "path": "slides/layout50.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 50 · 1280×720",
+      "name": "50 · Key Figures Grid"
+    },
+    {
+      "path": "slides/layout51.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 51 · 1280×720",
+      "name": "51 · 5-col boxes — Slate"
+    },
+    {
+      "path": "slides/layout52.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 52 · 1280×720",
+      "name": "52 · 5-col boxes — Cream"
+    },
+    {
+      "path": "slides/layout53.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 53 · 1280×720",
+      "name": "53 · 5-col boxes + headers"
+    },
+    {
+      "path": "slides/layout54.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 54 · 1280×720",
+      "name": "54 · 2-topic — Slate"
+    },
+    {
+      "path": "slides/layout55.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 55 · 1280×720",
+      "name": "55 · 2-topic — Saffron/Cream"
+    },
+    {
+      "path": "slides/layout56.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 56 · 1280×720",
+      "name": "56 · 3-topic — Slate"
+    },
+    {
+      "path": "slides/layout57.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 57 · 1280×720",
+      "name": "57 · 3-topic — Cream"
+    },
+    {
+      "path": "slides/layout58.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 58 · 1280×720",
+      "name": "58 · 4-topic — Slate"
+    },
+    {
+      "path": "slides/layout59.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 59 · 1280×720",
+      "name": "59 · 4-topic — Cream"
+    },
+    {
+      "path": "slides/layout60.card.html",
+      "group": "Slides · Stats",
+      "viewport": "1280x720",
+      "subtitle": "Layout 60 · 1280×720",
+      "name": "60 · 4 boxes + circle icons"
+    },
+    {
+      "path": "slides/gallery-text.card.html",
+      "group": "Slides · Text",
+      "viewport": "1360x960",
+      "subtitle": "Standard, basic text & blank",
+      "name": "00 · All text-slide options"
+    },
+    {
+      "path": "slides/layout16.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 16 · 1280×720",
+      "name": "16 · Standard Slide — White"
+    },
+    {
+      "path": "slides/layout17.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 17 · 1280×720",
+      "name": "17 · Standard Slide — Parchment"
+    },
+    {
+      "path": "slides/layout18.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 18 · 1280×720",
+      "name": "18 · Basic Text — Slate"
+    },
+    {
+      "path": "slides/layout19.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 19 · 1280×720",
+      "name": "19 · Basic Text — Parchment"
+    },
+    {
+      "path": "slides/layout20.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 20 · 1280×720",
+      "name": "20 · Basic Text — White"
+    },
+    {
+      "path": "slides/layout21.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 21 · 1280×720",
+      "name": "21 · Blank — White"
+    },
+    {
+      "path": "slides/layout22.card.html",
+      "group": "Slides · Text",
+      "viewport": "1280x720",
+      "subtitle": "Layout 22 · 1280×720",
+      "name": "22 · Blank — Parchment"
+    },
+    {
+      "path": "slides/layout01.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 1 · 1280×720",
+      "name": "01 · Title — Logo Frame, Saffron"
+    },
+    {
+      "path": "slides/layout02.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 2 · 1280×720",
+      "name": "02 · Title — Logo Frame, Slate"
+    },
+    {
+      "path": "slides/layout03.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 3 · 1280×720",
+      "name": "03 · Title — Logo Frame, Parchment"
+    },
+    {
+      "path": "slides/layout04.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 4 · 1280×720",
+      "name": "04 · Title — Text Only, Saffron"
+    },
+    {
+      "path": "slides/layout05.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 5 · 1280×720",
+      "name": "05 · Title — Text Only, Slate"
+    },
+    {
+      "path": "slides/layout06.card.html",
+      "group": "Slides · Title",
+      "viewport": "1280x720",
+      "subtitle": "Layout 6 · 1280×720",
+      "name": "06 · Title — Text Only, Parchment"
+    },
+    {
+      "path": "slides/title-gallery.card.html",
+      "group": "Slides · Title",
+      "viewport": "1360x560",
+      "subtitle": "Compare the 6 title/cover designs — pick one",
+      "name": "00 · All title options"
+    },
+    {
+      "path": "guidelines/spacing-scale.card.html",
+      "group": "Spacing",
+      "viewport": "700x150",
+      "subtitle": "4 · 8 · 12 · 16 · 20 · 24 · 32 · 48",
+      "name": "Spacing scale"
+    },
+    {
+      "path": "guidelines/spacing-slide.card.html",
+      "group": "Spacing",
+      "viewport": "700x180",
+      "subtitle": "0.5in edge margin · 0.3in section gap",
+      "name": "Slide margins in use"
+    },
+    {
+      "path": "guidelines/type-body.card.html",
+      "group": "Type",
+      "viewport": "700x190",
+      "subtitle": "Sans body (Light), captions, labels",
+      "name": "Body — Noto Sans"
+    },
+    {
+      "path": "guidelines/type-display.card.html",
+      "group": "Type",
+      "viewport": "700x210",
+      "subtitle": "Condensed Noto — the brand's display voice",
+      "name": "Headline system"
+    },
+    {
+      "path": "guidelines/type-scale.card.html",
+      "group": "Type",
+      "viewport": "700x150",
+      "subtitle": "52 / 44 / 28 / 20 / 16 / 14 / 12 / 10",
+      "name": "Type scale"
+    },
+    {
+      "path": "guidelines/voice-tone.card.html",
+      "group": "Voice",
+      "viewport": "700x300",
+      "subtitle": "Five pairs · asset framing · careful with “we”",
+      "name": "Tone of voice"
+    }
+  ],
+  "templates": [
+    {
+      "name": "Gates Foundation Deck",
+      "description": "16:9 presentation starter — Logo-Frame cover, section divider, content, two-column, big-stat, and end slides in the BMGF Layouts template style (Saffron / Parchment / Slate, Noto Serif + Noto Sans, 0.",
+      "folder": "templates/gates-deck",
+      "entryPath": "templates/gates-deck/GatesDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/gates-deck/.thumbnail",
+        "kind": "captured"
+      }
+    }
+  ],
+  "hasThumbnailHtml": true,
+  "globalCssPaths": [
+    "tokens/fonts.css",
+    "tokens/colors.css",
+    "tokens/typography.css",
+    "tokens/spacing.css",
+    "tokens/effects.css",
+    "tokens/dataviz.css",
+    "styles.css"
+  ],
+  "tokens": [
+    {
+      "name": "--slate",
+      "value": "#313A44",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--parchment",
+      "value": "#F5F3ED",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--saffron",
+      "value": "#EBCB00",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--white",
+      "value": "#FFFFFF",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--black",
+      "value": "#000000",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--yellow-light",
+      "value": "#FFF29E",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--yellow-medium",
+      "value": "#EBCB00",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--yellow-dark",
+      "value": "#4D3600",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--orange-light",
+      "value": "#FF9C75",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--orange-medium",
+      "value": "#F85C02",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--orange-dark",
+      "value": "#9B320D",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-light",
+      "value": "#FE8276",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-medium",
+      "value": "#D93027",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--red-dark",
+      "value": "#771109",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--magenta-light",
+      "value": "#E88CC7",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--magenta-medium",
+      "value": "#D83397",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--magenta-dark",
+      "value": "#6C1446",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-light",
+      "value": "#81C9F3",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-medium",
+      "value": "#248AF9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--blue-dark",
+      "value": "#12236D",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--turquoise-light",
+      "value": "#9CD9C5",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--turquoise-medium",
+      "value": "#3AC9B1",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--turquoise-dark",
+      "value": "#295958",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--saffron-dark",
+      "value": "#D2B500",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--saffron-tint",
+      "value": "#FBF4C9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--slate-80",
+      "value": "#5a6169",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--slate-60",
+      "value": "#838890",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--slate-tint",
+      "value": "#E7E9EB",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--parchment-dark",
+      "value": "#E9E6DC",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-orange",
+      "value": "var(--orange-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-red",
+      "value": "var(--red-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-pink",
+      "value": "var(--magenta-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-blue",
+      "value": "var(--blue-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-teal",
+      "value": "var(--turquoise-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--data-gold",
+      "value": "var(--saffron)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-page",
+      "value": "var(--parchment)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-card",
+      "value": "var(--white)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-inverse",
+      "value": "var(--slate)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-accent",
+      "value": "var(--saffron)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-heading",
+      "value": "var(--slate)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-body",
+      "value": "16px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-caption",
+      "value": "12px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-on-slate",
+      "value": "var(--parchment)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-on-saffron",
+      "value": "var(--slate)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--border-subtle",
+      "value": "var(--parchment-dark)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--border-strong",
+      "value": "var(--slate)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--link",
+      "value": "var(--slate)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--link-hover",
+      "value": "var(--saffron-dark)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--link-visited",
+      "value": "var(--slate-80)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--state-warning",
+      "value": "var(--red-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--state-success",
+      "value": "var(--turquoise-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--state-info",
+      "value": "var(--blue-medium)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--font-display",
+      "value": "\"Noto Serif\", Georgia, \"Times New Roman\", serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-body",
+      "value": "\"Noto Sans\", -apple-system, \"Segoe UI\", system-ui, sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-mono",
+      "value": "ui-monospace, \"Courier New\", monospace",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-headline",
+      "value": "\"Noto Sans ExtraCondensed\", \"Noto Sans\", sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-headline-serif",
+      "value": "\"Noto Serif ExtraCondensed\", \"Noto Serif\", Georgia, serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-subhead",
+      "value": "\"Noto Sans Condensed\", \"Noto Sans\", sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-body",
+      "value": "300",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-body-strong",
+      "value": "800",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-display",
+      "value": "400",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-display-strong",
+      "value": "700",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-title-xl",
+      "value": "52px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-title",
+      "value": "44px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-subtitle",
+      "value": "28px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-subtitle-sm",
+      "value": "24px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-lead",
+      "value": "20px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-body-sm",
+      "value": "14px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-caption-xs",
+      "value": "10px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-regular",
+      "value": "400",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-bold",
+      "value": "800",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-title",
+      "value": "1.2",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-subtitle",
+      "value": "1.3",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-body",
+      "value": "1.5",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-tight",
+      "value": "1.3",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-title",
+      "value": "-0.01em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-label",
+      "value": "0.08em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--space-1",
+      "value": "4px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-2",
+      "value": "8px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-3",
+      "value": "12px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-4",
+      "value": "16px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-5",
+      "value": "20px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-6",
+      "value": "24px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-8",
+      "value": "32px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-10",
+      "value": "40px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-12",
+      "value": "48px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-16",
+      "value": "64px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--slide-margin",
+      "value": "32px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--section-gap",
+      "value": "20px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--gap-min",
+      "value": "8px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--content-max",
+      "value": "1200px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-none",
+      "value": "0px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-sm",
+      "value": "2px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-md",
+      "value": "4px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-pill",
+      "value": "999px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--shadow-sm",
+      "value": "0 1px 2px rgba(48, 58, 68, 0.10)",
+      "kind": "shadow",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--shadow-md",
+      "value": "0 2px 6px rgba(48, 58, 68, 0.14)",
+      "kind": "shadow",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--shadow-lg",
+      "value": "0 8px 20px rgba(48, 58, 68, 0.18)",
+      "kind": "shadow",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--border-width",
+      "value": "1px",
+      "kind": "spacing",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--border-width-bold",
+      "value": "2px",
+      "kind": "spacing",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--divider-width",
+      "value": "3px",
+      "kind": "spacing",
+      "definedIn": "tokens/effects.css"
+    },
+    {
+      "name": "--ease",
+      "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "kind": "other",
+      "definedIn": "tokens/effects.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-fast",
+      "value": "150ms",
+      "kind": "other",
+      "definedIn": "tokens/effects.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-base",
+      "value": "300ms",
+      "kind": "other",
+      "definedIn": "tokens/effects.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-slide",
+      "value": "700ms",
+      "kind": "other",
+      "definedIn": "tokens/effects.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--dv-orange-10",
+      "value": "#FCD6C6",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-20",
+      "value": "#FF9C75",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-30",
+      "value": "#FD874F",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-40",
+      "value": "#FB7229",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-50",
+      "value": "#F85C02",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-60",
+      "value": "#D94E06",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-70",
+      "value": "#BA400A",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-orange-80",
+      "value": "#9B320D",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-10",
+      "value": "#C8EAFB",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-20",
+      "value": "#81C9F3",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-30",
+      "value": "#62B4F5",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-40",
+      "value": "#439FF7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-50",
+      "value": "#248AF9",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-60",
+      "value": "#1E68CA",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-70",
+      "value": "#18469B",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-blue-80",
+      "value": "#12236D",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-10",
+      "value": "#F5CBDF",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-20",
+      "value": "#E88CC7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-30",
+      "value": "#E36EB7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-40",
+      "value": "#DE50A7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-50",
+      "value": "#D83397",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-60",
+      "value": "#B4297C",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-70",
+      "value": "#901F61",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-magenta-80",
+      "value": "#6C1446",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-10",
+      "value": "#D6EBDE",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-20",
+      "value": "#9CD9C5",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-30",
+      "value": "#7BD4BE",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-40",
+      "value": "#5ACFB7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-50",
+      "value": "#3AC9B1",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-60",
+      "value": "#34A493",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-70",
+      "value": "#2E7F75",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-turquoise-80",
+      "value": "#295958",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-10",
+      "value": "#FACAC7",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-20",
+      "value": "#FE8276",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-30",
+      "value": "#F2675C",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-40",
+      "value": "#E64C42",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-50",
+      "value": "#D93027",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-60",
+      "value": "#B8261D",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-70",
+      "value": "#971C13",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-red-80",
+      "value": "#771109",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    },
+    {
+      "name": "--dv-neutral",
+      "value": "#F5F3ED",
+      "kind": "color",
+      "definedIn": "tokens/dataviz.css"
+    }
+  ],
+  "themes": [],
+  "fonts": [
+    {
+      "family": "Noto Serif",
+      "weight": "300",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif-Light.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif",
+      "weight": "400",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif-Regular.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif",
+      "weight": "400",
+      "style": "italic",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif-Italic.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif",
+      "weight": "600",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif-SemiBold.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif",
+      "weight": "700",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif-Bold.ttf"
+      ]
+    },
+    {
+      "family": "Noto Sans",
+      "weight": "300",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSans-Light.ttf"
+      ]
+    },
+    {
+      "family": "Noto Sans",
+      "weight": "800",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSans-ExtraBold.ttf"
+      ]
+    },
+    {
+      "family": "Noto Sans",
+      "weight": "900",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSans-Black.ttf"
+      ]
+    },
+    {
+      "family": "Noto Sans ExtraCondensed",
+      "weight": "900",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSans_ExtraCondensed-Black.ttf"
+      ]
+    },
+    {
+      "family": "Noto Sans Condensed",
+      "weight": "900",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSans_Condensed-Black.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif ExtraCondensed",
+      "weight": "400",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif_ExtraCondensed-Regular.ttf"
+      ]
+    },
+    {
+      "family": "Noto Serif Condensed",
+      "weight": "600",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/NotoSerif_Condensed-SemiBold.ttf"
+      ]
+    }
+  ],
+  "brandFonts": [
+    {
+      "family": "Noto Serif",
+      "status": "ok",
+      "tokens": [
+        "--font-display"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Sans",
+      "status": "unreferenced",
+      "tokens": [],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Sans ExtraCondensed",
+      "status": "ok",
+      "tokens": [
+        "--font-headline"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Sans Condensed",
+      "status": "ok",
+      "tokens": [
+        "--font-subhead"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Serif ExtraCondensed",
+      "status": "ok",
+      "tokens": [
+        "--font-headline-serif"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Serif Condensed",
+      "status": "unreferenced",
+      "tokens": [],
+      "path": "tokens/fonts.css"
+    }
+  ],
+  "source": "spa"
+}

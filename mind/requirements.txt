@@ -1,0 +1,8 @@
+mind-core[onboarding] @ file://mind_core-0.1.0-py3-none-any.whl
+fastapi>=0.110
+uvicorn>=0.28
+pandas>=2.0
+python-multipart>=0.0.22
+matplotlib>=3.7
+numpy>=1.24
+httpx>=0.27

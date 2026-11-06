@@ -13,7 +13,12 @@ import {makeStyles} from '@mui/styles';
 import 'leaflet/dist/leaflet.css';
 import * as _ from 'lodash';
 import {injectIntl} from 'react-intl';
-import {IndicatorConfig} from '../constTs.tsx';
+import {useIndicatorConfig} from '../../hooks/useAppConfig.ts';
+import LinkifiedText from './LinkifiedText';
+import {GF} from '../../gf-colors';
+
+const normalizeDotName = (s: string) =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\s\-_]/g, '').toLowerCase();
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import {Typography, Tooltip} from '@mui/material';
 import {FormattedMessage} from 'react-intl';
@@ -35,14 +40,20 @@ const styles = makeStyles({
     right: 0,
     width: '100%', // ensure it fills the parent
     height: 30,
-    zIndex: 100,
+    zIndex: 1000,
     pointerEvents: 'none', // allows clicks to pass through
   },
+  mapTitleText: {
+    fontWeight: 500,
+    backgroundColor: 'white',
+    padding: '0 10px',
+  },  
   note_diff: {
     position: 'absolute',
     fontSize: '0.8rem',
-    // backgroundColor: 'yellow',
-    padding: '0 5px',
+    // 70% opaque background only, so the note's text and links stay fully opaque
+    backgroundColor: chroma(GF.yellowLight).alpha(0.7).css(),
+    padding: '5px',
     left: 13,
     whiteSpace: 'pre-wrap',
     display: 'flex',
@@ -50,6 +61,7 @@ const styles = makeStyles({
     marginRight: 70,
     bottom: 0,
     alignItems: 'center',
+    zIndex: 1000,
   },
   extraInfo: {
     marginLeft: 5,
@@ -105,14 +117,22 @@ const MapComponent = (props: any) => {
   const mapLegendMin = useSelector((state:any) => state.filters.mapLegendMin);
   const [selectedLayer, setSelectedLayer] = useState('');
   const [unselectedLayer, setUnselectedLayer] = useState('');
-  const mapLabel = IndicatorConfig[indicator] ?
-    intl.formatMessage({id: IndicatorConfig[indicator].mapLabel}) : '';
-  const rasterFile = IndicatorConfig[indicator] ? IndicatorConfig[indicator].rasterFile : '';
-
-  const mainSpeciesName = IndicatorConfig[indicator].mainSpeciesName;
-  const hasExtraInfo = IndicatorConfig[indicator].extraInfo;
-
-  const indicatorConfig = IndicatorConfig[indicator];
+  const indicatorConfig = useIndicatorConfig(indicator) || {
+    unitLabel: indicator, multiper: 1, unit: '', mapLabel: '%',
+    decimalPt: 2, legendLabel: '%',
+  };
+  const mapLabel = indicatorConfig.mapLabel ?
+    intl.formatMessage({id: indicatorConfig.mapLabel, defaultMessage: indicatorConfig.mapLabel}) :
+    (indicatorConfig.unit || '');
+  const rasterFile = indicatorConfig.rasterFile || '';
+  const mainSpeciesName = indicatorConfig.mainSpeciesName;
+  // Extra info text for the dashboard language, falling back to the other language; without
+  // either, the `extraInfo` switch shows the older `{indicator}_extra_info` message
+  const isFrench = (intl.locale || '').startsWith('fr');
+  const extraInfoText = isFrench ?
+    (indicatorConfig.extraInfoFr || indicatorConfig.extraInfoEn) :
+    (indicatorConfig.extraInfoEn || indicatorConfig.extraInfoFr);
+  const hasExtraInfo = Boolean(extraInfoText) || indicatorConfig.extraInfo;
   const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
   const dispatch = useDispatch();
 
@@ -148,6 +168,7 @@ const MapComponent = (props: any) => {
     }
   };
   const legend = useRef(null);
+  const geojsonRef = useRef<GeoJSON>(null);
 
   interface FeatureAddOn extends GeoJSONOptions {
     name: string,
@@ -158,6 +179,7 @@ const MapComponent = (props: any) => {
 
   const classes = styles();
   const chart = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const mapContainerRef = useRef<HTMLDivElement>(null);
   let [mapObj, setMapObj] = useState<MapExtension>();
   let geojson: GeoJSON;
 
@@ -203,7 +225,7 @@ const MapComponent = (props: any) => {
   const showPopup = (e: any, fromEffect: boolean) => {
     const feature = e.target;
     if (feature && feature.feature) {
-      const region = _.find(mapData, {id: feature.feature.id});
+      const region = _.find(mapData, (item) => normalizeDotName(item.id ?? '') === normalizeDotName(feature?.feature?.id ?? ''));
 
       if (region) {
         const regionName = region.id.split(':').splice(2).join(':');
@@ -237,60 +259,80 @@ const MapComponent = (props: any) => {
             .setContent(entireMsg)
             .openOn(mapObj);
       } else {
-      // todo: commented out as it is causing issue in
       // no data popup
-      // const region = feature.feature.id.split(':').splice(2).join(':');
-      // window.L.popup()
-      //     .setLatLng(e.latlng)
-      //     .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
-      //     .openOn(mapObj);
+        const region = feature?.feature?.id?.split(':').splice(2).join(':') ?? '';
+        window.L.popup()
+            .setLatLng(e.latlng)
+            .setContent(region + ': <b>' + intl.formatMessage({id: 'NoData_short'}) +'</b>')
+            .openOn(mapObj);
       }
     }
   };
 
   const resetHighlight = (e: LeafletMouseEvent) => {
-    geojson.resetStyle(e.target);
+    if (geojsonRef.current) {
+      geojsonRef.current.resetStyle(e.target);
+    }
   };
 
   const themeStr = _.find(extenededlegendTheme, {color: selectedMapTheme as any});
 
   const scale = chroma.scale(themeStr ? themeStr.values : selectedMapTheme).domain([minValue, maxValue]).classes(numberOfSteps);
 
+  const standardFeatureHandler = (feature:Feature) => {
+    const region = _.find(mapData, (item) => normalizeDotName(item.id ?? '') === normalizeDotName(String(feature?.id ?? '')));
+    if (region && region.value != null) {
+      const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
+
+      let color2 = 'grey';
+      try {
+        color2 = !isCovariateMap() ? scale(region.value) :
+          colors[region.value-1];
+      } catch (e) {
+        console.log('Error in color setting');
+      }
+      return {fillColor: isCovariateMap() ? '' : color2, fillOpacity: isCovariateMap() ? 0.02 : 0.7, fill: true, color: 'grey', weight: 1};
+    } else {
+      return {color: 'grey', weight: 1, fillColor: ''};
+    }
+  };
+
   /**
    * Map setup
    */
   const mapSetup = function() {
     const L = require('leaflet');
-    const initialView = [14.4, -15];
+    // const initialView = [14.4, -15];
+    const defaultView: [number, number] = [0, 20];
+    const defaultZoom = 3;
+
+    // Restore previously saved view (zoom/center) from context so that
+    // remounts triggered by control changes (admin toggle, year, theme, ...)
+    // don't snap the map back to the default view.
+    const hasSavedView = !!(center && typeof center.lat === 'number' && typeof center.lng === 'number' &&
+      typeof zoom === 'number' && zoom > 0);
+    const startCenter: [number, number] = hasSavedView ? [center.lat, center.lng] : defaultView;
+    const startZoom = hasSavedView ? zoom : defaultZoom;
 
     if (mapObj) {
       return;
     }
 
-    mapObj = L.map(chart.current, {
+    mapObj = L.map(mapContainerRef.current, {
       zoomSnap: 0.25,
       zoomDelta: 0.25,
-      scrollWheelZoom: false}).setView(initialView, 6.8) as MapExtension;
+      scrollWheelZoom: false}).setView(startCenter, startZoom) as MapExtension;
 
-
-    const standardFeatureHandler = (feature:Feature) => {
-      const region = _.find(mapData, {id: feature.id as any});
-      if (region && region.value != null) {
-        const colors = _.get(_.find(customTheme, {color: selectedMapTheme as any}), 'values');
-
-        let color2 = 'grey';
-        try {
-          color2 = !isCovariateMap() ? scale(region.value) :
-            colors[region.value-1];
-        } catch (e) {
-          // todo: log error
-          console.log('Error in color setting');
-        }
-        return {fillColor: isCovariateMap() ? '' : color2, fillOpacity: isCovariateMap() ? 0.02 : 0.7, fill: true, color: 'grey', weight: 1};
-      } else {
-        return {color: 'grey', weight: 1, fillColor: ''};
+    // Zoom only while Ctrl (or Cmd on macOS) is held, so a plain wheel scroll
+    // still scrolls the page instead of being swallowed by the map.
+    mapObj.getContainer().addEventListener('wheel', (e: WheelEvent) => {
+      if (!(e.ctrlKey || e.metaKey)) {
+        return;
       }
-    };
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? mapObj.options.zoomDelta : -mapObj.options.zoomDelta;
+      mapObj.setZoomAround(mapObj.mouseEventToLatLng(e), mapObj.getZoom() + delta);
+    }, {passive: false});
 
     // create map layer
     geojson = L.geoJSON(geoJson, {
@@ -300,13 +342,61 @@ const MapComponent = (props: any) => {
       onEachFeature: onEachFeature,
     });
 
+    geojsonRef.current = geojson;
     geojson.addTo(mapObj);
+
+    // Zoom to the geographic extent of features that have indicator data, but
+    // only on a fresh mount — when a saved view exists, honor it instead so
+    // control-toggle remounts don't override the user's zoom/pan.
+    if (!hasSavedView) {
+      const maxFitZoom = 6.6;
+      // Generous padding suits a single country (the fit is capped by
+      // maxFitZoom anyway), but for continent-scale extents (e.g. Africa) it
+      // eats most of the viewport and forces a far zoom-out, so fall back to
+      // a tight padding whenever the large padding would push below the cap.
+      const fitToBounds = (bounds: any) => {
+        const largePadding = L.point(0, 0);
+        const largePaddingZoom = mapObj.getBoundsZoom(bounds, false, largePadding.multiplyBy(2));
+        // Continent-scale: extra top padding keeps the northern edge clear of the map title.
+        const paddingOpts = largePaddingZoom < maxFitZoom ?
+          {paddingTopLeft: [0, 100] as [number, number], paddingBottomRight: [0, 0] as [number, number]} :
+          {padding: [180, 180] as [number, number]};
+
+        mapObj.fitBounds(bounds, {...paddingOpts, animate: false, maxZoom: maxFitZoom});
+      };
+      if (mapData && mapData.length > 0 && geoJson && geoJson.features) {
+        const dataIds = new Set(mapData.filter((d: any) => d.value != null).map((d: any) => normalizeDotName(d.id)));
+        const featuresWithData = geoJson.features.filter((f: any) => dataIds.has(normalizeDotName(f.id)));
+        if (featuresWithData.length > 0) {
+          const dataBounds = L.geoJSON({type: 'FeatureCollection', features: featuresWithData}).getBounds();
+          if (dataBounds.isValid()) fitToBounds(dataBounds);
+        } else if (geojson.getBounds().isValid()) {
+          fitToBounds(geojson.getBounds());
+        }
+      } else if (geojson.getBounds().isValid()) {
+        fitToBounds(geojson.getBounds());
+      }
+    }
 
     const layerControl = L.control.layers().addTo(mapObj);
 
-    const stationClicked = (station: RainfallStation) => {
-      dispatch(changeSelectedRainfallStation(station.Station));
-    };
+    // Add a street basemap as an overlay, visible by default. Esri's World
+    // Street Map renders English/Latin labels globally (unlike the default OSM
+    // tiles, which show local-language names, e.g. Amharic in Ethiopia).
+
+    const esriCanvas = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+    const osmLayer = L.layerGroup([
+      L.tileLayer(esriCanvas + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution:
+          'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
+        maxZoom: 16,
+      }),
+      L.tileLayer(esriCanvas + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 16,
+      }),
+    ]);
+    osmLayer.addTo(mapObj);
+    layerControl.addOverlay(osmLayer, 'Street map');
 
     mapObj.on('overlayadd', (data)=>{
       if (_.get(data, 'layer.options._zIndex')) { // mostly for district names
@@ -381,6 +471,12 @@ const MapComponent = (props: any) => {
     }
   }, [latLngClicked]);
 
+  useEffect(() => {
+    if (geojsonRef.current && mapObj && mapData && mapData.length > 0) {
+      geojsonRef.current.setStyle((feature: Feature) => standardFeatureHandler(feature));
+    }
+  }, [mapObj, mapData, minValue, maxValue, selectedMapTheme]);
+
   /**
    * Component Initialization
    */
@@ -394,7 +490,30 @@ const MapComponent = (props: any) => {
     });
   }, []);
 
-  const dataSourceMsg = intl.formatMessage({id: 'data_source_'+indicator});
+  // Leaflet caches container dimensions at init and doesn't observe DOM
+  // resizes. When the comparison toggle reflows the primary panel (md=12 →
+  // md=6) or unhides the comparison panel (display:none → visible), the
+  // tiles stay sized to the old container, leaving the map clipped inside
+  // its div. invalidateSize() forces Leaflet to recompute.
+  useEffect(() => {
+    if (!mapObj || !mapContainerRef.current) return;
+    const ro = new ResizeObserver(() => {
+      mapObj.invalidateSize();
+    });
+    ro.observe(mapContainerRef.current);
+    return () => ro.disconnect();
+  }, [mapObj]);
+
+  // The indicator's data source for the dashboard language (falling back to the other
+  // language), else the older per-indicator translation message
+  const dataSourceText = isFrench ?
+    (indicatorConfig.dataSourceFr || indicatorConfig.dataSourceEn) :
+    (indicatorConfig.dataSourceEn || indicatorConfig.dataSourceFr);
+  const dataSourceMsgId = 'data_source_' + indicator;
+  const dataSourceMsg = dataSourceText ?
+    intl.formatMessage({id: 'data_source'}) + ': ' + dataSourceText :
+    (intl.messages[dataSourceMsgId] ? intl.formatMessage({id: dataSourceMsgId}) : '');
+
 
   return (
     <div style={{position: 'relative', width: '100%', height: '100%', minHeight: height, overflow: 'hidden'}}>
@@ -404,14 +523,15 @@ const MapComponent = (props: any) => {
       >
         <div className={classes.mapTitle}>
           {/* Map Title */}
-          <Typography variant="h5">{intl.formatMessage({id: indicator})}</Typography>
+          {indicator && <Typography variant="h5" className={classes.mapTitleText}>{intl.formatMessage({id: indicator})}</Typography>}
         </div>
-        <div ref={chart} className={classes.MapContainer} id="chartContainer">
-          <ExportImageComponent
-            targetNode={chart.current}
-            fileName="map.png"
-          />
+        <div className={classes.MapContainer} id="chartContainer">
+          <div ref={mapContainerRef} style={{width: '100%', height: '100%'}} />
         </div>
+        <ExportImageComponent
+          targetNode={chart.current}
+          fileName="map.png"
+        />
         {/* Map Legend */}
         <MapLegend minValue={minValue} numberOfSteps={numberOfSteps} mapLegendMax={maxValue}
           selectedMapTheme={selectedMapTheme} legend={legend} primary={primary} selectedLayer={selectedLayer}
@@ -433,12 +553,18 @@ const MapComponent = (props: any) => {
         {/* Caveat note */}
         {
           <div className={classes.note_diff}>
-            {/* <div className={classes.flex} title={dataSourceMsg}>
-              {dataSourceMsg}
-            </div> */}
+            {dataSourceMsg &&
+              <div className={classes.flex} title={dataSourceMsg}>
+                <span><LinkifiedText text={dataSourceMsg} linkText='link'/></span>
+              </div>
+            }
             {hasExtraInfo &&
               <div>
-                <Tooltip title={extraInfo(indicator)}
+                <Tooltip title={extraInfoText ?
+                  <div style={{padding: '10px 20px', fontSize: '0.9rem', whiteSpace: 'pre-wrap'}}>
+                    <LinkifiedText text={extraInfoText}/>
+                  </div> :
+                  extraInfo(indicator)}
                   componentsProps={{
                     tooltip: {
                       sx: {

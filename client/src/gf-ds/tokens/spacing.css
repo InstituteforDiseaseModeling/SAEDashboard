@@ -1,0 +1,34 @@
+/* ============================================
+   SPACING & LAYOUT  —  Gates Foundation
+   Derived from the 0.5" slide-margin / 0.3" section-gap system.
+   ============================================ */
+
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;    /* min element gap */
+  --space-3: 12px;
+  --space-4: 16px;   /* base */
+  --space-5: 20px;   /* section gap (~0.3") */
+  --space-6: 24px;
+  --space-8: 32px;   /* slide margin (~0.5") */
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---- Semantic spacing ---- */
+  --slide-margin: 32px;   /* 0.5" from slide edges */
+  --section-gap: 20px;    /* 0.3" between content blocks */
+  --gap-min: 8px;         /* minimum breathing room */
+
+  /* ---- Layout ---- */
+  --content-max: 1200px;
+
+  /* ---- Radii ---- */
+  /* Gates PPT template is sharp-cornered / professional. Digital
+     surfaces may use a small radius; keep it restrained. */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-pill: 999px;
+}

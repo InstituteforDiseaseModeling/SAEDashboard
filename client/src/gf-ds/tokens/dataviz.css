@@ -1,0 +1,38 @@
+/* ============================================
+   DATA-VISUALIZATION PALETTE  —  Gates Foundation
+   Source: Visual Identity / Data visualization.
+
+   The DV palette is built from the secondary palette but with 8 steps per
+   hue (DV10 lightest → DV80 darkest) across five hues: Orange, Blue,
+   Magenta, Turquoise, Red. (Yellow/Saffron and the brand core colors are
+   NOT used to represent data values.)
+
+   Use in three modes:
+     • Categorical  — distinct groups; use the pre-set combinations, in order.
+     • Sequential   — ordered/progression; single hue light→dark.
+     • Diverging    — around a neutral midpoint (Parchment); odd count (3/5/7),
+                      neutral always included.
+   Rules: max 6 colors per chart · don't mix hue families arbitrarily
+   (follow the sequences) · never rely on color alone — add labels/legend.
+   ============================================ */
+
+:root {
+  /* ---- Orange ---- */
+  --dv-orange-10: #FCD6C6; --dv-orange-20: #FF9C75; --dv-orange-30: #FD874F; --dv-orange-40: #FB7229;
+  --dv-orange-50: #F85C02; --dv-orange-60: #D94E06; --dv-orange-70: #BA400A; --dv-orange-80: #9B320D;
+  /* ---- Blue ---- */
+  --dv-blue-10: #C8EAFB; --dv-blue-20: #81C9F3; --dv-blue-30: #62B4F5; --dv-blue-40: #439FF7;
+  --dv-blue-50: #248AF9; --dv-blue-60: #1E68CA; --dv-blue-70: #18469B; --dv-blue-80: #12236D;
+  /* ---- Magenta ---- */
+  --dv-magenta-10: #F5CBDF; --dv-magenta-20: #E88CC7; --dv-magenta-30: #E36EB7; --dv-magenta-40: #DE50A7;
+  --dv-magenta-50: #D83397; --dv-magenta-60: #B4297C; --dv-magenta-70: #901F61; --dv-magenta-80: #6C1446;
+  /* ---- Turquoise ---- */
+  --dv-turquoise-10: #D6EBDE; --dv-turquoise-20: #9CD9C5; --dv-turquoise-30: #7BD4BE; --dv-turquoise-40: #5ACFB7;
+  --dv-turquoise-50: #3AC9B1; --dv-turquoise-60: #34A493; --dv-turquoise-70: #2E7F75; --dv-turquoise-80: #295958;
+  /* ---- Red ---- */
+  --dv-red-10: #FACAC7; --dv-red-20: #FE8276; --dv-red-30: #F2675C; --dv-red-40: #E64C42;
+  --dv-red-50: #D93027; --dv-red-60: #B8261D; --dv-red-70: #971C13; --dv-red-80: #771109;
+
+  /* Diverging neutral midpoint (always Parchment) */
+  --dv-neutral: #F5F3ED;
+}

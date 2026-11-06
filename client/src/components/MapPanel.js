@@ -21,8 +21,11 @@ import {FormattedMessage} from 'react-intl';
 const styles = {
   root: {
     marginBottom: '1em',
-    padding: 5,
+    borderRadius: 0,
     margin: 5,
+    height: 'calc(100% - 10px)',
+    display: 'flex',
+    flexDirection: 'column',
   },
   comparisonMapBar: {
     background: '#2196f3',
@@ -40,6 +43,16 @@ const MapPanel = (props) => {
   const selectedSubgroupComparison = useSelector((state) => state.filters.selectedComparisonSubgroup);
   const subgroups = _.find(indicators, {id: selectedIndicator})?.subgroups || [];
   const subgroupsComparison = _.find(indicators, {id: selectedComparisonIndicator})?.subgroups || [];
+
+  const pickDefaultSubgroupFrom = (subs) => {
+    if (!subs || subs.length === 0) return null;
+    const real = subs.filter((s) => s !== 'all');
+    return real.length > 0 ? real[0] : 'all';
+  };
+  const pickDefaultSubgroup = (indicatorId) => {
+    const subs = _.find(indicators, {id: indicatorId})?.subgroups || [];
+    return pickDefaultSubgroupFrom(subs);
+  };
   const selectedMapThemeRedux = useSelector((state) => state.filters.selectedMapTheme);
   const selectedComparisonMapThemeRedux = useSelector((state) =>
     state.filters.selectedComparisonMapTheme);
@@ -48,58 +61,54 @@ const MapPanel = (props) => {
   const currentYear = useSelector((state) => state.filters.currentYear);
   const isAdm3 = useSelector((state) => state.filters.isAdm3);
 
-  // Handle changing indicator for main map.
   const changeSelectedIndicatorHandler = (indicator) => {
     dispatch(changeSelectedIndicator(indicator));
+    const sg = pickDefaultSubgroup(indicator);
+    if (sg !== null) dispatch(changeSelectedSubgroup(sg));
   };
 
   const changeIsAdm3Handler = (isAdm3) => {
     dispatch(changeIsAdm3(isAdm3));
   };
 
-  // Handle changing indicator for main map.
   const changeSelectedComparisonIndicatorHandler = (indicator) => {
     dispatch(changeSelectedComparisonIndicator(indicator));
+    const sg = pickDefaultSubgroup(indicator);
+    if (sg !== null) dispatch(changeSelectedComparisonSubgroup(sg));
   };
 
-  // Handle changing the map theme color for primary map.
   const changeSelectedMapThemeRedux = (mapTheme) => {
     dispatch(changeSelectedMapTheme(mapTheme));
   };
 
-  // Handle changing the map theme color for comparison map.
   const changeSelectedComparisonMapThemeRedux = (mapTheme) => {
     dispatch(changeSelectedComparisonMapTheme(mapTheme));
   };
 
-  // Handle changing the selected state.
   const setSelectedState = (state) => {
-    // if (selectedIndicator == selectedComparisonIndicator) {
-    // if same indicator is selected on both map, user is allowed
-    // see different time series plot on 2 different locations
     if (primary) {
       dispatch(changeSelectedState(state));
     } else {
       dispatch(changeSelectedComparisonState(state));
     }
-    // } else {
-    //   dispatch(changeSelectedState(state));
-    //   dispatch(changeSelectedComparisonState(state));
-    // }
   };
 
-  // By default assign the first element
-  if (subgroups.length !== 0 && !subgroups.includes(selectedSubgroup)) {
-    dispatch(changeSelectedSubgroup(primary && subgroups.includes('all') ? 'all' : subgroups[0]));
-  }
-  if (subgroupsComparison.length !== 0 && !subgroupsComparison.includes(selectedSubgroupComparison)) {
-    dispatch(changeSelectedComparisonSubgroup(!primary && subgroupsComparison.includes('all') ? 'all' : subgroupsComparison[0]));
-  }
+  const subgroupsKey = subgroups.join(',');
+  const subgroupsComparisonKey = subgroupsComparison.join(',');
 
-  useEffect(()=>{
-    dispatch(changeSelectedSubgroup(null));
-    dispatch(changeSelectedComparisonSubgroup(null));
-  }, [indicators.length, selectedIndicator, isAdm3]);
+  useEffect(() => {
+    if (!primary || subgroups.length === 0) return;
+    if (selectedSubgroup && subgroups.includes(selectedSubgroup)) return;
+    const def = pickDefaultSubgroupFrom(subgroups);
+    if (def !== null) dispatch(changeSelectedSubgroup(def));
+  }, [primary, subgroupsKey, selectedIndicator, selectedSubgroup, isAdm3]);
+
+  useEffect(() => {
+    if (primary || subgroupsComparison.length === 0) return;
+    if (selectedSubgroupComparison && subgroupsComparison.includes(selectedSubgroupComparison)) return;
+    const def = pickDefaultSubgroupFrom(subgroupsComparison);
+    if (def !== null) dispatch(changeSelectedComparisonSubgroup(def));
+  }, [primary, subgroupsComparisonKey, selectedComparisonIndicator, selectedSubgroupComparison, isAdm3]);
 
   const changeSubgroup = (primary, subgroup) => {
     if (primary) {
@@ -144,4 +153,3 @@ MapPanel.propTypes = {
 };
 
 export default withStyles(styles)(MapPanel);
-

@@ -1,6 +1,3 @@
-disaggregated_indicators:
-  - species_comp_gambiae
-  - indoor_resting_gambiae
-  - permethrin
-  - SMC
-  - intervention_mix_pecadom
+disaggregated_indicators: []
+indicator_labels: {}
+subgroup_labels: {}

@@ -1,0 +1,8 @@
+state,year,drug_resistance,se.drug_resistance,pred,pred_upper,pred_lower
+Africa:Senegal:Diourbel,2023,,,37.678,42.678,34.678
+Africa:Senegal:Kaolack,2023,,,19.386666666666667,24.386666666666667,16.790000000000003
+Africa:Senegal:Kedougou,2023,,,38.968,43.968,35.525999999999996
+Africa:Senegal:Kolda,2023,,,39.916000000000004,44.916,36.916000000000004
+Africa:Senegal:Tambacounda,2023,,,38.15,43.15,35.15
+Africa:Senegal:Thies,2023,,,32.536,37.536,27.736
+Africa:Senegal:Touba,2023,,,41.019999999999996,46.019999999999996,38.019999999999996

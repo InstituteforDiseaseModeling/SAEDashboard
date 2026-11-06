@@ -6,18 +6,17 @@ import axios from 'axios';
 import {useSelector} from 'react-redux';
 import Map2 from './uielements/Map2.tsx';
 import loader from '../image/loader.gif';
-import {setGeoJsonPrimary, setGeoJsonComparison} from '../redux/actions/dashboard';
 import {showError} from '../redux/actions/messaging';
 import {useDispatch} from 'react-redux';
 import {Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import {AFRICA_STR, DEFAULT_THEMES} from '../const';
+import {AFRICA_STR, DEFAULT_THEME, DEFAULT_THEMES} from '../const';
 import config from '../app_config.json';
 import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
 import {find, clone} from 'lodash';
 import {FormattedMessage} from 'react-intl';
-import {IndicatorConfig} from './constTs.tsx';
+import {useIndicatorConfig} from '../hooks/useAppConfig.ts';
 
 
 const styles = makeStyles(({
@@ -33,12 +32,15 @@ const styles = makeStyles(({
     textAlign: 'center',
   },
   root: {
-    height: '550px',
+    flex: 1,
+    minHeight: 550,
   },
   noData: {
-    height: 550,
-    textAlign: 'center',
-    paddingTop: 260,
+    flex: 1,
+    minHeight: 550,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#ddd',
   },
 }));
@@ -57,6 +59,8 @@ const MapPanelMap = (props) => {
   const selectedIndicator =useSelector((state) => state.filters.selectedIndicator);
   const selectedComparisonIndicator =useSelector((state) =>
     state.filters.selectedComparisonIndicator);
+  const selectedIndicatorConfig = useIndicatorConfig(selectedIndicator);
+  const comparisonIndicatorConfig = useIndicatorConfig(selectedComparisonIndicator);
   const geoJsonPrimary = useSelector((state) => state.dashboard.geoJsonPrimary);
   const geoJsonComparison = useSelector((state) => state.dashboard.geoJsonComparison);
 
@@ -75,61 +79,46 @@ const MapPanelMap = (props) => {
 
   const indicator = primary ? selectedIndicator : selectedComparisonIndicator;
 
-  const fetchData = async () => {
-    axios.defaults.baseURL = process.env.API_BASE_URL || '/api';
+  const fetchData = async (signal) => {
+    const http = axios.create({baseURL: process.env.API_BASE_URL || '/api'});
     const dotName = selectedCountry;
 
-    const mainShapeFileVersion = config.shapefileVersion[selectedIndicator] ?
-      config.shapefileVersion[selectedIndicator] : 1;
+    const mainShapeFileVersion = indicators?.find((i) => i.id === selectedIndicator)?.version ??
+      config.shapefileVersion[selectedIndicator] ?? 1;
 
-    const comparisonShapeFileVersion = config.shapefileVersion[selectedComparisonIndicator] ?
-      config.shapefileVersion[selectedComparisonIndicator] : 1;
+    const comparisonShapeFileVersion = indicators?.find((i) => i.id === selectedComparisonIndicator)?.version ??
+      config.shapefileVersion[selectedComparisonIndicator] ?? 1;
 
     try {
-      const resultRaw = await axios(
-          '/map?dot_name=' + dotName + '&channel=' + (primary ? selectedIndicator : (selectedDiffMap ? selectedIndicator :selectedComparisonIndicator))+
-          '&subgroup=' + (primary ? selectedSubgroup : (selectedDiffMap ? selectedSubgroup: selectedComparisonSubgroup)) +
-          '&year=' + (primary ? currentYear : selectedYear) + '&data=data' +
-          '&admin_level=' + (selectedIsAdm3 ? 3:2) +
-          '&shape_version=' + (primary ? mainShapeFileVersion : comparisonShapeFileVersion) +
+      const mirrorsMain = primary || selectedDiffMap;
+      const primaryInd = mirrorsMain ? selectedIndicator : selectedComparisonIndicator;
+      const primaryAdminLevel = selectedIsAdm3 ? 2 : 1;
+
+      const resultRaw = await http(
+          '/map?dot_name=' + dotName + '&channel=' + primaryInd +
+          '&subgroup=' + (mirrorsMain ? selectedSubgroup : selectedComparisonSubgroup) +
+          '&year=' + (mirrorsMain ? currentYear : selectedYear) + '&data=data' +
+          '&admin_level=' + primaryAdminLevel +
+          '&shape_version=' + (mirrorsMain ? mainShapeFileVersion : comparisonShapeFileVersion) +
           (currentMonth ? '&month=' + currentMonth : ''),
+          {signal},
       ).catch((error) => {
         throw error;
       });
 
-
-      // Fetch the geoJSON data for comparison map
-      // check to see if there is a in admin level value, if not, use what is available
-      const indicatorObj = indicators.find(
-          (indicator) => indicator.id === selectedComparisonIndicator);
-      const adminLevelsAvailable = indicatorObj && indicatorObj.admin_levels;
-      let adminLevel = null;
-
-      if (adminLevelsAvailable && adminLevelsAvailable.length == 1) {
-        adminLevel = adminLevelsAvailable[0]+1;
-      } else {
-        adminLevel = selectedIsAdm3 ? 3 : 2;
-      }
-
-      // there is no need to fetch the comparison map if the user is not comparing
       let result2Raw=[];
       if (!primary && selectedDiffMap) {
-        result2Raw = await axios(
+        result2Raw = await http(
             '/map?dot_name=' + dotName + '&channel=' + selectedComparisonIndicator +
               '&subgroup=' + selectedComparisonSubgroup +
             '&year=' + selectedYear + '&data=data' +
-            '&admin_level=' + (adminLevel) +
+            '&admin_level=' + primaryAdminLevel +
             '&shape_version=' + comparisonShapeFileVersion +
             (currentMonth ? '&month=' + currentMonth : ''),
+            {signal},
         );
       }
 
-      /**
-       * for aggregating monthly data into annual data
-       * @param {*} results
-       * @param {*} current
-       * @return {*} array with aggregated data
-       */
       const aggregateFn = (results, current) => {
         if (!Array.isArray(results)) {
           return [current];
@@ -145,12 +134,6 @@ const MapPanelMap = (props) => {
         return results;
       };
 
-      /**
-       * for averaging monthly data into annual data
-       * @param {*} results
-       * @param {*} current
-       * @return {*} array with average annual data
-       */
       const averageFn = (results, current) => {
         if (!Array.isArray(results)) {
           return [current];
@@ -158,7 +141,6 @@ const MapPanelMap = (props) => {
         const existing = find(results, {id: current.id});
 
         if (existing) {
-          // existing.value += current.value;
           existing.value = (existing.value * existing.count + current.value) / (existing.count + 1);
           existing.count += 1;
         } else {
@@ -172,8 +154,8 @@ const MapPanelMap = (props) => {
       let result = [];
       let result2 = [];
 
-      const result1UseAvg = IndicatorConfig[selectedIndicator].useAvg;
-      const result2UseAvg = IndicatorConfig[selectedComparisonIndicator].useAvg;
+      const result1UseAvg = (mirrorsMain ? selectedIndicatorConfig : comparisonIndicatorConfig)?.useAvg;
+      const result2UseAvg = comparisonIndicatorConfig?.useAvg;
 
       if (resultRaw && resultRaw.data) {
         result = resultRaw.data.reduce(result1UseAvg ? averageFn : aggregateFn, []);
@@ -200,32 +182,58 @@ const MapPanelMap = (props) => {
         dispatch(changeMapLegendMin(minVal.value));
       }
     } catch (data) {
-      let errMsg = 'Error occurred.';
-      if (data.response && data.response.data) {
-        errMsg = data.response.data;
+      if (axios.isCancel(data)) return;
+      const status = data.response && data.response.status;
+      if (status === 400 || status === 404) {
+        setData([]);
+        return;
       }
-
+      const detail = data.response && data.response.data && data.response.data.detail;
+      const errMsg = typeof detail === 'string' ? detail : 'Error occurred.';
       dispatch(showError(errMsg));
       setError(errMsg);
     }
   };
 
   useEffect(() => {
-    if (indicator && selectedSubgroup && selectedComparisonSubgroup && selectedCountry) {
-      // Reset data for map
-      setGeoJsonPrimary(null);
-      setGeoJsonComparison(null);
+    const abortController = new AbortController();
+    const activeSubgroup = primary ? selectedSubgroup : selectedComparisonSubgroup;
+    if (indicator && activeSubgroup && selectedCountry) {
       setData(null);
       setError();
-
-      // Fetch data for map
-      fetchData();
+      fetchData(abortController.signal);
     }
+    return () => abortController.abort();
   }, [indicator, currentYear, currentMonth, selectedCountry,
-    selectedIsAdm3, selectedMapTheme, selectedComparisonMapTheme, selectedLegendSync, selectedYear,
-    geoJsonPrimary, geoJsonComparison, selectedSubgroup, selectedComparisonSubgroup,
-    selectedDiffMap]);
+    selectedIsAdm3, selectedLegendSync, selectedYear,
+    selectedSubgroup, selectedComparisonSubgroup,
+    selectedDiffMap, indicators]);
 
+
+  const requiredGeoJson = primary ? geoJsonPrimary : geoJsonComparison;
+
+  if (!indicator) {
+    if (requiredGeoJson) {
+      return (
+        <div className={classes.root}>
+          <Map2
+            selectPlace={(state) => changeSelectedState(state)}
+            geoJson={requiredGeoJson[selectedCountry]}
+            mapData={[]}
+            primary={primary}
+            zoomLevel={selectedCountry === AFRICA_STR ? -1 : 1}
+            selectedMapTheme={DEFAULT_THEME}
+            indicator={''}
+            key={[selectedCountry, selectedIsAdm3 ? 'a2' : 'a1', 'empty'].join('|')}
+          />
+        </div>
+      );
+    }
+    return (
+      <div className={classes.noData}>
+        <FormattedMessage id='no_indicators'/>
+      </div>);
+  }
 
   if (error) {
     return (
@@ -237,30 +245,39 @@ const MapPanelMap = (props) => {
   }
 
 
-  if (!MapData || !(geoJsonPrimary) || !(geoJsonComparison) ||
-    !selectedMapTheme) {
+  if (Array.isArray(MapData) && MapData.length === 0) {
+    return (
+      <div className={classes.noData}>
+        No data available
+      </div>);
+  }
+
+  const activeTheme = primary ? selectedMapTheme : selectedComparisonMapTheme;
+  if (!MapData || !requiredGeoJson || !activeTheme) {
     return (
       <div className={classes.loading}>
         <img src={loader} alt={'Loading...'}/>
       </div>);
   }
 
-  // calculate final theme based on config
+  const userTheme = (indicators.find((i) => i.id === indicator) || {}).color_theme;
+  const configTheme = config.defaultThemeByIndicator && config.defaultThemeByIndicator[indicator];
+  const indicatorTheme = configTheme || userTheme;
   let finalTheme = null;
 
   if (primary) {
     finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedMapTheme) >= 0 ?
-      config.defaultThemeByIndicator[indicator] :
+      indicatorTheme || selectedMapTheme :
       selectedMapTheme;
   } else {
     finalTheme = indicator && DEFAULT_THEMES.indexOf(selectedComparisonMapTheme)>=0 ?
-      config.defaultThemeByIndicator[indicator] :
+      indicatorTheme || selectedComparisonMapTheme :
       selectedComparisonMapTheme;
   }
-  // keep theme for covars related indicators
   if (indicator.indexOf('covars')>-1) {
-    finalTheme =config.defaultThemeByIndicator[indicator];
+    finalTheme = configTheme;
   }
+  if (!finalTheme) finalTheme = indicatorTheme || DEFAULT_THEME;
 
 
   return (
@@ -271,8 +288,9 @@ const MapPanelMap = (props) => {
             selectPlace={(state) => {
               changeSelectedState(state);
             }}
-            geoJson={primary ? geoJsonPrimary[selectedCountry] :
-              geoJsonComparison[selectedCountry]
+            geoJson={primary ?
+              (geoJsonPrimary && geoJsonPrimary[selectedCountry]) :
+              (geoJsonComparison && geoJsonComparison[selectedCountry])
             }
             mapData={MapData}
             primary={primary}
@@ -280,11 +298,17 @@ const MapPanelMap = (props) => {
             selectedMapTheme={finalTheme}
             indicator={indicator}
             mapLegendMax={mapLegendMax}
-            key ={mapLegendMax+selectedLegend+selectedLocale}
+            key={[
+              mapLegendMax, selectedLegend, selectedLocale, finalTheme,
+              primary ? 'p' : 'c',
+              selectedCountry,
+              (primary ? geoJsonPrimary : geoJsonComparison)?.[selectedCountry]?.features?.length ?? 'na',
+              selectedIsAdm3 ? 'a2' : 'a1',
+            ].join('|')}
           />
         </div>
       }
-      { !MapData || MapData.length == 0 &&
+      { (!MapData || MapData.length === 0) &&
         <div className={classes.noData}>
           <FormattedMessage id='NoData'/>
         </div>
@@ -300,4 +324,3 @@ MapPanelMap.propTypes = {
 };
 
 export default MapPanelMap;
-

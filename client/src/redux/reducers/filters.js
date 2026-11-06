@@ -5,6 +5,7 @@ import {
   CHANGE_SELECTED_COUNTRY,
   CHANGE_SELECTED_INDICATOR,
   CHANGE_SELECTED_COMPARISON_INDICATOR,
+  CHANGE_INDICATOR_COLOR_THEME,
   CHANGE_SELECTED_MAP_THEME,
   CHANGE_SELECTED_COMPARISON_MAP_THEME,
   CHANGE_SELECTED_STATE,
@@ -24,6 +25,7 @@ import {
   CHANGE_SELECTED_COMPARISON_SUBGROUP,
 } from '../actions/types';
 
+import * as _ from 'lodash';
 import config from '../../app_config.json';
 import {AFRICA_STR} from '../../const';
 
@@ -41,7 +43,7 @@ const initialState = {
   countries: [],
   indicators: [],
   mapSubgroups: [],
-  selectedLanguage: 'fr',
+  selectedLanguage: sessionStorage.getItem('selectedLanguage') || 'en',
 
   fromYear: 0,
   toYear: 0,
@@ -52,12 +54,17 @@ const initialState = {
   initialLoading: true,
 };
 
-/**
- * reducer for filter actions
- * @param {*} state
- * @param {*} action
- * @return {*} new filter state
- */
+const withDataAdminLevel = (state) => {
+  if (state.selectedCountry === AFRICA_STR) {
+    return state.isAdm3 ? {...state, isAdm3: false, selectedState: null} : state;
+  }
+  const levels = _.get(_.find(state.indicators, {id: state.selectedIndicator}), 'admin_levels', []);
+  const currentLevel = state.isAdm3 ? 2 : 1;
+  if (levels.length === 0 || levels.includes(currentLevel)) return state;
+  const isAdm3 = !levels.includes(1);
+  return {...state, isAdm3, selectedState: null};
+};
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case CHANGE_SELECTED_YEAR:
@@ -67,10 +74,16 @@ export default function(state = initialState, action) {
       return {...state, currentMonth: action.month};
 
     case CHANGE_SELECTED_COUNTRY:
-      if (action.selectedCountry === AFRICA_STR) {
-        state.isAdm3 = false;
-      }
-      return {...state, selectedCountry: action.selectedCountry, selectedState: null};
+      return {
+        ...state,
+        selectedCountry: action.selectedCountry,
+        isAdm3: action.selectedCountry === AFRICA_STR ? false : state.isAdm3,
+        selectedState: null,
+        selectedComparisonState: null,
+        indicators: [],
+        selectedSubgroup: null,
+        selectedComparisonSubgroup: null,
+      };
 
     case CHANGE_SELECTED_STATE:
       return {...state, selectedState: action.state};
@@ -79,10 +92,17 @@ export default function(state = initialState, action) {
       return {...state, selectedComparisonState: action.state};
 
     case CHANGE_SELECTED_INDICATOR:
-      return {...state, selectedIndicator: action.selectedIndicator};
+      return withDataAdminLevel({...state, selectedIndicator: action.selectedIndicator});
 
     case CHANGE_SELECTED_COMPARISON_INDICATOR:
       return {...state, selectedComparisonIndicator: action.selectedComparisonIndicator};
+
+    case CHANGE_INDICATOR_COLOR_THEME:
+      return {...state, indicators: state.indicators.map((indicator) =>
+        indicator.id === action.indicator ?
+          {...indicator, color_theme: action.colorTheme} :
+          indicator,
+      )};
 
     case CHANGE_SELECTED_MAP_THEME:
       return {...state, selectedMapTheme: action.selectedMapTheme};
@@ -100,41 +120,51 @@ export default function(state = initialState, action) {
       return {...state, fromYear: action.fromYear, toYear: action.toYear};
 
     case SET_INDICATOR_DATA:
-      // Pick the first indicator as selected
-      const indicators = action.indicatorData['indicators'];
+      const indicators = action.indicatorData['indicators'].filter((indicator) =>
+        state.selectedCountry !== AFRICA_STR ||
+        _.isEmpty(indicator.admin_levels) ||
+        indicator.admin_levels.includes(1));
       indicators.map((indicator) => {
         indicator.subgroups.sort();
+        const real = indicator.subgroups.filter((s) => s !== 'all');
+        indicator.subgroups = real.length > 0 ? real : indicator.subgroups;
       });
+
+      const prevIndicator = state.selectedIndicator;
+      const prevComparisonIndicator = state.selectedComparisonIndicator;
+      const foundPrev = prevIndicator && _.find(indicators, {id: prevIndicator});
+      const foundPrevComp = prevComparisonIndicator && _.find(indicators, {id: prevComparisonIndicator});
       const foundTarget =_.find(indicators, {id: config.defaultIndicator});
       const found2ndTarget =_.find(indicators, {id: config.defaultComparisonIndicator});
 
       const selectedIndicator = indicators.length > 0 ?
+        foundPrev ? foundPrev.id :
         foundTarget ? foundTarget.id : indicators[0].id :
         null;
 
-      const selectedComparisonIndicator = indicators.length > 1 ?
-        found2ndTarget ? found2ndTarget.id : indicators[1].id :
+      const selectedComparisonIndicator = indicators.length > 0 ?
+        foundPrevComp ? foundPrevComp.id :
+        found2ndTarget ? found2ndTarget.id : (indicators.length > 1 ? indicators[1].id : indicators[0].id) :
         null;
 
-      return {...state, indicators: indicators,
+      return withDataAdminLevel({...state, indicators: indicators,
         selectedComparisonIndicator: selectedComparisonIndicator,
-        selectedIndicator: selectedIndicator};
+        selectedIndicator: selectedIndicator});
 
     case SET_MAP_SUBGROUPS_DATA:
-      // Pick the first subgroup as selected
       const subGroups = _.sortBy(action.subgroupsData['subgroups'], ['id']);
       return {...state, mapSubgroups: subGroups};
 
     case SET_COUNTRY_DATA:
-      // Pick the first subgroup as selected
-      const countries = action.countryData['dot_names'];
-      // countries.push({'id': 'Africa', 'text': 'View Africa Map'});
+      const countries = [{'id': 'Africa', 'text': 'Africa (all countries)'}, ...action.countryData['dot_names']];
       return {...state, countries: countries};
 
     case CHANGE_ISADM3:
-
-      state.selectedState = null;
-      return {...state, isAdm3: action.isAdm3};
+      return {
+        ...state,
+        selectedState: null,
+        isAdm3: state.selectedCountry === AFRICA_STR ? false : action.isAdm3,
+      };
 
     case CHANGE_LEGEND:
 
@@ -151,6 +181,7 @@ export default function(state = initialState, action) {
       return {...state, selectedLegendSync: action.legendSync};
 
     case CHANGE_LANGUAGE:
+      sessionStorage.setItem('selectedLanguage', action.language);
       return {...state, selectedLanguage: action.language};
 
     case CHANGE_SELECTED_SUBGROUP:
