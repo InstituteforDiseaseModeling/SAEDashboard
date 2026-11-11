@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import {useSelector} from 'react-redux';
 import {MenuItem, Select} from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
+import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
 
 /**
  * component for subgroup selection in the map chart
@@ -18,11 +19,13 @@ const MapSubgroupsFilter = (props) => {
   const subgroups = indicatorObj?.subgroups || [];
 
   return (
-    <FormControl variant="standard">
-      <InputLabel htmlFor="mapsubgroup-select">
+    <FormControl variant="standard" sx={{minWidth: 110}}>
+      <InputLabel shrink htmlFor="mapsubgroup-select" sx={toolbarLabelSx}>
         <FormattedMessage id='subgroups'/>
       </InputLabel>
       <Select id="mapsubgroup-select" value={selectedSubgroup || ''}
+        sx={toolbarSelectSx}
+        MenuProps={{PaperProps: {sx: toolbarMenuPaperSx}}}
         onChange={(e) => changeSubgroup(primary, e.target.value)}>
         {subgroups.map((field, i) => {
           return (

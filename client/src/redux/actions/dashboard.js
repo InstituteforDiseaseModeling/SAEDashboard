@@ -10,15 +10,7 @@ import {
 } from './types';
 import {apiAction} from './api';
 
-import AfricaAdm2Json from '../../data/Africa_shape_adm2.json';
-import AfricaAdm3Json from '../../data/Africa_shape_adm3.json';
 
-
-/**
- * for setting geoJson action
- * @param {object} geoJson - map data in geo json
- * @return {object} geoJson action object
- */
 export function setGeoJsonPrimary(geoJson) {
   return {
     type: SET_GEOJSON_DATA_PRIMARY,
@@ -26,11 +18,6 @@ export function setGeoJsonPrimary(geoJson) {
   };
 }
 
-/**
- * for setting geoJson action
- * @param {object} geoJson - map data in geo json
- * @return {object} geoJson action object
- */
 export function setGeoJsonComparison(geoJson) {
   return {
     type: SET_GEOJSON_DATA_COMPARISON,
@@ -38,23 +25,6 @@ export function setGeoJsonComparison(geoJson) {
   };
 }
 
-/**
- * for setting Africa geoJson action
- * @param {string} isAdm3 - indicate whether it is for Adm3
- * @return {object} Africa geoJson action object
- */
-export function setAfricaGeoJsonData(isAdm3) {
-  return {
-    type: SET_GEOJSON_DATA,
-    geoJson: isAdm3 ? AfricaAdm3Json : AfricaAdm2Json,
-  };
-}
-
-/**
- * for setting layer data
- * @param {object} layerData - layer data
- * @return {object} layer data action object
- */
 export function setLayerData(layerData) {
   return {
     type: SET_LAYER_DATA,
@@ -62,11 +32,6 @@ export function setLayerData(layerData) {
   };
 }
 
-/**
- * for setting event data
- * @param {object} eventData - event data
- * @return {object} eventData action object
- */
 export function setEventData(eventData) {
   return {
     type: SET_EVENT_DATA,
@@ -74,11 +39,6 @@ export function setEventData(eventData) {
   };
 }
 
-/**
- * for raising error
- * @param {*} data error data
- * @return {*} error action object
- */
 function setError(data) {
   const response = data.response;
 
@@ -91,41 +51,20 @@ function setError(data) {
 }
 
 
-/**
- * Fetch geoJson data
- * @param {*} dotName - dot name
- * @param {*} isAdm3 - whether it is for admin3
- * @param {*} isPrimary - whether it is for primary map
- * @param {*} shapeVersion - shape version
- * @return {*} api action object
- */
 export function fetchGeoJsonData(dotName, isAdm3, isPrimary, shapeVersion=1) {
-  if (dotName==='Africa') {
-    return (setAfricaGeoJsonData(isAdm3));
-  } else {
-    return apiAction({
-      url: dotName!=='Africa' && dotName ?
-        '/shapes?dot_name=' + dotName + '&admin_level=' + (isAdm3?3:2) +
-        '&shape_version=' + shapeVersion + '&primary=' + isPrimary :
-        '/africa_map' + '?admin_level=' + (isAdm3?3:2),
-      onSuccess: (geoJson) => {
-        if (isPrimary) {
-          return setGeoJsonPrimary(geoJson);
-        } else {
-          return setGeoJsonComparison(geoJson);
-        }
-      },
-      onFailure: setError,
-      label: FETCH_DASHBOARD_DATA,
-      headers: {'Access-Control-Allow-Origin': '*'},
-    });
-  }
+  const url = dotName === 'Africa'
+    ? '/africa_map/?admin_level=' + (isAdm3 ? 2 : 1)
+    : '/shapes?dot_name=' + dotName + '&admin_level=' + (isAdm3 ? 2 : 1) +
+      '&shape_version=' + shapeVersion + '&primary=' + isPrimary;
+  return apiAction({
+    url,
+    onSuccess: (geoJson) => isPrimary ? setGeoJsonPrimary(geoJson) : setGeoJsonComparison(geoJson),
+    onFailure: setError,
+    label: FETCH_DASHBOARD_DATA,
+    headers: {'Access-Control-Allow-Origin': '*'},
+  });
 }
 
-/**
- * Fetch layer data
- * @return {*} api action object
- */
 export function fetchLayerData() {
   return apiAction({
     url: '/layer_data/',
@@ -137,10 +76,6 @@ export function fetchLayerData() {
   });
 }
 
-/**
- * Fetch events data
- * @return {*} api action object
- */
 export function fetchEventData() {
   return apiAction({
     url: '/events/',

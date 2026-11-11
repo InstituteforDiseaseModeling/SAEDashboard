@@ -1,0 +1,72 @@
+[
+  {
+    "Author": "Sebastián Ramírez",
+    "License": "MIT License",
+    "Name": "fastapi",
+    "URL": "https://github.com/fastapi/fastapi",
+    "Version": "0.136.0"
+  },
+  {
+    "Author": "Tom Christie",
+    "License": "BSD License",
+    "Name": "uvicorn",
+    "URL": "https://uvicorn.dev/",
+    "Version": "0.44.0"
+  },
+  {
+    "Author": "Anthropic",
+    "License": "MIT License",
+    "Name": "anthropic",
+    "URL": "https://github.com/anthropics/anthropic-sdk-python",
+    "Version": "0.96.0"
+  },
+  {
+    "Author": "The Pandas Development Team",
+    "License": "BSD License",
+    "Name": "pandas",
+    "URL": "https://pandas.pydata.org",
+    "Version": "3.0.2"
+  },
+  {
+    "Author": "See AUTHORS",
+    "License": "MIT License",
+    "Name": "openpyxl",
+    "URL": "https://openpyxl.readthedocs.io",
+    "Version": "3.1.5"
+  },
+  {
+    "Author": "Andrew Dunham",
+    "License": "Apache Software License",
+    "Name": "python-multipart",
+    "URL": "https://github.com/Kludex/python-multipart",
+    "Version": "0.0.26"
+  },
+  {
+    "Author": "Samuel Colvin",
+    "License": "MIT License",
+    "Name": "pydantic",
+    "URL": "https://github.com/pydantic/pydantic",
+    "Version": "2.13.3"
+  },
+  {
+    "Author": "John D. Hunter, Michael Droettboom",
+    "License": "Python Software Foundation License",
+    "Name": "matplotlib",
+    "URL": "https://matplotlib.org",
+    "Version": "3.10.8"
+  },
+  {
+    "Author": "Travis E. Oliphant et al.",
+    "License": "BSD License",
+    "Name": "numpy",
+    "URL": "https://numpy.org",
+    "Version": "2.4.4"
+  },
+  {
+    "Author": "Tom Christie",
+    "License": "BSD License",
+    "Name": "httpx",
+    "URL": "https://github.com/encode/httpx",
+    "Version": "0.28.1"
+  }
+]

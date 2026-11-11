@@ -1,82 +1,42 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Switch, FormControl, FormLabel, FormControlLabel, Typography} from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
 import {changeSelectedLegend} from '../../redux/actions/filters';
-import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
-
-const styles = {
-  formControlLabel: {
-    marginLeft: 5,
-    marginTop: 0,
-    color: 'black',
-    height: 22,
-    paddingBottom: 8,
-  },
-  label: {
-    fontSize: '0.9rem',
-  },
-  formLabel: {
-    color: 'white',
-    top: -6,
-    left: 15,
-    fontSize: '0.75rem',
-  },
-  menuPaper: {
-    maxHeight: 400,
-  },
-  root: {
-    // display: 'flex',
-    // justifyContent: 'space-evenly',
-    width: 220,
-  },
-
-};
+import {toolbarFormLabelSx, toolbarSwitchSx, toolbarSwitchLabelSx} from './controlStyles';
 
 /**
- * component for selecting a country
- * @param {LegendPicker.propTypes} props
+ * Switch between equal-interval and custom legend bucketing.
  * @return {React.ReactElement}
  */
-const LegendPicker = (props) => {
-  const {classes} = props;
+const LegendPicker = () => {
   const dispatch = useDispatch();
   const selectedLegend = useSelector((state) => state.filters.selectedLegend);
 
-  const legendToggleChange = (e) => {
-    dispatch(changeSelectedLegend(e.target.checked));
-  };
-
-
   return (
-    <div className={classes.root}>
+    <div style={{minWidth: 180}}>
       <FormControl component='fieldset' variant='standard'>
-        <FormLabel component='legend' className={classes.formLabel}>
+        <FormLabel component='legend' sx={toolbarFormLabelSx}>
           <FormattedMessage id='legend'/>
         </FormLabel>
-        <FormControlLabel className={classes.formControlLabel}
+        <FormControlLabel
+          sx={{marginLeft: 0, marginTop: '2px', gap: '8px'}}
           label={
-            selectedLegend ?
-            <Typography className={classes.label}>
-              <FormattedMessage id='equal_interval'/>
-            </Typography>:
-            <Typography className={classes.label}>
-              <FormattedMessage id='custom_legend'/>
+            <Typography sx={toolbarSwitchLabelSx}>
+              {selectedLegend ?
+                <FormattedMessage id='equal_interval'/> :
+                <FormattedMessage id='custom_legend'/>}
             </Typography>
           }
           control={<Switch
+            sx={toolbarSwitchSx}
             checked={selectedLegend}
-            onChange={legendToggleChange}
-          />}>
-        </FormControlLabel>
+            onChange={(e) => dispatch(changeSelectedLegend(e.target.checked))}
+          />}
+        />
       </FormControl>
     </div>
   );
 };
 
-LegendPicker.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(LegendPicker);
+export default LegendPicker;

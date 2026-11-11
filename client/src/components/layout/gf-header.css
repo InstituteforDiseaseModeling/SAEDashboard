@@ -1,0 +1,62 @@
+/* ============================================================
+   GF brand header — implements "Header and Footer" design,
+   direction 1a: parchment bar · slate wordmark · saffron
+   active-tab rule, with a condensed/scrolled state.
+   Requires gf-tokens.css (loaded first) and Noto Sans/Serif.
+
+   Adapted for the AIVA React app: the bar is position:fixed across
+   the full page width (matching the app's previous fixed AppBar),
+   the hamburger menu is kept, the EN/FR language toggle and the AI
+   Assistant button live in .gf-controls. No light/dark theme toggle.
+   Add class "is-condensed" to the header on scroll.
+   ============================================================ */
+
+.gf-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 64px;
+  padding: 0 var(--space-8);
+  background: var(--parchment);
+  border-bottom: 1px solid var(--parchment-dark);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  font-family: var(--font-body);
+  box-sizing: border-box;
+  transition: height .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+/* ---- Hamburger menu button (kept from the app's nav) ---- */
+.gf-header .gf-menu-btn { flex: none; color: var(--slate); }
+
+/* ---- Brand: dashboard name (serif) ---- */
+.gf-brand { display: flex; align-items: center; flex: none; }
+.gf-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--slate);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+/* ---- Right-side controls ---- */
+.gf-controls { display: flex; align-items: center; gap: 14px; flex: none; margin-left: auto; }
+.gf-header .gf-assistant-btn { color: var(--slate); }
+
+/* ---- Condensed / scrolled state: 56px, white, elevated ---- */
+.gf-header.is-condensed {
+  height: 56px;
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+}
+.gf-header.is-condensed .gf-title { font-size: 15px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 720px) {
+  .gf-header { gap: var(--space-4); padding: 0 var(--space-4); }
+  .gf-title { font-size: 15px; }
+}

@@ -1,96 +1,56 @@
+from pathlib import Path
 import pandas as pd
 import yaml
-import os
 from fastapi import APIRouter, Request, HTTPException
-from helpers.dot_name import DotName
-from helpers.controller_helpers import read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data, \
-    read_admin_level, ControllerException, get_all_countries, get_dataframe, DataFileKeys, read_shape_version
-from schemas.MapSchema import MapListSchema
+from service.helpers.dot_name import DotName, normalize_dot_name
+from service.helpers.controller_helpers import (
+    read_dot_names, read_subgroup, read_channel, read_year, read_month, read_data,
+    read_admin_level, ControllerException, get_all_countries, get_dataframe, DataFileKeys,
+    read_shape_version, load_geojson_pickle, get_shape_filename, resolve_version_for_country,
+    aggregate_values,
+)
+from service.helpers.indicator_metadata import aggregation_method
+from service.schemas.MapSchema import MapListSchema
+
+
+def _build_shape_lookup(shape_data):
+    norm_to_canon = {}
+    for k in shape_data:
+        norm_to_canon[normalize_dot_name(k)] = k
+        suffix = k.rsplit(':', 1)[-1]
+        norm_suffix = normalize_dot_name(suffix)
+        if norm_suffix not in norm_to_canon:
+            norm_to_canon[norm_suffix] = k
+    return norm_to_canon
+
+
+def _resolve_dot_name(dn, shape_lookup):
+    if not shape_lookup:
+        return dn
+    norm = normalize_dot_name(dn)
+    if norm in shape_lookup:
+        return shape_lookup[norm]
+    suffix = dn.rsplit(':', 1)[-1]
+    norm_suffix = normalize_dot_name(suffix)
+    if norm_suffix in shape_lookup:
+        return shape_lookup[norm_suffix]
+    return dn
+
 
 router = APIRouter()
 
-# Load disaggregated indicators once at module level
-_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../config.yaml')
+_config_path = Path(__file__).parent.parent / 'config.yaml'
 with open(_config_path, "r") as f:
     CONFIG = yaml.safe_load(f)
-
 DISAGGREGATED_INDICATORS = CONFIG.get("disaggregated_indicators", [])
 
 
 @router.get("/map", response_model=MapListSchema)
 async def get_map(request: Request):
-    """
-    Retrieves spatial indicator values by administrative region.
-
-    This endpoint returns modeled or empirical values for a specified indicator
-    across subnational regions, filtered by region, year, administrative level, and subgroup.
-    It supports both scalar indicators and disaggregated indicators.
-
-    The response format is dynamically chosen based on the indicator type:
-    - Simple indicators return a list of `{id, value, data_lower_bound, data_upper_bound}`.
-    - Disaggregated indicators additionally return `others` — a dictionary of values for non-primary attributes.
-
-    Query Parameters:
-        - dot_name (str): A hierarchical geographic identifier (e.g., "Africa:Benin").
-                          Only one value is allowed per request.
-        - channel (str): The name of the indicator (e.g., "predicted_incidence").
-        - subgroup (str): A population subgroup for particular analysis (e.g., "15-24_urban").
-        - year (int): The target year for data retrieval (e.g., 2022).
-        - month (int, optional): If the dataset supports monthly disaggregation, filters to that month.
-        - data (str): The name of the data column to return (e.g., "data (pred)", "data_upper_bound (pred_upper)", or "data_lower_bound (pred_lower)").
-        - version (int, optional): Shapefile version for geometry matching (only necessary if an indicator has data files for two different shapefile versions)
-        - admin_level (int): The level of geographic resolution to return (e.g., 2 = admin1; 3=admin2).
-
-    Returns:
-        list: A list of region-level indicator values with uncertainty bounds and optional disaggregates.
-
-    Example 1: /map?dot_name=Africa:Senegal&channel=tpr&subgroup=all&year=2024&data=data&admin_level=3&shape_version=1
-    return:
-        [
-            {
-                "id": "Africa:Senegal:Dakar:Centre",
-                "value": 2.259887006,
-                "data_lower_bound": 2.259887006,
-                "data_upper_bound": 2.259887006
-            },
-            {
-                "id": "Africa:Senegal:Dakar:Centre",
-                "value": 2.54801293,
-                "data_lower_bound": 2.54801293,
-                "data_upper_bound": 2.54801293
-            },
-            ...
-        ]
-
-    Example 2: /map?dot_name=Africa:Senegal&channel=species_comp_gambiae&subgroup=all&year=2023&data=data&admin_level=3&shape_version=1
-    return:
-        [
-            {
-                "id": "Africa:Senegal:Saint-Louis:Dagana",
-                "value": 29.7188755,
-                "data_lower_bound": 29.7188755,
-                "data_upper_bound": 29.7188755,
-                "others": {
-                    "nili": 0.0,
-                    "pharoensis": 16.86746988,
-                    "rufipes": 2.409638554,
-                    "squamosus": 0.0,
-                    "ziemanni": 22.89156627,
-                    "coustani": 0.0,
-                    "funestus": 28.1124498,
-                    "stephensi": 0.0
-                }
-            },
-            ...
-        ]
-
-    """
     try:
-        # handle get arguments
         dot_names = read_dot_names(request=request)
         if len(dot_names) > 1:
             raise ControllerException('indicators can only be requested for one dot_name at a time.')
-
         dot_name = DotName(dot_name_str=dot_names[0])
         channel = read_channel(request=request)
         subgroup = read_subgroup(request=request)
@@ -103,28 +63,64 @@ async def get_map(request: Request):
         if requested_admin_level < dot_name.admin_level:
             raise ControllerException('Cannot request an admin_level shallower than the provided dot_name.')
 
-        # Handle the case where continent-level dot_name is provided, too
         countries = get_all_countries() if dot_name.country is None else [dot_name.country]
         all_countries_on_continent = dot_name.country is None
-
         return_list = []
 
         for country in countries:
-            df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=shape_version)
+            cv = resolve_version_for_country(country, channel, shape_version) if all_countries_on_continent else shape_version
+            if cv is None:
+                continue
+            try:
+                df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=cv)
+            except HTTPException:
+                continue
             parent_dn = DotName.from_parts([dot_name.continent, country]) if all_countries_on_continent else dot_name
 
-            # Filter to descendants at the requested admin level
             all_dot_names = [DotName(dn) for dn in df[DataFileKeys.DOT_NAME].dropna().unique()]
             valid_dot_names = [
                 str(dn) for dn in all_dot_names
                 if dn.is_descendant_or_self(parent_dn) and dn.admin_level == requested_admin_level
             ]
-            df = df[df[DataFileKeys.DOT_NAME].isin(valid_dot_names) & (df[DataFileKeys.YEAR] == year)]
+            df = df[df[DataFileKeys.DOT_NAME].isin(valid_dot_names) & (df[DataFileKeys.YEAR] == year)].copy()
 
-            # Make a copy to avoid chained assignment warnings
-            df = df.copy()
+            if df.empty:
+                deeper_dot_names = [
+                    dn for dn in all_dot_names
+                    if dn.is_descendant_or_self(parent_dn) and dn.admin_level > requested_admin_level
+                ]
+                if deeper_dot_names:
+                    level = min(dn.admin_level for dn in deeper_dot_names)
+                    deeper_strs = [str(dn) for dn in deeper_dot_names if dn.admin_level == level]
+                    df = get_dataframe(country=country, channel=channel, subgroup=subgroup, version=cv)
+                    df = df[df[DataFileKeys.DOT_NAME].isin(deeper_strs) & (df[DataFileKeys.YEAR] == year)].copy()
 
-            # Handle month filtering if applicable
+                    has_month = 'month' in df.columns and df['month'].notnull().any()
+                    if has_month:
+                        df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype(str)
+                        if month is not None:
+                            df = df[df[DataFileKeys.MONTH] == str(month)]
+                        elif 'all' in df[DataFileKeys.MONTH].values:
+                            df = df[df[DataFileKeys.MONTH] == 'all']
+
+                    df['_parent'] = df[DataFileKeys.DOT_NAME].apply(
+                        lambda dn: ':'.join(dn.split(':')[:requested_admin_level + 2])
+                    )
+
+                    shape_fn = get_shape_filename(parent_dn, requested_admin_level, cv)
+                    shape_data = load_geojson_pickle(shape_fn) if shape_fn else None
+                    shape_lookup = _build_shape_lookup(shape_data) if shape_data else None
+                    if shape_lookup:
+                        df['_parent'] = df['_parent'].apply(
+                            lambda p: _resolve_dot_name(p, shape_lookup)
+                        )
+
+                    group_cols = ['_parent']
+                    if has_month:
+                        group_cols.append(DataFileKeys.MONTH)
+                    df = aggregate_values(df, group_cols, aggregation_method(channel))
+                    df = df.rename(columns={'_parent': DataFileKeys.DOT_NAME})
+
             if 'month' in df.columns and df['month'].notnull().any():
                 df[DataFileKeys.MONTH] = df[DataFileKeys.MONTH].astype(str)
                 if month is not None:
@@ -132,42 +128,34 @@ async def get_map(request: Request):
                 elif 'all' in df[DataFileKeys.MONTH].values:
                     df = df[df[DataFileKeys.MONTH] == 'all']
 
-
-            # Format results
             if channel in DISAGGREGATED_INDICATORS:
-                addl_data_columns = [col for col in df.columns if f'pred_' in col]
-
+                addl_data_columns = [col for col in df.columns if 'pred_' in col]
                 new_values = []
                 for _, row in df.iterrows():
-                    entry = {
+                    new_values.append({
                         'id': row[DataFileKeys.DOT_NAME],
                         'value': row[data_key],
                         'data_upper_bound': row['data_upper_bound'],
                         'data_lower_bound': row['data_lower_bound'],
-                        'others': {
-                            col.removeprefix(f'pred_'): row[col] for col in addl_data_columns
-                        }
-                    }
-                    new_values.append(entry)
+                        'others': {col.removeprefix('pred_'): row[col] for col in addl_data_columns}
+                    })
             else:
-                # update the return with the newly found entries
                 new_values = df[[DataFileKeys.DOT_NAME, data_key, 'data_lower_bound', 'data_upper_bound']].rename(
-                    columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}, inplace=False).to_dict('records')
+                    columns={DataFileKeys.DOT_NAME: 'id', data_key: 'value'}).to_dict('records')
 
-            # Update 'data_lower_bound' and 'data_upper_bound' if they are NaN
             for record in new_values:
-                if pd.isna(record['data_lower_bound']):
+                if pd.isna(record.get('value')):
+                    continue
+                if pd.isna(record.get('data_lower_bound')):
                     record['data_lower_bound'] = record['value']
-                if pd.isna(record['data_upper_bound']):
+                if pd.isna(record.get('data_upper_bound')):
                     record['data_upper_bound'] = record['value']
-
-            return_list.extend(new_values)
+                return_list.append(record)
 
         return return_list
-
     except ControllerException as e:
         raise HTTPException(status_code=400, detail=str(e))
     except HTTPException:
-        raise  # re-raise deliberate FastAPI exceptions
+        raise
     except Exception:
         raise HTTPException(status_code=500, detail="Internal server error")

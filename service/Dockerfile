@@ -1,34 +1,25 @@
-FROM python:3.9
-ARG TOKEN
-RUN apt update && apt install nginx git -y
+FROM python:3.13-slim AS builder
 
-RUN mkdir -p /root/.pip
-ADD pip.conf /root/.pip/pip.conf
-ENV PYTHONPATH=/app:${PYTHONPATH}
-ENV PATH=/app:${PATH}
+WORKDIR /build
+COPY service/scripts/download_gadm.py /build/service/scripts/
+COPY service/scripts/gadm_name_lookup.json /build/service/scripts/
+COPY service/scripts/build_shape_pickles.py /build/service/scripts/
 
-RUN mkdir -p /app/service/helpers
-RUN mkdir -p /app/service/data/shapefiles
+ARG GADM_VERSION=latest
+RUN --mount=type=cache,target=/build/service/data/gadm \
+    python /build/service/scripts/download_gadm.py --version $GADM_VERSION && \
+    python /build/service/scripts/build_shape_pickles.py
 
-WORKDIR /app/service
-
-ADD setup.py README.md /app/service/
-ADD helpers/gadm_geojson_converter.py /app/service/helpers
-ADD helpers/serialize_files.py /app/service/helpers
-ADD helpers/downloadGeoJson.sh /app/service/helpers
-
-RUN pip install -e .[production]
-
-## Download geoJSON from GADM and and property update
-RUN chmod a+x ./helpers/downloadGeoJson.sh
-RUN ./helpers/downloadGeoJson.sh
+FROM python:3.13-slim
 
 WORKDIR /app
 
-ADD nginx.conf /etc/nginx/nginx.conf
-ADD entrypoint.sh .
-RUN chmod +x ./entrypoint.sh
-ADD wsgi.ini .
-ADD . ./service
+COPY service/requirements.txt /app/service/requirements.txt
+RUN pip install --upgrade "pip>=26.2.2" && pip install --no-cache-dir -r /app/service/requirements.txt
+
+COPY service/ /app/service/
+COPY --from=builder /build/service/data/shapefiles/ /app/service/data/shapefiles/
+
+ENV PYTHONPATH=/app:${PYTHONPATH}
 
 CMD ["uvicorn", "service.app:app", "--host", "0.0.0.0", "--port", "5000"]

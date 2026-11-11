@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useState} from 'react';
-import {Grid, Typography} from '@mui/material';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Alert, Grid, Typography} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import StateDataChart from './StateDataChart';
 import ChartSubgroupsFilter from './filterelements/ChartSubgroupsFilter';
+import CombinedStateDataChart, {combinedTitle, hasMultipleSeries, useCombinedTimeseries}
+  from './CombinedStateDataChart';
+import {useIndicatorConfig} from '../hooks/useAppConfig.ts';
 import * as _ from 'lodash';
 import Paper from '@mui/material/Paper';
 import {Toolbar, AppBar, Link} from '@mui/material';
-import {ChartContext} from '../components/context/chartContext';
+import {ChartContext, yRangeKey} from './context/chartContext';
 import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, useIntl} from 'react-intl';
 
 const styles = {
   title: {
@@ -20,15 +24,15 @@ const styles = {
     fontSize: 15,
   },
   chartArea: {
-    padding: 5,
-    margin: '-10px 5px 0px 5px',
+    margin: '-5px 5px 0px 5px',
+    paddingBottom: 5,
     minHeight: 478,
   },
   toggles: {
     textAlign: 'center',
-    width: '1000px',
-    margin: '0 auto',
-    marginBottom: 10,
+    height: '100%',
+    width: 'inherit',
+    margin: '10px',
   },
   grow: {
     flexGrow: 1,
@@ -48,58 +52,87 @@ const styles = {
     textAlign: 'right',
     cursor: 'pointer',
   },
+  combineWarning: {
+    margin: '0 10px 10px 10px',
+  },
 };
 
 const StateData = (props) => {
-  const {classes, selectedState, indicators, channel} = props;
+  const {classes, selectedState, indicators, channel, sharedYAxisRange, onYAxisRangeChange,
+    syncYAxis, onSyncYAxisChange} = props;
+  const selectedCountry = useSelector((state) => state.filters.selectedCountry);
+  const displayName = selectedState || (selectedCountry ? selectedCountry.split(':').pop() : '');
 
   const [subgroups, setSubgroups] = useState([]);
   const [selectedGroups, setSelectedGroups] = useState([]);
+  const [combineGroups, setCombineGroups] = useState(false);
+  const [chartType, setChartType] = useState('');
+  const intl = useIntl();
+  const ignoreOthers = _.get(useIndicatorConfig(channel), 'ignoreOthers', false);
 
-  const [maxYAxisVal, setMaxYAxisVal] = useState(0);
-  const [minYAxisVal, setMinYAxisVal] = useState(1000);
+  const combineRequested = combineGroups && selectedGroups.length > 1;
+  const {groupData, isError: combinedError} = useCombinedTimeseries({groups: selectedGroups,
+    selectedState, channel, enabled: combineRequested});
+  const multiSeriesGroups = combineRequested && groupData ?
+    selectedGroups.filter((group) => hasMultipleSeries(groupData[group], ignoreOthers)) : [];
+  const showCombined = combineRequested && multiSeriesGroups.length === 0;
 
-  const contextValue = {maxYAxisVal, setMaxYAxisVal, minYAxisVal, setMinYAxisVal};
+  const [yRanges, setYRanges] = useState({});
+
+  const reportYRange = useCallback((key, range) => {
+    setYRanges((prev) => ({...prev, [key]: range}));
+  }, []);
+
+  const yAxisRange = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    const charts = showCombined ? [combinedTitle(selectedGroups)] : selectedGroups;
+    charts.forEach((group) => {
+      const range = yRanges[yRangeKey(channel, selectedState, group)];
+      if (range) {
+        min = Math.min(min, range.min);
+        max = Math.max(max, range.max);
+      }
+    });
+    return min <= max ? {min, max} : null;
+  }, [yRanges, selectedGroups, channel, selectedState, showCombined]);
+
+  useEffect(() => {
+    if (onYAxisRangeChange) {
+      onYAxisRangeChange(yAxisRange);
+    }
+  }, [yAxisRange, onYAxisRangeChange]);
+
+  const effectiveYAxisRange = sharedYAxisRange || yAxisRange;
+
+  const contextValue = useMemo(() => ({yAxisRange: effectiveYAxisRange, reportYRange}),
+      [effectiveYAxisRange, reportYRange]);
   const indObj = _.find(indicators, {'id': channel});
 
-  /** show all groups */
   const showAll = () => {
     setSelectedGroups(indObj.subgroups);
   };
 
-  /** hide all groups */
   const hideAll = () => {
     setSelectedGroups([]);
   };
 
   useEffect(() => {
     const indObj = _.find(indicators, {'id': channel});
+    console.log('[StateData] effect:', {selectedState, channel, hasIndObj: !!indObj, subgroupCount: indObj?.subgroups?.length});
 
     if (indObj) {
       setSubgroups(indObj.subgroups);
       setSelectedGroups(indObj.subgroups);
     }
-
-    // Only fetch if a state is selected!
-    if (selectedState) {
-      setMaxYAxisVal(0);
-      setMinYAxisVal(1000);
-    }
-  }, [selectedState, indicators.length, channel]);
-
-  useEffect(()=> {
-    setMaxYAxisVal(0);
-    setMinYAxisVal(1000);
-  }, [selectedGroups.length, channel]);
+  }, [selectedState, indicators, channel]);
 
   const toggleGroup = (toggleGroup) => {
     const index = _.indexOf(selectedGroups, toggleGroup);
 
-    // If we have the index present -> remove it
     if (index !== -1) {
       setSelectedGroups([...selectedGroups.filter((group) => group !== toggleGroup)]);
     } else {
-      // Was not present -> add it back using order from subgroups
       const newGroups = [...selectedGroups, toggleGroup];
       const newSelectedGroups = subgroups.filter((group) => {
         if (newGroups.indexOf(group) > -1) {
@@ -110,7 +143,6 @@ const StateData = (props) => {
     }
   };
 
-  // Dont display anything if we do not have the subgroups yet
   if (subgroups.length === 0) {
     return null;
   }
@@ -118,11 +150,10 @@ const StateData = (props) => {
 
   return (
     <Paper className={classes.chartArea}>
-      {/* app bar charts */}
       <AppBar position="static" >
         <Toolbar variant="dense" className={classes.chartBar}>
           <Typography variant="h6" className={classes.title}>
-            {selectedState} ({indObj ? indObj['text'] : '' })
+            {displayName} ({indObj ? indObj['text'] : '' })
           </Typography>
           <div className={classes.grow} key={1}/>
           <div className={classes.linkContainer} key={2}>
@@ -144,10 +175,35 @@ const StateData = (props) => {
         <div className={classes.toggles}>
           <ChartSubgroupsFilter groups={subgroups}
             selectedGroups={selectedGroups}
-            toggleGroup={toggleGroup}/>
+            toggleGroup={toggleGroup}
+            combineGroups={combineGroups}
+            onCombineGroupsChange={setCombineGroups}
+            syncYAxis={syncYAxis}
+            onSyncYAxisChange={onSyncYAxisChange}
+            chartType={chartType}
+            onChartTypeChange={setChartType}/>
         </div>
+        {multiSeriesGroups.length > 0 &&
+          <Alert severity="warning" className={classes.combineWarning}>
+            <FormattedMessage id="combine_subgroups_multi_series_warning" values={{
+              groups: multiSeriesGroups.map((group) =>
+                intl.messages[group] ? intl.formatMessage({id: group}) : group).join(', '),
+            }}/>
+          </Alert>
+        }
         <Grid container spacing={1} >
-          {selectedGroups.map((group) => {
+          {showCombined ?
+            <Grid item xs={12} md={12}>
+              <CombinedStateDataChart
+                groups={selectedGroups}
+                groupData={groupData}
+                isError={combinedError}
+                selectedState={selectedState}
+                channel={channel}
+                chartType={chartType}
+              />
+            </Grid> :
+          selectedGroups.map((group) => {
             return (
               <Grid item xs={12} md={12} key={group} >
                 <StateDataChart
@@ -155,6 +211,7 @@ const StateData = (props) => {
                   groupName={group}
                   selectedState={selectedState}
                   channel={channel}
+                  chartType={chartType}
                   key={channel+selectedState}
                 />
               </Grid>
@@ -171,7 +228,10 @@ StateData.propTypes = {
   selectedState: PropTypes.string,
   indicators: PropTypes.array,
   channel: PropTypes.string,
+  sharedYAxisRange: PropTypes.shape({min: PropTypes.number, max: PropTypes.number}),
+  onYAxisRangeChange: PropTypes.func,
+  syncYAxis: PropTypes.bool,
+  onSyncYAxisChange: PropTypes.func,
 };
 
 export default withStyles(styles)(StateData);
-

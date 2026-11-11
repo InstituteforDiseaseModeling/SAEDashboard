@@ -1,0 +1,44 @@
+{
+  "app": {
+    "title": "Subnational Family Planning Estimation Tool",
+    "disableAdmin2": false,
+    "defaultYear": 2020,
+    "defaultRegion": "Africa:Senegal:Diourbel",
+    "defaultCountry": "Africa:Senegal",
+    "defaultIndicator": "modern_method",
+    "defaultComparisonIndicator": "traditional_method",
+    "indicatorGroups": ["Family Planning"]
+  },
+  "indicators": {
+    "modern_method": {
+      "theme": "RdBu",
+      "shapefileVersion": 1,
+      "multiper": 100,
+      "unit": "%",
+      "mapLabel": "%",
+      "legendLabel": "%",
+      "decimalPt": 0,
+      "group": "Family Planning"
+    },
+    "traditional_method": {
+      "theme": "RdBu",
+      "shapefileVersion": 1,
+      "multiper": 100,
+      "unit": "%",
+      "mapLabel": "%",
+      "legendLabel": "%",
+      "decimalPt": 0,
+      "group": "Family Planning"
+    },
+    "unmet_need": {
+      "theme": "BuRd",
+      "shapefileVersion": 1,
+      "multiper": 100,
+      "unit": "%",
+      "mapLabel": "%",
+      "legendLabel": "%",
+      "decimalPt": 0,
+      "group": "Family Planning"
+    }
+  }
+}

@@ -47,16 +47,19 @@ const styles = (theme) => ({
 });
 
 /**
- *
+ * Forwards its ref to SnackbarContent: Snackbar's Grow transition needs the
+ * DOM node, and crashes (reading 'scrollTop' of null) without it.
  * @param {*} props
+ * @param {*} ref
  * @return {*} SnackbarContentWrapper
  */
-function SnackbarContentWrapper(props) {
+const SnackbarContentWrapper = React.forwardRef(function SnackbarContentWrapper(props, ref) {
   const {classes, className, message, onClose, variant, ...other} = props;
   const Icon = variantIcon[variant];
 
   return (
     <SnackbarContent
+      ref={ref}
       className={clsx(classes[variant], className, classes.root)}
       aria-describedby="client-snackbar"
       message={
@@ -78,7 +81,7 @@ function SnackbarContentWrapper(props) {
       {...other}
     />
   );
-}
+});
 
 SnackbarContentWrapper.propTypes = {
   classes: PropTypes.object,

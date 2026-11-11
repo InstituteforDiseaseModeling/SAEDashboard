@@ -1,6 +1,7 @@
 import React from 'react';
 import data from '../data/output.json';
 import beData from '../data/licenses.json';
+import mindData from '../data/mind-licenses.json';
 import {Table, TableCell, TableHead, TableRow, Typography} from '@mui/material';
 import withStyles from '@mui/styles/withStyles';
 import * as _ from 'lodash';
@@ -23,9 +24,9 @@ const styles = ({
   titleText: {
     paddingTop: 10,
     paddingLeft: 15,
-    fontFamily: '"Saira Condensed","Roboto", "Helvetica", "Arial", "sans-serif"',
+    fontFamily: '"Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif',
     margin: '20px 20px 10px 0px',
-    color: '#F1815E',
+    color: '#F85C02',
   },
 
 
@@ -49,6 +50,9 @@ const Libraries = ({classes}) => {
     return i[5].toLowerCase();
   });
   const beLibraries = _.sortBy(beData, (i)=>{
+    return i.Name.toLowerCase();
+  });
+  const mindLibraries = _.sortBy(mindData, (i)=>{
     return i.Name.toLowerCase();
   });
 
@@ -96,6 +100,30 @@ const Libraries = ({classes}) => {
             beLibraries.map((library) => {
               return (
                 <TableRow key={library[0]}>
+                  <TableCell> {library.Name} - {library.Author} </TableCell>
+                  <TableCell> {library.License} </TableCell>
+                  <TableCell> {library.Version} </TableCell>
+                  <TableCell> {convert2Link(library.URL)} </TableCell>
+                </TableRow>
+              );
+            })
+          }
+        </Table>
+
+        <Typography variant="h6" className={classes.titleText}>
+          <FormattedMessage id='mind_libraries'/>
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableCell><FormattedMessage id='name_author'/></TableCell>
+            <TableCell><FormattedMessage id='license'/></TableCell>
+            <TableCell><FormattedMessage id='version'/></TableCell>
+            <TableCell><FormattedMessage id='url'/></TableCell>
+          </TableHead>
+          {
+            mindLibraries.map((library) => {
+              return (
+                <TableRow key={library.Name}>
                   <TableCell> {library.Name} - {library.Author} </TableCell>
                   <TableCell> {library.License} </TableCell>
                   <TableCell> {library.Version} </TableCell>

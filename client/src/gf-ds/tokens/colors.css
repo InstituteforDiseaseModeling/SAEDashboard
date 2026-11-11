@@ -1,0 +1,89 @@
+/* ============================================
+   COLORS  —  Gates Foundation (official palette)
+   Source: GF COLOR AND TYPOGRAPHY REFERENCES + Visual Identity / Color.
+
+   CORE palette (used most widely — website, presentation template):
+     Weathered Slate  #313A44   ·  Parchment #F5F3ED  ·  Blooming Saffron #EBCB00
+     + White #FFFFFF, Black #000000
+   SECONDARY palette: six hue families (Yellow, Orange, Red, Magenta, Blue,
+     Turquoise), each in Light / Medium / Dark. Blooming Saffron IS the medium
+     Yellow, bridging core and secondary.
+
+   Combine with the ZIG-ZAG METHOD: anchor on Parchment + Weathered Slate, then
+   add one Light, one Medium, one Dark — each from a DIFFERENT hue column
+   (never two from the same column). Only use approved colors; no substitutions.
+   ============================================ */
+
+:root {
+  /* ---- Core ---- */
+  --slate: #313A44;           /* Weathered Slate — text & dark ground (7545C/2189U) */
+  --parchment: #F5F3ED;       /* Parchment — primary light ground (Warm Gray 1) */
+  --saffron: #EBCB00;         /* Blooming Saffron — hero accent (7405C/108U) */
+  --white: #FFFFFF;
+  --black: #000000;
+
+  /* ---- Secondary: Yellow (Blooming Saffron is the medium) ---- */
+  --yellow-light: #FFF29E;
+  --yellow-medium: #EBCB00;
+  --yellow-dark: #4D3600;
+  /* ---- Orange ---- */
+  --orange-light: #FF9C75;
+  --orange-medium: #F85C02;
+  --orange-dark: #9B320D;
+  /* ---- Red ---- */
+  --red-light: #FE8276;
+  --red-medium: #D93027;
+  --red-dark: #771109;
+  /* ---- Magenta ---- */
+  --magenta-light: #E88CC7;
+  --magenta-medium: #D83397;
+  --magenta-dark: #6C1446;
+  /* ---- Blue ---- */
+  --blue-light: #81C9F3;
+  --blue-medium: #248AF9;
+  --blue-dark: #12236D;
+  /* ---- Turquoise ---- */
+  --turquoise-light: #9CD9C5;
+  --turquoise-medium: #3AC9B1;
+  --turquoise-dark: #295958;
+
+  /* ---- Derived interaction / tint shades ---- */
+  --saffron-dark: #D2B500;    /* hover/press on saffron */
+  --saffron-tint: #FBF4C9;    /* soft fill */
+  --slate-80: #5a6169;
+  --slate-60: #838890;
+  --slate-tint: #E7E9EB;
+  --parchment-dark: #E9E6DC;  /* subtle divider on parchment */
+
+  /* ---- Back-compat aliases (secondary mediums) ---- */
+  --data-orange: var(--orange-medium);
+  --data-red:    var(--red-medium);
+  --data-pink:   var(--magenta-medium);
+  --data-blue:   var(--blue-medium);
+  --data-teal:   var(--turquoise-medium);
+  --data-gold:   var(--saffron);
+
+  /* ---- Semantic aliases ---- */
+  --surface-page:    var(--parchment);
+  --surface-card:    var(--white);
+  --surface-inverse: var(--slate);
+  --surface-accent:  var(--saffron);
+
+  --text-heading:    var(--slate);
+  --text-body:       var(--slate);
+  --text-caption:    var(--slate-80);
+  --text-on-slate:   var(--parchment);
+  --text-on-saffron: var(--slate);   /* saffron is bright — use slate on it */
+
+  --border-subtle:  var(--parchment-dark);
+  --border-strong:  var(--slate);
+
+  --link:         var(--slate);       /* links are slate, underlined */
+  --link-hover:   var(--saffron-dark);
+  --link-visited: var(--slate-80);
+
+  /* Semantic states — pair with text/icon, never color alone (accessibility) */
+  --state-warning: var(--red-medium);
+  --state-success: var(--turquoise-medium);
+  --state-info:    var(--blue-medium);
+}

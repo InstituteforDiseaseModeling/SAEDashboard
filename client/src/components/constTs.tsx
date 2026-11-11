@@ -1,27 +1,25 @@
-interface IndicatorConfig {
-  [key: string]: {
-    unitLabel: string;
-    multiper: number;
-    unit: string;
-    mapLabel: string; // used in map popup
-    decimalPt: number;
-    legendLabel: string;
-    useAvg?: boolean;
-    mainSpeciesName?: string,
-    rasterFile?: string,
-    extraInfo?: boolean,
-    chartType?: string,
-    yAxisLabel?: string;
-  };
+export interface IndicatorMeta {
+  theme?: string;
+  shapefileVersion?: number;
+  unitLabel?: string;
+  multiper?: number;
+  unit?: string;
+  mapLabel?: string;
+  decimalPt?: number;
+  legendLabel?: string;
+  useAvg?: boolean;
+  mainSpeciesName?: string;
+  rasterFile?: string;
+  extraInfo?: boolean;
+  extraInfoEn?: string;
+  extraInfoFr?: string;
+  chartType?: string;
+  yAxisLabel?: string;
+  ignoreOthers?: boolean;
+  dataSourceEn?: string;
+  dataSourceFr?: string;
+  group?: string;
+  groupOrder?: number;
 }
 
-export const IndicatorConfig: IndicatorConfig = {
-
-  'modern_method': {'unitLabel': 'modern_method', 'multiper': 100, 'unit': '%',
-    'mapLabel': '%', 'legendLabel': '%', 'decimalPt': 0},
-  'traditional_method': {'unitLabel': 'traditional_method', 'multiper': 100, 'unit': '%',
-    'mapLabel': '%', 'legendLabel': '%', 'decimalPt': 0},
-  'unmet_need': {'unitLabel': 'unmet_need', 'multiper': 100, 'unit': '%',
-    'mapLabel': '%', 'legendLabel': '%', 'decimalPt': 0},
-
-};
+export type IndicatorConfigMap = Record<string, IndicatorMeta>;
