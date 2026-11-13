@@ -40,9 +40,9 @@ Deployment
 To deploy the website using [Docker](https://www.docker.com/), follow these steps:
 
   1. In a terminal, navigate to the repo base directory.
-  2. Build the container images using `docker compose -f docker-compose.local.yml build`
+  2. Build the container images using `docker compose -f docker-compose.yml build`
   3. Run the containers using `docker compose -f docker-compose.local.yml up -d`
-  4. In a browser, navigate to "http://localhost" to see the dashboard
+  4. In a browser, navigate to "http://localhost:8080" to see the dashboard
 
 To deploy the website locally without Docker, follow these steps:
 
