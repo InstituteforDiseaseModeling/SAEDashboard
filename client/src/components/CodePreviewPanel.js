@@ -11,7 +11,10 @@ import {IconButton, Typography} from '@mui/material';
 SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('markdown', markdown);
 
-const langMap = {py: 'python', r: 'python', json: 'json', sh: 'bash', csv: 'plaintext', txt: 'plaintext', md: 'markdown'};
+const langMap = {
+  py: 'python', r: 'python', json: 'json', sh: 'bash',
+  csv: 'plaintext', txt: 'plaintext', md: 'markdown',
+};
 
 const CodePreviewPanel = ({filePath, fileType = 'file', title, onClose, drawerWidth = 440}) => {
   const [content, setContent] = useState(null);
@@ -43,11 +46,15 @@ const CodePreviewPanel = ({filePath, fileType = 'file', title, onClose, drawerWi
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '6px 12px', backgroundColor: '#313A44', color: '#F5F3ED',
       }}>
-        <Typography variant="caption" sx={{fontWeight: 600, fontSize: '0.8rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1}}>
+        <Typography variant="caption" sx={{
+          fontWeight: 600, fontSize: '0.8rem', overflow: 'hidden',
+          textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1,
+        }}>
           {fileName}
         </Typography>
         {!isDoc && (
-          <IconButton size="small" component="a" href={`/mind/files/${filePath}`} download={filePath.split('/').pop()}
+          <IconButton size="small" component="a" href={`/mind/files/${filePath}`}
+            download={filePath.split('/').pop()}
             sx={{color: '#F5F3ED', mx: 0.5}}>
             <DownloadIcon fontSize="small" />
           </IconButton>

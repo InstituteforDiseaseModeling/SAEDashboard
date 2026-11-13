@@ -8,7 +8,6 @@ import MapLegendMax from './filterelements/MapLegendMax';
 import MapSubgroupsFilter from './filterelements/MapSubgroupsFilter';
 import MapTheme from './filterelements/MapTheme';
 import PropTypes from 'prop-types';
-import LegendPicker from './filterelements/LegendPicker';
 import YearMonthPicker from './filterelements/YearMonthPicker';
 import DiffMapPicker from './filterelements/DiffMapPicker';
 import LegendSyncPicker from './filterelements/LegendSyncPicker';

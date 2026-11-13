@@ -119,7 +119,9 @@ const StateData = (props) => {
 
   useEffect(() => {
     const indObj = _.find(indicators, {'id': channel});
-    console.log('[StateData] effect:', {selectedState, channel, hasIndObj: !!indObj, subgroupCount: indObj?.subgroups?.length});
+    console.log('[StateData] effect:', {
+      selectedState, channel, hasIndObj: !!indObj, subgroupCount: indObj?.subgroups?.length,
+    });
 
     if (indObj) {
       setSubgroups(indObj.subgroups);
@@ -134,11 +136,7 @@ const StateData = (props) => {
       setSelectedGroups([...selectedGroups.filter((group) => group !== toggleGroup)]);
     } else {
       const newGroups = [...selectedGroups, toggleGroup];
-      const newSelectedGroups = subgroups.filter((group) => {
-        if (newGroups.indexOf(group) > -1) {
-          return group;
-        }
-      });
+      const newSelectedGroups = subgroups.filter((group) => newGroups.includes(group));
       setSelectedGroups(newSelectedGroups.map( (group)=>group));
     }
   };

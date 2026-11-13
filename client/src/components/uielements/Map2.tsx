@@ -2,11 +2,11 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, {useRef, useEffect, useLayoutEffect, useState, useContext} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {GeoJSON, LayerGroup, LeafletMouseEvent, FeatureGroup, GeoJSONOptions, Map} from 'leaflet';
 import MapLegend from './Legends/MapLegend.js';
 import {Feature, GeometryObject} from 'geojson';
-import chroma, {Color} from 'chroma-js';
+import chroma from 'chroma-js';
 import customTheme from '../../customTheme.json';
 import {extraInfo} from './MapUtil';
 import {makeStyles} from '@mui/styles';
@@ -16,14 +16,14 @@ import {injectIntl} from 'react-intl';
 import {useIndicatorConfig} from '../../hooks/useAppConfig.ts';
 import LinkifiedText from './LinkifiedText';
 import {GF} from '../../gf-colors';
-
-const normalizeDotName = (s: string) =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\s\-_]/g, '').toLowerCase();
 import {ComparisonMapContext} from '../provider/comparisonMapProvider';
 import {Typography, Tooltip} from '@mui/material';
 import {FormattedMessage} from 'react-intl';
 // Export Image Component
 import ExportImageComponent from '../uielements/ExportImage.js';
+
+const normalizeDotName = (s: string) =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\s\-_]/g, '').toLowerCase();
 
 const styles = makeStyles({
   MapContainer: {
@@ -47,7 +47,7 @@ const styles = makeStyles({
     fontWeight: 500,
     backgroundColor: 'white',
     padding: '0 10px',
-  },  
+  },
   note_diff: {
     position: 'absolute',
     fontSize: '0.8rem',
@@ -105,12 +105,9 @@ export const isIncidenceMap = (indicator:string) => {
 
 const MapComponent = (props: any) => {
   const {mapData, geoJson, height, selectPlace, selectedMapTheme, primary, indicator, intl} = props;
-  const selectedLegend = useSelector((state:any) => state.filters.selectedLegend);
   const selectedDiffMap = useSelector((state:any) => state.filters.selectedDiffMap);
   const selectedLegendSync = useSelector((state:any) => state.filters.selectedLegendSync);
-  const layerData = useSelector((state:any) => state.dashboard.layerData);
   const currentYear = useSelector((state:any) => state.filters.currentYear);
-  const currentMonth = useSelector((state:any) => state.filters.currentMonth);
   const selectedYear = useSelector((state:any) => state.filters.selectedYear);
   const primaryIndicator = useSelector((state:any) => state.filters.selectedIndicator);
   const mapLegendMax = useSelector((state:any) => state.filters.mapLegendMax);
@@ -124,7 +121,6 @@ const MapComponent = (props: any) => {
   const mapLabel = indicatorConfig.mapLabel ?
     intl.formatMessage({id: indicatorConfig.mapLabel, defaultMessage: indicatorConfig.mapLabel}) :
     (indicatorConfig.unit || '');
-  const rasterFile = indicatorConfig.rasterFile || '';
   const mainSpeciesName = indicatorConfig.mainSpeciesName;
   // Extra info text for the dashboard language, falling back to the other language; without
   // either, the `extraInfo` switch shows the older `{indicator}_extra_info` message
@@ -133,8 +129,7 @@ const MapComponent = (props: any) => {
     (indicatorConfig.extraInfoFr || indicatorConfig.extraInfoEn) :
     (indicatorConfig.extraInfoEn || indicatorConfig.extraInfoFr);
   const hasExtraInfo = Boolean(extraInfoText) || indicatorConfig.extraInfo;
-  const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter, closePopup, setClosePopup} = useContext(ComparisonMapContext);
-  const dispatch = useDispatch();
+  const {latLngClicked, setLatLngClicked, zoom, setZoom, center, setCenter} = useContext(ComparisonMapContext);
 
   // Data-related variables
 
@@ -154,19 +149,12 @@ const MapComponent = (props: any) => {
   const numberOfSteps: number = 10;
   const isCovariateMap = () => {
     if (primary) {
-      return primaryIndicator == 'neg_covars' || primaryIndicator == 'pos_covars';
+      return primaryIndicator === 'neg_covars' || primaryIndicator === 'pos_covars';
     } else {
-      return indicator == 'neg_covars' || indicator == 'pos_covars';
+      return indicator === 'neg_covars' || indicator === 'pos_covars';
     }
   };
 
-  const isCovariateCategoryMap = () => {
-    if (primary) {
-      return primaryIndicator == 'neg_covars_category' || primaryIndicator == 'pos_covars_category';
-    } else {
-      return indicator == 'neg_covars_category' || indicator == 'pos_covars_category';
-    }
-  };
   const legend = useRef(null);
   const geojsonRef = useRef<GeoJSON>(null);
 
@@ -198,7 +186,7 @@ const MapComponent = (props: any) => {
     layer.on({
       mouseover: (e) => highlightFeature(e, null, false),
       mouseout: resetHighlight,
-      click: ((e: LeafletMouseEvent) => {
+      click: (() => {
         if (feature && feature.id) {
           selectPlace(feature.id);
         }
@@ -219,10 +207,10 @@ const MapComponent = (props: any) => {
       setLatLngClicked({...e.latlng, LGA: feature.feature.properties.name});
     };
 
-    showPopup(e, false);
+    showPopup(e);
   };
 
-  const showPopup = (e: any, fromEffect: boolean) => {
+  const showPopup = (e: any) => {
     const feature = e.target;
     if (feature && feature.feature) {
       const region = _.find(mapData, (item) => normalizeDotName(item.id ?? '') === normalizeDotName(feature?.feature?.id ?? ''));
@@ -467,7 +455,7 @@ const MapComponent = (props: any) => {
         target: feature,
         latlng: latLngClicked,
       };
-      showPopup(mouseEvent, true);
+      showPopup(mouseEvent);
     }
   }, [latLngClicked]);
 
@@ -565,13 +553,13 @@ const MapComponent = (props: any) => {
                     <LinkifiedText text={extraInfoText}/>
                   </div> :
                   extraInfo(indicator)}
-                  componentsProps={{
-                    tooltip: {
-                      sx: {
-                        minWidth: 500,
-                      },
+                componentsProps={{
+                  tooltip: {
+                    sx: {
+                      minWidth: 500,
                     },
-                  }}
+                  },
+                }}
                 >
                   <div className={classes.extraInfo}>
                     <FormattedMessage id="extra_info" />

@@ -29,6 +29,11 @@ import {apiAction} from './api';
 import {AFRICA_STR} from '../../const';
 
 
+/**
+ * Select the year shown on the maps.
+ * @param {number} year
+ * @return {Object} Redux action.
+ */
 export function changeSelectedYear(year) {
   return {
     type: CHANGE_SELECTED_YEAR,
@@ -36,6 +41,11 @@ export function changeSelectedYear(year) {
   };
 }
 
+/**
+ * Select the month shown on the maps.
+ * @param {number} month
+ * @return {Object} Redux action.
+ */
 export function changeSelectedMonth(month) {
   return {
     type: CHANGE_SELECTED_MONTH,
@@ -43,6 +53,11 @@ export function changeSelectedMonth(month) {
   };
 }
 
+/**
+ * Build an error notification from a failed API response.
+ * @param {Object} data
+ * @return {Object} Redux action.
+ */
 function setError(data) {
   const response = data.response;
 
@@ -54,6 +69,11 @@ function setError(data) {
   };
 }
 
+/**
+ * Select the country to display.
+ * @param {string} selectedCountry
+ * @return {Object} Redux action.
+ */
 export function changeSelectedCountry(selectedCountry) {
   return {
     type: CHANGE_SELECTED_COUNTRY,
@@ -61,6 +81,11 @@ export function changeSelectedCountry(selectedCountry) {
   };
 }
 
+/**
+ * Toggle between admin level 1 and admin level 2 shapes.
+ * @param {boolean} isAdm3
+ * @return {Object} Redux action.
+ */
 export function changeIsAdm3(isAdm3) {
   return {
     type: CHANGE_ISADM3,
@@ -68,6 +93,11 @@ export function changeIsAdm3(isAdm3) {
   };
 }
 
+/**
+ * Select the map legend.
+ * @param {string} selectedLegend
+ * @return {Object} Redux action.
+ */
 export function changeSelectedLegend(selectedLegend) {
   return {
     type: CHANGE_LEGEND,
@@ -75,6 +105,11 @@ export function changeSelectedLegend(selectedLegend) {
   };
 }
 
+/**
+ * Select the year for the comparison map.
+ * @param {number} selectedYear
+ * @return {Object} Redux action.
+ */
 export function changeCompareYearFilter(selectedYear) {
   return {
     type: CHANGE_COMPARE_YEAR,
@@ -82,6 +117,11 @@ export function changeCompareYearFilter(selectedYear) {
   };
 }
 
+/**
+ * Select a region on the primary map.
+ * @param {string} state
+ * @return {Object} Redux action.
+ */
 export function changeSelectedState(state) {
   return {
     type: CHANGE_SELECTED_STATE,
@@ -89,6 +129,11 @@ export function changeSelectedState(state) {
   };
 }
 
+/**
+ * Select a region on the comparison map.
+ * @param {string} state
+ * @return {Object} Redux action.
+ */
 export function changeSelectedComparisonState(state) {
   return {
     type: CHANGE_SELECTED_COMPARISON_STATE,
@@ -96,6 +141,11 @@ export function changeSelectedComparisonState(state) {
   };
 }
 
+/**
+ * Select the primary indicator.
+ * @param {string} selectedIndicator
+ * @return {Object} Redux action.
+ */
 export function changeSelectedIndicator(selectedIndicator) {
   return {
     type: CHANGE_SELECTED_INDICATOR,
@@ -103,6 +153,11 @@ export function changeSelectedIndicator(selectedIndicator) {
   };
 }
 
+/**
+ * Select the comparison indicator.
+ * @param {string} selectedComparisonIndicator
+ * @return {Object} Redux action.
+ */
 export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
   return {
     type: CHANGE_SELECTED_COMPARISON_INDICATOR,
@@ -110,6 +165,12 @@ export function changeSelectedComparisonIndicator(selectedComparisonIndicator) {
   };
 }
 
+/**
+ * Set the color theme used for an indicator.
+ * @param {string} indicator
+ * @param {string} colorTheme
+ * @return {Object} Redux action.
+ */
 export function changeIndicatorColorTheme(indicator, colorTheme) {
   return {
     type: CHANGE_INDICATOR_COLOR_THEME,
@@ -118,6 +179,11 @@ export function changeIndicatorColorTheme(indicator, colorTheme) {
   };
 }
 
+/**
+ * Select the primary map color theme.
+ * @param {string} selectedMapTheme
+ * @return {Object} Redux action.
+ */
 export function changeSelectedMapTheme(selectedMapTheme) {
   return {
     type: CHANGE_SELECTED_MAP_THEME,
@@ -125,6 +191,11 @@ export function changeSelectedMapTheme(selectedMapTheme) {
   };
 }
 
+/**
+ * Select the comparison map color theme.
+ * @param {string} selectedComparisonMapTheme
+ * @return {Object} Redux action.
+ */
 export function changeSelectedComparisonMapTheme(selectedComparisonMapTheme) {
   return {
     type: CHANGE_SELECTED_COMPARISON_MAP_THEME,
@@ -132,6 +203,11 @@ export function changeSelectedComparisonMapTheme(selectedComparisonMapTheme) {
   };
 }
 
+/**
+ * Set the maximum value of the map legend.
+ * @param {number} mapLegendMax
+ * @return {Object} Redux action.
+ */
 export function changeMapLegendMax(mapLegendMax) {
   return {
     type: CHANGE_MAP_LEGEND_MAX,
@@ -139,6 +215,11 @@ export function changeMapLegendMax(mapLegendMax) {
   };
 }
 
+/**
+ * Set the minimum value of the map legend.
+ * @param {number} mapLegendMin
+ * @return {Object} Redux action.
+ */
 export function changeMapLegendMin(mapLegendMin) {
   return {
     type: CHANGE_MAP_LEGEND_MIN,
@@ -146,6 +227,11 @@ export function changeMapLegendMin(mapLegendMin) {
   };
 }
 
+/**
+ * Toggle the difference map.
+ * @param {boolean} diffMap
+ * @return {Object} Redux action.
+ */
 export function changeDiffMap(diffMap) {
   return {
     type: CHANGE_DIFF_MAP,
@@ -153,6 +239,11 @@ export function changeDiffMap(diffMap) {
   };
 }
 
+/**
+ * Toggle syncing legends between the two maps.
+ * @param {boolean} legendSync
+ * @return {Object} Redux action.
+ */
 export function changeLegendSync(legendSync) {
   return {
     type: CHANGE_LEGEND_SYNC,
@@ -160,6 +251,11 @@ export function changeLegendSync(legendSync) {
   };
 }
 
+/**
+ * Store the indicator list returned by the service.
+ * @param {Object} indicatorData
+ * @return {Object} Redux action.
+ */
 export function setIndicatorData(indicatorData) {
   return {
     type: SET_INDICATOR_DATA,
@@ -167,6 +263,11 @@ export function setIndicatorData(indicatorData) {
   };
 }
 
+/**
+ * Store the subgroup list returned by the service.
+ * @param {Object} subgroupsData
+ * @return {Object} Redux action.
+ */
 export function setMapSubgroupsData(subgroupsData) {
   return {
     type: SET_MAP_SUBGROUPS_DATA,
@@ -174,6 +275,11 @@ export function setMapSubgroupsData(subgroupsData) {
   };
 }
 
+/**
+ * Store the country list returned by the service.
+ * @param {Object} countryData
+ * @return {Object} Redux action.
+ */
 export function setCountryData(countryData) {
   return {
     type: SET_COUNTRY_DATA,
@@ -181,6 +287,12 @@ export function setCountryData(countryData) {
   };
 }
 
+/**
+ * Fetch indicators available under a location.
+ * @param {string} dotName
+ * @param {boolean} isAdm3
+ * @return {Object} API middleware action.
+ */
 export function fetchIndicatorData(dotName, isAdm3) {
   return apiAction({
     url: '/indicators?dot_name=' + dotName + '&use_descendant_dot_names=True',
@@ -191,6 +303,12 @@ export function fetchIndicatorData(dotName, isAdm3) {
   });
 }
 
+/**
+ * Fetch subgroups available under a location.
+ * @param {string} dotName
+ * @param {boolean} isAdm3
+ * @return {Object} API middleware action.
+ */
 export function fetchMapSubgroupData(dotName=AFRICA_STR, isAdm3) {
   return apiAction({
     url: '/subgroups?dot_name=' + dotName + '&use_descendant_dot_names=True&admin_level=' +
@@ -202,6 +320,11 @@ export function fetchMapSubgroupData(dotName=AFRICA_STR, isAdm3) {
   });
 }
 
+/**
+ * Fetch the list of countries.
+ * @param {boolean} isAdm3
+ * @return {Object} API middleware action.
+ */
 export function fetchCountryData(isAdm3) {
   return apiAction({
     url: '/dot_names?dot_name=Africa&admin_level=' + (isAdm3?2:1),
@@ -212,6 +335,11 @@ export function fetchCountryData(isAdm3) {
   });
 }
 
+/**
+ * Change the UI language.
+ * @param {string} language
+ * @return {Object} Redux action.
+ */
 export function changeLanguage(language) {
   return {
     type: CHANGE_LANGUAGE,
@@ -219,6 +347,11 @@ export function changeLanguage(language) {
   };
 }
 
+/**
+ * Select the subgroup for the primary indicator.
+ * @param {string} selectedSubgroup
+ * @return {Object} Redux action.
+ */
 export function changeSelectedSubgroup(selectedSubgroup) {
   return {
     type: CHANGE_SELECTED_SUBGROUP,
@@ -226,6 +359,11 @@ export function changeSelectedSubgroup(selectedSubgroup) {
   };
 }
 
+/**
+ * Select the subgroup for the comparison indicator.
+ * @param {string} selectedComparisonSubgroup
+ * @return {Object} Redux action.
+ */
 export function changeSelectedComparisonSubgroup(selectedComparisonSubgroup) {
   return {
     type: CHANGE_SELECTED_COMPARISON_SUBGROUP,
