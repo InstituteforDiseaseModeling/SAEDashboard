@@ -12,7 +12,7 @@ const initialState = {
  * @param {*} action
  * @return {*} new api state
  */
-export default function(state = initialState, action) {
+export default function apiReducer(state = initialState, action) {
   switch (action.type) {
     case API_START:
       if (action.payload === FETCH_DASHBOARD_DATA) {

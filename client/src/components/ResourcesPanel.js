@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const st = {
   details: {
@@ -16,7 +17,13 @@ const st = {
     userSelect: 'none',
   },
   section: {padding: '2px 10px 6px'},
-  sectionLabel: {fontWeight: 600, fontSize: '0.72rem', color: '#888', textTransform: 'uppercase', margin: '4px 0 2px'},
+  sectionLabel: {
+    fontWeight: 600,
+    fontSize: '0.72rem',
+    color: '#888',
+    textTransform: 'uppercase',
+    margin: '4px 0 2px',
+  },
   ul: {margin: 0, paddingLeft: 16, listStyle: 'disc'},
   ulNested: {margin: 0, paddingLeft: 16, listStyle: 'circle'},
   li: {marginBottom: 2, color: '#313A44', lineHeight: 1.4},
@@ -42,14 +49,19 @@ const dedup = (items) => {
 
 const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => {
   if (!resources) return null;
-  const {tools_used = [], scripts = [], files = [], doc_sources = []} = resources;
+  const {
+    tools_used: toolsUsed = [],
+    scripts = [],
+    files = [],
+    doc_sources: docSources = [],
+  } = resources;
   const dataFiles = dedup(files.filter((f) => !/\.(png|jpe?g|gif|svg)$/i.test(f)));
-  const uniqueDocSources = dedup(doc_sources);
+  const uniqueDocSources = dedup(docSources);
 
   // Merge execute_python tools with their corresponding scripts.
   // Each execute_python tool at index i corresponds to scripts[i].
-  const pyTools = tools_used.filter((t) => t.name === 'execute_python');
-  const otherTools = dedup(tools_used.filter((t) => t.name !== 'execute_python'));
+  const pyTools = toolsUsed.filter((t) => t.name === 'execute_python');
+  const otherTools = dedup(toolsUsed.filter((t) => t.name !== 'execute_python'));
   const mergedScripts = [];
   let scriptIdx = 0;
   for (const t of pyTools) {
@@ -74,7 +86,13 @@ const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => 
   for (const d of uniqueDocSources) {
     const key = `${d.doc_title}|${d.year || ''}|${d.md_file || ''}`;
     if (!docMap[key]) {
-      docMap[key] = {doc_title: d.doc_title, year: d.year, source_type: d.source_type, md_file: d.md_file, sections: []};
+      docMap[key] = {
+        doc_title: d.doc_title,
+        year: d.year,
+        source_type: d.source_type,
+        md_file: d.md_file,
+        sections: [],
+      };
       docGroups.push(docMap[key]);
     }
     docMap[key].sections.push({section_title: d.section_title, pages: d.pages});
@@ -87,7 +105,9 @@ const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => 
       <summary style={st.summary}>Resources ({total || 'LLM direct response'})</summary>
       <div style={st.section}>
         {total === 0 && (
-          <div style={{...st.li, fontStyle: 'italic', color: '#888', padding: '2px 0'}}>LLM direct response — no tools used</div>
+          <div style={{...st.li, fontStyle: 'italic', color: '#888', padding: '2px 0'}}>
+            LLM direct response — no tools used
+          </div>
         )}
         {otherTools.length > 0 && (
           <>
@@ -109,7 +129,8 @@ const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => 
                 <li key={i} style={st.li}>
                   <code style={st.code}>execute_python</code> &mdash;{' '}
                   {m.scriptPath ? (
-                    <span style={st.clickable} onClick={() => onPreviewFile && onPreviewFile(m.scriptPath)}>
+                    <span style={st.clickable}
+                      onClick={() => onPreviewFile && onPreviewFile(m.scriptPath)}>
                       {m.description}
                     </span>
                   ) : m.description}
@@ -124,7 +145,9 @@ const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => 
             <ul style={st.ul}>
               {dataFiles.map((path, i) => (
                 <li key={i} style={st.li}>
-                  <a href={`/mind/files/${path}`} download style={st.clickable}>{path.split('/').pop()}</a>
+                  <a href={`/mind/files/${path}`} download style={st.clickable}>
+                    {path.split('/').pop()}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -159,6 +182,18 @@ const ResourcesPanel = ({resources, sessionId, onPreviewFile, onPreviewDoc}) => 
       </div>
     </details>
   );
+};
+
+ResourcesPanel.propTypes = {
+  resources: PropTypes.shape({
+    tools_used: PropTypes.arrayOf(PropTypes.object),
+    scripts: PropTypes.arrayOf(PropTypes.string),
+    files: PropTypes.arrayOf(PropTypes.string),
+    doc_sources: PropTypes.arrayOf(PropTypes.object),
+  }),
+  sessionId: PropTypes.string,
+  onPreviewFile: PropTypes.func,
+  onPreviewDoc: PropTypes.func,
 };
 
 export default ResourcesPanel;

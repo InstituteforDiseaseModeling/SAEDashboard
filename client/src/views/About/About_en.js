@@ -55,11 +55,11 @@ const About = (props) => {
     <div className={classes.content}>
 
       <Typography variant="h6" className={classes.titleText}>
-        What is AIVA Dashboards?
+        What is SAE Dashboards?
       </Typography>
 
       <Typography variant="body1" className={classes.contentText}>
-        <a href="/">AIVA Dashboards</a> is an AI-powered geospatial indicator dashboard.
+        <a href="/">SAE Dashboards</a> is an AI-powered geospatial indicator dashboard.
         Upload your CSV data, let the AI agent configure indicators through a guided
         onboarding flow, and explore results on interactive choropleth maps and time series charts.
       </Typography>
@@ -76,10 +76,10 @@ const About = (props) => {
       </Typography>
 
       <Typography variant="body1" className={classes.contentText}>
-        The frontend is built with React, Material-UI, AmCharts, and Leaflet.
+        The frontend is built with React, Material-UI, Plotly, and Leaflet.
         The backend consists of two Python FastAPI services: a data service for indicator
         storage and retrieval, and an AI mind service that handles the agentic onboarding
-        and analytical workflows via the Anthropic API.
+        and analytical workflows using a configurable large language model (LLM) provider.
       </Typography>
 
       <Typography variant="h6" className={classes.titleText}>

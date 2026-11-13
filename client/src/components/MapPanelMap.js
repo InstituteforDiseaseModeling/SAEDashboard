@@ -14,7 +14,7 @@ import {AFRICA_STR, DEFAULT_THEME, DEFAULT_THEMES} from '../const';
 import config from '../app_config.json';
 import {changeMapLegendMax, changeMapLegendMin} from '../redux/actions/filters';
 import PropTypes from 'prop-types';
-import {find, clone} from 'lodash';
+import _, {find, clone} from 'lodash';
 import {FormattedMessage} from 'react-intl';
 import {useIndicatorConfig} from '../hooks/useAppConfig.ts';
 

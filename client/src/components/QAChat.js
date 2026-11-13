@@ -153,7 +153,7 @@ const QAChat = (props) => {
       const resp = await fetch(`${API_BASE}/sessions?mode=analytical`);
       const data = await resp.json();
       setSessionList(data.sessions || []);
-    } catch (_) { /* ignore */ }
+    } catch (_) {/* ignore */}
   }, []);
 
   const resumeSession = (sid) => {
@@ -203,13 +203,14 @@ const QAChat = (props) => {
             if (event.model) setCurrentModel(event.model);
           } else if (event.type === 'text_delta') {
             streamingText += event.text;
+            const text = streamingText;
             if (!isStreaming) {
               isStreaming = true;
-              setMessages((prev) => [...prev, {role: 'assistant', content: streamingText, streaming: true}]);
+              setMessages((prev) => [...prev, {role: 'assistant', content: text, streaming: true}]);
             } else {
               setMessages((prev) => {
                 const updated = [...prev];
-                updated[updated.length - 1] = {...updated[updated.length - 1], content: streamingText};
+                updated[updated.length - 1] = {...updated[updated.length - 1], content: text};
                 return updated;
               });
             }
@@ -229,7 +230,7 @@ const QAChat = (props) => {
           } else if (event.type === 'error') {
             assistantText = `Error: ${event.message}`;
           }
-        } catch (_) { /* skip malformed SSE */ }
+        } catch (_) {/* skip malformed SSE */}
       }
     }
 
@@ -385,9 +386,11 @@ const QAChat = (props) => {
             <span className={classes.modeChip} style={{backgroundColor: modeColor, color: '#fff'}}>
               {mode}
             </span>
-            <IconButton size="small" onClick={() => { setShowSessions((v) => !v); if (!showSessions) fetchSessions(); }}
-              title="Sessions"
-              sx={{color: 'rgba(255,255,255,0.5)'}}>
+            <IconButton size="small" onClick={() => {
+              setShowSessions((v) => !v); if (!showSessions) fetchSessions();
+            }}
+            title="Sessions"
+            sx={{color: 'rgba(255,255,255,0.5)'}}>
               <HistoryIcon fontSize="small" />
             </IconButton>
             <IconButton size="small" onClick={() => setShowApiKey((v) => !v)}
@@ -403,12 +406,12 @@ const QAChat = (props) => {
         {!embedded && (
           <Collapse in={showApiKey}>
             <Box sx={{mb: 1, p: 1, backgroundColor: '#FBF4C9', borderRadius: 1, border: '1px solid #EBCB00'}}>
-              <Typography variant="caption" sx={{color: '#9B320D'}}>Anthropic API Key</Typography>
+              <Typography variant="caption" sx={{color: '#9B320D'}}>API Key</Typography>
               <TextField
                 type="password"
                 value={apiKey}
                 onChange={(e) => onApiKeyChange && onApiKeyChange(e.target.value)}
-                placeholder="Enter Anthropic API key"
+                placeholder="Enter API key"
                 fullWidth size="small"
                 style={{backgroundColor: 'white', marginTop: 4}}
               />
@@ -433,7 +436,9 @@ const QAChat = (props) => {
                     secondaryTypographyProps={{variant: 'caption', fontSize: '0.65rem'}}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" size="small" onClick={(e) => { e.stopPropagation(); setDeleteConfirm(s); }}>
+                    <IconButton edge="end" size="small" onClick={(e) => {
+                      e.stopPropagation(); setDeleteConfirm(s);
+                    }}>
                       <DeleteIcon fontSize="small" />
                     </IconButton>
                   </ListItemSecondaryAction>
@@ -463,8 +468,10 @@ const QAChat = (props) => {
                 {modelLabel}
               </Typography>
             )}
-            <IconButton size="small" onClick={() => { setShowSessions((v) => !v); if (!showSessions) fetchSessions(); }}
-              title="Sessions" sx={{ml: 'auto', p: 0.25}}>
+            <IconButton size="small" onClick={() => {
+              setShowSessions((v) => !v); if (!showSessions) fetchSessions();
+            }}
+            title="Sessions" sx={{ml: 'auto', p: 0.25}}>
               <HistoryIcon fontSize="small" />
             </IconButton>
           </Box>
@@ -521,6 +528,9 @@ QAChat.propTypes = {
   embedded: PropTypes.bool,
   prefillText: PropTypes.string,
   prefillKey: PropTypes.number,
+  apiKey: PropTypes.string,
+  onApiKeyChange: PropTypes.func,
+  drawerWidth: PropTypes.number,
 };
 
 export default withStyles(styles)(QAChat);
