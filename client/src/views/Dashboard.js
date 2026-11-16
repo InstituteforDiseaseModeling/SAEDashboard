@@ -1,6 +1,6 @@
 
 /* eslint-disable no-unused-vars */
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {React, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@mui/styles/withStyles';
 import {Grid, Button} from '@mui/material';
@@ -79,22 +79,22 @@ const styles = {
     height: '100%',
   },
   comparisonButton: {
-    fontFamily: '"Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif',
-    fontSize: 11,
-    fontWeight: 600,
-    letterSpacing: '0.16em',
-    textTransform: 'uppercase',
-    color: '#313A44',
-    backgroundColor: 'transparent',
-    border: '1px solid rgba(49, 58, 68, 0.22)',
-    borderRadius: 999,
-    padding: '6px 16px 6px 14px',
-    height: 30,
-    lineHeight: 1,
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 8,
-    transition: 'background-color 160ms ease, border-color 160ms ease, color 160ms ease',
+    'fontFamily': '"Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif',
+    'fontSize': 11,
+    'fontWeight': 600,
+    'letterSpacing': '0.16em',
+    'textTransform': 'uppercase',
+    'color': '#313A44',
+    'backgroundColor': 'transparent',
+    'border': '1px solid rgba(49, 58, 68, 0.22)',
+    'borderRadius': 999,
+    'padding': '6px 16px 6px 14px',
+    'height': 30,
+    'lineHeight': 1,
+    'display': 'inline-flex',
+    'alignItems': 'center',
+    'gap': 8,
+    'transition': 'background-color 160ms ease, border-color 160ms ease, color 160ms ease',
     '&:hover': {
       backgroundColor: 'rgba(235, 203, 0, 0.10)',
       borderColor: '#313A44',
@@ -102,9 +102,9 @@ const styles = {
     },
   },
   comparisonButtonActive: {
-    backgroundColor: '#313A44',
-    borderColor: '#313A44',
-    color: '#F5F3ED',
+    'backgroundColor': '#313A44',
+    'borderColor': '#313A44',
+    'color': '#F5F3ED',
     '&:hover': {
       backgroundColor: '#313A44',
       borderColor: '#313A44',
@@ -251,7 +251,9 @@ const Dashboard = (props) => {
             </CountryFilter>
           }
           <Button
-            className={`${classes.comparisonButton} ${showSecondMap ? classes.comparisonButtonActive : ''}`}
+            className={
+              `${classes.comparisonButton} ${showSecondMap ? classes.comparisonButtonActive : ''}`
+            }
             disableRipple
             onClick={() => setShowSecondMap(!showSecondMap)}
             style={{marginLeft: 'auto', marginBottom: 4}}

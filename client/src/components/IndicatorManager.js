@@ -54,14 +54,14 @@ const styles = {
     overflow: 'auto',
   },
   dropZone: {
-    border: '2px dashed #E7E9EB',
-    borderRadius: '4px',
-    padding: '24px',
-    textAlign: 'center',
-    cursor: 'pointer',
-    backgroundColor: '#fafafa',
-    transition: 'all 0.2s',
-    marginBottom: '16px',
+    'border': '2px dashed #E7E9EB',
+    'borderRadius': '4px',
+    'padding': '24px',
+    'textAlign': 'center',
+    'cursor': 'pointer',
+    'backgroundColor': '#fafafa',
+    'transition': 'all 0.2s',
+    'marginBottom': '16px',
     '&:hover': {
       backgroundColor: '#E7E9EB',
       borderColor: '#313A44',
@@ -93,7 +93,7 @@ const styles = {
     borderBottomLeftRadius: '4px',
   },
   indicatorItem: {
-    borderBottom: '1px solid #eee',
+    'borderBottom': '1px solid #eee',
     '&:last-child': {borderBottom: 'none'},
   },
 };
@@ -283,13 +283,14 @@ const IndicatorManager = (props) => {
               if (event.model) setCurrentModel(event.model);
             } else if (event.type === 'text_delta') {
               streamingText += event.text;
+              const text = streamingText;
               if (!isStreaming) {
                 isStreaming = true;
-                setMessages((prev) => [...prev, {role: 'assistant', content: streamingText, streaming: true}]);
+                setMessages((prev) => [...prev, {role: 'assistant', content: text, streaming: true}]);
               } else {
                 setMessages((prev) => {
                   const updated = [...prev];
-                  updated[updated.length - 1] = {...updated[updated.length - 1], content: streamingText};
+                  updated[updated.length - 1] = {...updated[updated.length - 1], content: text};
                   return updated;
                 });
               }
@@ -497,8 +498,8 @@ const IndicatorManager = (props) => {
                 if (onIndicatorAdded) onIndicatorAdded();
               }}
               sx={{
-                textTransform: 'none',
-                backgroundColor: addedToDashboard.has(idx) ? '#3AC9B1' : '#313A44',
+                'textTransform': 'none',
+                'backgroundColor': addedToDashboard.has(idx) ? '#3AC9B1' : '#313A44',
                 '&:disabled': {backgroundColor: '#3AC9B1', color: '#fff'},
               }}
             >
@@ -527,7 +528,7 @@ const IndicatorManager = (props) => {
       </div>
 
       <Box sx={{borderBottom: 1, borderColor: 'divider', flexShrink: 0}}>
-        <Tabs value={activeTab} onChange={(e, v) => { setActiveTab(v); if (v === 0) fetchIndicators(); }} variant="fullWidth">
+        <Tabs value={activeTab} onChange={(e, v) => {setActiveTab(v); if (v === 0) fetchIndicators();}} variant="fullWidth">
           <Tab label={<FormattedMessage id='indicator_list' defaultMessage='List'/>} />
           <Tab label={<FormattedMessage id='add_indicator' defaultMessage='Add'/>} />
           <Tab label={<FormattedMessage id='analyze_indicator' defaultMessage='Analyze'/>} />
@@ -536,12 +537,12 @@ const IndicatorManager = (props) => {
 
       <Collapse in={showApiKey && activeTab !== 0}>
         <Box sx={{mx: 2, mt: 1, p: 1, backgroundColor: '#FBF4C9', borderRadius: 1, border: '1px solid #EBCB00'}}>
-          <Typography variant="caption" sx={{color: '#9B320D'}}>Anthropic API Key</Typography>
+          <Typography variant="caption" sx={{color: '#9B320D'}}>API Key</Typography>
           <TextField
             type="password"
             value={apiKey}
             onChange={(e) => onApiKeyChange && onApiKeyChange(e.target.value)}
-            placeholder="Enter Anthropic API key"
+            placeholder="Enter API key"
             fullWidth size="small"
             style={{backgroundColor: 'white', marginTop: 4}}
           />
@@ -566,100 +567,100 @@ const IndicatorManager = (props) => {
           </Box>
           {indicators.length === 0 && !loadingIndicators && (
             <Typography variant="body2" color="textSecondary" style={{textAlign: 'center', marginTop: '40px'}}>
-              No user-created indicators yet. Use the "Add Indicator" tab to create one.
+              No user-created indicators yet. Use the &quot;Add Indicator&quot; tab to create one.
             </Typography>
           )}
           <List>
             {indicators.map((ind) => {
               const compoundKey = `${ind.country}__${ind.id}`;
               return (
-              <React.Fragment key={compoundKey}>
-                <ListItem
-                  button
-                  onClick={() => setExpandedIndicator(expandedIndicator === compoundKey ? null : compoundKey)}
-                  className={classes.indicatorItem}
-                >
-                  <ListItemText
-                    primary={
-                      <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
-                        <Typography variant="subtitle2">{ind.display_name}</Typography>
-                        <Chip label={ind.is_user_created ? 'Custom' : 'Default'} size="small"
-                          color={ind.is_user_created ? 'primary' : 'default'}
-                          style={{height: 20, fontSize: '0.7rem'}}
-                        />
-                        {ind.hidden && <Chip label="Not Listed" size="small" color="warning" style={{height: 20, fontSize: '0.7rem'}}/>}
-                      </Box>
-                    }
-                    secondary={ind.country}
-                  />
-                  {expandedIndicator === compoundKey ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                </ListItem>
-                <Collapse in={expandedIndicator === compoundKey}>
-                  <Box sx={{px: 2, py: 1, backgroundColor: '#fafafa'}}>
-                    {ind.description && (
-                      <Typography variant="body2" paragraph>{ind.description}</Typography>
-                    )}
-                    <Typography variant="caption" display="block" color="textSecondary">
-                      Subgroups: {(ind.subgroups || []).join(', ')}
-                    </Typography>
-                    {ind.created_at && (
+                <React.Fragment key={compoundKey}>
+                  <ListItem
+                    button
+                    onClick={() => setExpandedIndicator(expandedIndicator === compoundKey ? null : compoundKey)}
+                    className={classes.indicatorItem}
+                  >
+                    <ListItemText
+                      primary={
+                        <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+                          <Typography variant="subtitle2">{ind.display_name}</Typography>
+                          <Chip label={ind.is_user_created ? 'Custom' : 'Default'} size="small"
+                            color={ind.is_user_created ? 'primary' : 'default'}
+                            style={{height: 20, fontSize: '0.7rem'}}
+                          />
+                          {ind.hidden && <Chip label="Not Listed" size="small" color="warning" style={{height: 20, fontSize: '0.7rem'}}/>}
+                        </Box>
+                      }
+                      secondary={ind.country}
+                    />
+                    {expandedIndicator === compoundKey ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                  </ListItem>
+                  <Collapse in={expandedIndicator === compoundKey}>
+                    <Box sx={{px: 2, py: 1, backgroundColor: '#fafafa'}}>
+                      {ind.description && (
+                        <Typography variant="body2" paragraph>{ind.description}</Typography>
+                      )}
                       <Typography variant="caption" display="block" color="textSecondary">
+                      Subgroups: {(ind.subgroups || []).join(', ')}
+                      </Typography>
+                      {ind.created_at && (
+                        <Typography variant="caption" display="block" color="textSecondary">
                         Created: {new Date(ind.created_at).toLocaleDateString()}
-                      </Typography>
-                    )}
-                    {ind.onboarding_notes && (
-                      <Typography variant="caption" display="block" color="textSecondary" style={{marginTop: 4}}>
+                        </Typography>
+                      )}
+                      {ind.onboarding_notes && (
+                        <Typography variant="caption" display="block" color="textSecondary" style={{marginTop: 4}}>
                         Notes: {ind.onboarding_notes}
-                      </Typography>
-                    )}
-                    <Box sx={{mt: 1, display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap'}}>
-                      <Button
-                        size="small"
-                        startIcon={<QueryStatsIcon />}
-                        onClick={() => { setAnalyzePrefill({text: `For indicator ${ind.display_name} `, ts: Date.now()}); setActiveTab(2); }}
-                        variant="outlined"
-                      >
+                        </Typography>
+                      )}
+                      <Box sx={{mt: 1, display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap'}}>
+                        <Button
+                          size="small"
+                          startIcon={<QueryStatsIcon />}
+                          onClick={() => {setAnalyzePrefill({text: `For indicator ${ind.display_name} `, ts: Date.now()}); setActiveTab(2);}}
+                          variant="outlined"
+                        >
                         Analyze
-                      </Button>
-                      {ind.is_user_created && <>
-                        <Button
-                          size="small"
-                          startIcon={<HistoryIcon />}
-                          onClick={() => openChatHistory(ind)}
-                          variant="outlined"
-                        >
+                        </Button>
+                        {ind.is_user_created && <>
+                          <Button
+                            size="small"
+                            startIcon={<HistoryIcon />}
+                            onClick={() => openChatHistory(ind)}
+                            variant="outlined"
+                          >
                           Chat History
-                        </Button>
-                        <Button
-                          size="small"
-                          startIcon={<DownloadIcon />}
-                          onClick={() => downloadIndicator(ind.id)}
-                          variant="outlined"
-                        >
+                          </Button>
+                          <Button
+                            size="small"
+                            startIcon={<DownloadIcon />}
+                            onClick={() => downloadIndicator(ind.id)}
+                            variant="outlined"
+                          >
                           Download
-                        </Button>
-                        <Button
-                          size="small"
-                          startIcon={ind.hidden ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                          onClick={() => toggleHide(ind.id, ind.hidden, ind.country)}
-                          variant="outlined"
-                        >
-                          {ind.hidden ? 'Add to Dashboard' : 'Remove from Dashboard'}
-                        </Button>
-                        <Button
-                          size="small"
-                          startIcon={<DeleteIcon />}
-                          onClick={() => setDeleteDialog(ind)}
-                          variant="outlined"
-                          color="error"
-                        >
+                          </Button>
+                          <Button
+                            size="small"
+                            startIcon={ind.hidden ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                            onClick={() => toggleHide(ind.id, ind.hidden, ind.country)}
+                            variant="outlined"
+                          >
+                            {ind.hidden ? 'Add to Dashboard' : 'Remove from Dashboard'}
+                          </Button>
+                          <Button
+                            size="small"
+                            startIcon={<DeleteIcon />}
+                            onClick={() => setDeleteDialog(ind)}
+                            variant="outlined"
+                            color="error"
+                          >
                           Delete
-                        </Button>
-                      </>}
+                          </Button>
+                        </>}
+                      </Box>
                     </Box>
-                  </Box>
-                </Collapse>
-              </React.Fragment>
+                  </Collapse>
+                </React.Fragment>
               );
             })}
           </List>
@@ -668,91 +669,91 @@ const IndicatorManager = (props) => {
 
       {/* Tab 2: AI Chat — kept mounted to preserve onboarding state across tab switches */}
       <div className={classes.main} style={{display: activeTab === 1 ? 'flex' : 'none', flexDirection: 'column', minWidth: '400px'}}>
-          {/* Drop zone */}
-          {(!sessionId || showDropZone) && (
-            <Box
-              className={`${classes.dropZone} ${dragOver ? classes.dropZoneActive : ''}`}
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <CloudUploadIcon style={{fontSize: 48, color: '#313A44'}} />
-              <Typography variant="body2" color="textSecondary" style={{marginTop: 8}}>
-                <FormattedMessage id='upload_file' defaultMessage='Drag & drop a CSV or Excel file here'/>
-              </Typography>
-              <Typography variant="caption" color="textSecondary">
+        {/* Drop zone */}
+        {(!sessionId || showDropZone) && (
+          <Box
+            className={`${classes.dropZone} ${dragOver ? classes.dropZoneActive : ''}`}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <CloudUploadIcon style={{fontSize: 48, color: '#313A44'}} />
+            <Typography variant="body2" color="textSecondary" style={{marginTop: 8}}>
+              <FormattedMessage id='upload_file' defaultMessage='Drag & drop a CSV or Excel file here'/>
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
                 or click to browse
-              </Typography>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".csv,.xlsx,.xls"
-                style={{display: 'none'}}
-                onChange={(e) => e.target.files[0] && handleFileUpload(e.target.files[0])}
-              />
-            </Box>
-          )}
-
-          {/* Model name + context usage */}
-          {currentModel && (
-            <Box sx={{mb: 0.5}}>
-              <Typography variant="caption" color="textSecondary" sx={{
-                fontSize: '0.7rem',
-              }}>
-                {currentModel.replace(/^claude-/, '')}{contextPct != null ? ` (ctx: ${contextPct}%)` : ''}
-              </Typography>
-            </Box>
-          )}
-
-          {/* Progress bar */}
-          {sending && (
-            <Box sx={{mb: 1}}>
-              <LinearProgress variant="determinate" value={progress} />
-              <Typography variant="caption" color="textSecondary">{progressMsg}</Typography>
-            </Box>
-          )}
-
-          {/* Chat messages */}
-          <Box sx={{flex: 1, overflow: 'auto', mb: 1, minHeight: '200px'}}>
-            {messages.map((msg, idx) => renderMessage(msg, idx))}
-            <div ref={chatEndRef} />
+            </Typography>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".csv,.xlsx,.xls"
+              style={{display: 'none'}}
+              onChange={(e) => e.target.files[0] && handleFileUpload(e.target.files[0])}
+            />
           </Box>
+        )}
 
-          {/* Input area */}
-          {sessionId && (
-            <Box sx={{display: 'flex', gap: 1, alignItems: 'flex-end'}}>
-              <TextField
-                fullWidth
-                multiline
-                maxRows={4}
-                size="small"
-                placeholder={pendingUpload
-                  ? 'Optional: describe how to handle this data...'
-                  : 'Describe your indicator...'}
-                value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={sending}
-              />
-              <IconButton color="primary" onClick={sendMessage} disabled={sending || (!inputText.trim() && !pendingUpload)}>
-                {sending ? <CircularProgress size={24} /> : <SendIcon />}
-              </IconButton>
-              <IconButton
-                onClick={() => setShowDropZone((v) => !v)}
-                size="small"
-                title={showDropZone ? 'Hide file upload' : 'Upload a file'}
-                color={showDropZone ? 'primary' : 'default'}
-                disabled={sending}
-              >
-                <CloudUploadIcon />
-              </IconButton>
-              <IconButton onClick={clearChat} size="small" title="New session">
-                <AddCommentIcon />
-              </IconButton>
-            </Box>
-          )}
-        </div>
+        {/* Model name + context usage */}
+        {currentModel && (
+          <Box sx={{mb: 0.5}}>
+            <Typography variant="caption" color="textSecondary" sx={{
+              fontSize: '0.7rem',
+            }}>
+              {currentModel.replace(/^claude-/, '')}{contextPct != null ? ` (ctx: ${contextPct}%)` : ''}
+            </Typography>
+          </Box>
+        )}
+
+        {/* Progress bar */}
+        {sending && (
+          <Box sx={{mb: 1}}>
+            <LinearProgress variant="determinate" value={progress} />
+            <Typography variant="caption" color="textSecondary">{progressMsg}</Typography>
+          </Box>
+        )}
+
+        {/* Chat messages */}
+        <Box sx={{flex: 1, overflow: 'auto', mb: 1, minHeight: '200px'}}>
+          {messages.map((msg, idx) => renderMessage(msg, idx))}
+          <div ref={chatEndRef} />
+        </Box>
+
+        {/* Input area */}
+        {sessionId && (
+          <Box sx={{display: 'flex', gap: 1, alignItems: 'flex-end'}}>
+            <TextField
+              fullWidth
+              multiline
+              maxRows={4}
+              size="small"
+              placeholder={pendingUpload ?
+                  'Optional: describe how to handle this data...' :
+                  'Describe your indicator...'}
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={sending}
+            />
+            <IconButton color="primary" onClick={sendMessage} disabled={sending || (!inputText.trim() && !pendingUpload)}>
+              {sending ? <CircularProgress size={24} /> : <SendIcon />}
+            </IconButton>
+            <IconButton
+              onClick={() => setShowDropZone((v) => !v)}
+              size="small"
+              title={showDropZone ? 'Hide file upload' : 'Upload a file'}
+              color={showDropZone ? 'primary' : 'default'}
+              disabled={sending}
+            >
+              <CloudUploadIcon />
+            </IconButton>
+            <IconButton onClick={clearChat} size="small" title="New session">
+              <AddCommentIcon />
+            </IconButton>
+          </Box>
+        )}
+      </div>
 
       {/* Tab 3: Analyze (QAChat) — kept mounted to preserve state across tab switches */}
       <Box sx={{flex: 1, flexDirection: 'column', overflow: 'hidden', minWidth: '400px',
@@ -814,6 +815,9 @@ IndicatorManager.propTypes = {
   classes: PropTypes.object,
   closeDrawer: PropTypes.func,
   onIndicatorAdded: PropTypes.func,
+  apiKey: PropTypes.string,
+  onApiKeyChange: PropTypes.func,
+  drawerWidth: PropTypes.number,
 };
 
 export default withStyles(styles)(IndicatorManager);

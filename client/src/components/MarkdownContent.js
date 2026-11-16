@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -87,13 +88,24 @@ const makeComponents = (rewriteFileUrl) => ({
   ul: ({children}) => <ul style={{margin: '4px 0', paddingLeft: 20}}>{children}</ul>,
   ol: ({children}) => <ol style={{margin: '4px 0', paddingLeft: 20}}>{children}</ol>,
   li: ({children}) => <li style={{marginBottom: 2}}>{children}</li>,
-  h1: ({children}) => <strong style={{display: 'block', fontSize: '1.1rem', margin: '8px 0 4px'}}>{children}</strong>,
-  h2: ({children}) => <strong style={{display: 'block', fontSize: '1.05rem', margin: '6px 0 4px'}}>{children}</strong>,
-  h3: ({children}) => <strong style={{display: 'block', fontSize: '1rem', margin: '6px 0 4px'}}>{children}</strong>,
+  h1: ({children}) => (
+    <strong style={{display: 'block', fontSize: '1.1rem', margin: '8px 0 4px'}}>{children}</strong>
+  ),
+  h2: ({children}) => (
+    <strong style={{display: 'block', fontSize: '1.05rem', margin: '6px 0 4px'}}>{children}</strong>
+  ),
+  h3: ({children}) => (
+    <strong style={{display: 'block', fontSize: '1rem', margin: '6px 0 4px'}}>{children}</strong>
+  ),
   a: ({href, children}) => {
     const url = rewriteFileUrl(href);
     const isDownload = url && /\.(csv|xlsx?|tsv|json)$/i.test(url);
-    return <a href={url} target="_blank" rel="noopener noreferrer" style={{color: '#313A44'}} {...(isDownload ? {download: ''} : {})}>{children}</a>;
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" style={{color: '#313A44'}}
+        {...(isDownload ? {download: ''} : {})}>
+        {children}
+      </a>
+    );
   },
 });
 
@@ -113,6 +125,12 @@ const MarkdownContent = ({content, light, sessionId}) => {
       </ReactMarkdown>
     </div>
   );
+};
+
+MarkdownContent.propTypes = {
+  content: PropTypes.string,
+  light: PropTypes.bool,
+  sessionId: PropTypes.string,
 };
 
 export default MarkdownContent;

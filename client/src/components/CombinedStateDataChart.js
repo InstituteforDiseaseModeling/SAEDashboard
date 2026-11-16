@@ -77,7 +77,7 @@ const CombinedStateDataChart = (props) => {
   const {classes, groups, groupData, isError, selectedState, channel} = props;
   const indicatorConfig = useIndicatorConfig(channel);
   const chartType = props.chartType || _.get(indicatorConfig, 'chartType');
-  const isBar = chartType == 'stackBar' || chartType == 'bar';
+  const isBar = chartType === 'stackBar' || chartType === 'bar';
 
   const chartData = useMemo(() => {
     if (!groupData) {

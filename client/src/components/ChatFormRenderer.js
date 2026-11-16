@@ -44,7 +44,7 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
         if (val && !new RegExp(field.validation.pattern).test(val)) {
           return field.validation.message || 'Invalid value';
         }
-      } catch (e) { /* ignore bad regex */ }
+      } catch (e) {/* ignore bad regex */}
     }
     return null;
   };
@@ -68,7 +68,8 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
     switch (field.type) {
       case 'select':
         return (
-          <FormControl fullWidth size="small" key={field.name} sx={{mb: 1.5}} disabled={disabled} title={field.label}>
+          <FormControl fullWidth size="small" key={field.name} sx={{mb: 1.5}}
+            disabled={disabled} title={field.label}>
             <InputLabel className={classes.inputLabel} shrink>{field.label}</InputLabel>
             <Select
               value={val}
@@ -76,14 +77,19 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
               displayEmpty
               notched
               onChange={(e) => handleChange(field.name, e.target.value)}
-              renderValue={(selected) => selected || <span style={{color: '#aaa'}}>{field.placeholder || ''}</span>}
+              renderValue={(selected) => selected ||
+                <span style={{color: '#aaa'}}>{field.placeholder || ''}</span>}
               MenuProps={{sx: {zIndex: 10001}}}
             >
               {(field.options || []).map((opt) => (
                 <MenuItem key={opt} value={opt}>{opt}</MenuItem>
               ))}
             </Select>
-            {field.helperText && <Typography variant="caption" color="textSecondary" sx={{mt: 0.25, ml: 1.5}}>{field.helperText}</Typography>}
+            {field.helperText && (
+              <Typography variant="caption" color="textSecondary" sx={{mt: 0.25, ml: 1.5}}>
+                {field.helperText}
+              </Typography>
+            )}
           </FormControl>
         );
       case 'radio':
@@ -96,10 +102,15 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
               row={field.options && field.options.length <= 4}
             >
               {(field.options || []).map((opt) => (
-                <FormControlLabel className={classes.inputLabel} key={opt} value={opt} control={<Radio size="small" />} label={opt} />
+                <FormControlLabel className={classes.inputLabel} key={opt} value={opt}
+                  control={<Radio size="small" />} label={opt} />
               ))}
             </RadioGroup>
-            {field.helperText && <Typography variant="caption" color="textSecondary" sx={{ml: 1.5}}>{field.helperText}</Typography>}
+            {field.helperText && (
+              <Typography variant="caption" color="textSecondary" sx={{ml: 1.5}}>
+                {field.helperText}
+              </Typography>
+            )}
           </FormControl>
         );
       case 'textarea':
@@ -116,7 +127,7 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
             error={!!error}
             helperText={error || field.helperText}
             disabled={disabled}
-            sx={{mb: 1.5, '& label': {color: 'grey !important'}}}
+            sx={{'mb': 1.5, '& label': {color: 'grey !important'}}}
           />
         );
       case 'checkbox':
@@ -150,14 +161,16 @@ const ChatFormRenderer = ({form, onSubmit, disabled, classes}) => {
             error={!!error}
             helperText={error || field.helperText}
             disabled={disabled}
-            sx={{mb: 1.5, '& label': {color: 'grey !important'}}}
+            sx={{'mb': 1.5, '& label': {color: 'grey !important'}}}
           />
         );
     }
   };
 
   return (
-    <Box sx={{mt: 1, p: 1.5, backgroundColor: '#fff', borderRadius: 1, border: '1px solid #e0e0e0'}}>
+    <Box sx={{
+      mt: 1, p: 1.5, backgroundColor: '#fff', borderRadius: 1, border: '1px solid #e0e0e0',
+    }}>
       {form.title && <Typography variant="subtitle2" sx={{mb: 1}}>{form.title}</Typography>}
       {(form.fields || []).map(renderField)}
       {!disabled && (

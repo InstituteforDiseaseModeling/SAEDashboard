@@ -55,7 +55,7 @@ const MapLegendMax = (props) => {
           dispatch(changeMapLegendMax(newVal));
         }}
         onKeyDown={(e) => {
-          if (e.key == 'Enter') {
+          if (e.key === 'Enter') {
             const newVal = parseInt(e.target.value) / 100;
             changeValue(newVal);
             dispatch(changeMapLegendMax(parseFloat(currentValue)));

@@ -34,10 +34,10 @@ const styles = {
     transform: 'translate(0, -4px) scale(1)',
   },
   select: {
-    fontFamily: '"Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif',
-    fontSize: 15,
-    fontWeight: 500,
-    color: '#313A44',
+    'fontFamily': '"Noto Sans", -apple-system, "Segoe UI", system-ui, sans-serif',
+    'fontSize': 15,
+    'fontWeight': 500,
+    'color': '#313A44',
     '&:before': {
       borderBottom: '1px solid rgba(49, 58, 68, 0.25)',
     },
@@ -71,7 +71,7 @@ const styles = {
     lineHeight: 1,
   },
   toggleGroup: {
-    height: 30,
+    'height': 30,
     '& .MuiToggleButton-root': {
       fontFamily: LABEL_FONT,
       fontSize: 12,
@@ -147,11 +147,11 @@ const CountryFilter = (props) => {
           className={classes.select}
           MenuProps={{classes: {paper: classes.menuPaper}}}
         >
-          {countries.map((field, i) => {
-            if (field.text !== 'Ethiopia') {
-              return (<MenuItem value={field.id} key={i}>{field.text}</MenuItem>);
-            }
-          })}
+          {countries
+              .filter((field) => field.text !== 'Ethiopia')
+              .map((field) => (
+                <MenuItem value={field.id} key={field.id}>{field.text}</MenuItem>
+              ))}
         </Select>
       </FormControl>
 

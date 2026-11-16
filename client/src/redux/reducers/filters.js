@@ -65,7 +65,13 @@ const withDataAdminLevel = (state) => {
   return {...state, isAdm3, selectedState: null};
 };
 
-export default function(state = initialState, action) {
+/**
+ * Reducer for dashboard filter selections and indicator lists.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} Next state.
+ */
+export default function filtersReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_SELECTED_YEAR:
       return {...state, currentYear: action.year};
@@ -124,7 +130,7 @@ export default function(state = initialState, action) {
         state.selectedCountry !== AFRICA_STR ||
         _.isEmpty(indicator.admin_levels) ||
         indicator.admin_levels.includes(1));
-      indicators.map((indicator) => {
+      indicators.forEach((indicator) => {
         indicator.subgroups.sort();
         const real = indicator.subgroups.filter((s) => s !== 'all');
         indicator.subgroups = real.length > 0 ? real : indicator.subgroups;
@@ -133,7 +139,8 @@ export default function(state = initialState, action) {
       const prevIndicator = state.selectedIndicator;
       const prevComparisonIndicator = state.selectedComparisonIndicator;
       const foundPrev = prevIndicator && _.find(indicators, {id: prevIndicator});
-      const foundPrevComp = prevComparisonIndicator && _.find(indicators, {id: prevComparisonIndicator});
+      const foundPrevComp = prevComparisonIndicator &&
+        _.find(indicators, {id: prevComparisonIndicator});
       const foundTarget =_.find(indicators, {id: config.defaultIndicator});
       const found2ndTarget =_.find(indicators, {id: config.defaultComparisonIndicator});
 
@@ -144,7 +151,8 @@ export default function(state = initialState, action) {
 
       const selectedComparisonIndicator = indicators.length > 0 ?
         foundPrevComp ? foundPrevComp.id :
-        found2ndTarget ? found2ndTarget.id : (indicators.length > 1 ? indicators[1].id : indicators[0].id) :
+        found2ndTarget ? found2ndTarget.id :
+        (indicators.length > 1 ? indicators[1].id : indicators[0].id) :
         null;
 
       return withDataAdminLevel({...state, indicators: indicators,
@@ -156,7 +164,10 @@ export default function(state = initialState, action) {
       return {...state, mapSubgroups: subGroups};
 
     case SET_COUNTRY_DATA:
-      const countries = [{'id': 'Africa', 'text': 'Africa (all countries)'}, ...action.countryData['dot_names']];
+      const countries = [
+        {'id': 'Africa', 'text': 'Africa (all countries)'},
+        ...action.countryData['dot_names'],
+      ];
       return {...state, countries: countries};
 
     case CHANGE_ISADM3:

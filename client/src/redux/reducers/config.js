@@ -6,7 +6,13 @@ const initialState = {
   loaded: false,
 };
 
-export default function(state = initialState, action) {
+/**
+ * Reducer for app and indicator configuration.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} Next state.
+ */
+export default function configReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CONFIG_DATA:
       return {

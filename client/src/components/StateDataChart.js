@@ -53,12 +53,12 @@ export const fetchTimeseries = async ({dotName, channel, group, shapeFileVersion
   for (const item of result.data) {
     item.month = parseInt(item.month);
   }
-  if (channel == 'intervention_mix_pecadom') {
+  if (channel === 'intervention_mix_pecadom') {
     result.data = result.data.map((annualData) => {
       const filteredData = {};
       for (const key in annualData.others) {
         if (Object.hasOwn(annualData.others, key)) {
-          if (annualData.others[key] == 1) {
+          if (Number(annualData.others[key]) === 1) {
             filteredData[key] = 1;
           };
         };
@@ -140,7 +140,7 @@ const StateDataChart = (props) => {
           <div className={classes.noDataOrLoading}>
             Error loading chart data...</div> :
           (
-            (chartType == 'stackBar' || chartType == 'bar') ?
+            (chartType === 'stackBar' || chartType === 'bar') ?
             <StackedBarChart chartData={data} title={group}
               channel={channelConfig.mainSpeciesName}
               indicator={channel}

@@ -11,6 +11,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Snackbar, Typography} from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import Button from '@mui/material/Button';
+import PropTypes from 'prop-types';
 
 // ==============================================================================
 // Styles (see also attributionOverlay.css)
@@ -36,17 +37,31 @@ const useStyles = makeStyles({
 // ==============================================================================
 // GDPR
 // ==============================================================================
+/**
+ * Cookie consent banner, shown until the user agrees.
+ * @param {Object} props
+ * @return {JSX.Element} The banner.
+ */
 export default function GDPR(props) {
   const classes = useStyles(props);
   const [open, setOpen] = useState(false);
 
 
   // ----------------------------------------------------------------------------
+  /**
+   * Whether the user has not yet accepted the cookie notice.
+   * @return {boolean} True if the notice should be shown.
+   */
   function needGDPRNotice() {
     return getCookie('PrivacyPolicy') === '';
   }
 
   // ----------------------------------------------------------------------------
+  /**
+   * Read a cookie value.
+   * @param {string} cname
+   * @return {string} The cookie value, or an empty string.
+   */
   function getCookie(cname) {
     const name = cname + '=';
     const ca = document.cookie.split(';');
@@ -63,6 +78,12 @@ export default function GDPR(props) {
   }
 
   // ----------------------------------------------------------------------------
+  /**
+   * Set a cookie that records consent.
+   * @param {string} cname
+   * @param {string} cvalue
+   * @param {number} exdays
+   */
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -71,6 +92,9 @@ export default function GDPR(props) {
   }
 
   // ----------------------------------------------------------------------------
+  /**
+   * Record consent and hide the banner.
+   */
   function _onAgreeClick() {
     setCookie('PrivacyPolicy', 'true', 365);
     setOpen(false);
@@ -97,13 +121,19 @@ export default function GDPR(props) {
               technologies to store information on your computer or device. By
               continuing to use this site, you agree to the placement of these
               cookies and similar technologies. Read our updated &nbsp;
-            <a href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice" target="_blank" rel="noopener noreferrer">Privacy & Cookies Notice</a> to learn more.
+            <a href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice"
+              target="_blank" rel="noopener noreferrer">Privacy & Cookies Notice</a> to learn more.
             </Typography>
             <div className={classes.buttonArea}>
-              <Button variant="contained" color="primary" className={classes.button} onClick={_onAgreeClick}>I Agree</Button>
+              <Button variant="contained" color="primary" className={classes.button}
+                onClick={_onAgreeClick}>I Agree</Button>
             </div>
           </Fragment>
         }/>
     </div>
   );
 }
+
+GDPR.propTypes = {
+  pixelFromBottom: PropTypes.number,
+};

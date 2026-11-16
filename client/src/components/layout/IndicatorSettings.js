@@ -64,8 +64,6 @@ const META_FIELDS = [
     description: 'Sort position of the indicator within its group.'},
 ];
 
-const SERVICE_BASE = '/api';
-
 const IndicatorSettings = () => {
   const dispatch = useDispatch();
   const indicatorsConfig = useIndicatorsConfig();

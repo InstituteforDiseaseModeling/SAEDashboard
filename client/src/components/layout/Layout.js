@@ -87,7 +87,9 @@ const Layout = (props) => {
   const {classes} = props;
   const navigate = useNavigate();
   const [selectedView, setSelectedView] = useState(props.view);
-  useEffect(() => { setSelectedView(props.view); }, [props.view]);
+  useEffect(() => {
+    setSelectedView(props.view);
+  }, [props.view]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -311,6 +313,7 @@ const Layout = (props) => {
             </ToggleButtonGroup>
 
             <IconButton aria-label="indicators" size="medium" onClick={toggleDrawer}
+              title="AI assistant"
               className="gf-assistant-btn">
               <AssistantIcon fontSize="medium"/>
             </IconButton>

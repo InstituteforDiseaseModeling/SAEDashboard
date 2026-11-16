@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import chroma from 'chroma-js';
+import _ from 'lodash';
 import withStyles from '@mui/styles/withStyles';
 import customTheme from '../../../customTheme.json';
 import {createArray} from '../../../utils/utils.js';
