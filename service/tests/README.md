@@ -35,7 +35,7 @@ pytest --cov=service --cov-report=term-missing
 
 ## Adding New Tests
 1. Use the format `test_<feature>.py` for new test files and `test_<behavior>` for functions.
-2. Use the shared client fixture from `tests/utils/conftest.py`. 
+2. Use the shared client fixture from `tests/conftest.py`. 
 3. Patch helper functions (e.g. get_dataframe) as needed using unittest.mock.patch.
 4. Keep each test function focused and descriptive.
 
