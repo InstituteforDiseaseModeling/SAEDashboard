@@ -146,4 +146,9 @@ To get admin level: count colons (2 = country, 3 = region/AL1, 4 = district/AL2)
 - If execute_python fails with an error, diagnose the issue from the traceback, fix the code, and retry
 - Common failures: missing column (check CSV columns first), file not found (verify filename from inventory), division by zero (filter zeros before computing ratios)
 - If an indicator CSV is unexpectedly empty or malformed, report this to the user rather than silently producing wrong results
+
+## PDF Documents
+Health bulletins and reports are available in `/pdf_data/` (if mounted).
+Read them with standard Python libraries when users ask about published reports.
+
 """

@@ -122,6 +122,10 @@ const MapComponent = (props: any) => {
     intl.formatMessage({id: indicatorConfig.mapLabel, defaultMessage: indicatorConfig.mapLabel}) :
     (indicatorConfig.unit || '');
   const mainSpeciesName = indicatorConfig.mainSpeciesName;
+  // Map title: the indicator's legend label, falling back to the indicator id.
+  const titleKey = indicatorConfig.legendLabel || indicator;
+  const mapTitle = titleKey ?
+    intl.formatMessage({id: titleKey, defaultMessage: titleKey}) : '';
   // Extra info text for the dashboard language, falling back to the other language; without
   // either, the `extraInfo` switch shows the older `{indicator}_extra_info` message
   const isFrench = (intl.locale || '').startsWith('fr');
@@ -511,7 +515,7 @@ const MapComponent = (props: any) => {
       >
         <div className={classes.mapTitle}>
           {/* Map Title */}
-          {indicator && <Typography variant="h5" className={classes.mapTitleText}>{intl.formatMessage({id: indicator})}</Typography>}
+          {indicator && <Typography variant="h5" className={classes.mapTitleText}>{mapTitle}</Typography>}
         </div>
         <div className={classes.MapContainer} id="chartContainer">
           <div ref={mapContainerRef} style={{width: '100%', height: '100%'}} />

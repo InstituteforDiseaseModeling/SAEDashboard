@@ -16,7 +16,7 @@
       "multiper": 100,
       "unit": "%",
       "mapLabel": "%",
-      "legendLabel": "%",
+      "legendLabel": "Modern method",
       "decimalPt": 0,
       "group": "Family Planning"
     },
@@ -26,7 +26,7 @@
       "multiper": 100,
       "unit": "%",
       "mapLabel": "%",
-      "legendLabel": "%",
+      "legendLabel": "Traditional method",
       "decimalPt": 0,
       "group": "Family Planning"
     },
@@ -36,7 +36,7 @@
       "multiper": 100,
       "unit": "%",
       "mapLabel": "%",
-      "legendLabel": "%",
+      "legendLabel": "Unmet need",
       "decimalPt": 0,
       "group": "Family Planning"
     }

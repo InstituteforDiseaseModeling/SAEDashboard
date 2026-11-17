@@ -19,7 +19,7 @@ from hooks import register_with_service, deregister_from_service, fetch_shapes_f
 
 logger = logging.getLogger(__name__)
 
-MODEL = os.getenv("LLM_MODEL", "claude-sonnet-5-5")
+MODEL = os.getenv("LLM_MODEL", "claude-opus-5-5")
 LLM_API_BASE = os.getenv("LLM_API_BASE")
 LLM_API_KEY = os.getenv("LLM_API_KEY")
 LLM_SYSTEM_SUFFIX = os.getenv("LLM_SYSTEM_SUFFIX", "")
