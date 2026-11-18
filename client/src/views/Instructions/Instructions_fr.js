@@ -8,6 +8,7 @@ import OverviewImage from '../../image/instructions/fr/overview.png';
 import GlobalControlsImage from '../../image/instructions/fr/global-controls.png';
 import MainMapImage from '../../image/instructions/fr/main-map.png';
 import ComparisonMapImage from '../../image/instructions/fr/comparison-map.png';
+import ComparisonSettingsImage from '../../image/instructions/fr/comparison-settings.png';
 import ToolbarImage from '../../image/instructions/fr/toolbar.png';
 import MapHoverImage from '../../image/instructions/fr/map-hover.png';
 import MapClickImage from '../../image/instructions/fr/map-click.png';
@@ -276,7 +277,7 @@ const Instructions = (props) => {
         1. Commandes générales (en haut de la page)
         </Typography>
         {figure(GlobalControlsImage, 'Commandes générales',
-            'Commandes générales : Country, Admin level, Year, Month et le bouton Show comparison map, avec les boutons de langue EN / FR et de l’assistant IA en haut à droite de l’en-tête.')}
+            'Commandes générales : Country, Admin level (avec son icône d’information), Year, Month et le bouton Show comparison map, avec les boutons de langue EN / FR et de l’assistant IA en haut à droite de l’en-tête.')}
         <ul className={classes.ul}>
           <li>
             <Typography className={classes.contentText}>
@@ -301,7 +302,10 @@ const Instructions = (props) => {
               défaut. Certains indicateurs ne sont disponibles qu’à un seul niveau administratif. Si
               vous choisissez l’un d’eux sur la carte principale, le niveau passe automatiquement au
               niveau disponible. Sur la carte comparative, un indicateur disponible à un seul niveau
-              est dessiné à ce niveau, quel que soit le bouton sélectionné.
+              est dessiné à ce niveau, quel que soit le bouton sélectionné. Lorsque <i>Africa (all
+              countries)</i> est sélectionné, seul Admin 1 est disponible, car dessiner tous les
+              districts d’Afrique rendrait la carte trop lente. Survolez l’<b>icône d’information</b>{' '}
+              (ⓘ) à côté du libellé Admin level pour un bref rappel.
             </Typography>
           </li>
           <li>
@@ -359,7 +363,7 @@ const Instructions = (props) => {
           de la carte comparative est décrite à la section 3.
         </Typography>
         {figure(MainMapImage, 'Carte principale',
-            'La carte principale avec sa barre d’outils (Thèmes, Indicateurs, Sous-groupes) et les graphiques de la zone sélectionnée.')}
+            'La carte principale avec sa barre d’outils (Thèmes, Indicateurs, Sous-groupes). Le titre en haut de la carte est le libellé de légende de l’indicateur ; les boutons + / − et le bouton d’accueil se trouvent dans le coin supérieur gauche, au-dessus de la légende.')}
         <ol className={classes.ul2}>
           <li>
             <Typography className={classes.contentText}>
@@ -424,7 +428,8 @@ const Instructions = (props) => {
           <li>
             <Typography className={classes.contentText}>
               <b>Zoom</b> – vous pouvez zoomer avec la molette de la souris ou avec les boutons + / −,
-              et faire glisser la carte pour vous déplacer :
+              faire glisser la carte pour vous déplacer, et utiliser le bouton d’accueil pour revenir à
+              la vue de départ :
             </Typography>
             <ul className={classes.ul3}>
               <li>
@@ -442,7 +447,15 @@ const Instructions = (props) => {
                 <Typography className={classes.contentText}>
                   <b>Zoomer avec les boutons + / −</b> – cliquez sur <b>+</b> pour zoomer et sur
                   <b> −</b> pour dézoomer. Les boutons se trouvent dans le coin supérieur gauche de
-                  chaque carte, au-dessus de la légende.
+                  chaque carte, au-dessus du bouton d’accueil et de la légende.
+                </Typography>
+              </li>
+              <li>
+                <Typography className={classes.contentText}>
+                  <b>Bouton d’accueil</b> – le bouton avec une maison, juste sous les boutons + / −,
+                  ramène la carte à sa vue de départ : les zones qui ont des données pour l’indicateur
+                  sélectionné. Lorsque la carte comparative est affichée, les deux cartes reviennent à
+                  la vue de départ.
                 </Typography>
               </li>
               <li>
@@ -462,8 +475,8 @@ const Instructions = (props) => {
               certains indicateurs, la fenêtre détaille la valeur. Lorsque la carte comparative est
               affichée, la fenêtre de la même zone s’ouvre aussi sur l’autre carte.
             </Typography>
-            {figure(MapHoverImage, 'Survol d’une zone sur une carte agrandie',
-                'Une carte agrandie. Survoler une zone ouvre une fenêtre avec ses valeurs ; les boutons + / − se trouvent dans le coin supérieur gauche.')}
+            {figure(MapHoverImage, 'Survol d’une zone sur la carte',
+                'Survoler une zone ouvre une fenêtre avec ses valeurs. Les boutons + / − et le bouton d’accueil se trouvent dans le coin supérieur gauche.')}
           </li>
           <li>
             <Typography className={classes.contentText}>
@@ -519,9 +532,11 @@ const Instructions = (props) => {
               </li>
               <li>
                 <Typography className={classes.contentText}>
-                  <b>Titre et source des données</b> – l’indicateur est affiché en haut de la carte.
-                  Lorsqu’une source de données a été définie pour l’indicateur (voir la section 5), elle
-                  est affichée dans le coin inférieur gauche de la carte.
+                  <b>Titre et source des données</b> – le titre en haut de la carte est le
+                  libellé de légende (<b>Legend label</b>, voir la section 5) de l’indicateur, ou le
+                  nom de l’indicateur si aucun libellé de légende n’a été défini. Lorsqu’une source de
+                  données a été définie pour l’indicateur, elle est affichée dans le coin inférieur
+                  gauche de la carte.
                 </Typography>
               </li>
               <li>
@@ -539,12 +554,17 @@ const Instructions = (props) => {
         <Typography className={classes.contentText}>
           Cliquez sur <b>Show comparison map</b> pour afficher une seconde carte à côté de la carte
           principale. Elle permet de voir un autre indicateur, un autre sous-groupe ou une autre année,
-          ou le même indicateur pour une autre année. Sa barre d’outils a ses propres commandes
-          Thèmes, Indicateurs et Sous-groupes (voir la section 2). Elle a aussi les commandes
-          suivantes :
+          ou le même indicateur pour une autre année. Sa barre d’outils a les commandes
+          <b> Année/mois</b>, Indicateurs et Sous-groupes (voir la section 2). Au bout de la barre
+          d’outils, le <b>bouton en forme d’engrenage</b> (Map settings) ouvre un petit panneau avec
+          les commandes <b>Thèmes</b> (voir la section 2), <b>Legend Sync</b> et
+          <b> Différence</b> de la carte comparative. Cliquez en dehors du panneau ou appuyez sur
+          <b> Échap</b> pour le fermer.
         </Typography>
         {figure(ComparisonMapImage, 'Carte principale et carte comparative côte à côte',
-            'La carte principale (à gauche) et la carte comparative (à droite), dont la barre d’outils ajoute Legend Sync, Différence et Année/mois.')}
+            'La carte principale (à gauche) et la carte comparative (à droite), dont la barre d’outils contient Année/mois, Indicateurs, Sous-groupes et le bouton en forme d’engrenage.')}
+        {figure(ComparisonSettingsImage, 'Le panneau de réglages de la carte comparative',
+            'Le bouton en forme d’engrenage ouvre les réglages de la carte comparative : Thèmes, Legend Sync et Différence.')}
         <ul className={classes.ul}>
           <li>
             <Typography className={classes.contentText}>
@@ -990,7 +1010,8 @@ const Instructions = (props) => {
                 <Typography className={classes.contentText}>
                   <i>Libellés</i> – <b>Unit label</b>, <b>Map label</b>, <b>Legend label</b> et
                   <b> Y-axis label</b> définissent le texte utilisé dans les fenêtres de survol, la
-                  légende et les graphiques. Ils prennent des identifiants de messages issus des
+                  légende et les graphiques. Le <b>Legend label</b> est aussi le titre affiché en
+                  haut de la carte. Ils prennent des identifiants de messages issus des
                   fichiers de traduction du tableau de bord : le texte suit donc la langue
                   sélectionnée. <b>Data source (English)</b> et <b>Data source (French)</b> définissent
                   la source des données affichée dans le coin inférieur gauche de la carte.

@@ -8,6 +8,7 @@ import OverviewImage from '../../image/instructions/overview.png';
 import GlobalControlsImage from '../../image/instructions/global-controls.png';
 import MainMapImage from '../../image/instructions/main-map.png';
 import ComparisonMapImage from '../../image/instructions/comparison-map.png';
+import ComparisonSettingsImage from '../../image/instructions/comparison-settings.png';
 import ToolbarImage from '../../image/instructions/toolbar.png';
 import MapHoverImage from '../../image/instructions/map-hover.png';
 import MapClickImage from '../../image/instructions/map-click.png';
@@ -289,7 +290,7 @@ const Instructions = (props) => {
         1. Global controls (top of the page)
         </Typography>
         {figure(GlobalControlsImage, 'Global controls',
-            'Global controls: Country, Admin level, Year, Month and the Show comparison map button, with the EN / FR language and AI Assistant buttons in the top right corner of the header.')}
+            'Global controls: Country, Admin level (with its info icon), Year, Month and the Show comparison map button, with the EN / FR language and AI Assistant buttons in the top right corner of the header.')}
         <ul className={classes.ul}>
           <li>
             <Typography className={classes.contentText}>
@@ -312,7 +313,10 @@ const Instructions = (props) => {
               Admin 1 is selected by default. Some indicators are only available at one admin level.
               When you pick one of those on the main map, the admin level changes to the available
               level automatically. On the comparison map, an indicator that is only available at one
-              level is drawn at that level, whatever the buttons show.
+              level is drawn at that level, whatever the buttons show. When <i>Africa (all
+              countries)</i> is selected, only Admin 1 is available, because drawing every district
+              in Africa would make the map too slow. Hover over the <b>info icon</b> (ⓘ) next to the
+              Admin level label for a short reminder of this.
             </Typography>
           </li>
           <li>
@@ -367,7 +371,7 @@ const Instructions = (props) => {
         comparison map&apos;s toolbar is described in section 3.
         </Typography>
         {figure(MainMapImage, 'Main map',
-            'The main map with its toolbar (Themes, Indicators, Subgroups) and the charts for the selected area.')}
+            'The main map with its toolbar (Themes, Indicators, Subgroups). The title at the top of the map is the indicator\'s legend label; the + / − and home buttons are in the top-left corner, above the legend.')}
         <ol className={classes.ul2}>
           <li>
             <Typography className={classes.contentText}>
@@ -411,7 +415,7 @@ const Instructions = (props) => {
             </Typography>
             <Typography className={classes.contentText}>
               <b>Note:</b> you can also change how each indicator is listed and displayed, for example
-              its group, default color theme, decimal places, or unit. See the <i>Settings</i>
+              its group, default color theme, decimal places, or unit. See the <i>Settings</i>{' '}
               section (section 5).
             </Typography>
             {figure(ToolbarImage, 'Map toolbar with the Indicators list open',
@@ -428,8 +432,8 @@ const Instructions = (props) => {
           </li>
           <li>
             <Typography className={classes.contentText}>
-              <b>Zooming</b> – you can zoom with the mouse wheel or the + / − buttons, and drag the
-              map to move around it:
+              <b>Zooming</b> – you can zoom with the mouse wheel or the + / − buttons, drag the
+              map to move around it, and use the home button to go back to the starting view:
             </Typography>
             <ul className={classes.ul3}>
               <li>
@@ -444,7 +448,14 @@ const Instructions = (props) => {
               <li>
                 <Typography className={classes.contentText}>
                   <b>Zoom with the + / − buttons</b> – click <b>+</b> to zoom in and <b>−</b> to zoom out.
-                  The buttons are in the top-left corner of each map, above the legend.
+                  The buttons are in the top-left corner of each map, above the home button and the legend.
+                </Typography>
+              </li>
+              <li>
+                <Typography className={classes.contentText}>
+                  <b>Home button</b> – the button with a house, right under the + / − buttons, zooms
+                  the map back to its starting view: the areas that have data for the selected
+                  indicator. When the comparison map is shown, both maps go back to the starting view.
                 </Typography>
               </li>
               <li>
@@ -463,8 +474,8 @@ const Instructions = (props) => {
               breakdown of the value. When the comparison map is shown, the same area&apos;s popup also
               opens on the other map.
             </Typography>
-            {figure(MapHoverImage, 'Hovering over an area on a zoomed-in map',
-                'A zoomed-in map. Hovering over an area opens a popup with its values; the + / − buttons are in the top-left corner.')}
+            {figure(MapHoverImage, 'Hovering over an area on the map',
+                'Hovering over an area opens a popup with its values. The + / − buttons and the home button are in the top-left corner.')}
           </li>
           <li>
             <Typography className={classes.contentText}>
@@ -518,9 +529,10 @@ const Instructions = (props) => {
               </li>
               <li>
                 <Typography className={classes.contentText}>
-                  <b>Title and data source</b> – the indicator is shown at the top of the map. When a
-                  data source has been set for the indicator (see section 5), it is shown in the
-                  map&apos;s bottom-left corner.
+                  <b>Title and data source</b> – the title at the top of the map is the indicator&apos;s
+                  <b> Legend label</b> (see section 5), or the indicator&apos;s name when no legend
+                  label has been set. When a data source has been set for the indicator, it is shown
+                  in the map&apos;s bottom-left corner.
                 </Typography>
               </li>
               <li>
@@ -538,11 +550,15 @@ const Instructions = (props) => {
         <Typography className={classes.contentText}>
         Click <b>Show comparison map</b> to display a second map next to the main map. You can use it
         to view a different indicator, subgroup or year, or the same indicator in another year. Its
-        toolbar has its own Themes, Indicators, and Subgroups controls (see section 2). It also has
-        these controls:
+        toolbar has <b>Year/month</b> and its own Indicators and Subgroups controls (see section 2).
+        At the end of the toolbar, the <b>gear button</b> (Map settings) opens a small panel with the
+        comparison map&apos;s <b>Themes</b> (see section 2), <b>Legend Sync</b>{' '}
+        and <b>Difference</b> controls. Click outside the panel or press <b>Esc</b> to close it.
         </Typography>
         {figure(ComparisonMapImage, 'Main map and comparison map side by side',
-            'The main map (left) and the comparison map (right), whose toolbar adds Legend Sync, Difference and Year/month.')}
+            'The main map (left) and the comparison map (right), whose toolbar has Year/month, Indicators, Subgroups and the gear button.')}
+        {figure(ComparisonSettingsImage, 'The comparison map settings panel',
+            'The gear button opens the comparison map settings: Themes, Legend Sync and Difference.')}
         <ul className={classes.ul}>
           <li>
             <Typography className={classes.contentText}>
@@ -946,7 +962,8 @@ const Instructions = (props) => {
               <li>
                 <Typography className={classes.contentText}>
                   <i>Labels</i> – <b>Unit label</b>, <b>Map label</b>, <b>Legend label</b>, and
-                  <b> Y-axis label</b> set the text used in popups, the legend and charts. They take
+                  <b> Y-axis label</b> set the text used in popups, the legend and charts. The
+                  <b> Legend label</b> is also the title shown at the top of the map. They take
                   message IDs from the dashboard&apos;s translation files, so the text follows the
                   selected language. <b>Data source (English)</b> and <b>Data source (French)</b> set
                   the data source shown in the bottom-left corner of the map.
@@ -955,7 +972,7 @@ const Instructions = (props) => {
               <li>
                 <Typography className={classes.contentText}>
                   <i>Charts</i> – <b>Chart type</b> (<i>line</i>, <i>bar</i> or <i>stackBar</i>),
-                  <b> Main series name</b> (also shown in map popups), and <b>Ignore others series</b>
+                  <b> Main series name</b> (also shown in map popups), and <b>Ignore others series</b>{' '}
                   (line charts).
                 </Typography>
               </li>

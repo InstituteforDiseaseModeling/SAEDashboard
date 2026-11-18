@@ -6,7 +6,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
-import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
+import {
+  toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx, toolbarFormControlSx,
+} from './controlStyles';
 
 /**
  * component for subgroup selection in the map chart
@@ -20,7 +22,7 @@ const MapSubgroupsFilter = (props) => {
   const subgroups = indicatorObj?.subgroups || [];
 
   return (
-    <FormControl variant="standard" sx={{minWidth: 110}}>
+    <FormControl variant="standard" sx={toolbarFormControlSx(90)}>
       <InputLabel shrink htmlFor="mapsubgroup-select" sx={toolbarLabelSx}>
         <FormattedMessage id='subgroups'/>
       </InputLabel>

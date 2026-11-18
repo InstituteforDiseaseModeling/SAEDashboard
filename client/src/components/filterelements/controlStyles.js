@@ -20,24 +20,50 @@ export const toolbarSelectSx = {
   'fontSize': 14,
   'fontWeight': 300,
   'color': '#F5F3ED',
-  'paddingTop': '4px',
+  'border': '1px solid rgba(245, 243, 237, 0.25)',
+  'borderRadius': '6px',
+  'backgroundColor': 'rgba(245, 243, 237, 0.04)',
+  'transition': 'border-color 140ms ease, background-color 140ms ease',
+  // Fill the FormControl and allow it to shrink below the selected text's width.
+  'width': '100%',
+  'minWidth': 0,
   '& .MuiSelect-select': {
-    paddingRight: '24px !important',
-    minWidth: 80,
+    padding: '6px 32px 6px 12px !important',
+    minWidth: 40,
+    borderRadius: '6px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  '& .MuiSelect-select:focus': {
+    backgroundColor: 'transparent',
   },
   '& .MuiSvgIcon-root': {
     color: 'rgba(245, 243, 237, 0.75)',
+    right: 6,
   },
-  '&:before': {
-    borderBottom: '1px solid rgba(245, 243, 237, 0.35)',
+  // Outline replaces the standard-variant underline.
+  '&:before, &:after': {
+    display: 'none',
   },
-  '&:hover:not(.Mui-disabled):before': {
-    borderBottom: `2px solid ${ACCENT_SAFFRON} !important`,
+  '&:hover:not(.Mui-disabled)': {
+    borderColor: 'rgba(245, 243, 237, 0.5)',
+    backgroundColor: 'rgba(245, 243, 237, 0.07)',
   },
-  '&:after': {
-    borderBottom: `2px solid ${ACCENT_SAFFRON}`,
+  '&.Mui-focused': {
+    borderColor: ACCENT_SAFFRON,
+  },
+  '&.Mui-disabled': {
+    opacity: 0.5,
   },
 };
+
+// FormControl wrapper for toolbar dropdowns: shrinks with the toolbar instead of
+// holding its content width. `minWidth` is the floor it will not shrink past.
+export const toolbarFormControlSx = (minWidth = 90) => ({
+  minWidth,
+  flex: '0 1 auto',
+});
 
 export const toolbarMenuPaperSx = {
   'maxHeight': 400,

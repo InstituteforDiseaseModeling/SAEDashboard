@@ -7,7 +7,9 @@ import config from '../../app_config.json';
 import {DEFAULT_THEME, MAP_THEMES} from '../../const';
 import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
-import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
+import {
+  toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx, toolbarFormControlSx,
+} from './controlStyles';
 
 const MapTheme = (props) => {
   const {primary, selectedMapTheme, selectedComparisonMapTheme, changeMapTheme,
@@ -54,7 +56,7 @@ const MapTheme = (props) => {
     <Select
       id="mapTheme-select"
       value={value || MAP_THEMES[0]}
-      sx={{...toolbarSelectSx, minWidth: 110}}
+      sx={toolbarSelectSx}
       MenuProps={{PaperProps: {sx: toolbarMenuPaperSx}}}
       onChange={(e) => onChange(e.target.value)}
     >
@@ -65,7 +67,7 @@ const MapTheme = (props) => {
   );
 
   return (
-    <FormControl variant="standard">
+    <FormControl variant="standard" sx={toolbarFormControlSx(90)}>
       <InputLabel shrink htmlFor="mapTheme-select" sx={toolbarLabelSx}>
         <FormattedMessage id='themes'/>
       </InputLabel>

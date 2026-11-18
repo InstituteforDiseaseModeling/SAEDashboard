@@ -23,8 +23,14 @@ body {
   border-bottom: solid 1px grey;
 }
 
+/* Fit the popup to its text (Leaflet sets a fixed px width; override it). */
 .leaflet-popup-content {
-  width: inherit !important;
-  max-width: 370px;
-  min-width: 300px;
+  width: auto !important;
+  /* max-width: 370px; */
+  white-space: nowrap;
+}
+
+/* Breakdown popups have several rows; let long names wrap within max-width. */
+.leaflet-popup-content .popupCustom {
+  white-space: normal;
 }
