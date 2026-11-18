@@ -7,7 +7,9 @@ import PropTypes from 'prop-types';
 import {changeCompareYearFilter} from '../../redux/actions/filters';
 import {FormattedMessage} from 'react-intl';
 import _ from 'lodash';
-import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
+import {
+  toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx, toolbarFormControlSx,
+} from './controlStyles';
 
 const YearMonthPicker = () => {
   const dispatch = useDispatch();
@@ -50,12 +52,12 @@ const YearMonthPicker = () => {
   }
 
   return (
-    <FormControl component='fieldset' variant='standard'>
+    <FormControl component='fieldset' variant='standard' sx={toolbarFormControlSx(80)}>
       <InputLabel shrink htmlFor="year-month-select" sx={toolbarLabelSx}>
         <FormattedMessage id='year_month'/>
       </InputLabel>
       <Select id="year-month-select"
-        sx={{...toolbarSelectSx, minWidth: 80}}
+        sx={toolbarSelectSx}
         value={selectedYear}
         onChange={(e) => dispatch(changeCompareYearFilter(e.target.value))}
         MenuProps={{PaperProps: {sx: toolbarMenuPaperSx}}}

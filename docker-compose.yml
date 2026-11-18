@@ -32,5 +32,7 @@ services:
     volumes:
       - ./mind-data:/data
       - ./service/data/data:/app/service-indicators-source:ro
+      - ./mind/pdf_data:/pdf_data
+
     depends_on:
       - service

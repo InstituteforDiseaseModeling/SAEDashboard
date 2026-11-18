@@ -18,7 +18,9 @@ const styles = {
     whiteSpace: 'nowrap',
     display: 'inline-block',
     position: 'absolute',
-    top: '182px', // Position of the legend depending on the top of the parent block
+    // Rotated 220px bar: spans roughly top-100px .. top+120px. 222px keeps it clear
+    // of the zoom + home buttons (which end ~110px from the map top).
+    top: '230px', // Position of the legend depending on the top of the parent block
     left: '-84px', // Position of the legend depending on the left of the parent block
     transform: 'rotate(-90deg)',
   },

@@ -2,8 +2,9 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   MenuItem, Select, FormControl, InputLabel,
-  ToggleButton, ToggleButtonGroup,
+  ToggleButton, ToggleButtonGroup, Tooltip,
 } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import withStyles from '@mui/styles/withStyles';
 import {changeIsAdm3, changeSelectedCountry} from '../../redux/actions/filters';
 import PropTypes from 'prop-types';
@@ -102,7 +103,30 @@ const styles = {
   toggleButton: {
     minWidth: 100,
   },
+  labelRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+  },
+  infoIcon: {
+    fontSize: 14,
+    color: 'rgba(49, 58, 68, 0.6)',
+    cursor: 'help',
+  },
 };
+
+const ADM_INFO = (
+  <>
+    <p style={{margin: 0}}>
+      Switch the map between region (Admin 1) and district (Admin 2) boundaries.
+      Some indicators are only available at one admin level;
+      selecting one switches the level automatically.
+    </p>
+    <p style={{margin: '8px 0 0'}}>
+      When Africa is selected, only Admin 1 is available due to performance limitations.
+    </p>
+  </>
+);
 
 /**
  * component for selecting a country
@@ -156,7 +180,12 @@ const CountryFilter = (props) => {
       </FormControl>
 
       <div className={classes.admGroup}>
-        <span className={classes.admLabel}>Admin level</span>
+        <div className={classes.labelRow}>
+          <span className={classes.admLabel}>Admin level</span>
+          <Tooltip title={ADM_INFO} arrow>
+            <InfoOutlinedIcon className={classes.infoIcon} aria-label="Admin level info" />
+          </Tooltip>
+        </div>
         <ToggleButtonGroup
           className={classes.toggleGroup}
           value={selectedIsAdm3 ? 'adm2' : 'adm1'}

@@ -14,6 +14,7 @@ import StateData from '../components/StateData';
 import {fetchCountryData, fetchIndicatorData, fetchMapSubgroupData} from '../redux/actions/filters';
 import {MapContext} from '../components/context/mapContext';
 import ComparisonMapProvider from '../components/provider/comparisonMapProvider';
+import {FilterBarHeightProvider} from '../components/provider/filterBarHeightProvider';
 import appConfig from '../app_config.json';
 
 const styles = {
@@ -267,14 +268,16 @@ const Dashboard = (props) => {
         <MapContext.Provider value={contextValue}>
           <div ref={mapsRef} className={classes.mapsResizable}
             style={mapsHeight ? {height: mapsHeight} : undefined}>
-            <div className={classes.mapsRow}>
-              <Grid item xs={12} md={showSecondMap? 6 : 12}>
-                <MapPanel primary={true} />
-              </Grid>
-              <Grid item xs={12} md={6} style={{display: showSecondMap? '' : 'none'}}>
-                <MapPanel primary={false}/>
-              </Grid>
-            </div>
+            <FilterBarHeightProvider>
+              <div className={classes.mapsRow}>
+                <Grid item xs={12} md={showSecondMap? 6 : 12}>
+                  <MapPanel primary={true} />
+                </Grid>
+                <Grid item xs={12} md={6} style={{display: showSecondMap? '' : 'none'}}>
+                  <MapPanel primary={false}/>
+                </Grid>
+              </div>
+            </FilterBarHeightProvider>
             <div onMouseDown={startMapsResize} className={classes.mapsResizer} />
           </div>
         </MapContext.Provider>

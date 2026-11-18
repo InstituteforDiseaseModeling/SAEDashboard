@@ -9,7 +9,9 @@ import {FormattedMessage} from 'react-intl';
 import {makeStyles} from '@mui/styles';
 import * as _ from 'lodash';
 import {useAppConfig, useIndicatorsConfig} from '../../hooks/useAppConfig.ts';
-import {toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx} from './controlStyles';
+import {
+  toolbarLabelSx, toolbarSelectSx, toolbarMenuPaperSx, toolbarFormControlSx,
+} from './controlStyles';
 
 // Section for indicators whose config has no `group`.
 const OTHER_GROUP = 'Other';
@@ -120,7 +122,7 @@ const IndicatorFilter = (props) => {
   };
 
   return (
-    <FormControl variant="standard" sx={{minWidth: 140}}>
+    <FormControl variant="standard" sx={toolbarFormControlSx(110)}>
       <InputLabel shrink htmlFor="indicator-select" sx={toolbarLabelSx}>
         <FormattedMessage id='indicators'/>
       </InputLabel>

@@ -73,6 +73,10 @@ const theme = createTheme({
 
 const store = configureStore();
 
+/**
+ * Root component: store, theme, and routes.
+ * @return {JSX.Element} The app.
+ */
 function App() {
   return (
     <Provider store={store}>

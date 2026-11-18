@@ -22,6 +22,10 @@ import {FormattedMessage} from 'react-intl';
 // Export Image Component
 import ExportImageComponent from '../uielements/ExportImage.js';
 
+const HOME_ICON_SVG =
+  '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
+  '<path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>';
+
 const normalizeDotName = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\s\-_]/g, '').toLowerCase();
 
@@ -29,6 +33,14 @@ const styles = makeStyles({
   MapContainer: {
     backgroundColor: 'white',
     height: '100%',
+  },
+  // Matches Leaflet's zoom buttons (.leaflet-bar a) so it reads as part of that stack.
+  homeButton: {
+    'display': 'flex !important',
+    'alignItems': 'center',
+    'justifyContent': 'center',
+    'color': '#313A44 !important',
+    'cursor': 'pointer',
   },
   mapTitle: {
     position: 'absolute',
@@ -122,6 +134,10 @@ const MapComponent = (props: any) => {
     intl.formatMessage({id: indicatorConfig.mapLabel, defaultMessage: indicatorConfig.mapLabel}) :
     (indicatorConfig.unit || '');
   const mainSpeciesName = indicatorConfig.mainSpeciesName;
+  // Map title: the indicator's legend label, falling back to the indicator id.
+  const titleKey = indicatorConfig.legendLabel || indicator;
+  const mapTitle = titleKey ?
+    intl.formatMessage({id: titleKey, defaultMessage: titleKey}) : '';
   // Extra info text for the dashboard language, falling back to the other language; without
   // either, the `extraInfo` switch shows the older `{indicator}_extra_info` message
   const isFrench = (intl.locale || '').startsWith('fr');
@@ -170,6 +186,48 @@ const MapComponent = (props: any) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   let [mapObj, setMapObj] = useState<MapExtension>();
   let geojson: GeoJSON;
+
+  /**
+   * Fit the map to the "home" view: the extent of features that have indicator
+   * data, falling back to all features.
+   * @param {MapExtension} map - leaflet map
+   * @param {boolean} animate - animate the transition (true for the home button)
+   */
+  const fitToHome = (map: MapExtension, animate: boolean) => {
+    const L = require('leaflet');
+    if (!map || !geoJson || !geoJson.features) return;
+    const maxFitZoom = 6.6;
+    // Generous padding suits a single country (the fit is capped by
+    // maxFitZoom anyway), but for continent-scale extents (e.g. Africa) it
+    // eats most of the viewport and forces a far zoom-out, so fall back to
+    // a tight padding whenever the large padding would push below the cap.
+    const fitToBounds = (bounds: any) => {
+      const largePadding = L.point(0, 0);
+      const largePaddingZoom = map.getBoundsZoom(bounds, false, largePadding.multiplyBy(2));
+      // Continent-scale: extra top padding keeps the northern edge clear of the map title.
+      const paddingOpts = largePaddingZoom < maxFitZoom ?
+        {paddingTopLeft: [0, 100] as [number, number], paddingBottomRight: [0, 0] as [number, number]} :
+        {padding: [180, 180] as [number, number]};
+
+      map.fitBounds(bounds, {...paddingOpts, animate, maxZoom: maxFitZoom});
+    };
+    const allBounds = L.geoJSON(geoJson).getBounds();
+    if (mapData && mapData.length > 0) {
+      const dataIds = new Set(mapData.filter((d: any) => d.value != null).map((d: any) => normalizeDotName(d.id)));
+      const featuresWithData = geoJson.features.filter((f: any) => dataIds.has(normalizeDotName(f.id)));
+      if (featuresWithData.length > 0) {
+        const dataBounds = L.geoJSON({type: 'FeatureCollection', features: featuresWithData}).getBounds();
+        if (dataBounds.isValid()) {
+          fitToBounds(dataBounds);
+          return;
+        }
+      }
+    }
+    if (allBounds.isValid()) fitToBounds(allBounds);
+  };
+  // The home button is created once per map; read the latest fitToHome (current data) on click.
+  const fitToHomeRef = useRef(fitToHome);
+  fitToHomeRef.current = fitToHome;
 
   /**
    * for setting up a feature (place ) on the map
@@ -333,38 +391,36 @@ const MapComponent = (props: any) => {
     geojsonRef.current = geojson;
     geojson.addTo(mapObj);
 
-    // Zoom to the geographic extent of features that have indicator data, but
-    // only on a fresh mount — when a saved view exists, honor it instead so
-    // control-toggle remounts don't override the user's zoom/pan.
+    // Zoom to the data extent only on a fresh mount — when a saved view exists,
+    // honor it instead so control-toggle remounts don't override the user's zoom/pan.
     if (!hasSavedView) {
-      const maxFitZoom = 6.6;
-      // Generous padding suits a single country (the fit is capped by
-      // maxFitZoom anyway), but for continent-scale extents (e.g. Africa) it
-      // eats most of the viewport and forces a far zoom-out, so fall back to
-      // a tight padding whenever the large padding would push below the cap.
-      const fitToBounds = (bounds: any) => {
-        const largePadding = L.point(0, 0);
-        const largePaddingZoom = mapObj.getBoundsZoom(bounds, false, largePadding.multiplyBy(2));
-        // Continent-scale: extra top padding keeps the northern edge clear of the map title.
-        const paddingOpts = largePaddingZoom < maxFitZoom ?
-          {paddingTopLeft: [0, 100] as [number, number], paddingBottomRight: [0, 0] as [number, number]} :
-          {padding: [180, 180] as [number, number]};
-
-        mapObj.fitBounds(bounds, {...paddingOpts, animate: false, maxZoom: maxFitZoom});
-      };
-      if (mapData && mapData.length > 0 && geoJson && geoJson.features) {
-        const dataIds = new Set(mapData.filter((d: any) => d.value != null).map((d: any) => normalizeDotName(d.id)));
-        const featuresWithData = geoJson.features.filter((f: any) => dataIds.has(normalizeDotName(f.id)));
-        if (featuresWithData.length > 0) {
-          const dataBounds = L.geoJSON({type: 'FeatureCollection', features: featuresWithData}).getBounds();
-          if (dataBounds.isValid()) fitToBounds(dataBounds);
-        } else if (geojson.getBounds().isValid()) {
-          fitToBounds(geojson.getBounds());
-        }
-      } else if (geojson.getBounds().isValid()) {
-        fitToBounds(geojson.getBounds());
-      }
+      fitToHome(mapObj, false);
     }
+
+    // Home button: added after the default zoom control, so it stacks right under it.
+    const HomeControl = L.Control.extend({
+      options: {position: 'topleft'},
+      onAdd: () => {
+        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        const button = L.DomUtil.create('a', classes.homeButton, container);
+        button.href = '#';
+        button.title = 'Reset map view';
+        button.setAttribute('role', 'button');
+        button.setAttribute('aria-label', 'Reset map view');
+        button.innerHTML = HOME_ICON_SVG;
+        L.DomEvent.disableClickPropagation(container);
+        L.DomEvent.on(button, 'click', (e: Event) => {
+          L.DomEvent.preventDefault(e);
+          // Save the new center once the move ends (zoom is saved by 'zoomend'),
+          // so the comparison map follows and remounts keep the home view.
+          // Not a permanent 'moveend' handler: the maps pan each other, which would loop.
+          mapObj.once('moveend', () => setCenter(mapObj.getCenter()));
+          fitToHomeRef.current?.(mapObj, true);
+        });
+        return container;
+      },
+    });
+    new HomeControl().addTo(mapObj);
 
     const layerControl = L.control.layers().addTo(mapObj);
 
@@ -511,7 +567,7 @@ const MapComponent = (props: any) => {
       >
         <div className={classes.mapTitle}>
           {/* Map Title */}
-          {indicator && <Typography variant="h5" className={classes.mapTitleText}>{intl.formatMessage({id: indicator})}</Typography>}
+          {indicator && <Typography variant="h5" className={classes.mapTitleText}>{mapTitle}</Typography>}
         </div>
         <div className={classes.MapContainer} id="chartContainer">
           <div ref={mapContainerRef} style={{width: '100%', height: '100%'}} />
